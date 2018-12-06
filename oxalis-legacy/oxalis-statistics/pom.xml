@@ -56,12 +56,12 @@
             <artifactId>oxalis-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
+        <!-- <dependency>
             <groupId>no.difi.oxalis</groupId>
             <artifactId>oxalis-persistence</artifactId>
             <type>test-jar</type>
             <scope>test</scope>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>no.difi.oxalis</groupId>
             <artifactId>oxalis-inbound</artifactId>
