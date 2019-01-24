@@ -55,6 +55,7 @@
         <module>oxalis-legacy/oxalis-persistence</module>
         <module>oxalis-legacy/oxalis-document-sniffer</module>
         <module>oxalis-extension</module>
+        <module>oxalis-rest</module>
     </modules>
 
     <properties>

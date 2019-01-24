@@ -17,12 +17,13 @@ public class OutboundClientWS {
 	
 	private OxalisOutboundComponent oxalisOutboundComponent;
 
-	@RequestMapping(value = "/v1.0/outbound/send", method = RequestMethod.POST, consumes = "multipart/form-data", produces = "application/json")
+	/*@RequestMapping(value = "/v1.0/outbound/send", method = RequestMethod.POST, consumes = "multipart/form-data", produces = "application/json")
 	public @ResponseBody TransmissionResponse sendOutbound(@RequestPart("transmission-message") TransmissionMessage message) {
 		log.info("Sending outbound to: " + message.getHeader().getReceiver().getIdentifier());
 		Transmitter transmitter = oxalisOutboundComponent.getTransmitter();
+		TransmissionResponse transmissionResponse;
 		try {
-			TransmissionResponse transmissionResponse = transmitter.transmit(message);
+			transmissionResponse = transmitter.transmit(message);
 			log.info("Outbound has successfully been sent to: " + message.getHeader().getReceiver().getIdentifier());
 			return transmissionResponse;
 		} catch (OxalisException oex) {
@@ -30,7 +31,7 @@ public class OutboundClientWS {
 		} catch (Exception nex) {
 			log.error("An unexpected error occurred while sending message: " + nex.getMessage());
 		}
-		return null;		
-	}
+		return transmissionResponse;		
+	}*/
 	
 }

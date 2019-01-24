@@ -22,11 +22,13 @@
 
 package no.difi.oxalis.as2.inbound;
 
+import javax.servlet.http.HttpServlet;
+
 import com.google.inject.Key;
 import com.google.inject.name.Names;
 import com.google.inject.servlet.ServletModule;
 
-import javax.servlet.http.HttpServlet;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Guice module providing AS2 implementation for inbound.
@@ -41,7 +43,6 @@ public class As2InboundModule extends ServletModule {
         bind(Key.get(HttpServlet.class, Names.named("oxalis-as2")))
                 .to(As2Servlet.class)
                 .asEagerSingleton();
-
         serve("/as2*").with(Key.get(HttpServlet.class, Names.named("oxalis-as2")));
     }
 }

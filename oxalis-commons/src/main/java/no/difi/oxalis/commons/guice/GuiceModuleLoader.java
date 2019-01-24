@@ -83,10 +83,8 @@ public class GuiceModuleLoader extends AbstractModule {
         // Go through the two levels of identifiers for module configurations.
         for (String group : config.getObject(PREFIX).keySet()) {
             for (String module : config.getObject(String.format("%s.%s", PREFIX, group)).keySet()) {
-
                 // Fetch configuration for the combination of group and module identifiers.
                 Config moduleConfig = config.getConfig(String.format("%s.%s.%s", PREFIX, group, module));
-
                 // Do not include disabled modules.
                 if (!moduleConfig.hasPath(ENABLED) || moduleConfig.getBoolean(ENABLED))
                     moduleConfigs.put(String.format("%s.%s", group, module), moduleConfig);
