@@ -24,6 +24,7 @@ package no.difi.oxalis.inbound;
 
 import com.google.inject.Injector;
 import com.google.inject.servlet.GuiceServletContextListener;
+
 import lombok.extern.slf4j.Slf4j;
 import no.difi.oxalis.commons.guice.GuiceModuleLoader;
 

@@ -35,7 +35,7 @@ import java.io.File;
  * @author erlend
  */
 @Slf4j
-@Sort(1000)
+@Sort(4000)
 @MetaInfServices
 public class JndiHomeDetector implements HomeDetector {
 

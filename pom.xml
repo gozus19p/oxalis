@@ -55,7 +55,7 @@
         <module>oxalis-legacy/oxalis-persistence</module>
         <module>oxalis-legacy/oxalis-document-sniffer</module>
         <module>oxalis-extension</module>
-        <module>oxalis-rest</module>
+        <module>oxalis-quartz</module>
     </modules>
 
     <properties>
@@ -161,6 +161,12 @@
                 <artifactId>oxalis-war</artifactId>
                 <version>4.0.4-SNAPSHOT</version>
                 <classifier>classes</classifier>
+            </dependency>
+            
+            <dependency>
+                <groupId>it.eng.intercenter</groupId>
+                <artifactId>oxalis-quartz</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
             </dependency>
 
             <!-- Logging -->

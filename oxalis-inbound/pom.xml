@@ -99,11 +99,6 @@
 			<artifactId>opentracing-web-servlet-filter</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>it.eng.intercenter.oxalis.rest</groupId>
-			<artifactId>oxalis-rest</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
 	</dependencies>
 
 	<build>

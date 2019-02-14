@@ -36,7 +36,7 @@ import java.nio.file.Paths;
  * @author erlend
  */
 @Slf4j
-@Sort(4000)
+@Sort(1000)
 @MetaInfServices
 public class UserHomeDetector implements HomeDetector {
 

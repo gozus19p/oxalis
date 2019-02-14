@@ -1,1 +1,5 @@
 no.difi.oxalis.commons.filesystem.detector.EnvironmentHomeDetector
+no.difi.oxalis.commons.filesystem.detector.CurrentHomeDetector
+no.difi.oxalis.commons.filesystem.detector.JndiHomeDetector
+no.difi.oxalis.commons.filesystem.detector.PropertyHomeDetector
+no.difi.oxalis.commons.filesystem.detector.UserHomeDetector

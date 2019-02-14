@@ -29,6 +29,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Objects;
 import java.util.ServiceLoader;
@@ -67,14 +69,15 @@ public class OxalisHomeDirectory {
     }
 
     public File detect() {
-        File directory = homeDetectors.stream()
+    	//TODO: attualmente disabilitata
+        File directory = new File("C:\\Users\\MGozzi\\.oxalis");
+        /*directory = homeDetectors.stream()
                 .sequential()
                 .map(HomeDetector::detect)
                 .filter(Objects::nonNull)
                 .findFirst()
                 .orElseThrow(() -> new OxalisLoadingException(
-                        "Unable to detect Oxalis home folder."));
-
+                        "Unable to detect Oxalis home folder."));*/
         try {
             validateOxalisHomeDirectory(directory);
         } catch (OxalisLoadingException ex) {

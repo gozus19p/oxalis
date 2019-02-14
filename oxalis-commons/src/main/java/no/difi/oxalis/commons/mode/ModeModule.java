@@ -77,7 +77,8 @@ public class ModeModule extends OxalisModule {
             Map<String, Object> objectStorage = new HashMap<>();
             objectStorage.put("ocsp_fetcher", ocspFetcher);
             objectStorage.put("crlFetcher", crlFetcher);
-            Mode mode = ModeDetector.detect(certificate, config, objectStorage);
+            Mode mode = Mode.of("TEST");
+            //Mode mode = ModeDetector.detect(certificate, config, objectStorage);
             log.info("Detected mode: {}", mode.getIdentifier());
             return mode;
         } finally {
