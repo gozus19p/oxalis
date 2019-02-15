@@ -18,9 +18,15 @@ public class Quartz {
 	
 	@Inject
 	public Quartz(final SchedulerFactory factory, final GuiceJobFactory jobFactory) throws SchedulerException {
+		System.out.println();
+		System.out.println("Quartz iniettato...");
+		System.out.println();
 		this.scheduler = factory.getScheduler();
 		this.scheduler.setJobFactory(jobFactory);
 		this.scheduler.start();
+		System.out.println();
+		System.out.println("Quartz avviato...");
+		System.out.println();
 	}
 	
 	public final Scheduler getScheduler() {

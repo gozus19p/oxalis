@@ -1,4 +1,4 @@
-package it.eng.intercenter.oxalis.quartz.config;
+package no.difi.oxalis.commons.quartz;
 
 import static com.google.inject.name.Names.bindProperties;
 
@@ -9,24 +9,22 @@ import org.quartz.Job;
 import org.quartz.SchedulerException;
 import org.quartz.SchedulerFactory;
 import org.quartz.impl.StdSchedulerFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.google.inject.Singleton;
 
-import it.eng.intercenter.oxalis.quartz.job.JobTest;
 import it.eng.intercenter.oxalis.quartz.scheduler.GuiceJobFactory;
 import it.eng.intercenter.oxalis.quartz.scheduler.Quartz;
+import lombok.extern.slf4j.Slf4j;
 import no.difi.oxalis.commons.guice.OxalisModule;
+import no.difi.oxalis.commons.quartz.job.JobTest;
 
 /**
  * 
  * @author Manuel Gozzi
  */
+@Slf4j
 public class QuartzModule extends OxalisModule {
 	
-	private static final Logger log = LoggerFactory.getLogger(QuartzModule.class);
-
 	@Override
 	protected void configure() {
 		bindProperties(binder(), getProperties("app-config.properties"));
@@ -36,8 +34,8 @@ public class QuartzModule extends OxalisModule {
 		System.out.println();
 		System.out.println();
 		log.info("JobTest has been binded");
-		bind(Job.class).to(JobTest.class).in(Singleton.class);
 		bindScheduler();
+		bind(Job.class).to(JobTest.class).in(Singleton.class);
 	}
 	
 	private Properties getProperties(String str) {
@@ -55,7 +53,9 @@ public class QuartzModule extends OxalisModule {
 		try {
 			log.info("Scheduler has been binded");
 			bind(SchedulerFactory.class).toInstance(new StdSchedulerFactory(getProperties("quartz.properties")));
-			bind(GuiceJobFactory.class);
+			bind(GuiceJobFactory.class).asEagerSingleton();
+			System.out.println();System.out.println();
+			System.out.println("Bind di Quartz.class come eager singleton");
 			bind(Quartz.class).asEagerSingleton();
 		} catch (SchedulerException e) {
 			log.warn(e.getMessage(), e);

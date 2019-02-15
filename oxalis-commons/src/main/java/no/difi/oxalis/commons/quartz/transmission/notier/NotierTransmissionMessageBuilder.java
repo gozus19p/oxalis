@@ -1,4 +1,4 @@
-package it.eng.intercenter.oxalis.quartz.transmission;
+package no.difi.oxalis.commons.quartz.transmission.notier;
 
 import java.io.InputStream;
 

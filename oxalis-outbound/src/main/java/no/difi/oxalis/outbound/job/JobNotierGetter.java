@@ -1,4 +1,4 @@
-package it.eng.intercenter.oxalis.quartz.job;
+package no.difi.oxalis.outbound.job;
 
 import java.io.IOException;
 import java.net.URI;
@@ -27,10 +27,10 @@ import com.google.inject.Inject;
 import it.eng.intercenter.oxalis.quartz.config.ConfigRestCall;
 import it.eng.intercenter.oxalis.quartz.job.exception.NotierDocumentCastException;
 import it.eng.intercenter.oxalis.quartz.job.exception.NotierRestCallException;
-import it.eng.intercenter.oxalis.quartz.transmission.NotierTransmissionMessageBuilder;
 import no.difi.oxalis.api.lang.OxalisTransmissionException;
 import no.difi.oxalis.api.outbound.TransmissionMessage;
 import no.difi.oxalis.api.outbound.TransmissionResponse;
+import no.difi.oxalis.commons.quartz.transmission.notier.NotierTransmissionMessageBuilder;
 import no.difi.oxalis.outbound.OxalisOutboundComponent;
 
 /**

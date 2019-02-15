@@ -12,11 +12,6 @@
 		<version>4.0.4-SNAPSHOT</version>
 	</parent>
 	<dependencies>
-		<!-- Oxalis -->
-		<dependency>
-			<groupId>no.difi.oxalis</groupId>
-			<artifactId>oxalis-outbound</artifactId>
-		</dependency>
 		<!-- Guice -->
 		<dependency>
 			<groupId>com.google.inject.extensions</groupId>
@@ -28,12 +23,6 @@
 			<groupId>org.quartz-scheduler</groupId>
 			<artifactId>quartz</artifactId>
 			<version>2.2.1</version>
-		</dependency>
-		<!-- HttpClient Apache -->
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>4.3.6</version>
 		</dependency>
 		<!-- Apache Commons -->
 		<dependency>
@@ -48,11 +37,11 @@
 			<version>1.7.6</version>
 			<scope>runtime</scope>
 		</dependency>
-		<!-- Gson -->
+		<!-- Javax.Transaction -->
 		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-			<version>2.2.2</version>
+			<groupId>javax.transaction</groupId>
+			<artifactId>jta</artifactId>
+			<version>1.1</version>
 		</dependency>
 	</dependencies>
 </project>
