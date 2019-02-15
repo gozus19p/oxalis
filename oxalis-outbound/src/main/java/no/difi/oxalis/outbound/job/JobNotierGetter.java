@@ -87,6 +87,7 @@ public class JobNotierGetter implements Job {
 		 * contenuto della response. Per ogni stringa (URN) eseguo il puntuale recupero
 		 * documento.
 		 */
+		//TODO: Esito
 		if (!StringUtils.isEmpty(jsonUrnGetterResponse)) {
 			List<String> urnList = new Gson().fromJson(jsonUrnGetterResponse, new TypeToken<ArrayList<String>>() {
 			}.getType());
