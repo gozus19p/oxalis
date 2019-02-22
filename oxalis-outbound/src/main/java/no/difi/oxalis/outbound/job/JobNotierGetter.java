@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
@@ -21,11 +19,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.google.inject.Inject;
 
 import it.eng.intercenter.oxalis.quartz.config.ConfigRestCall;
-import it.eng.intercenter.oxalis.quartz.job.exception.NotierDocumentCastException;
+import it.eng.intercenter.oxalis.quartz.dto.NotierResponse;
 import it.eng.intercenter.oxalis.quartz.job.exception.NotierRestCallException;
 import no.difi.oxalis.api.lang.OxalisTransmissionException;
 import no.difi.oxalis.api.outbound.TransmissionMessage;
@@ -87,10 +84,9 @@ public class JobNotierGetter implements Job {
 		 * contenuto della response. Per ogni stringa (URN) eseguo il puntuale recupero
 		 * documento.
 		 */
-		//TODO: Esito
+		// TODO: Esito
 		if (!StringUtils.isEmpty(jsonUrnGetterResponse)) {
-			List<String> urnList = new Gson().fromJson(jsonUrnGetterResponse, new TypeToken<ArrayList<String>>() {
-			}.getType());
+			String[] urnList = new Gson().fromJson(jsonUrnGetterResponse, String[].class);
 
 			/**
 			 * La variabile "restUri" contiene la base dell'URI della chiamata rest, a tale
@@ -99,25 +95,29 @@ public class JobNotierGetter implements Job {
 			 */
 			log.info(MESSAGE_READING_PROPERTY, ConfigRestCall.CONFIG_KEY_REST_GETTER_DOCUMENT);
 			restUri = configuration.readSingleProperty(ConfigRestCall.CONFIG_KEY_REST_GETTER_DOCUMENT);
-
+			
+			NotierResponse notierResponse;
 			for (String urn : urnList) {
 				log.info(MESSAGE_STARTING_TO_PROCESS_URN, urn);
 				try {
-					String jsonDocumentGetterResponse = executeRestCallFromURI(restUri + urn);
+					String peppolMessageJsonFormat = executeRestCallFromURI(restUri + urn);
 					try {
 						TransmissionMessage messageToSend = NotierTransmissionMessageBuilder
-								.buildTransmissionMessageFromDocumento(jsonDocumentGetterResponse);
-						send(messageToSend);
+								.buildTransmissionMessageFromPeppolMessage(peppolMessageJsonFormat);
+						TransmissionResponse response = send(messageToSend);
+						
+						if(true) {
+							notierResponse = new NotierResponse(urn, true);
+							//TODO: Trasmettere a Notier
+						}
 						log.info(MESSAGE_OUTBOUND_SUCCESS_FOR_URN, urn);
 					} catch (OxalisTransmissionException e) {
-						log.error(MESSAGE_OUTBOUND_FAILED_FOR_URN, urn);
-						log.error(e.getMessage());
-					} catch (NotierDocumentCastException e) {
+						notierResponse = new NotierResponse(urn, false);
 						log.error(MESSAGE_OUTBOUND_FAILED_FOR_URN, urn);
 						log.error(e.getMessage());
 					}
-
 				} catch (NotierRestCallException e) {
+					notierResponse = new NotierResponse(urn, false);
 					log.error(MESSAGE_REST_CALL_FAILED, e.getMessage());
 					log.error(MESSAGE_OUTBOUND_FAILED_FOR_URN, urn);
 				}
@@ -133,8 +133,7 @@ public class JobNotierGetter implements Job {
 	 * @param urn
 	 */
 	private TransmissionResponse send(TransmissionMessage documento) throws OxalisTransmissionException {
-		TransmissionResponse response = outboundComponent.getTransmitter().transmit(documento);
-		return response;
+		return outboundComponent.getTransmitter().transmit(documento);
 	}
 
 	/**

@@ -14,6 +14,7 @@ public class ConfigRestCall implements PropertiesConfigurationManager {
 	
 	public static final String CONFIG_KEY_REST_GETTER_URNS = "rest.notier.getter.urns";
 	public static final String CONFIG_KEY_REST_GETTER_DOCUMENT = "rest.notier.getter.document";
+	public static final String CONFIG_KEY_REST_SENDER_STATUS = "rest.notier.sender.status";
 	
 	/**
 	 * Carica la configurazione.
