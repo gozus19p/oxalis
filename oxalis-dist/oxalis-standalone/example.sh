@@ -29,7 +29,7 @@ SENDER="9908:810017902"
 PROFILE="urn:www.cenbii.eu:profile:bii04:ver1.0"
 
 # Location of the executable program
-EXECUTABLE="target/oxalis-standalone.jar"
+EXECUTABLE="target/oxalis-standalone-4.0.4-SNAPSHOT-jar-with-dependencies.jar"
 
 function usage() {
     cat <<EOT

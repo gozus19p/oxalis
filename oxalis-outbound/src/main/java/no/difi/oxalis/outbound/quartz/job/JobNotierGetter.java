@@ -1,4 +1,4 @@
-package no.difi.oxalis.outbound.job;
+package no.difi.oxalis.outbound.quartz.job;
 
 import java.io.IOException;
 import java.net.URISyntaxException;

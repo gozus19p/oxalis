@@ -157,6 +157,7 @@ public class Main {
         }
 
         if (probe.value(optionSet)) {
+        	System.out.println("Ho saltato il blocco 'ELSE'");
             CloseableHttpClient httpClient = oxalisOutboundComponent.getInjector()
                     .getInstance(CloseableHttpClient.class);
             try (CloseableHttpResponse response = httpClient.execute(new HttpGet(destinationUrl.value(optionSet)))) {
@@ -199,6 +200,7 @@ public class Main {
             for (File file : files) {
 
                 if (!file.isFile() || !file.canRead()) {
+                	System.out.println("Errore linea 202");
                     log.error("File " + file + " is not a file or can not be read, skipping...");
                     continue;
                 }
@@ -209,6 +211,7 @@ public class Main {
                     Future<TransmissionResult> submit = ecs.submit(transmissionTask);
                     submittedTaskCount++;
                     if (submittedTaskCount > maximumTransmissions) {
+                    	System.out.println("Info linea 213");
                         log.info("Stopped submitting tasks at {} " + submittedTaskCount);
                         break;
                     }
@@ -229,6 +232,8 @@ public class Main {
                 } catch (InterruptedException e) {
                     System.err.println(e.getMessage());
                 } catch (ExecutionException e) {
+                	System.out.println("Errore linea 234");
+                	System.out.println(e.getMessage());
                     log.error("Execution failed: {}", e.getMessage(), e);
                     failed++;
                 }
