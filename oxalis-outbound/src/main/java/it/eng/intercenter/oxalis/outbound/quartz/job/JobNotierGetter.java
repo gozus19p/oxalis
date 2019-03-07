@@ -1,4 +1,4 @@
-package no.difi.oxalis.outbound.quartz.job;
+package it.eng.intercenter.oxalis.outbound.quartz.job;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -27,6 +27,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.inject.Inject;
 
+import it.eng.intercenter.oxalis.commons.quartz.transmission.NotierTransmissionMessageBuilder;
 import it.eng.intercenter.oxalis.integration.dto.NotierRestCallTypeEnum;
 import it.eng.intercenter.oxalis.integration.dto.OxalisMdn;
 import it.eng.intercenter.oxalis.integration.dto.OxalisStatusEnum;
@@ -35,7 +36,6 @@ import it.eng.intercenter.oxalis.quartz.job.exception.NotierRestCallException;
 import no.difi.oxalis.api.lang.OxalisTransmissionException;
 import no.difi.oxalis.api.outbound.TransmissionMessage;
 import no.difi.oxalis.api.outbound.TransmissionResponse;
-import no.difi.oxalis.commons.quartz.transmission.notier.NotierTransmissionMessageBuilder;
 import no.difi.oxalis.outbound.OxalisOutboundComponent;
 
 /**

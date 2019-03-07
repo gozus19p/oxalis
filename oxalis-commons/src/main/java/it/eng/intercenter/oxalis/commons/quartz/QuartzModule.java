@@ -1,4 +1,4 @@
-package no.difi.oxalis.commons.quartz;
+package it.eng.intercenter.oxalis.commons.quartz;
 
 import static com.google.inject.name.Names.bindProperties;
 
@@ -12,11 +12,11 @@ import org.quartz.impl.StdSchedulerFactory;
 
 import com.google.inject.Singleton;
 
+import it.eng.intercenter.oxalis.commons.quartz.job.JobTest;
 import it.eng.intercenter.oxalis.quartz.scheduler.GuiceJobFactory;
 import it.eng.intercenter.oxalis.quartz.scheduler.Quartz;
 import lombok.extern.slf4j.Slf4j;
 import no.difi.oxalis.commons.guice.OxalisModule;
-import no.difi.oxalis.commons.quartz.job.JobTest;
 
 /**
  * 

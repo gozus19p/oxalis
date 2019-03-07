@@ -1,4 +1,4 @@
-package no.difi.oxalis.commons.quartz;
+package it.eng.intercenter.oxalis.commons.quartz;
 
 import com.google.inject.servlet.ServletModule;
 

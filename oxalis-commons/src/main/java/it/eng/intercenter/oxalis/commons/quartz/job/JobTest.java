@@ -1,4 +1,4 @@
-package no.difi.oxalis.commons.quartz.job;
+package it.eng.intercenter.oxalis.commons.quartz.job;
 
 import java.util.Date;
 

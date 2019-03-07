@@ -1,4 +1,4 @@
-package no.difi.oxalis.commons.quartz.transmission.notier;
+package it.eng.intercenter.oxalis.commons.quartz.transmission;
 
 import com.google.gson.GsonBuilder;
 
