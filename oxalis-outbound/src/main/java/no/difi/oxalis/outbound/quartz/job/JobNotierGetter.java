@@ -27,10 +27,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.inject.Inject;
 
+import it.eng.intercenter.oxalis.integration.dto.NotierRestCallTypeEnum;
+import it.eng.intercenter.oxalis.integration.dto.OxalisMdn;
+import it.eng.intercenter.oxalis.integration.dto.OxalisStatusEnum;
 import it.eng.intercenter.oxalis.quartz.config.ConfigRestCall;
-import it.eng.intercenter.oxalis.quartz.dto.NotierRestCallTypeEnum;
-import it.eng.intercenter.oxalis.quartz.dto.OxalisMdn;
-import it.eng.intercenter.oxalis.quartz.dto.OxalisStatusEnum;
 import it.eng.intercenter.oxalis.quartz.job.exception.NotierRestCallException;
 import no.difi.oxalis.api.lang.OxalisTransmissionException;
 import no.difi.oxalis.api.outbound.TransmissionMessage;

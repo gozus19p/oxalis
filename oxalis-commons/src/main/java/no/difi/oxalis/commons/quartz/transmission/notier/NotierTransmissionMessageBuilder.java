@@ -2,7 +2,7 @@ package no.difi.oxalis.commons.quartz.transmission.notier;
 
 import com.google.gson.GsonBuilder;
 
-import it.eng.intercenter.oxalis.quartz.dto.PeppolMessage;
+import it.eng.intercenter.oxalis.integration.dto.PeppolMessage;
 import lombok.extern.slf4j.Slf4j;
 import no.difi.oxalis.api.outbound.TransmissionMessage;
 import no.difi.oxalis.api.tag.Tag;

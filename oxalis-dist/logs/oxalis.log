@@ -1,0 +1,1725 @@
+10:05:21.245 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Home folder: C:\Users\MGozzi\.oxalis
+10:05:21.253 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Configuration folder: C:\Users\MGozzi\.oxalis
+10:05:21.254 [main] INFO  n.d.o.commons.config.ConfigModule - Configuration file: C:\Users\MGozzi\.oxalis\oxalis.conf
+10:05:21.271 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => CONF: 
+10:05:21.272 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => INBOUND: /var/peppol/IN
+10:05:21.272 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => PLUGIN: oxalis-plugin
+10:05:21.400 [main] INFO  n.d.o.commons.quartz.QuartzModule - JobTest has been binded
+10:05:21.401 [main] INFO  n.d.o.commons.quartz.QuartzModule - Scheduler has been binded
+10:05:21.807 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Home folder: C:\Users\MGozzi\.oxalis
+10:05:21.808 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Configuration folder: C:\Users\MGozzi\.oxalis
+10:05:21.808 [main] INFO  n.d.o.commons.config.ConfigModule - Configuration file: C:\Users\MGozzi\.oxalis\oxalis.conf
+10:05:21.810 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => POOL_TOTAL: 20
+10:05:21.810 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => POOL_MAX_ROUTE: 2
+10:05:21.810 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => TIMEOUT_CONNECT: 0
+10:05:21.810 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => TIMEOUT_READ: 0
+10:05:21.810 [main] INFO  n.d.o.c.settings.SettingsBuilder - Error => TRACKER: quiet
+10:05:21.810 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => HOSTNAME: 
+10:05:21.811 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => NOTIFICATION: not.in.use@difi.no
+10:05:21.811 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => MSGID_GENERATOR: default
+10:05:21.811 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => CONF: 
+10:05:21.811 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => INBOUND: /var/peppol/IN
+10:05:21.811 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => PLUGIN: oxalis-plugin
+10:05:21.811 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => PATH: peppol-keystore.jks
+10:05:21.811 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => PASSWORD: peppol
+10:05:21.812 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => KEY_ALIAS: 1
+10:05:21.812 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => KEY_PASSWORD: peppol
+10:05:21.812 [main] INFO  n.d.o.c.settings.SettingsBuilder - Header => PARSER: sbdh
+10:05:21.812 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => PAYLOAD: default
+10:05:21.812 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => RECEIPT: plugin
+10:05:21.812 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => EXCEPTION: default
+10:05:21.813 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => HANDLER: default
+10:05:21.813 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => REPORTER: noop
+10:05:21.813 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => HTTP: null
+10:05:21.813 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => TRACER: noop
+10:05:21.813 [main] INFO  n.d.o.c.settings.SettingsBuilder - Executor => DEFAULT: 50
+10:05:21.813 [main] INFO  n.d.o.c.settings.SettingsBuilder - Executor => STATISTICS: 50
+10:05:21.813 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tag => GENERATOR: noop
+10:05:21.814 [main] INFO  n.d.o.c.settings.SettingsBuilder - Timestamp => SERVICE: system
+10:05:21.814 [main] INFO  n.d.o.c.settings.SettingsBuilder - Evidence => SERVICE: rem
+10:05:21.814 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transformer => DETECTOR: legacy
+10:05:21.814 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transformer => WRAPPER: xml
+10:05:21.814 [main] INFO  n.d.o.c.settings.SettingsBuilder - Statistics => SERVICE: noop
+10:05:21.815 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transmission => VERIFIER: default
+10:05:21.815 [main] INFO  n.d.o.c.settings.SettingsBuilder - Logging => CONFIG: null
+10:05:21.816 [main] INFO  n.d.o.c.settings.SettingsBuilder - Logging => SERVICE: logback
+10:05:21.822 [main] INFO  n.d.o.o.t.MessageSenderFactory - Prioritized list of transport profiles:
+10:05:21.822 [main] INFO  n.d.o.o.t.MessageSenderFactory - => busdox-transport-as2-ver1p0r1
+10:05:21.823 [main] INFO  n.d.o.o.t.MessageSenderFactory - => busdox-transport-as2-ver1p0
+10:05:21.841 [main] INFO  n.d.oxalis.commons.mode.ModeModule - Detected mode: TEST
+10:05:22.522 [main] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+10:05:22.533 [main] INFO  o.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+10:05:22.534 [main] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.2.1 created.
+10:05:22.535 [main] INFO  o.q.p.x.XMLSchedulingDataProcessorPlugin - Registering Quartz Job Initialization Plug-in.
+10:05:22.537 [main] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+10:05:22.591 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.2.1) 'QuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 5 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+10:05:22.592 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'QuartzScheduler' initialized from an externally provided properties instance.
+10:05:22.592 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.2.1
+10:05:22.592 [main] INFO  org.quartz.core.QuartzScheduler - JobFactory set to: it.eng.intercenter.oxalis.quartz.scheduler.GuiceJobFactory@6256ac4f
+10:05:22.602 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Parsing XML file: quartz-config.xml with systemId: quartz-config.xml
+10:05:22.728 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Adding 1 jobs, 1 triggers.
+10:05:22.728 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Adding job: default_job_group.JobTest
+10:05:22.731 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler QuartzScheduler_$_NON_CLUSTERED started.
+10:05:22.737 [main] WARN  n.d.o.sniffer.document.NoSbdhParser - You have enabled support for automatic detection of content. This functionality will be turned of by default in version 4.1 and removed in version 4.2/5.0. Use configuration "oxalis.transformer.detector = noop" to disable it today.
+10:06:00.011 [QuartzScheduler_Worker-1] INFO  n.d.o.commons.quartz.job.JobTest - Job: JobTest has been executed at Mon Mar 04 10:06:00 CET 2019
+10:06:36.550 [main] ERROR eu.sendregning.oxalis.Main - Execution failed: no.difi.oxalis.api.lang.OxalisTransmissionException: No transmission is provided.
+java.util.concurrent.ExecutionException: no.difi.oxalis.api.lang.OxalisTransmissionException: No transmission is provided.
+	at java.util.concurrent.FutureTask.report(Unknown Source)
+	at java.util.concurrent.FutureTask.get(Unknown Source)
+	at eu.sendregning.oxalis.Main.main(Main.java:230)
+Caused by: no.difi.oxalis.api.lang.OxalisTransmissionException: No transmission is provided.
+	at no.difi.oxalis.outbound.transmission.DefaultTransmitter.perform(DefaultTransmitter.java:116)
+	at no.difi.oxalis.outbound.transmission.DefaultTransmitter.transmit(DefaultTransmitter.java:93)
+	at eu.sendregning.oxalis.TransmissionTask.performTransmission(TransmissionTask.java:168)
+	at eu.sendregning.oxalis.TransmissionTask.call(TransmissionTask.java:96)
+	at eu.sendregning.oxalis.TransmissionTask.call(TransmissionTask.java:49)
+	at java.util.concurrent.FutureTask.run(Unknown Source)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Unknown Source)
+	at java.util.concurrent.FutureTask.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+10:10:03.551 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Home folder: C:\Users\MGozzi\.oxalis
+10:10:03.555 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Configuration folder: C:\Users\MGozzi\.oxalis
+10:10:03.556 [main] INFO  n.d.o.commons.config.ConfigModule - Configuration file: C:\Users\MGozzi\.oxalis\oxalis.conf
+10:10:03.574 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => CONF: 
+10:10:03.574 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => INBOUND: /var/peppol/IN
+10:10:03.575 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => PLUGIN: oxalis-plugin
+10:10:03.718 [main] INFO  n.d.o.commons.quartz.QuartzModule - JobTest has been binded
+10:10:03.718 [main] INFO  n.d.o.commons.quartz.QuartzModule - Scheduler has been binded
+10:10:04.190 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Home folder: C:\Users\MGozzi\.oxalis
+10:10:04.190 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Configuration folder: C:\Users\MGozzi\.oxalis
+10:10:04.190 [main] INFO  n.d.o.commons.config.ConfigModule - Configuration file: C:\Users\MGozzi\.oxalis\oxalis.conf
+10:10:04.193 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => POOL_TOTAL: 20
+10:10:04.193 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => POOL_MAX_ROUTE: 2
+10:10:04.193 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => TIMEOUT_CONNECT: 0
+10:10:04.193 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => TIMEOUT_READ: 0
+10:10:04.193 [main] INFO  n.d.o.c.settings.SettingsBuilder - Error => TRACKER: quiet
+10:10:04.194 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => HOSTNAME: 
+10:10:04.194 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => NOTIFICATION: not.in.use@difi.no
+10:10:04.194 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => MSGID_GENERATOR: default
+10:10:04.194 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => CONF: 
+10:10:04.194 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => INBOUND: /var/peppol/IN
+10:10:04.194 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => PLUGIN: oxalis-plugin
+10:10:04.195 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => PATH: peppol-keystore.jks
+10:10:04.195 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => PASSWORD: peppol
+10:10:04.195 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => KEY_ALIAS: 1
+10:10:04.195 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => KEY_PASSWORD: peppol
+10:10:04.195 [main] INFO  n.d.o.c.settings.SettingsBuilder - Header => PARSER: sbdh
+10:10:04.195 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => PAYLOAD: default
+10:10:04.195 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => RECEIPT: plugin
+10:10:04.195 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => EXCEPTION: default
+10:10:04.196 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => HANDLER: default
+10:10:04.196 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => REPORTER: noop
+10:10:04.196 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => HTTP: null
+10:10:04.196 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => TRACER: noop
+10:10:04.196 [main] INFO  n.d.o.c.settings.SettingsBuilder - Executor => DEFAULT: 50
+10:10:04.196 [main] INFO  n.d.o.c.settings.SettingsBuilder - Executor => STATISTICS: 50
+10:10:04.196 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tag => GENERATOR: noop
+10:10:04.197 [main] INFO  n.d.o.c.settings.SettingsBuilder - Timestamp => SERVICE: system
+10:10:04.197 [main] INFO  n.d.o.c.settings.SettingsBuilder - Evidence => SERVICE: rem
+10:10:04.197 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transformer => DETECTOR: legacy
+10:10:04.197 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transformer => WRAPPER: xml
+10:10:04.197 [main] INFO  n.d.o.c.settings.SettingsBuilder - Statistics => SERVICE: noop
+10:10:04.197 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transmission => VERIFIER: default
+10:10:04.198 [main] INFO  n.d.o.c.settings.SettingsBuilder - Logging => CONFIG: null
+10:10:04.198 [main] INFO  n.d.o.c.settings.SettingsBuilder - Logging => SERVICE: logback
+10:10:04.205 [main] INFO  n.d.o.o.t.MessageSenderFactory - Prioritized list of transport profiles:
+10:10:04.206 [main] INFO  n.d.o.o.t.MessageSenderFactory - => busdox-transport-as2-ver1p0r1
+10:10:04.206 [main] INFO  n.d.o.o.t.MessageSenderFactory - => busdox-transport-as2-ver1p0
+10:10:04.224 [main] INFO  n.d.oxalis.commons.mode.ModeModule - Detected mode: TEST
+10:10:05.018 [main] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+10:10:05.034 [main] INFO  o.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+10:10:05.035 [main] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.2.1 created.
+10:10:05.036 [main] INFO  o.q.p.x.XMLSchedulingDataProcessorPlugin - Registering Quartz Job Initialization Plug-in.
+10:10:05.038 [main] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+10:10:05.039 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.2.1) 'QuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 5 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+10:10:05.039 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'QuartzScheduler' initialized from an externally provided properties instance.
+10:10:05.039 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.2.1
+10:10:05.039 [main] INFO  org.quartz.core.QuartzScheduler - JobFactory set to: it.eng.intercenter.oxalis.quartz.scheduler.GuiceJobFactory@6256ac4f
+10:10:05.113 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Parsing XML file: quartz-config.xml with systemId: quartz-config.xml
+10:10:05.220 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Adding 1 jobs, 1 triggers.
+10:10:05.221 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Adding job: default_job_group.JobTest
+10:10:05.223 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler QuartzScheduler_$_NON_CLUSTERED started.
+10:10:05.229 [main] WARN  n.d.o.sniffer.document.NoSbdhParser - You have enabled support for automatic detection of content. This functionality will be turned of by default in version 4.1 and removed in version 4.2/5.0. Use configuration "oxalis.transformer.detector = noop" to disable it today.
+10:10:06.227 [main] ERROR eu.sendregning.oxalis.Main - Execution failed: no.difi.oxalis.api.lang.OxalisTransmissionException: No transmission is provided.
+java.util.concurrent.ExecutionException: no.difi.oxalis.api.lang.OxalisTransmissionException: No transmission is provided.
+	at java.util.concurrent.FutureTask.report(Unknown Source)
+	at java.util.concurrent.FutureTask.get(Unknown Source)
+	at eu.sendregning.oxalis.Main.main(Main.java:230)
+Caused by: no.difi.oxalis.api.lang.OxalisTransmissionException: No transmission is provided.
+	at no.difi.oxalis.outbound.transmission.DefaultTransmitter.perform(DefaultTransmitter.java:116)
+	at no.difi.oxalis.outbound.transmission.DefaultTransmitter.transmit(DefaultTransmitter.java:93)
+	at eu.sendregning.oxalis.TransmissionTask.performTransmission(TransmissionTask.java:168)
+	at eu.sendregning.oxalis.TransmissionTask.call(TransmissionTask.java:96)
+	at eu.sendregning.oxalis.TransmissionTask.call(TransmissionTask.java:49)
+	at java.util.concurrent.FutureTask.run(Unknown Source)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Unknown Source)
+	at java.util.concurrent.FutureTask.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+10:12:33.822 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Home folder: C:\Users\MGozzi\.oxalis
+10:12:33.826 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Configuration folder: C:\Users\MGozzi\.oxalis
+10:12:33.826 [main] INFO  n.d.o.commons.config.ConfigModule - Configuration file: C:\Users\MGozzi\.oxalis\oxalis.conf
+10:12:33.843 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => CONF: 
+10:12:33.844 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => INBOUND: /var/peppol/IN
+10:12:33.844 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => PLUGIN: oxalis-plugin
+10:12:33.992 [main] INFO  n.d.o.commons.quartz.QuartzModule - JobTest has been binded
+10:12:33.992 [main] INFO  n.d.o.commons.quartz.QuartzModule - Scheduler has been binded
+10:12:34.450 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Home folder: C:\Users\MGozzi\.oxalis
+10:12:34.450 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Configuration folder: C:\Users\MGozzi\.oxalis
+10:12:34.451 [main] INFO  n.d.o.commons.config.ConfigModule - Configuration file: C:\Users\MGozzi\.oxalis\oxalis.conf
+10:12:34.453 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => POOL_TOTAL: 20
+10:12:34.454 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => POOL_MAX_ROUTE: 2
+10:12:34.454 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => TIMEOUT_CONNECT: 0
+10:12:34.454 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => TIMEOUT_READ: 0
+10:12:34.454 [main] INFO  n.d.o.c.settings.SettingsBuilder - Error => TRACKER: quiet
+10:12:34.454 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => HOSTNAME: 
+10:12:34.454 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => NOTIFICATION: not.in.use@difi.no
+10:12:34.454 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => MSGID_GENERATOR: default
+10:12:34.455 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => CONF: 
+10:12:34.455 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => INBOUND: /var/peppol/IN
+10:12:34.455 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => PLUGIN: oxalis-plugin
+10:12:34.455 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => PATH: peppol-keystore.jks
+10:12:34.455 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => PASSWORD: peppol
+10:12:34.455 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => KEY_ALIAS: 1
+10:12:34.455 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => KEY_PASSWORD: peppol
+10:12:34.456 [main] INFO  n.d.o.c.settings.SettingsBuilder - Header => PARSER: sbdh
+10:12:34.456 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => PAYLOAD: default
+10:12:34.456 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => RECEIPT: plugin
+10:12:34.456 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => EXCEPTION: default
+10:12:34.456 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => HANDLER: default
+10:12:34.456 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => REPORTER: noop
+10:12:34.456 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => HTTP: null
+10:12:34.456 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => TRACER: noop
+10:12:34.457 [main] INFO  n.d.o.c.settings.SettingsBuilder - Executor => DEFAULT: 50
+10:12:34.457 [main] INFO  n.d.o.c.settings.SettingsBuilder - Executor => STATISTICS: 50
+10:12:34.457 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tag => GENERATOR: noop
+10:12:34.457 [main] INFO  n.d.o.c.settings.SettingsBuilder - Timestamp => SERVICE: system
+10:12:34.457 [main] INFO  n.d.o.c.settings.SettingsBuilder - Evidence => SERVICE: rem
+10:12:34.457 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transformer => DETECTOR: legacy
+10:12:34.457 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transformer => WRAPPER: xml
+10:12:34.458 [main] INFO  n.d.o.c.settings.SettingsBuilder - Statistics => SERVICE: noop
+10:12:34.458 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transmission => VERIFIER: default
+10:12:34.458 [main] INFO  n.d.o.c.settings.SettingsBuilder - Logging => CONFIG: null
+10:12:34.458 [main] INFO  n.d.o.c.settings.SettingsBuilder - Logging => SERVICE: logback
+10:12:34.464 [main] INFO  n.d.o.o.t.MessageSenderFactory - Prioritized list of transport profiles:
+10:12:34.465 [main] INFO  n.d.o.o.t.MessageSenderFactory - => busdox-transport-as2-ver1p0r1
+10:12:34.465 [main] INFO  n.d.o.o.t.MessageSenderFactory - => busdox-transport-as2-ver1p0
+10:12:34.479 [main] INFO  n.d.oxalis.commons.mode.ModeModule - Detected mode: TEST
+10:12:35.197 [main] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+10:12:35.208 [main] INFO  o.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+10:12:35.209 [main] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.2.1 created.
+10:12:35.210 [main] INFO  o.q.p.x.XMLSchedulingDataProcessorPlugin - Registering Quartz Job Initialization Plug-in.
+10:12:35.211 [main] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+10:12:35.212 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.2.1) 'QuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 5 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+10:12:35.212 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'QuartzScheduler' initialized from an externally provided properties instance.
+10:12:35.212 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.2.1
+10:12:35.212 [main] INFO  org.quartz.core.QuartzScheduler - JobFactory set to: it.eng.intercenter.oxalis.quartz.scheduler.GuiceJobFactory@6256ac4f
+10:12:35.273 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Parsing XML file: quartz-config.xml with systemId: quartz-config.xml
+10:12:35.362 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Adding 1 jobs, 1 triggers.
+10:12:35.362 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Adding job: default_job_group.JobTest
+10:12:35.365 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler QuartzScheduler_$_NON_CLUSTERED started.
+10:12:35.372 [main] WARN  n.d.o.sniffer.document.NoSbdhParser - You have enabled support for automatic detection of content. This functionality will be turned of by default in version 4.1 and removed in version 4.2/5.0. Use configuration "oxalis.transformer.detector = noop" to disable it today.
+10:14:53.221 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Home folder: C:\Users\MGozzi\.oxalis
+10:14:53.227 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Configuration folder: C:\Users\MGozzi\.oxalis
+10:14:53.228 [main] INFO  n.d.o.commons.config.ConfigModule - Configuration file: C:\Users\MGozzi\.oxalis\oxalis.conf
+10:14:53.241 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => CONF: 
+10:14:53.242 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => INBOUND: /var/peppol/IN
+10:14:53.242 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => PLUGIN: oxalis-plugin
+10:14:53.377 [main] INFO  n.d.o.commons.quartz.QuartzModule - JobTest has been binded
+10:14:53.377 [main] INFO  n.d.o.commons.quartz.QuartzModule - Scheduler has been binded
+10:14:53.801 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Home folder: C:\Users\MGozzi\.oxalis
+10:14:53.802 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Configuration folder: C:\Users\MGozzi\.oxalis
+10:14:53.802 [main] INFO  n.d.o.commons.config.ConfigModule - Configuration file: C:\Users\MGozzi\.oxalis\oxalis.conf
+10:14:53.804 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => POOL_TOTAL: 20
+10:14:53.805 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => POOL_MAX_ROUTE: 2
+10:14:53.805 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => TIMEOUT_CONNECT: 0
+10:14:53.805 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => TIMEOUT_READ: 0
+10:14:53.805 [main] INFO  n.d.o.c.settings.SettingsBuilder - Error => TRACKER: quiet
+10:14:53.805 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => HOSTNAME: 
+10:14:53.805 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => NOTIFICATION: not.in.use@difi.no
+10:14:53.806 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => MSGID_GENERATOR: default
+10:14:53.806 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => CONF: 
+10:14:53.806 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => INBOUND: /var/peppol/IN
+10:14:53.806 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => PLUGIN: oxalis-plugin
+10:14:53.806 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => PATH: peppol-keystore.jks
+10:14:53.806 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => PASSWORD: peppol
+10:14:53.806 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => KEY_ALIAS: 1
+10:14:53.806 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => KEY_PASSWORD: peppol
+10:14:53.807 [main] INFO  n.d.o.c.settings.SettingsBuilder - Header => PARSER: sbdh
+10:14:53.807 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => PAYLOAD: default
+10:14:53.807 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => RECEIPT: plugin
+10:14:53.807 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => EXCEPTION: default
+10:14:53.807 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => HANDLER: default
+10:14:53.807 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => REPORTER: noop
+10:14:53.807 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => HTTP: null
+10:14:53.808 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => TRACER: noop
+10:14:53.808 [main] INFO  n.d.o.c.settings.SettingsBuilder - Executor => DEFAULT: 50
+10:14:53.808 [main] INFO  n.d.o.c.settings.SettingsBuilder - Executor => STATISTICS: 50
+10:14:53.808 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tag => GENERATOR: noop
+10:14:53.808 [main] INFO  n.d.o.c.settings.SettingsBuilder - Timestamp => SERVICE: system
+10:14:53.808 [main] INFO  n.d.o.c.settings.SettingsBuilder - Evidence => SERVICE: rem
+10:14:53.808 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transformer => DETECTOR: legacy
+10:14:53.809 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transformer => WRAPPER: xml
+10:14:53.809 [main] INFO  n.d.o.c.settings.SettingsBuilder - Statistics => SERVICE: noop
+10:14:53.809 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transmission => VERIFIER: default
+10:14:53.809 [main] INFO  n.d.o.c.settings.SettingsBuilder - Logging => CONFIG: null
+10:14:53.809 [main] INFO  n.d.o.c.settings.SettingsBuilder - Logging => SERVICE: logback
+10:14:53.816 [main] INFO  n.d.o.o.t.MessageSenderFactory - Prioritized list of transport profiles:
+10:14:53.816 [main] INFO  n.d.o.o.t.MessageSenderFactory - => busdox-transport-as2-ver1p0r1
+10:14:53.816 [main] INFO  n.d.o.o.t.MessageSenderFactory - => busdox-transport-as2-ver1p0
+10:14:53.831 [main] INFO  n.d.oxalis.commons.mode.ModeModule - Detected mode: TEST
+10:14:54.521 [main] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+10:14:54.533 [main] INFO  o.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+10:14:54.533 [main] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.2.1 created.
+10:14:54.534 [main] INFO  o.q.p.x.XMLSchedulingDataProcessorPlugin - Registering Quartz Job Initialization Plug-in.
+10:14:54.535 [main] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+10:14:54.536 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.2.1) 'QuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 5 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+10:14:54.536 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'QuartzScheduler' initialized from an externally provided properties instance.
+10:14:54.536 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.2.1
+10:14:54.536 [main] INFO  org.quartz.core.QuartzScheduler - JobFactory set to: it.eng.intercenter.oxalis.quartz.scheduler.GuiceJobFactory@6256ac4f
+10:14:54.604 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Parsing XML file: quartz-config.xml with systemId: quartz-config.xml
+10:14:54.688 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Adding 1 jobs, 1 triggers.
+10:14:54.688 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Adding job: default_job_group.JobTest
+10:14:54.690 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler QuartzScheduler_$_NON_CLUSTERED started.
+10:14:54.696 [main] WARN  n.d.o.sniffer.document.NoSbdhParser - You have enabled support for automatic detection of content. This functionality will be turned of by default in version 4.1 and removed in version 4.2/5.0. Use configuration "oxalis.transformer.detector = noop" to disable it today.
+10:15:00.010 [QuartzScheduler_Worker-1] INFO  n.d.o.commons.quartz.job.JobTest - Job: JobTest has been executed at Mon Mar 04 10:15:00 CET 2019
+10:23:38.814 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Home folder: C:\Users\MGozzi\.oxalis
+10:23:38.817 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Configuration folder: C:\Users\MGozzi\.oxalis
+10:23:38.818 [main] INFO  n.d.o.commons.config.ConfigModule - Configuration file: C:\Users\MGozzi\.oxalis\oxalis.conf
+10:23:38.836 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => CONF: 
+10:23:38.836 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => INBOUND: /var/peppol/IN
+10:23:38.836 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => PLUGIN: oxalis-plugin
+10:23:38.971 [main] INFO  n.d.o.commons.quartz.QuartzModule - JobTest has been binded
+10:23:38.971 [main] INFO  n.d.o.commons.quartz.QuartzModule - Scheduler has been binded
+10:23:39.413 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Home folder: C:\Users\MGozzi\.oxalis
+10:23:39.414 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Configuration folder: C:\Users\MGozzi\.oxalis
+10:23:39.414 [main] INFO  n.d.o.commons.config.ConfigModule - Configuration file: C:\Users\MGozzi\.oxalis\oxalis.conf
+10:23:39.416 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => POOL_TOTAL: 20
+10:23:39.416 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => POOL_MAX_ROUTE: 2
+10:23:39.416 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => TIMEOUT_CONNECT: 0
+10:23:39.416 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => TIMEOUT_READ: 0
+10:23:39.416 [main] INFO  n.d.o.c.settings.SettingsBuilder - Error => TRACKER: quiet
+10:23:39.417 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => HOSTNAME: 
+10:23:39.417 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => NOTIFICATION: not.in.use@difi.no
+10:23:39.417 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => MSGID_GENERATOR: default
+10:23:39.417 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => CONF: 
+10:23:39.417 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => INBOUND: /var/peppol/IN
+10:23:39.417 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => PLUGIN: oxalis-plugin
+10:23:39.417 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => PATH: peppol-keystore.jks
+10:23:39.417 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => PASSWORD: peppol
+10:23:39.418 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => KEY_ALIAS: 1
+10:23:39.418 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => KEY_PASSWORD: peppol
+10:23:39.418 [main] INFO  n.d.o.c.settings.SettingsBuilder - Header => PARSER: sbdh
+10:23:39.418 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => PAYLOAD: default
+10:23:39.418 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => RECEIPT: plugin
+10:23:39.418 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => EXCEPTION: default
+10:23:39.418 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => HANDLER: default
+10:23:39.419 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => REPORTER: noop
+10:23:39.419 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => HTTP: null
+10:23:39.419 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => TRACER: noop
+10:23:39.419 [main] INFO  n.d.o.c.settings.SettingsBuilder - Executor => DEFAULT: 50
+10:23:39.419 [main] INFO  n.d.o.c.settings.SettingsBuilder - Executor => STATISTICS: 50
+10:23:39.419 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tag => GENERATOR: noop
+10:23:39.419 [main] INFO  n.d.o.c.settings.SettingsBuilder - Timestamp => SERVICE: system
+10:23:39.420 [main] INFO  n.d.o.c.settings.SettingsBuilder - Evidence => SERVICE: rem
+10:23:39.420 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transformer => DETECTOR: legacy
+10:23:39.420 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transformer => WRAPPER: xml
+10:23:39.420 [main] INFO  n.d.o.c.settings.SettingsBuilder - Statistics => SERVICE: noop
+10:23:39.420 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transmission => VERIFIER: default
+10:23:39.420 [main] INFO  n.d.o.c.settings.SettingsBuilder - Logging => CONFIG: null
+10:23:39.420 [main] INFO  n.d.o.c.settings.SettingsBuilder - Logging => SERVICE: logback
+10:23:39.426 [main] INFO  n.d.o.o.t.MessageSenderFactory - Prioritized list of transport profiles:
+10:23:39.426 [main] INFO  n.d.o.o.t.MessageSenderFactory - => busdox-transport-as2-ver1p0r1
+10:23:39.426 [main] INFO  n.d.o.o.t.MessageSenderFactory - => busdox-transport-as2-ver1p0
+10:23:39.440 [main] INFO  n.d.oxalis.commons.mode.ModeModule - Detected mode: TEST
+10:23:40.153 [main] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+10:23:40.164 [main] INFO  o.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+10:23:40.166 [main] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.2.1 created.
+10:23:40.166 [main] INFO  o.q.p.x.XMLSchedulingDataProcessorPlugin - Registering Quartz Job Initialization Plug-in.
+10:23:40.168 [main] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+10:23:40.168 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.2.1) 'QuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 5 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+10:23:40.169 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'QuartzScheduler' initialized from an externally provided properties instance.
+10:23:40.169 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.2.1
+10:23:40.169 [main] INFO  org.quartz.core.QuartzScheduler - JobFactory set to: it.eng.intercenter.oxalis.quartz.scheduler.GuiceJobFactory@2a1edad4
+10:23:40.239 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Parsing XML file: quartz-config.xml with systemId: quartz-config.xml
+10:23:40.319 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Adding 1 jobs, 1 triggers.
+10:23:40.319 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Adding job: default_job_group.JobTest
+10:23:40.321 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler QuartzScheduler_$_NON_CLUSTERED started.
+10:23:40.324 [main] WARN  n.d.o.sniffer.document.NoSbdhParser - You have enabled support for automatic detection of content. This functionality will be turned of by default in version 4.1 and removed in version 4.2/5.0. Use configuration "oxalis.transformer.detector = noop" to disable it today.
+10:26:34.345 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Home folder: C:\Users\MGozzi\.oxalis
+10:26:34.349 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Configuration folder: C:\Users\MGozzi\.oxalis
+10:26:34.349 [main] INFO  n.d.o.commons.config.ConfigModule - Configuration file: C:\Users\MGozzi\.oxalis\oxalis.conf
+10:26:34.363 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => CONF: 
+10:26:34.364 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => INBOUND: /var/peppol/IN
+10:26:34.364 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => PLUGIN: oxalis-plugin
+10:26:34.482 [main] INFO  n.d.o.commons.quartz.QuartzModule - JobTest has been binded
+10:26:34.483 [main] INFO  n.d.o.commons.quartz.QuartzModule - Scheduler has been binded
+10:26:34.886 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Home folder: C:\Users\MGozzi\.oxalis
+10:26:34.886 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Configuration folder: C:\Users\MGozzi\.oxalis
+10:26:34.886 [main] INFO  n.d.o.commons.config.ConfigModule - Configuration file: C:\Users\MGozzi\.oxalis\oxalis.conf
+10:26:34.889 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => POOL_TOTAL: 20
+10:26:34.889 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => POOL_MAX_ROUTE: 2
+10:26:34.889 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => TIMEOUT_CONNECT: 0
+10:26:34.889 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => TIMEOUT_READ: 0
+10:26:34.889 [main] INFO  n.d.o.c.settings.SettingsBuilder - Error => TRACKER: quiet
+10:26:34.889 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => HOSTNAME: 
+10:26:34.889 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => NOTIFICATION: not.in.use@difi.no
+10:26:34.889 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => MSGID_GENERATOR: default
+10:26:34.890 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => CONF: 
+10:26:34.890 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => INBOUND: /var/peppol/IN
+10:26:34.890 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => PLUGIN: oxalis-plugin
+10:26:34.890 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => PATH: peppol-keystore.jks
+10:26:34.890 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => PASSWORD: peppol
+10:26:34.890 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => KEY_ALIAS: 1
+10:26:34.890 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => KEY_PASSWORD: peppol
+10:26:34.890 [main] INFO  n.d.o.c.settings.SettingsBuilder - Header => PARSER: sbdh
+10:26:34.891 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => PAYLOAD: default
+10:26:34.891 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => RECEIPT: plugin
+10:26:34.891 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => EXCEPTION: default
+10:26:34.891 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => HANDLER: default
+10:26:34.891 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => REPORTER: noop
+10:26:34.891 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => HTTP: null
+10:26:34.891 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => TRACER: noop
+10:26:34.891 [main] INFO  n.d.o.c.settings.SettingsBuilder - Executor => DEFAULT: 50
+10:26:34.892 [main] INFO  n.d.o.c.settings.SettingsBuilder - Executor => STATISTICS: 50
+10:26:34.892 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tag => GENERATOR: noop
+10:26:34.892 [main] INFO  n.d.o.c.settings.SettingsBuilder - Timestamp => SERVICE: system
+10:26:34.892 [main] INFO  n.d.o.c.settings.SettingsBuilder - Evidence => SERVICE: rem
+10:26:34.892 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transformer => DETECTOR: legacy
+10:26:34.892 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transformer => WRAPPER: xml
+10:26:34.892 [main] INFO  n.d.o.c.settings.SettingsBuilder - Statistics => SERVICE: noop
+10:26:34.893 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transmission => VERIFIER: default
+10:26:34.893 [main] INFO  n.d.o.c.settings.SettingsBuilder - Logging => CONFIG: null
+10:26:34.893 [main] INFO  n.d.o.c.settings.SettingsBuilder - Logging => SERVICE: logback
+10:26:34.899 [main] INFO  n.d.o.o.t.MessageSenderFactory - Prioritized list of transport profiles:
+10:26:34.899 [main] INFO  n.d.o.o.t.MessageSenderFactory - => busdox-transport-as2-ver1p0r1
+10:26:34.900 [main] INFO  n.d.o.o.t.MessageSenderFactory - => busdox-transport-as2-ver1p0
+10:26:34.915 [main] INFO  n.d.oxalis.commons.mode.ModeModule - Detected mode: TEST
+10:26:35.540 [main] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+10:26:35.552 [main] INFO  o.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+10:26:35.553 [main] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.2.1 created.
+10:26:35.554 [main] INFO  o.q.p.x.XMLSchedulingDataProcessorPlugin - Registering Quartz Job Initialization Plug-in.
+10:26:35.555 [main] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+10:26:35.555 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.2.1) 'QuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 5 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+10:26:35.555 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'QuartzScheduler' initialized from an externally provided properties instance.
+10:26:35.555 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.2.1
+10:26:35.556 [main] INFO  org.quartz.core.QuartzScheduler - JobFactory set to: it.eng.intercenter.oxalis.quartz.scheduler.GuiceJobFactory@2a1edad4
+10:26:35.613 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Parsing XML file: quartz-config.xml with systemId: quartz-config.xml
+10:26:35.691 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Adding 1 jobs, 1 triggers.
+10:26:35.691 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Adding job: default_job_group.JobTest
+10:26:35.693 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler QuartzScheduler_$_NON_CLUSTERED started.
+10:26:35.700 [main] WARN  n.d.o.sniffer.document.NoSbdhParser - You have enabled support for automatic detection of content. This functionality will be turned of by default in version 4.1 and removed in version 4.2/5.0. Use configuration "oxalis.transformer.detector = noop" to disable it today.
+10:31:44.892 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Home folder: C:\Users\MGozzi\.oxalis
+10:31:44.897 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Configuration folder: C:\Users\MGozzi\.oxalis
+10:31:44.897 [main] INFO  n.d.o.commons.config.ConfigModule - Configuration file: C:\Users\MGozzi\.oxalis\oxalis.conf
+10:31:44.911 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => CONF: 
+10:31:44.912 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => INBOUND: /var/peppol/IN
+10:31:44.912 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => PLUGIN: oxalis-plugin
+10:31:45.040 [main] INFO  n.d.o.commons.quartz.QuartzModule - JobTest has been binded
+10:31:45.040 [main] INFO  n.d.o.commons.quartz.QuartzModule - Scheduler has been binded
+10:31:45.427 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Home folder: C:\Users\MGozzi\.oxalis
+10:31:45.428 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Configuration folder: C:\Users\MGozzi\.oxalis
+10:31:45.428 [main] INFO  n.d.o.commons.config.ConfigModule - Configuration file: C:\Users\MGozzi\.oxalis\oxalis.conf
+10:31:45.429 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => POOL_TOTAL: 20
+10:31:45.429 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => POOL_MAX_ROUTE: 2
+10:31:45.429 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => TIMEOUT_CONNECT: 0
+10:31:45.429 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => TIMEOUT_READ: 0
+10:31:45.430 [main] INFO  n.d.o.c.settings.SettingsBuilder - Error => TRACKER: quiet
+10:31:45.430 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => HOSTNAME: 
+10:31:45.430 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => NOTIFICATION: not.in.use@difi.no
+10:31:45.430 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => MSGID_GENERATOR: default
+10:31:45.430 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => CONF: 
+10:31:45.430 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => INBOUND: /var/peppol/IN
+10:31:45.430 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => PLUGIN: oxalis-plugin
+10:31:45.431 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => PATH: peppol-keystore.jks
+10:31:45.431 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => PASSWORD: peppol
+10:31:45.431 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => KEY_ALIAS: 1
+10:31:45.431 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => KEY_PASSWORD: peppol
+10:31:45.431 [main] INFO  n.d.o.c.settings.SettingsBuilder - Header => PARSER: sbdh
+10:31:45.431 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => PAYLOAD: default
+10:31:45.431 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => RECEIPT: plugin
+10:31:45.431 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => EXCEPTION: default
+10:31:45.432 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => HANDLER: default
+10:31:45.432 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => REPORTER: noop
+10:31:45.432 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => HTTP: null
+10:31:45.432 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => TRACER: noop
+10:31:45.432 [main] INFO  n.d.o.c.settings.SettingsBuilder - Executor => DEFAULT: 50
+10:31:45.432 [main] INFO  n.d.o.c.settings.SettingsBuilder - Executor => STATISTICS: 50
+10:31:45.432 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tag => GENERATOR: noop
+10:31:45.432 [main] INFO  n.d.o.c.settings.SettingsBuilder - Timestamp => SERVICE: system
+10:31:45.432 [main] INFO  n.d.o.c.settings.SettingsBuilder - Evidence => SERVICE: rem
+10:31:45.433 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transformer => DETECTOR: legacy
+10:31:45.433 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transformer => WRAPPER: xml
+10:31:45.433 [main] INFO  n.d.o.c.settings.SettingsBuilder - Statistics => SERVICE: noop
+10:31:45.433 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transmission => VERIFIER: default
+10:31:45.433 [main] INFO  n.d.o.c.settings.SettingsBuilder - Logging => CONFIG: null
+10:31:45.433 [main] INFO  n.d.o.c.settings.SettingsBuilder - Logging => SERVICE: logback
+10:31:45.439 [main] INFO  n.d.o.o.t.MessageSenderFactory - Prioritized list of transport profiles:
+10:31:45.440 [main] INFO  n.d.o.o.t.MessageSenderFactory - => busdox-transport-as2-ver1p0r1
+10:31:45.440 [main] INFO  n.d.o.o.t.MessageSenderFactory - => busdox-transport-as2-ver1p0
+10:31:45.457 [main] INFO  n.d.oxalis.commons.mode.ModeModule - Detected mode: TEST
+10:31:46.081 [main] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+10:31:46.093 [main] INFO  o.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+10:31:46.094 [main] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.2.1 created.
+10:31:46.095 [main] INFO  o.q.p.x.XMLSchedulingDataProcessorPlugin - Registering Quartz Job Initialization Plug-in.
+10:31:46.096 [main] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+10:31:46.097 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.2.1) 'QuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 5 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+10:31:46.097 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'QuartzScheduler' initialized from an externally provided properties instance.
+10:31:46.097 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.2.1
+10:31:46.097 [main] INFO  org.quartz.core.QuartzScheduler - JobFactory set to: it.eng.intercenter.oxalis.quartz.scheduler.GuiceJobFactory@2a1edad4
+10:31:46.158 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Parsing XML file: quartz-config.xml with systemId: quartz-config.xml
+10:31:46.238 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Adding 1 jobs, 1 triggers.
+10:31:46.238 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Adding job: default_job_group.JobTest
+10:31:46.240 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler QuartzScheduler_$_NON_CLUSTERED started.
+10:31:46.243 [main] WARN  n.d.o.sniffer.document.NoSbdhParser - You have enabled support for automatic detection of content. This functionality will be turned of by default in version 4.1 and removed in version 4.2/5.0. Use configuration "oxalis.transformer.detector = noop" to disable it today.
+10:37:07.671 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Home folder: C:\Users\MGozzi\.oxalis
+10:37:07.675 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Configuration folder: C:\Users\MGozzi\.oxalis
+10:37:07.675 [main] INFO  n.d.o.commons.config.ConfigModule - Configuration file: C:\Users\MGozzi\.oxalis\oxalis.conf
+10:37:07.689 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => CONF: 
+10:37:07.689 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => INBOUND: /var/peppol/IN
+10:37:07.690 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => PLUGIN: oxalis-plugin
+10:37:07.816 [main] INFO  n.d.o.commons.quartz.QuartzModule - JobTest has been binded
+10:37:07.816 [main] INFO  n.d.o.commons.quartz.QuartzModule - Scheduler has been binded
+10:37:08.226 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Home folder: C:\Users\MGozzi\.oxalis
+10:37:08.227 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Configuration folder: C:\Users\MGozzi\.oxalis
+10:37:08.227 [main] INFO  n.d.o.commons.config.ConfigModule - Configuration file: C:\Users\MGozzi\.oxalis\oxalis.conf
+10:37:08.229 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => POOL_TOTAL: 20
+10:37:08.229 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => POOL_MAX_ROUTE: 2
+10:37:08.229 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => TIMEOUT_CONNECT: 0
+10:37:08.229 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => TIMEOUT_READ: 0
+10:37:08.229 [main] INFO  n.d.o.c.settings.SettingsBuilder - Error => TRACKER: quiet
+10:37:08.229 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => HOSTNAME: 
+10:37:08.229 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => NOTIFICATION: not.in.use@difi.no
+10:37:08.229 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => MSGID_GENERATOR: default
+10:37:08.230 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => CONF: 
+10:37:08.230 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => INBOUND: /var/peppol/IN
+10:37:08.230 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => PLUGIN: oxalis-plugin
+10:37:08.230 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => PATH: peppol-keystore.jks
+10:37:08.230 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => PASSWORD: peppol
+10:37:08.230 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => KEY_ALIAS: 1
+10:37:08.230 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => KEY_PASSWORD: peppol
+10:37:08.230 [main] INFO  n.d.o.c.settings.SettingsBuilder - Header => PARSER: sbdh
+10:37:08.230 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => PAYLOAD: default
+10:37:08.230 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => RECEIPT: plugin
+10:37:08.230 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => EXCEPTION: default
+10:37:08.231 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => HANDLER: default
+10:37:08.231 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => REPORTER: noop
+10:37:08.231 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => HTTP: null
+10:37:08.231 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => TRACER: noop
+10:37:08.231 [main] INFO  n.d.o.c.settings.SettingsBuilder - Executor => DEFAULT: 50
+10:37:08.231 [main] INFO  n.d.o.c.settings.SettingsBuilder - Executor => STATISTICS: 50
+10:37:08.231 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tag => GENERATOR: noop
+10:37:08.231 [main] INFO  n.d.o.c.settings.SettingsBuilder - Timestamp => SERVICE: system
+10:37:08.232 [main] INFO  n.d.o.c.settings.SettingsBuilder - Evidence => SERVICE: rem
+10:37:08.232 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transformer => DETECTOR: legacy
+10:37:08.232 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transformer => WRAPPER: xml
+10:37:08.232 [main] INFO  n.d.o.c.settings.SettingsBuilder - Statistics => SERVICE: noop
+10:37:08.232 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transmission => VERIFIER: default
+10:37:08.232 [main] INFO  n.d.o.c.settings.SettingsBuilder - Logging => CONFIG: null
+10:37:08.232 [main] INFO  n.d.o.c.settings.SettingsBuilder - Logging => SERVICE: logback
+10:37:08.237 [main] INFO  n.d.o.o.t.MessageSenderFactory - Prioritized list of transport profiles:
+10:37:08.237 [main] INFO  n.d.o.o.t.MessageSenderFactory - => busdox-transport-as2-ver1p0r1
+10:37:08.237 [main] INFO  n.d.o.o.t.MessageSenderFactory - => busdox-transport-as2-ver1p0
+10:37:08.250 [main] INFO  n.d.oxalis.commons.mode.ModeModule - Detected mode: TEST
+10:37:08.900 [main] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+10:37:08.912 [main] INFO  o.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+10:37:08.913 [main] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.2.1 created.
+10:37:08.913 [main] INFO  o.q.p.x.XMLSchedulingDataProcessorPlugin - Registering Quartz Job Initialization Plug-in.
+10:37:08.915 [main] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+10:37:08.972 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.2.1) 'QuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 5 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+10:37:08.972 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'QuartzScheduler' initialized from an externally provided properties instance.
+10:37:08.972 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.2.1
+10:37:08.972 [main] INFO  org.quartz.core.QuartzScheduler - JobFactory set to: it.eng.intercenter.oxalis.quartz.scheduler.GuiceJobFactory@2a1edad4
+10:37:08.980 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Parsing XML file: quartz-config.xml with systemId: quartz-config.xml
+10:37:09.059 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Adding 1 jobs, 1 triggers.
+10:37:09.059 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Adding job: default_job_group.JobTest
+10:37:09.061 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler QuartzScheduler_$_NON_CLUSTERED started.
+10:37:09.067 [main] WARN  n.d.o.sniffer.document.NoSbdhParser - You have enabled support for automatic detection of content. This functionality will be turned of by default in version 4.1 and removed in version 4.2/5.0. Use configuration "oxalis.transformer.detector = noop" to disable it today.
+10:38:00.021 [QuartzScheduler_Worker-1] INFO  n.d.o.commons.quartz.job.JobTest - Job: JobTest has been executed at Mon Mar 04 10:38:00 CET 2019
+10:52:43.598 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Home folder: C:\Users\MGozzi\.oxalis
+10:52:43.602 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Configuration folder: C:\Users\MGozzi\.oxalis
+10:52:43.602 [main] INFO  n.d.o.commons.config.ConfigModule - Configuration file: C:\Users\MGozzi\.oxalis\oxalis.conf
+10:52:43.618 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => CONF: 
+10:52:43.619 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => INBOUND: /var/peppol/IN
+10:52:43.619 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => PLUGIN: oxalis-plugin
+10:52:43.748 [main] INFO  n.d.o.commons.quartz.QuartzModule - JobTest has been binded
+10:52:43.748 [main] INFO  n.d.o.commons.quartz.QuartzModule - Scheduler has been binded
+10:52:44.162 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Home folder: C:\Users\MGozzi\.oxalis
+10:52:44.163 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Configuration folder: C:\Users\MGozzi\.oxalis
+10:52:44.163 [main] INFO  n.d.o.commons.config.ConfigModule - Configuration file: C:\Users\MGozzi\.oxalis\oxalis.conf
+10:52:44.166 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => POOL_TOTAL: 20
+10:52:44.166 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => POOL_MAX_ROUTE: 2
+10:52:44.166 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => TIMEOUT_CONNECT: 0
+10:52:44.166 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => TIMEOUT_READ: 0
+10:52:44.166 [main] INFO  n.d.o.c.settings.SettingsBuilder - Error => TRACKER: quiet
+10:52:44.166 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => HOSTNAME: 
+10:52:44.166 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => NOTIFICATION: not.in.use@difi.no
+10:52:44.166 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => MSGID_GENERATOR: default
+10:52:44.166 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => CONF: 
+10:52:44.167 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => INBOUND: /var/peppol/IN
+10:52:44.167 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => PLUGIN: oxalis-plugin
+10:52:44.167 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => PATH: peppol-keystore.jks
+10:52:44.167 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => PASSWORD: peppol
+10:52:44.167 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => KEY_ALIAS: 1
+10:52:44.167 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => KEY_PASSWORD: peppol
+10:52:44.167 [main] INFO  n.d.o.c.settings.SettingsBuilder - Header => PARSER: sbdh
+10:52:44.167 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => PAYLOAD: default
+10:52:44.167 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => RECEIPT: plugin
+10:52:44.168 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => EXCEPTION: default
+10:52:44.168 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => HANDLER: default
+10:52:44.168 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => REPORTER: noop
+10:52:44.168 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => HTTP: null
+10:52:44.168 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => TRACER: noop
+10:52:44.168 [main] INFO  n.d.o.c.settings.SettingsBuilder - Executor => DEFAULT: 50
+10:52:44.168 [main] INFO  n.d.o.c.settings.SettingsBuilder - Executor => STATISTICS: 50
+10:52:44.168 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tag => GENERATOR: noop
+10:52:44.169 [main] INFO  n.d.o.c.settings.SettingsBuilder - Timestamp => SERVICE: system
+10:52:44.169 [main] INFO  n.d.o.c.settings.SettingsBuilder - Evidence => SERVICE: rem
+10:52:44.169 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transformer => DETECTOR: legacy
+10:52:44.169 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transformer => WRAPPER: xml
+10:52:44.169 [main] INFO  n.d.o.c.settings.SettingsBuilder - Statistics => SERVICE: noop
+10:52:44.170 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transmission => VERIFIER: default
+10:52:44.170 [main] INFO  n.d.o.c.settings.SettingsBuilder - Logging => CONFIG: null
+10:52:44.170 [main] INFO  n.d.o.c.settings.SettingsBuilder - Logging => SERVICE: logback
+10:52:44.176 [main] INFO  n.d.o.o.t.MessageSenderFactory - Prioritized list of transport profiles:
+10:52:44.177 [main] INFO  n.d.o.o.t.MessageSenderFactory - => busdox-transport-as2-ver1p0r1
+10:52:44.177 [main] INFO  n.d.o.o.t.MessageSenderFactory - => busdox-transport-as2-ver1p0
+10:52:44.192 [main] INFO  n.d.oxalis.commons.mode.ModeModule - Detected mode: TEST
+10:52:44.891 [main] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+10:52:44.903 [main] INFO  o.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+10:52:44.904 [main] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.2.1 created.
+10:52:44.905 [main] INFO  o.q.p.x.XMLSchedulingDataProcessorPlugin - Registering Quartz Job Initialization Plug-in.
+10:52:44.906 [main] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+10:52:44.906 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.2.1) 'QuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 5 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+10:52:44.907 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'QuartzScheduler' initialized from an externally provided properties instance.
+10:52:44.907 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.2.1
+10:52:44.907 [main] INFO  org.quartz.core.QuartzScheduler - JobFactory set to: it.eng.intercenter.oxalis.quartz.scheduler.GuiceJobFactory@2a1edad4
+10:52:44.971 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Parsing XML file: quartz-config.xml with systemId: quartz-config.xml
+10:52:45.053 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Adding 1 jobs, 1 triggers.
+10:52:45.053 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Adding job: default_job_group.JobTest
+10:52:45.055 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler QuartzScheduler_$_NON_CLUSTERED started.
+10:52:45.062 [main] WARN  n.d.o.sniffer.document.NoSbdhParser - You have enabled support for automatic detection of content. This functionality will be turned of by default in version 4.1 and removed in version 4.2/5.0. Use configuration "oxalis.transformer.detector = noop" to disable it today.
+10:56:52.085 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Home folder: C:\Users\MGozzi\.oxalis
+10:56:52.090 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Configuration folder: C:\Users\MGozzi\.oxalis
+10:56:52.091 [main] INFO  n.d.o.commons.config.ConfigModule - Configuration file: C:\Users\MGozzi\.oxalis\oxalis.conf
+10:56:52.107 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => CONF: 
+10:56:52.108 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => INBOUND: /var/peppol/IN
+10:56:52.108 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => PLUGIN: oxalis-plugin
+10:56:52.244 [main] INFO  n.d.o.commons.quartz.QuartzModule - JobTest has been binded
+10:56:52.244 [main] INFO  n.d.o.commons.quartz.QuartzModule - Scheduler has been binded
+10:56:52.655 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Home folder: C:\Users\MGozzi\.oxalis
+10:56:52.655 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Configuration folder: C:\Users\MGozzi\.oxalis
+10:56:52.655 [main] INFO  n.d.o.commons.config.ConfigModule - Configuration file: C:\Users\MGozzi\.oxalis\oxalis.conf
+10:56:52.658 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => POOL_TOTAL: 20
+10:56:52.658 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => POOL_MAX_ROUTE: 2
+10:56:52.658 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => TIMEOUT_CONNECT: 0
+10:56:52.658 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => TIMEOUT_READ: 0
+10:56:52.658 [main] INFO  n.d.o.c.settings.SettingsBuilder - Error => TRACKER: quiet
+10:56:52.659 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => HOSTNAME: 
+10:56:52.659 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => NOTIFICATION: not.in.use@difi.no
+10:56:52.659 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => MSGID_GENERATOR: default
+10:56:52.659 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => CONF: 
+10:56:52.659 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => INBOUND: /var/peppol/IN
+10:56:52.660 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => PLUGIN: oxalis-plugin
+10:56:52.660 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => PATH: peppol-keystore.jks
+10:56:52.660 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => PASSWORD: peppol
+10:56:52.660 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => KEY_ALIAS: 1
+10:56:52.660 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => KEY_PASSWORD: peppol
+10:56:52.660 [main] INFO  n.d.o.c.settings.SettingsBuilder - Header => PARSER: sbdh
+10:56:52.660 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => PAYLOAD: default
+10:56:52.661 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => RECEIPT: plugin
+10:56:52.661 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => EXCEPTION: default
+10:56:52.661 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => HANDLER: default
+10:56:52.661 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => REPORTER: noop
+10:56:52.661 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => HTTP: null
+10:56:52.661 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => TRACER: noop
+10:56:52.661 [main] INFO  n.d.o.c.settings.SettingsBuilder - Executor => DEFAULT: 50
+10:56:52.661 [main] INFO  n.d.o.c.settings.SettingsBuilder - Executor => STATISTICS: 50
+10:56:52.662 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tag => GENERATOR: noop
+10:56:52.662 [main] INFO  n.d.o.c.settings.SettingsBuilder - Timestamp => SERVICE: system
+10:56:52.662 [main] INFO  n.d.o.c.settings.SettingsBuilder - Evidence => SERVICE: rem
+10:56:52.662 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transformer => DETECTOR: legacy
+10:56:52.662 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transformer => WRAPPER: xml
+10:56:52.662 [main] INFO  n.d.o.c.settings.SettingsBuilder - Statistics => SERVICE: noop
+10:56:52.663 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transmission => VERIFIER: default
+10:56:52.663 [main] INFO  n.d.o.c.settings.SettingsBuilder - Logging => CONFIG: null
+10:56:52.663 [main] INFO  n.d.o.c.settings.SettingsBuilder - Logging => SERVICE: logback
+10:56:52.668 [main] INFO  n.d.o.o.t.MessageSenderFactory - Prioritized list of transport profiles:
+10:56:52.669 [main] INFO  n.d.o.o.t.MessageSenderFactory - => busdox-transport-as2-ver1p0r1
+10:56:52.669 [main] INFO  n.d.o.o.t.MessageSenderFactory - => busdox-transport-as2-ver1p0
+10:56:52.687 [main] INFO  n.d.oxalis.commons.mode.ModeModule - Detected mode: TEST
+10:56:53.383 [main] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+10:56:53.460 [main] INFO  o.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+10:56:53.460 [main] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.2.1 created.
+10:56:53.461 [main] INFO  o.q.p.x.XMLSchedulingDataProcessorPlugin - Registering Quartz Job Initialization Plug-in.
+10:56:53.463 [main] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+10:56:53.463 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.2.1) 'QuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 5 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+10:56:53.463 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'QuartzScheduler' initialized from an externally provided properties instance.
+10:56:53.463 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.2.1
+10:56:53.464 [main] INFO  org.quartz.core.QuartzScheduler - JobFactory set to: it.eng.intercenter.oxalis.quartz.scheduler.GuiceJobFactory@2a1edad4
+10:56:53.471 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Parsing XML file: quartz-config.xml with systemId: quartz-config.xml
+10:56:53.558 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Adding 1 jobs, 1 triggers.
+10:56:53.559 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Adding job: default_job_group.JobTest
+10:56:53.561 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler QuartzScheduler_$_NON_CLUSTERED started.
+10:56:53.567 [main] WARN  n.d.o.sniffer.document.NoSbdhParser - You have enabled support for automatic detection of content. This functionality will be turned of by default in version 4.1 and removed in version 4.2/5.0. Use configuration "oxalis.transformer.detector = noop" to disable it today.
+10:56:53.874 [pool-2-thread-1] WARN  n.d.o.o.t.TransmissionRequestBuilder - Endpoint was set by caller not retrieved from SMP, make sure this is intended behaviour.
+10:56:53.952 [main] ERROR eu.sendregning.oxalis.Main - Execution failed: no.difi.oxalis.api.lang.OxalisTransmissionException: Unable to verify certificate of receiving access point.
+java.util.concurrent.ExecutionException: no.difi.oxalis.api.lang.OxalisTransmissionException: Unable to verify certificate of receiving access point.
+	at java.util.concurrent.FutureTask.report(Unknown Source)
+	at java.util.concurrent.FutureTask.get(Unknown Source)
+	at eu.sendregning.oxalis.Main.main(Main.java:230)
+Caused by: no.difi.oxalis.api.lang.OxalisTransmissionException: Unable to verify certificate of receiving access point.
+	at no.difi.oxalis.outbound.transmission.DefaultTransmitter.perform(DefaultTransmitter.java:162)
+	at no.difi.oxalis.outbound.transmission.DefaultTransmitter.transmit(DefaultTransmitter.java:93)
+	at eu.sendregning.oxalis.TransmissionTask.performTransmission(TransmissionTask.java:168)
+	at eu.sendregning.oxalis.TransmissionTask.call(TransmissionTask.java:96)
+	at eu.sendregning.oxalis.TransmissionTask.call(TransmissionTask.java:49)
+	at java.util.concurrent.FutureTask.run(Unknown Source)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Unknown Source)
+	at java.util.concurrent.FutureTask.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: no.difi.vefa.peppol.security.lang.PeppolSecurityException: Validation of subject principal(CN) failed.
+	at no.difi.vefa.peppol.security.util.DifiCertificateValidator.validate(DifiCertificateValidator.java:64)
+	at no.difi.oxalis.commons.mode.OxalisCertificateValidator.perform(OxalisCertificateValidator.java:48)
+	at no.difi.oxalis.commons.mode.OxalisCertificateValidator.validate(OxalisCertificateValidator.java:38)
+	at no.difi.oxalis.outbound.transmission.DefaultTransmitter.perform(DefaultTransmitter.java:127)
+	... 10 common frames omitted
+Caused by: no.difi.certvalidator.api.FailedValidationException: Validation of subject principal(CN) failed.
+	at no.difi.certvalidator.rule.PrincipalNameRule.validate(PrincipalNameRule.java:68)
+	at no.difi.certvalidator.structure.AndJunction.validate(AndJunction.java:29)
+	at no.difi.certvalidator.structure.AbstractJunction.validate(AbstractJunction.java:36)
+	at no.difi.certvalidator.util.CachedValidatorRule.load(CachedValidatorRule.java:43)
+	at no.difi.certvalidator.util.CachedValidatorRule.load(CachedValidatorRule.java:13)
+	at com.google.common.cache.LocalCache$LoadingValueReference.loadFuture(LocalCache.java:3528)
+	at com.google.common.cache.LocalCache$Segment.loadSync(LocalCache.java:2277)
+	at com.google.common.cache.LocalCache$Segment.lockedGetOrLoad(LocalCache.java:2154)
+	at com.google.common.cache.LocalCache$Segment.get(LocalCache.java:2044)
+	at com.google.common.cache.LocalCache.get(LocalCache.java:3952)
+	at com.google.common.cache.LocalCache.getOrLoad(LocalCache.java:3974)
+	at com.google.common.cache.LocalCache$LocalLoadingCache.get(LocalCache.java:4958)
+	at com.google.common.cache.LocalCache$LocalLoadingCache.getUnchecked(LocalCache.java:4964)
+	at no.difi.certvalidator.util.CachedValidatorRule.validate(CachedValidatorRule.java:30)
+	at no.difi.certvalidator.util.CachedValidatorRule.validate(CachedValidatorRule.java:35)
+	at no.difi.certvalidator.ValidatorGroup.validate(ValidatorGroup.java:79)
+	at no.difi.certvalidator.ValidatorGroup.validate(ValidatorGroup.java:70)
+	at no.difi.vefa.peppol.security.util.DifiCertificateValidator.validate(DifiCertificateValidator.java:62)
+	... 13 common frames omitted
+10:59:07.981 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Home folder: C:\Users\MGozzi\.oxalis
+10:59:07.981 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Configuration folder: C:\Users\MGozzi\.oxalis
+10:59:07.981 [main] INFO  n.d.o.commons.config.ConfigModule - Configuration file: C:\Users\MGozzi\.oxalis\oxalis.conf
+10:59:07.996 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => CONF: 
+10:59:07.996 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => INBOUND: /var/peppol/IN
+10:59:07.996 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => PLUGIN: oxalis-plugin
+10:59:08.115 [main] INFO  n.d.o.commons.quartz.QuartzModule - JobTest has been binded
+10:59:08.115 [main] INFO  n.d.o.commons.quartz.QuartzModule - Scheduler has been binded
+10:59:08.532 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Home folder: C:\Users\MGozzi\.oxalis
+10:59:08.532 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Configuration folder: C:\Users\MGozzi\.oxalis
+10:59:08.532 [main] INFO  n.d.o.commons.config.ConfigModule - Configuration file: C:\Users\MGozzi\.oxalis\oxalis.conf
+10:59:08.532 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => POOL_TOTAL: 20
+10:59:08.532 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => POOL_MAX_ROUTE: 2
+10:59:08.532 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => TIMEOUT_CONNECT: 0
+10:59:08.532 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => TIMEOUT_READ: 0
+10:59:08.532 [main] INFO  n.d.o.c.settings.SettingsBuilder - Error => TRACKER: quiet
+10:59:08.532 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => HOSTNAME: 
+10:59:08.532 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => NOTIFICATION: not.in.use@difi.no
+10:59:08.532 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => MSGID_GENERATOR: default
+10:59:08.532 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => CONF: 
+10:59:08.532 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => INBOUND: /var/peppol/IN
+10:59:08.532 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => PLUGIN: oxalis-plugin
+10:59:08.532 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => PATH: peppol-keystore.jks
+10:59:08.532 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => PASSWORD: peppol
+10:59:08.532 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => KEY_ALIAS: 1
+10:59:08.532 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => KEY_PASSWORD: peppol
+10:59:08.532 [main] INFO  n.d.o.c.settings.SettingsBuilder - Header => PARSER: sbdh
+10:59:08.532 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => PAYLOAD: default
+10:59:08.532 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => RECEIPT: plugin
+10:59:08.532 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => EXCEPTION: default
+10:59:08.532 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => HANDLER: default
+10:59:08.532 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => REPORTER: noop
+10:59:08.532 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => HTTP: null
+10:59:08.532 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => TRACER: noop
+10:59:08.532 [main] INFO  n.d.o.c.settings.SettingsBuilder - Executor => DEFAULT: 50
+10:59:08.532 [main] INFO  n.d.o.c.settings.SettingsBuilder - Executor => STATISTICS: 50
+10:59:08.532 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tag => GENERATOR: noop
+10:59:08.532 [main] INFO  n.d.o.c.settings.SettingsBuilder - Timestamp => SERVICE: system
+10:59:08.532 [main] INFO  n.d.o.c.settings.SettingsBuilder - Evidence => SERVICE: rem
+10:59:08.532 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transformer => DETECTOR: legacy
+10:59:08.532 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transformer => WRAPPER: xml
+10:59:08.532 [main] INFO  n.d.o.c.settings.SettingsBuilder - Statistics => SERVICE: noop
+10:59:08.532 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transmission => VERIFIER: default
+10:59:08.532 [main] INFO  n.d.o.c.settings.SettingsBuilder - Logging => CONFIG: null
+10:59:08.532 [main] INFO  n.d.o.c.settings.SettingsBuilder - Logging => SERVICE: logback
+10:59:08.547 [main] INFO  n.d.o.o.t.MessageSenderFactory - Prioritized list of transport profiles:
+10:59:08.547 [main] INFO  n.d.o.o.t.MessageSenderFactory - => busdox-transport-as2-ver1p0r1
+10:59:08.547 [main] INFO  n.d.o.o.t.MessageSenderFactory - => busdox-transport-as2-ver1p0
+10:59:08.563 [main] INFO  n.d.oxalis.commons.mode.ModeModule - Detected mode: TEST
+10:59:09.227 [main] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+10:59:09.252 [main] INFO  o.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+10:59:09.300 [main] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.2.1 created.
+10:59:09.300 [main] INFO  o.q.p.x.XMLSchedulingDataProcessorPlugin - Registering Quartz Job Initialization Plug-in.
+10:59:09.316 [main] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+10:59:09.316 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.2.1) 'QuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 5 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+10:59:09.317 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'QuartzScheduler' initialized from an externally provided properties instance.
+10:59:09.317 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.2.1
+10:59:09.317 [main] INFO  org.quartz.core.QuartzScheduler - JobFactory set to: it.eng.intercenter.oxalis.quartz.scheduler.GuiceJobFactory@2a1edad4
+10:59:09.326 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Parsing XML file: quartz-config.xml with systemId: quartz-config.xml
+10:59:09.412 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Adding 1 jobs, 1 triggers.
+10:59:09.412 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Adding job: default_job_group.JobTest
+10:59:09.412 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler QuartzScheduler_$_NON_CLUSTERED started.
+10:59:09.412 [main] WARN  n.d.o.sniffer.document.NoSbdhParser - You have enabled support for automatic detection of content. This functionality will be turned of by default in version 4.1 and removed in version 4.2/5.0. Use configuration "oxalis.transformer.detector = noop" to disable it today.
+10:59:09.746 [pool-2-thread-1] WARN  n.d.o.o.t.TransmissionRequestBuilder - Endpoint was set by caller not retrieved from SMP, make sure this is intended behaviour.
+10:59:09.808 [main] ERROR eu.sendregning.oxalis.Main - Execution failed: no.difi.oxalis.api.lang.OxalisTransmissionException: Unable to verify certificate of receiving access point.
+java.util.concurrent.ExecutionException: no.difi.oxalis.api.lang.OxalisTransmissionException: Unable to verify certificate of receiving access point.
+	at java.util.concurrent.FutureTask.report(Unknown Source)
+	at java.util.concurrent.FutureTask.get(Unknown Source)
+	at eu.sendregning.oxalis.Main.main(Main.java:230)
+Caused by: no.difi.oxalis.api.lang.OxalisTransmissionException: Unable to verify certificate of receiving access point.
+	at no.difi.oxalis.outbound.transmission.DefaultTransmitter.perform(DefaultTransmitter.java:162)
+	at no.difi.oxalis.outbound.transmission.DefaultTransmitter.transmit(DefaultTransmitter.java:93)
+	at eu.sendregning.oxalis.TransmissionTask.performTransmission(TransmissionTask.java:168)
+	at eu.sendregning.oxalis.TransmissionTask.call(TransmissionTask.java:96)
+	at eu.sendregning.oxalis.TransmissionTask.call(TransmissionTask.java:49)
+	at java.util.concurrent.FutureTask.run(Unknown Source)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Unknown Source)
+	at java.util.concurrent.FutureTask.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: no.difi.vefa.peppol.security.lang.PeppolSecurityException: Validation of subject principal(CN) failed.
+	at no.difi.vefa.peppol.security.util.DifiCertificateValidator.validate(DifiCertificateValidator.java:64)
+	at no.difi.oxalis.commons.mode.OxalisCertificateValidator.perform(OxalisCertificateValidator.java:48)
+	at no.difi.oxalis.commons.mode.OxalisCertificateValidator.validate(OxalisCertificateValidator.java:38)
+	at no.difi.oxalis.outbound.transmission.DefaultTransmitter.perform(DefaultTransmitter.java:127)
+	... 10 common frames omitted
+Caused by: no.difi.certvalidator.api.FailedValidationException: Validation of subject principal(CN) failed.
+	at no.difi.certvalidator.rule.PrincipalNameRule.validate(PrincipalNameRule.java:68)
+	at no.difi.certvalidator.structure.AndJunction.validate(AndJunction.java:29)
+	at no.difi.certvalidator.structure.AbstractJunction.validate(AbstractJunction.java:36)
+	at no.difi.certvalidator.util.CachedValidatorRule.load(CachedValidatorRule.java:43)
+	at no.difi.certvalidator.util.CachedValidatorRule.load(CachedValidatorRule.java:13)
+	at com.google.common.cache.LocalCache$LoadingValueReference.loadFuture(LocalCache.java:3528)
+	at com.google.common.cache.LocalCache$Segment.loadSync(LocalCache.java:2277)
+	at com.google.common.cache.LocalCache$Segment.lockedGetOrLoad(LocalCache.java:2154)
+	at com.google.common.cache.LocalCache$Segment.get(LocalCache.java:2044)
+	at com.google.common.cache.LocalCache.get(LocalCache.java:3952)
+	at com.google.common.cache.LocalCache.getOrLoad(LocalCache.java:3974)
+	at com.google.common.cache.LocalCache$LocalLoadingCache.get(LocalCache.java:4958)
+	at com.google.common.cache.LocalCache$LocalLoadingCache.getUnchecked(LocalCache.java:4964)
+	at no.difi.certvalidator.util.CachedValidatorRule.validate(CachedValidatorRule.java:30)
+	at no.difi.certvalidator.util.CachedValidatorRule.validate(CachedValidatorRule.java:35)
+	at no.difi.certvalidator.ValidatorGroup.validate(ValidatorGroup.java:79)
+	at no.difi.certvalidator.ValidatorGroup.validate(ValidatorGroup.java:70)
+	at no.difi.vefa.peppol.security.util.DifiCertificateValidator.validate(DifiCertificateValidator.java:62)
+	... 13 common frames omitted
+11:00:41.568 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Home folder: C:\Users\MGozzi\.oxalis
+11:00:41.583 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Configuration folder: C:\Users\MGozzi\.oxalis
+11:00:41.583 [main] INFO  n.d.o.commons.config.ConfigModule - Configuration file: C:\Users\MGozzi\.oxalis\oxalis.conf
+11:00:41.599 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => CONF: 
+11:00:41.599 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => INBOUND: /var/peppol/IN
+11:00:41.599 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => PLUGIN: oxalis-plugin
+11:00:41.713 [main] INFO  n.d.o.commons.quartz.QuartzModule - JobTest has been binded
+11:00:41.713 [main] INFO  n.d.o.commons.quartz.QuartzModule - Scheduler has been binded
+11:00:42.081 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Home folder: C:\Users\MGozzi\.oxalis
+11:00:42.097 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Configuration folder: C:\Users\MGozzi\.oxalis
+11:00:42.097 [main] INFO  n.d.o.commons.config.ConfigModule - Configuration file: C:\Users\MGozzi\.oxalis\oxalis.conf
+11:00:42.097 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => POOL_TOTAL: 20
+11:00:42.097 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => POOL_MAX_ROUTE: 2
+11:00:42.097 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => TIMEOUT_CONNECT: 0
+11:00:42.097 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => TIMEOUT_READ: 0
+11:00:42.097 [main] INFO  n.d.o.c.settings.SettingsBuilder - Error => TRACKER: quiet
+11:00:42.097 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => HOSTNAME: 
+11:00:42.097 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => NOTIFICATION: not.in.use@difi.no
+11:00:42.097 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => MSGID_GENERATOR: default
+11:00:42.097 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => CONF: 
+11:00:42.097 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => INBOUND: /var/peppol/IN
+11:00:42.097 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => PLUGIN: oxalis-plugin
+11:00:42.097 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => PATH: peppol-keystore.jks
+11:00:42.097 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => PASSWORD: peppol
+11:00:42.097 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => KEY_ALIAS: 1
+11:00:42.097 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => KEY_PASSWORD: peppol
+11:00:42.097 [main] INFO  n.d.o.c.settings.SettingsBuilder - Header => PARSER: sbdh
+11:00:42.097 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => PAYLOAD: default
+11:00:42.097 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => RECEIPT: plugin
+11:00:42.097 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => EXCEPTION: default
+11:00:42.097 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => HANDLER: default
+11:00:42.097 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => REPORTER: noop
+11:00:42.097 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => HTTP: null
+11:00:42.097 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => TRACER: noop
+11:00:42.097 [main] INFO  n.d.o.c.settings.SettingsBuilder - Executor => DEFAULT: 50
+11:00:42.097 [main] INFO  n.d.o.c.settings.SettingsBuilder - Executor => STATISTICS: 50
+11:00:42.097 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tag => GENERATOR: noop
+11:00:42.097 [main] INFO  n.d.o.c.settings.SettingsBuilder - Timestamp => SERVICE: system
+11:00:42.097 [main] INFO  n.d.o.c.settings.SettingsBuilder - Evidence => SERVICE: rem
+11:00:42.097 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transformer => DETECTOR: legacy
+11:00:42.097 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transformer => WRAPPER: xml
+11:00:42.097 [main] INFO  n.d.o.c.settings.SettingsBuilder - Statistics => SERVICE: noop
+11:00:42.097 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transmission => VERIFIER: default
+11:00:42.097 [main] INFO  n.d.o.c.settings.SettingsBuilder - Logging => CONFIG: null
+11:00:42.097 [main] INFO  n.d.o.c.settings.SettingsBuilder - Logging => SERVICE: logback
+11:00:42.097 [main] INFO  n.d.o.o.t.MessageSenderFactory - Prioritized list of transport profiles:
+11:00:42.097 [main] INFO  n.d.o.o.t.MessageSenderFactory - => busdox-transport-as2-ver1p0r1
+11:00:42.097 [main] INFO  n.d.o.o.t.MessageSenderFactory - => busdox-transport-as2-ver1p0
+11:00:42.112 [main] INFO  n.d.oxalis.commons.mode.ModeModule - Detected mode: TEST
+11:00:42.769 [main] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+11:00:42.769 [main] INFO  o.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+11:00:42.769 [main] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.2.1 created.
+11:00:42.769 [main] INFO  o.q.p.x.XMLSchedulingDataProcessorPlugin - Registering Quartz Job Initialization Plug-in.
+11:00:42.785 [main] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+11:00:42.785 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.2.1) 'QuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 5 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+11:00:42.785 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'QuartzScheduler' initialized from an externally provided properties instance.
+11:00:42.785 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.2.1
+11:00:42.785 [main] INFO  org.quartz.core.QuartzScheduler - JobFactory set to: it.eng.intercenter.oxalis.quartz.scheduler.GuiceJobFactory@2a1edad4
+11:00:42.850 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Parsing XML file: quartz-config.xml with systemId: quartz-config.xml
+11:00:42.928 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Adding 1 jobs, 1 triggers.
+11:00:42.928 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Adding job: default_job_group.JobTest
+11:00:42.928 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler QuartzScheduler_$_NON_CLUSTERED started.
+11:00:42.928 [main] WARN  n.d.o.sniffer.document.NoSbdhParser - You have enabled support for automatic detection of content. This functionality will be turned of by default in version 4.1 and removed in version 4.2/5.0. Use configuration "oxalis.transformer.detector = noop" to disable it today.
+11:00:43.260 [pool-2-thread-1] WARN  n.d.o.o.t.TransmissionRequestBuilder - Endpoint was set by caller not retrieved from SMP, make sure this is intended behaviour.
+11:00:43.334 [main] ERROR eu.sendregning.oxalis.Main - Execution failed: no.difi.oxalis.api.lang.OxalisTransmissionException: Unable to verify certificate of receiving access point.
+java.util.concurrent.ExecutionException: no.difi.oxalis.api.lang.OxalisTransmissionException: Unable to verify certificate of receiving access point.
+	at java.util.concurrent.FutureTask.report(Unknown Source)
+	at java.util.concurrent.FutureTask.get(Unknown Source)
+	at eu.sendregning.oxalis.Main.main(Main.java:230)
+Caused by: no.difi.oxalis.api.lang.OxalisTransmissionException: Unable to verify certificate of receiving access point.
+	at no.difi.oxalis.outbound.transmission.DefaultTransmitter.perform(DefaultTransmitter.java:162)
+	at no.difi.oxalis.outbound.transmission.DefaultTransmitter.transmit(DefaultTransmitter.java:93)
+	at eu.sendregning.oxalis.TransmissionTask.performTransmission(TransmissionTask.java:168)
+	at eu.sendregning.oxalis.TransmissionTask.call(TransmissionTask.java:96)
+	at eu.sendregning.oxalis.TransmissionTask.call(TransmissionTask.java:49)
+	at java.util.concurrent.FutureTask.run(Unknown Source)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Unknown Source)
+	at java.util.concurrent.FutureTask.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: no.difi.vefa.peppol.security.lang.PeppolSecurityException: Validation of subject principal(CN) failed.
+	at no.difi.vefa.peppol.security.util.DifiCertificateValidator.validate(DifiCertificateValidator.java:64)
+	at no.difi.oxalis.commons.mode.OxalisCertificateValidator.perform(OxalisCertificateValidator.java:48)
+	at no.difi.oxalis.commons.mode.OxalisCertificateValidator.validate(OxalisCertificateValidator.java:38)
+	at no.difi.oxalis.outbound.transmission.DefaultTransmitter.perform(DefaultTransmitter.java:127)
+	... 10 common frames omitted
+Caused by: no.difi.certvalidator.api.FailedValidationException: Validation of subject principal(CN) failed.
+	at no.difi.certvalidator.rule.PrincipalNameRule.validate(PrincipalNameRule.java:68)
+	at no.difi.certvalidator.structure.AndJunction.validate(AndJunction.java:29)
+	at no.difi.certvalidator.structure.AbstractJunction.validate(AbstractJunction.java:36)
+	at no.difi.certvalidator.util.CachedValidatorRule.load(CachedValidatorRule.java:43)
+	at no.difi.certvalidator.util.CachedValidatorRule.load(CachedValidatorRule.java:13)
+	at com.google.common.cache.LocalCache$LoadingValueReference.loadFuture(LocalCache.java:3528)
+	at com.google.common.cache.LocalCache$Segment.loadSync(LocalCache.java:2277)
+	at com.google.common.cache.LocalCache$Segment.lockedGetOrLoad(LocalCache.java:2154)
+	at com.google.common.cache.LocalCache$Segment.get(LocalCache.java:2044)
+	at com.google.common.cache.LocalCache.get(LocalCache.java:3952)
+	at com.google.common.cache.LocalCache.getOrLoad(LocalCache.java:3974)
+	at com.google.common.cache.LocalCache$LocalLoadingCache.get(LocalCache.java:4958)
+	at com.google.common.cache.LocalCache$LocalLoadingCache.getUnchecked(LocalCache.java:4964)
+	at no.difi.certvalidator.util.CachedValidatorRule.validate(CachedValidatorRule.java:30)
+	at no.difi.certvalidator.util.CachedValidatorRule.validate(CachedValidatorRule.java:35)
+	at no.difi.certvalidator.ValidatorGroup.validate(ValidatorGroup.java:79)
+	at no.difi.certvalidator.ValidatorGroup.validate(ValidatorGroup.java:70)
+	at no.difi.vefa.peppol.security.util.DifiCertificateValidator.validate(DifiCertificateValidator.java:62)
+	... 13 common frames omitted
+11:02:36.264 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Home folder: C:\Users\MGozzi\.oxalis
+11:02:36.264 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Configuration folder: C:\Users\MGozzi\.oxalis
+11:02:36.264 [main] INFO  n.d.o.commons.config.ConfigModule - Configuration file: C:\Users\MGozzi\.oxalis\oxalis.conf
+11:02:36.279 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => CONF: 
+11:02:36.279 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => INBOUND: /var/peppol/IN
+11:02:36.279 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => PLUGIN: oxalis-plugin
+11:02:36.406 [main] INFO  n.d.o.commons.quartz.QuartzModule - JobTest has been binded
+11:02:36.406 [main] INFO  n.d.o.commons.quartz.QuartzModule - Scheduler has been binded
+11:02:36.823 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Home folder: C:\Users\MGozzi\.oxalis
+11:02:36.823 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Configuration folder: C:\Users\MGozzi\.oxalis
+11:02:36.823 [main] INFO  n.d.o.commons.config.ConfigModule - Configuration file: C:\Users\MGozzi\.oxalis\oxalis.conf
+11:02:36.823 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => POOL_TOTAL: 20
+11:02:36.823 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => POOL_MAX_ROUTE: 2
+11:02:36.823 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => TIMEOUT_CONNECT: 0
+11:02:36.823 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => TIMEOUT_READ: 0
+11:02:36.823 [main] INFO  n.d.o.c.settings.SettingsBuilder - Error => TRACKER: quiet
+11:02:36.823 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => HOSTNAME: 
+11:02:36.823 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => NOTIFICATION: not.in.use@difi.no
+11:02:36.823 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => MSGID_GENERATOR: default
+11:02:36.823 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => CONF: 
+11:02:36.823 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => INBOUND: /var/peppol/IN
+11:02:36.823 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => PLUGIN: oxalis-plugin
+11:02:36.823 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => PATH: peppol-keystore.jks
+11:02:36.823 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => PASSWORD: peppol
+11:02:36.823 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => KEY_ALIAS: 1
+11:02:36.823 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => KEY_PASSWORD: peppol
+11:02:36.823 [main] INFO  n.d.o.c.settings.SettingsBuilder - Header => PARSER: sbdh
+11:02:36.823 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => PAYLOAD: default
+11:02:36.823 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => RECEIPT: plugin
+11:02:36.823 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => EXCEPTION: default
+11:02:36.823 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => HANDLER: default
+11:02:36.823 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => REPORTER: noop
+11:02:36.823 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => HTTP: null
+11:02:36.823 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => TRACER: noop
+11:02:36.823 [main] INFO  n.d.o.c.settings.SettingsBuilder - Executor => DEFAULT: 50
+11:02:36.823 [main] INFO  n.d.o.c.settings.SettingsBuilder - Executor => STATISTICS: 50
+11:02:36.823 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tag => GENERATOR: noop
+11:02:36.823 [main] INFO  n.d.o.c.settings.SettingsBuilder - Timestamp => SERVICE: system
+11:02:36.823 [main] INFO  n.d.o.c.settings.SettingsBuilder - Evidence => SERVICE: rem
+11:02:36.823 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transformer => DETECTOR: legacy
+11:02:36.823 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transformer => WRAPPER: xml
+11:02:36.823 [main] INFO  n.d.o.c.settings.SettingsBuilder - Statistics => SERVICE: noop
+11:02:36.823 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transmission => VERIFIER: default
+11:02:36.823 [main] INFO  n.d.o.c.settings.SettingsBuilder - Logging => CONFIG: null
+11:02:36.823 [main] INFO  n.d.o.c.settings.SettingsBuilder - Logging => SERVICE: logback
+11:02:36.823 [main] INFO  n.d.o.o.t.MessageSenderFactory - Prioritized list of transport profiles:
+11:02:36.823 [main] INFO  n.d.o.o.t.MessageSenderFactory - => busdox-transport-as2-ver1p0r1
+11:02:36.823 [main] INFO  n.d.o.o.t.MessageSenderFactory - => busdox-transport-as2-ver1p0
+11:02:36.854 [main] INFO  n.d.oxalis.commons.mode.ModeModule - Detected mode: TEST
+11:02:37.615 [main] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+11:02:37.637 [main] INFO  o.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+11:02:37.638 [main] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.2.1 created.
+11:02:37.639 [main] INFO  o.q.p.x.XMLSchedulingDataProcessorPlugin - Registering Quartz Job Initialization Plug-in.
+11:02:37.640 [main] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+11:02:37.693 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.2.1) 'QuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 5 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+11:02:37.693 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'QuartzScheduler' initialized from an externally provided properties instance.
+11:02:37.693 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.2.1
+11:02:37.693 [main] INFO  org.quartz.core.QuartzScheduler - JobFactory set to: it.eng.intercenter.oxalis.quartz.scheduler.GuiceJobFactory@2a1edad4
+11:02:37.709 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Parsing XML file: quartz-config.xml with systemId: quartz-config.xml
+11:02:37.802 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Adding 1 jobs, 1 triggers.
+11:02:37.802 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Adding job: default_job_group.JobTest
+11:02:37.802 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler QuartzScheduler_$_NON_CLUSTERED started.
+11:02:37.802 [main] WARN  n.d.o.sniffer.document.NoSbdhParser - You have enabled support for automatic detection of content. This functionality will be turned of by default in version 4.1 and removed in version 4.2/5.0. Use configuration "oxalis.transformer.detector = noop" to disable it today.
+11:02:38.155 [pool-2-thread-1] WARN  n.d.o.o.t.TransmissionRequestBuilder - Endpoint was set by caller not retrieved from SMP, make sure this is intended behaviour.
+11:02:38.249 [main] ERROR eu.sendregning.oxalis.Main - Execution failed: no.difi.oxalis.api.lang.OxalisTransmissionException: Unable to verify certificate of receiving access point.
+java.util.concurrent.ExecutionException: no.difi.oxalis.api.lang.OxalisTransmissionException: Unable to verify certificate of receiving access point.
+	at java.util.concurrent.FutureTask.report(Unknown Source)
+	at java.util.concurrent.FutureTask.get(Unknown Source)
+	at eu.sendregning.oxalis.Main.main(Main.java:230)
+Caused by: no.difi.oxalis.api.lang.OxalisTransmissionException: Unable to verify certificate of receiving access point.
+	at no.difi.oxalis.outbound.transmission.DefaultTransmitter.perform(DefaultTransmitter.java:162)
+	at no.difi.oxalis.outbound.transmission.DefaultTransmitter.transmit(DefaultTransmitter.java:93)
+	at eu.sendregning.oxalis.TransmissionTask.performTransmission(TransmissionTask.java:168)
+	at eu.sendregning.oxalis.TransmissionTask.call(TransmissionTask.java:96)
+	at eu.sendregning.oxalis.TransmissionTask.call(TransmissionTask.java:49)
+	at java.util.concurrent.FutureTask.run(Unknown Source)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Unknown Source)
+	at java.util.concurrent.FutureTask.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: no.difi.vefa.peppol.security.lang.PeppolSecurityException: Validation of subject principal(CN) failed.
+	at no.difi.vefa.peppol.security.util.DifiCertificateValidator.validate(DifiCertificateValidator.java:64)
+	at no.difi.oxalis.commons.mode.OxalisCertificateValidator.perform(OxalisCertificateValidator.java:48)
+	at no.difi.oxalis.commons.mode.OxalisCertificateValidator.validate(OxalisCertificateValidator.java:38)
+	at no.difi.oxalis.outbound.transmission.DefaultTransmitter.perform(DefaultTransmitter.java:127)
+	... 10 common frames omitted
+Caused by: no.difi.certvalidator.api.FailedValidationException: Validation of subject principal(CN) failed.
+	at no.difi.certvalidator.rule.PrincipalNameRule.validate(PrincipalNameRule.java:68)
+	at no.difi.certvalidator.structure.AndJunction.validate(AndJunction.java:29)
+	at no.difi.certvalidator.structure.AbstractJunction.validate(AbstractJunction.java:36)
+	at no.difi.certvalidator.util.CachedValidatorRule.load(CachedValidatorRule.java:43)
+	at no.difi.certvalidator.util.CachedValidatorRule.load(CachedValidatorRule.java:13)
+	at com.google.common.cache.LocalCache$LoadingValueReference.loadFuture(LocalCache.java:3528)
+	at com.google.common.cache.LocalCache$Segment.loadSync(LocalCache.java:2277)
+	at com.google.common.cache.LocalCache$Segment.lockedGetOrLoad(LocalCache.java:2154)
+	at com.google.common.cache.LocalCache$Segment.get(LocalCache.java:2044)
+	at com.google.common.cache.LocalCache.get(LocalCache.java:3952)
+	at com.google.common.cache.LocalCache.getOrLoad(LocalCache.java:3974)
+	at com.google.common.cache.LocalCache$LocalLoadingCache.get(LocalCache.java:4958)
+	at com.google.common.cache.LocalCache$LocalLoadingCache.getUnchecked(LocalCache.java:4964)
+	at no.difi.certvalidator.util.CachedValidatorRule.validate(CachedValidatorRule.java:30)
+	at no.difi.certvalidator.util.CachedValidatorRule.validate(CachedValidatorRule.java:35)
+	at no.difi.certvalidator.ValidatorGroup.validate(ValidatorGroup.java:79)
+	at no.difi.certvalidator.ValidatorGroup.validate(ValidatorGroup.java:70)
+	at no.difi.vefa.peppol.security.util.DifiCertificateValidator.validate(DifiCertificateValidator.java:62)
+	... 13 common frames omitted
+11:05:33.841 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Home folder: C:\Users\MGozzi\.oxalis
+11:05:33.857 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Configuration folder: C:\Users\MGozzi\.oxalis
+11:05:33.857 [main] INFO  n.d.o.commons.config.ConfigModule - Configuration file: C:\Users\MGozzi\.oxalis\oxalis.conf
+11:05:33.873 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => CONF: 
+11:05:33.873 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => INBOUND: /var/peppol/IN
+11:05:33.873 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => PLUGIN: oxalis-plugin
+11:05:33.998 [main] INFO  n.d.o.commons.quartz.QuartzModule - JobTest has been binded
+11:05:33.998 [main] INFO  n.d.o.commons.quartz.QuartzModule - Scheduler has been binded
+11:05:34.411 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Home folder: C:\Users\MGozzi\.oxalis
+11:05:34.411 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Configuration folder: C:\Users\MGozzi\.oxalis
+11:05:34.411 [main] INFO  n.d.o.commons.config.ConfigModule - Configuration file: C:\Users\MGozzi\.oxalis\oxalis.conf
+11:05:34.411 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => POOL_TOTAL: 20
+11:05:34.411 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => POOL_MAX_ROUTE: 2
+11:05:34.411 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => TIMEOUT_CONNECT: 0
+11:05:34.411 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => TIMEOUT_READ: 0
+11:05:34.411 [main] INFO  n.d.o.c.settings.SettingsBuilder - Error => TRACKER: quiet
+11:05:34.411 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => HOSTNAME: 
+11:05:34.411 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => NOTIFICATION: not.in.use@difi.no
+11:05:34.411 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => MSGID_GENERATOR: default
+11:05:34.411 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => CONF: 
+11:05:34.411 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => INBOUND: /var/peppol/IN
+11:05:34.411 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => PLUGIN: oxalis-plugin
+11:05:34.411 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => PATH: peppol-keystore.jks
+11:05:34.411 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => PASSWORD: peppol
+11:05:34.411 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => KEY_ALIAS: 1
+11:05:34.411 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => KEY_PASSWORD: peppol
+11:05:34.411 [main] INFO  n.d.o.c.settings.SettingsBuilder - Header => PARSER: sbdh
+11:05:34.411 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => PAYLOAD: default
+11:05:34.411 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => RECEIPT: plugin
+11:05:34.411 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => EXCEPTION: default
+11:05:34.411 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => HANDLER: default
+11:05:34.411 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => REPORTER: noop
+11:05:34.411 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => HTTP: null
+11:05:34.411 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => TRACER: noop
+11:05:34.411 [main] INFO  n.d.o.c.settings.SettingsBuilder - Executor => DEFAULT: 50
+11:05:34.411 [main] INFO  n.d.o.c.settings.SettingsBuilder - Executor => STATISTICS: 50
+11:05:34.411 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tag => GENERATOR: noop
+11:05:34.411 [main] INFO  n.d.o.c.settings.SettingsBuilder - Timestamp => SERVICE: system
+11:05:34.411 [main] INFO  n.d.o.c.settings.SettingsBuilder - Evidence => SERVICE: rem
+11:05:34.411 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transformer => DETECTOR: legacy
+11:05:34.411 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transformer => WRAPPER: xml
+11:05:34.411 [main] INFO  n.d.o.c.settings.SettingsBuilder - Statistics => SERVICE: noop
+11:05:34.411 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transmission => VERIFIER: default
+11:05:34.411 [main] INFO  n.d.o.c.settings.SettingsBuilder - Logging => CONFIG: null
+11:05:34.411 [main] INFO  n.d.o.c.settings.SettingsBuilder - Logging => SERVICE: logback
+11:05:34.411 [main] INFO  n.d.o.o.t.MessageSenderFactory - Prioritized list of transport profiles:
+11:05:34.411 [main] INFO  n.d.o.o.t.MessageSenderFactory - => busdox-transport-as2-ver1p0r1
+11:05:34.411 [main] INFO  n.d.o.o.t.MessageSenderFactory - => busdox-transport-as2-ver1p0
+11:05:34.426 [main] INFO  n.d.oxalis.commons.mode.ModeModule - Detected mode: TEST
+11:05:35.104 [main] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+11:05:35.119 [main] INFO  o.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+11:05:35.166 [main] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.2.1 created.
+11:05:35.166 [main] INFO  o.q.p.x.XMLSchedulingDataProcessorPlugin - Registering Quartz Job Initialization Plug-in.
+11:05:35.166 [main] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+11:05:35.166 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.2.1) 'QuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 5 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+11:05:35.166 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'QuartzScheduler' initialized from an externally provided properties instance.
+11:05:35.166 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.2.1
+11:05:35.166 [main] INFO  org.quartz.core.QuartzScheduler - JobFactory set to: it.eng.intercenter.oxalis.quartz.scheduler.GuiceJobFactory@2a1edad4
+11:05:35.182 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Parsing XML file: quartz-config.xml with systemId: quartz-config.xml
+11:05:35.269 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Adding 1 jobs, 1 triggers.
+11:05:35.269 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Adding job: default_job_group.JobTest
+11:05:35.269 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler QuartzScheduler_$_NON_CLUSTERED started.
+11:05:35.284 [main] WARN  n.d.o.sniffer.document.NoSbdhParser - You have enabled support for automatic detection of content. This functionality will be turned of by default in version 4.1 and removed in version 4.2/5.0. Use configuration "oxalis.transformer.detector = noop" to disable it today.
+11:05:39.992 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Home folder: C:\Users\MGozzi\.oxalis
+11:05:39.992 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Configuration folder: C:\Users\MGozzi\.oxalis
+11:05:39.992 [main] INFO  n.d.o.commons.config.ConfigModule - Configuration file: C:\Users\MGozzi\.oxalis\oxalis.conf
+11:05:40.008 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => CONF: 
+11:05:40.008 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => INBOUND: /var/peppol/IN
+11:05:40.008 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => PLUGIN: oxalis-plugin
+11:05:40.134 [main] INFO  n.d.o.commons.quartz.QuartzModule - JobTest has been binded
+11:05:40.134 [main] INFO  n.d.o.commons.quartz.QuartzModule - Scheduler has been binded
+11:05:40.534 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Home folder: C:\Users\MGozzi\.oxalis
+11:05:40.534 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Configuration folder: C:\Users\MGozzi\.oxalis
+11:05:40.534 [main] INFO  n.d.o.commons.config.ConfigModule - Configuration file: C:\Users\MGozzi\.oxalis\oxalis.conf
+11:05:40.534 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => POOL_TOTAL: 20
+11:05:40.534 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => POOL_MAX_ROUTE: 2
+11:05:40.534 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => TIMEOUT_CONNECT: 0
+11:05:40.534 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => TIMEOUT_READ: 0
+11:05:40.534 [main] INFO  n.d.o.c.settings.SettingsBuilder - Error => TRACKER: quiet
+11:05:40.534 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => HOSTNAME: 
+11:05:40.549 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => NOTIFICATION: not.in.use@difi.no
+11:05:40.549 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => MSGID_GENERATOR: default
+11:05:40.549 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => CONF: 
+11:05:40.549 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => INBOUND: /var/peppol/IN
+11:05:40.549 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => PLUGIN: oxalis-plugin
+11:05:40.549 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => PATH: peppol-keystore.jks
+11:05:40.549 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => PASSWORD: peppol
+11:05:40.549 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => KEY_ALIAS: 1
+11:05:40.549 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => KEY_PASSWORD: peppol
+11:05:40.549 [main] INFO  n.d.o.c.settings.SettingsBuilder - Header => PARSER: sbdh
+11:05:40.549 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => PAYLOAD: default
+11:05:40.549 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => RECEIPT: plugin
+11:05:40.549 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => EXCEPTION: default
+11:05:40.549 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => HANDLER: default
+11:05:40.549 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => REPORTER: noop
+11:05:40.549 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => HTTP: null
+11:05:40.549 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => TRACER: noop
+11:05:40.549 [main] INFO  n.d.o.c.settings.SettingsBuilder - Executor => DEFAULT: 50
+11:05:40.549 [main] INFO  n.d.o.c.settings.SettingsBuilder - Executor => STATISTICS: 50
+11:05:40.549 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tag => GENERATOR: noop
+11:05:40.549 [main] INFO  n.d.o.c.settings.SettingsBuilder - Timestamp => SERVICE: system
+11:05:40.549 [main] INFO  n.d.o.c.settings.SettingsBuilder - Evidence => SERVICE: rem
+11:05:40.549 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transformer => DETECTOR: legacy
+11:05:40.549 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transformer => WRAPPER: xml
+11:05:40.549 [main] INFO  n.d.o.c.settings.SettingsBuilder - Statistics => SERVICE: noop
+11:05:40.549 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transmission => VERIFIER: default
+11:05:40.549 [main] INFO  n.d.o.c.settings.SettingsBuilder - Logging => CONFIG: null
+11:05:40.549 [main] INFO  n.d.o.c.settings.SettingsBuilder - Logging => SERVICE: logback
+11:05:40.549 [main] INFO  n.d.o.o.t.MessageSenderFactory - Prioritized list of transport profiles:
+11:05:40.549 [main] INFO  n.d.o.o.t.MessageSenderFactory - => busdox-transport-as2-ver1p0r1
+11:05:40.549 [main] INFO  n.d.o.o.t.MessageSenderFactory - => busdox-transport-as2-ver1p0
+11:05:40.565 [main] INFO  n.d.oxalis.commons.mode.ModeModule - Detected mode: TEST
+11:05:41.213 [main] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+11:05:41.238 [main] INFO  o.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+11:05:41.239 [main] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.2.1 created.
+11:05:41.240 [main] INFO  o.q.p.x.XMLSchedulingDataProcessorPlugin - Registering Quartz Job Initialization Plug-in.
+11:05:41.284 [main] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+11:05:41.284 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.2.1) 'QuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 5 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+11:05:41.284 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'QuartzScheduler' initialized from an externally provided properties instance.
+11:05:41.284 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.2.1
+11:05:41.284 [main] INFO  org.quartz.core.QuartzScheduler - JobFactory set to: it.eng.intercenter.oxalis.quartz.scheduler.GuiceJobFactory@2a1edad4
+11:05:41.300 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Parsing XML file: quartz-config.xml with systemId: quartz-config.xml
+11:05:41.384 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Adding 1 jobs, 1 triggers.
+11:05:41.385 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Adding job: default_job_group.JobTest
+11:05:41.387 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler QuartzScheduler_$_NON_CLUSTERED started.
+11:05:41.393 [main] WARN  n.d.o.sniffer.document.NoSbdhParser - You have enabled support for automatic detection of content. This functionality will be turned of by default in version 4.1 and removed in version 4.2/5.0. Use configuration "oxalis.transformer.detector = noop" to disable it today.
+11:05:41.700 [pool-2-thread-1] WARN  n.d.o.o.t.TransmissionRequestBuilder - Endpoint was set by caller not retrieved from SMP, make sure this is intended behaviour.
+11:05:41.778 [main] ERROR eu.sendregning.oxalis.Main - Execution failed: no.difi.oxalis.api.lang.OxalisTransmissionException: Unable to verify certificate of receiving access point.
+java.util.concurrent.ExecutionException: no.difi.oxalis.api.lang.OxalisTransmissionException: Unable to verify certificate of receiving access point.
+	at java.util.concurrent.FutureTask.report(Unknown Source)
+	at java.util.concurrent.FutureTask.get(Unknown Source)
+	at eu.sendregning.oxalis.Main.main(Main.java:230)
+Caused by: no.difi.oxalis.api.lang.OxalisTransmissionException: Unable to verify certificate of receiving access point.
+	at no.difi.oxalis.outbound.transmission.DefaultTransmitter.perform(DefaultTransmitter.java:162)
+	at no.difi.oxalis.outbound.transmission.DefaultTransmitter.transmit(DefaultTransmitter.java:93)
+	at eu.sendregning.oxalis.TransmissionTask.performTransmission(TransmissionTask.java:168)
+	at eu.sendregning.oxalis.TransmissionTask.call(TransmissionTask.java:96)
+	at eu.sendregning.oxalis.TransmissionTask.call(TransmissionTask.java:49)
+	at java.util.concurrent.FutureTask.run(Unknown Source)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Unknown Source)
+	at java.util.concurrent.FutureTask.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: no.difi.vefa.peppol.security.lang.PeppolSecurityException: Validation of subject principal(CN) failed.
+	at no.difi.vefa.peppol.security.util.DifiCertificateValidator.validate(DifiCertificateValidator.java:64)
+	at no.difi.oxalis.commons.mode.OxalisCertificateValidator.perform(OxalisCertificateValidator.java:48)
+	at no.difi.oxalis.commons.mode.OxalisCertificateValidator.validate(OxalisCertificateValidator.java:38)
+	at no.difi.oxalis.outbound.transmission.DefaultTransmitter.perform(DefaultTransmitter.java:127)
+	... 10 common frames omitted
+Caused by: no.difi.certvalidator.api.FailedValidationException: Validation of subject principal(CN) failed.
+	at no.difi.certvalidator.rule.PrincipalNameRule.validate(PrincipalNameRule.java:68)
+	at no.difi.certvalidator.structure.AndJunction.validate(AndJunction.java:29)
+	at no.difi.certvalidator.structure.AbstractJunction.validate(AbstractJunction.java:36)
+	at no.difi.certvalidator.util.CachedValidatorRule.load(CachedValidatorRule.java:43)
+	at no.difi.certvalidator.util.CachedValidatorRule.load(CachedValidatorRule.java:13)
+	at com.google.common.cache.LocalCache$LoadingValueReference.loadFuture(LocalCache.java:3528)
+	at com.google.common.cache.LocalCache$Segment.loadSync(LocalCache.java:2277)
+	at com.google.common.cache.LocalCache$Segment.lockedGetOrLoad(LocalCache.java:2154)
+	at com.google.common.cache.LocalCache$Segment.get(LocalCache.java:2044)
+	at com.google.common.cache.LocalCache.get(LocalCache.java:3952)
+	at com.google.common.cache.LocalCache.getOrLoad(LocalCache.java:3974)
+	at com.google.common.cache.LocalCache$LocalLoadingCache.get(LocalCache.java:4958)
+	at com.google.common.cache.LocalCache$LocalLoadingCache.getUnchecked(LocalCache.java:4964)
+	at no.difi.certvalidator.util.CachedValidatorRule.validate(CachedValidatorRule.java:30)
+	at no.difi.certvalidator.util.CachedValidatorRule.validate(CachedValidatorRule.java:35)
+	at no.difi.certvalidator.ValidatorGroup.validate(ValidatorGroup.java:79)
+	at no.difi.certvalidator.ValidatorGroup.validate(ValidatorGroup.java:70)
+	at no.difi.vefa.peppol.security.util.DifiCertificateValidator.validate(DifiCertificateValidator.java:62)
+	... 13 common frames omitted
+11:06:46.946 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Home folder: C:\Users\MGozzi\.oxalis
+11:06:46.962 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Configuration folder: C:\Users\MGozzi\.oxalis
+11:06:46.962 [main] INFO  n.d.o.commons.config.ConfigModule - Configuration file: C:\Users\MGozzi\.oxalis\oxalis.conf
+11:06:46.977 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => CONF: 
+11:06:46.977 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => INBOUND: /var/peppol/IN
+11:06:46.977 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => PLUGIN: oxalis-plugin
+11:06:47.087 [main] INFO  n.d.o.commons.quartz.QuartzModule - JobTest has been binded
+11:06:47.087 [main] INFO  n.d.o.commons.quartz.QuartzModule - Scheduler has been binded
+11:06:47.473 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Home folder: C:\Users\MGozzi\.oxalis
+11:06:47.473 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Configuration folder: C:\Users\MGozzi\.oxalis
+11:06:47.473 [main] INFO  n.d.o.commons.config.ConfigModule - Configuration file: C:\Users\MGozzi\.oxalis\oxalis.conf
+11:06:47.473 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => POOL_TOTAL: 20
+11:06:47.473 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => POOL_MAX_ROUTE: 2
+11:06:47.473 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => TIMEOUT_CONNECT: 0
+11:06:47.473 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => TIMEOUT_READ: 0
+11:06:47.473 [main] INFO  n.d.o.c.settings.SettingsBuilder - Error => TRACKER: quiet
+11:06:47.473 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => HOSTNAME: 
+11:06:47.473 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => NOTIFICATION: not.in.use@difi.no
+11:06:47.473 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => MSGID_GENERATOR: default
+11:06:47.473 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => CONF: 
+11:06:47.473 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => INBOUND: /var/peppol/IN
+11:06:47.473 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => PLUGIN: oxalis-plugin
+11:06:47.473 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => PATH: peppol-keystore.jks
+11:06:47.473 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => PASSWORD: peppol
+11:06:47.473 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => KEY_ALIAS: 1
+11:06:47.473 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => KEY_PASSWORD: peppol
+11:06:47.473 [main] INFO  n.d.o.c.settings.SettingsBuilder - Header => PARSER: sbdh
+11:06:47.473 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => PAYLOAD: default
+11:06:47.473 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => RECEIPT: plugin
+11:06:47.473 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => EXCEPTION: default
+11:06:47.473 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => HANDLER: default
+11:06:47.473 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => REPORTER: noop
+11:06:47.473 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => HTTP: null
+11:06:47.473 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => TRACER: noop
+11:06:47.489 [main] INFO  n.d.o.c.settings.SettingsBuilder - Executor => DEFAULT: 50
+11:06:47.489 [main] INFO  n.d.o.c.settings.SettingsBuilder - Executor => STATISTICS: 50
+11:06:47.489 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tag => GENERATOR: noop
+11:06:47.489 [main] INFO  n.d.o.c.settings.SettingsBuilder - Timestamp => SERVICE: system
+11:06:47.489 [main] INFO  n.d.o.c.settings.SettingsBuilder - Evidence => SERVICE: rem
+11:06:47.489 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transformer => DETECTOR: legacy
+11:06:47.489 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transformer => WRAPPER: xml
+11:06:47.489 [main] INFO  n.d.o.c.settings.SettingsBuilder - Statistics => SERVICE: noop
+11:06:47.489 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transmission => VERIFIER: default
+11:06:47.489 [main] INFO  n.d.o.c.settings.SettingsBuilder - Logging => CONFIG: null
+11:06:47.489 [main] INFO  n.d.o.c.settings.SettingsBuilder - Logging => SERVICE: logback
+11:06:47.489 [main] INFO  n.d.o.o.t.MessageSenderFactory - Prioritized list of transport profiles:
+11:06:47.489 [main] INFO  n.d.o.o.t.MessageSenderFactory - => busdox-transport-as2-ver1p0r1
+11:06:47.489 [main] INFO  n.d.o.o.t.MessageSenderFactory - => busdox-transport-as2-ver1p0
+11:06:47.505 [main] INFO  n.d.oxalis.commons.mode.ModeModule - Detected mode: TEST
+11:06:48.130 [main] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+11:06:48.145 [main] INFO  o.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+11:06:48.145 [main] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.2.1 created.
+11:06:48.145 [main] INFO  o.q.p.x.XMLSchedulingDataProcessorPlugin - Registering Quartz Job Initialization Plug-in.
+11:06:48.145 [main] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+11:06:48.145 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.2.1) 'QuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 5 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+11:06:48.145 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'QuartzScheduler' initialized from an externally provided properties instance.
+11:06:48.145 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.2.1
+11:06:48.145 [main] INFO  org.quartz.core.QuartzScheduler - JobFactory set to: it.eng.intercenter.oxalis.quartz.scheduler.GuiceJobFactory@2a1edad4
+11:06:48.223 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Parsing XML file: quartz-config.xml with systemId: quartz-config.xml
+11:06:48.301 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Adding 1 jobs, 1 triggers.
+11:06:48.301 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Adding job: default_job_group.JobTest
+11:06:48.301 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler QuartzScheduler_$_NON_CLUSTERED started.
+11:06:48.301 [main] WARN  n.d.o.sniffer.document.NoSbdhParser - You have enabled support for automatic detection of content. This functionality will be turned of by default in version 4.1 and removed in version 4.2/5.0. Use configuration "oxalis.transformer.detector = noop" to disable it today.
+11:07:04.685 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Home folder: C:\Users\MGozzi\.oxalis
+11:07:04.701 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Configuration folder: C:\Users\MGozzi\.oxalis
+11:07:04.701 [main] INFO  n.d.o.commons.config.ConfigModule - Configuration file: C:\Users\MGozzi\.oxalis\oxalis.conf
+11:07:04.716 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => CONF: 
+11:07:04.716 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => INBOUND: /var/peppol/IN
+11:07:04.716 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => PLUGIN: oxalis-plugin
+11:07:04.837 [main] INFO  n.d.o.commons.quartz.QuartzModule - JobTest has been binded
+11:07:04.837 [main] INFO  n.d.o.commons.quartz.QuartzModule - Scheduler has been binded
+11:07:05.212 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Home folder: C:\Users\MGozzi\.oxalis
+11:07:05.228 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Configuration folder: C:\Users\MGozzi\.oxalis
+11:07:05.228 [main] INFO  n.d.o.commons.config.ConfigModule - Configuration file: C:\Users\MGozzi\.oxalis\oxalis.conf
+11:07:05.230 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => POOL_TOTAL: 20
+11:07:05.230 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => POOL_MAX_ROUTE: 2
+11:07:05.230 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => TIMEOUT_CONNECT: 0
+11:07:05.230 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => TIMEOUT_READ: 0
+11:07:05.230 [main] INFO  n.d.o.c.settings.SettingsBuilder - Error => TRACKER: quiet
+11:07:05.230 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => HOSTNAME: 
+11:07:05.231 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => NOTIFICATION: not.in.use@difi.no
+11:07:05.231 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => MSGID_GENERATOR: default
+11:07:05.231 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => CONF: 
+11:07:05.231 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => INBOUND: /var/peppol/IN
+11:07:05.231 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => PLUGIN: oxalis-plugin
+11:07:05.231 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => PATH: peppol-keystore.jks
+11:07:05.231 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => PASSWORD: peppol
+11:07:05.231 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => KEY_ALIAS: 1
+11:07:05.232 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => KEY_PASSWORD: peppol
+11:07:05.232 [main] INFO  n.d.o.c.settings.SettingsBuilder - Header => PARSER: sbdh
+11:07:05.232 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => PAYLOAD: default
+11:07:05.232 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => RECEIPT: plugin
+11:07:05.232 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => EXCEPTION: default
+11:07:05.232 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => HANDLER: default
+11:07:05.232 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => REPORTER: noop
+11:07:05.232 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => HTTP: null
+11:07:05.233 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => TRACER: noop
+11:07:05.233 [main] INFO  n.d.o.c.settings.SettingsBuilder - Executor => DEFAULT: 50
+11:07:05.233 [main] INFO  n.d.o.c.settings.SettingsBuilder - Executor => STATISTICS: 50
+11:07:05.233 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tag => GENERATOR: noop
+11:07:05.233 [main] INFO  n.d.o.c.settings.SettingsBuilder - Timestamp => SERVICE: system
+11:07:05.233 [main] INFO  n.d.o.c.settings.SettingsBuilder - Evidence => SERVICE: rem
+11:07:05.233 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transformer => DETECTOR: legacy
+11:07:05.233 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transformer => WRAPPER: xml
+11:07:05.234 [main] INFO  n.d.o.c.settings.SettingsBuilder - Statistics => SERVICE: noop
+11:07:05.234 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transmission => VERIFIER: default
+11:07:05.234 [main] INFO  n.d.o.c.settings.SettingsBuilder - Logging => CONFIG: null
+11:07:05.234 [main] INFO  n.d.o.c.settings.SettingsBuilder - Logging => SERVICE: logback
+11:07:05.240 [main] INFO  n.d.o.o.t.MessageSenderFactory - Prioritized list of transport profiles:
+11:07:05.241 [main] INFO  n.d.o.o.t.MessageSenderFactory - => busdox-transport-as2-ver1p0r1
+11:07:05.241 [main] INFO  n.d.o.o.t.MessageSenderFactory - => busdox-transport-as2-ver1p0
+11:07:05.250 [main] INFO  n.d.oxalis.commons.mode.ModeModule - Detected mode: TEST
+11:07:05.868 [main] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+11:07:05.884 [main] INFO  o.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+11:07:05.885 [main] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.2.1 created.
+11:07:05.886 [main] INFO  o.q.p.x.XMLSchedulingDataProcessorPlugin - Registering Quartz Job Initialization Plug-in.
+11:07:05.886 [main] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+11:07:05.886 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.2.1) 'QuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 5 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+11:07:05.886 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'QuartzScheduler' initialized from an externally provided properties instance.
+11:07:05.886 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.2.1
+11:07:05.886 [main] INFO  org.quartz.core.QuartzScheduler - JobFactory set to: it.eng.intercenter.oxalis.quartz.scheduler.GuiceJobFactory@2a1edad4
+11:07:05.949 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Parsing XML file: quartz-config.xml with systemId: quartz-config.xml
+11:07:06.027 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Adding 1 jobs, 1 triggers.
+11:07:06.027 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Adding job: default_job_group.JobTest
+11:07:06.027 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler QuartzScheduler_$_NON_CLUSTERED started.
+11:07:06.027 [main] WARN  n.d.o.sniffer.document.NoSbdhParser - You have enabled support for automatic detection of content. This functionality will be turned of by default in version 4.1 and removed in version 4.2/5.0. Use configuration "oxalis.transformer.detector = noop" to disable it today.
+11:07:06.358 [pool-2-thread-1] WARN  n.d.o.o.t.TransmissionRequestBuilder - Endpoint was set by caller not retrieved from SMP, make sure this is intended behaviour.
+11:07:06.426 [main] ERROR eu.sendregning.oxalis.Main - Execution failed: no.difi.oxalis.api.lang.OxalisTransmissionException: Unable to verify certificate of receiving access point.
+java.util.concurrent.ExecutionException: no.difi.oxalis.api.lang.OxalisTransmissionException: Unable to verify certificate of receiving access point.
+	at java.util.concurrent.FutureTask.report(Unknown Source)
+	at java.util.concurrent.FutureTask.get(Unknown Source)
+	at eu.sendregning.oxalis.Main.main(Main.java:230)
+Caused by: no.difi.oxalis.api.lang.OxalisTransmissionException: Unable to verify certificate of receiving access point.
+	at no.difi.oxalis.outbound.transmission.DefaultTransmitter.perform(DefaultTransmitter.java:162)
+	at no.difi.oxalis.outbound.transmission.DefaultTransmitter.transmit(DefaultTransmitter.java:93)
+	at eu.sendregning.oxalis.TransmissionTask.performTransmission(TransmissionTask.java:168)
+	at eu.sendregning.oxalis.TransmissionTask.call(TransmissionTask.java:96)
+	at eu.sendregning.oxalis.TransmissionTask.call(TransmissionTask.java:49)
+	at java.util.concurrent.FutureTask.run(Unknown Source)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Unknown Source)
+	at java.util.concurrent.FutureTask.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: no.difi.vefa.peppol.security.lang.PeppolSecurityException: Validation of subject principal(CN) failed.
+	at no.difi.vefa.peppol.security.util.DifiCertificateValidator.validate(DifiCertificateValidator.java:64)
+	at no.difi.oxalis.commons.mode.OxalisCertificateValidator.perform(OxalisCertificateValidator.java:48)
+	at no.difi.oxalis.commons.mode.OxalisCertificateValidator.validate(OxalisCertificateValidator.java:38)
+	at no.difi.oxalis.outbound.transmission.DefaultTransmitter.perform(DefaultTransmitter.java:127)
+	... 10 common frames omitted
+Caused by: no.difi.certvalidator.api.FailedValidationException: Validation of subject principal(CN) failed.
+	at no.difi.certvalidator.rule.PrincipalNameRule.validate(PrincipalNameRule.java:68)
+	at no.difi.certvalidator.structure.AndJunction.validate(AndJunction.java:29)
+	at no.difi.certvalidator.structure.AbstractJunction.validate(AbstractJunction.java:36)
+	at no.difi.certvalidator.util.CachedValidatorRule.load(CachedValidatorRule.java:43)
+	at no.difi.certvalidator.util.CachedValidatorRule.load(CachedValidatorRule.java:13)
+	at com.google.common.cache.LocalCache$LoadingValueReference.loadFuture(LocalCache.java:3528)
+	at com.google.common.cache.LocalCache$Segment.loadSync(LocalCache.java:2277)
+	at com.google.common.cache.LocalCache$Segment.lockedGetOrLoad(LocalCache.java:2154)
+	at com.google.common.cache.LocalCache$Segment.get(LocalCache.java:2044)
+	at com.google.common.cache.LocalCache.get(LocalCache.java:3952)
+	at com.google.common.cache.LocalCache.getOrLoad(LocalCache.java:3974)
+	at com.google.common.cache.LocalCache$LocalLoadingCache.get(LocalCache.java:4958)
+	at com.google.common.cache.LocalCache$LocalLoadingCache.getUnchecked(LocalCache.java:4964)
+	at no.difi.certvalidator.util.CachedValidatorRule.validate(CachedValidatorRule.java:30)
+	at no.difi.certvalidator.util.CachedValidatorRule.validate(CachedValidatorRule.java:35)
+	at no.difi.certvalidator.ValidatorGroup.validate(ValidatorGroup.java:79)
+	at no.difi.certvalidator.ValidatorGroup.validate(ValidatorGroup.java:70)
+	at no.difi.vefa.peppol.security.util.DifiCertificateValidator.validate(DifiCertificateValidator.java:62)
+	... 13 common frames omitted
+11:09:03.409 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Home folder: C:\Users\MGozzi\.oxalis
+11:09:03.415 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Configuration folder: C:\Users\MGozzi\.oxalis
+11:09:03.415 [main] INFO  n.d.o.commons.config.ConfigModule - Configuration file: C:\Users\MGozzi\.oxalis\oxalis.conf
+11:09:23.835 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Home folder: C:\Users\MGozzi\.oxalis
+11:09:23.851 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Configuration folder: C:\Users\MGozzi\.oxalis
+11:09:23.851 [main] INFO  n.d.o.commons.config.ConfigModule - Configuration file: C:\Users\MGozzi\.oxalis\oxalis.conf
+11:09:36.987 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Home folder: C:\Users\MGozzi\.oxalis
+11:09:36.987 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Configuration folder: C:\Users\MGozzi\.oxalis
+11:09:36.987 [main] INFO  n.d.o.commons.config.ConfigModule - Configuration file: C:\Users\MGozzi\.oxalis\oxalis.conf
+11:09:37.003 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => CONF: 
+11:09:37.003 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => INBOUND: C:\Users\MGozzi\Desktop
+11:09:37.003 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => PLUGIN: oxalis-plugin
+11:09:37.144 [main] INFO  n.d.o.commons.quartz.QuartzModule - JobTest has been binded
+11:09:37.144 [main] INFO  n.d.o.commons.quartz.QuartzModule - Scheduler has been binded
+11:09:37.600 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Home folder: C:\Users\MGozzi\.oxalis
+11:09:37.600 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Configuration folder: C:\Users\MGozzi\.oxalis
+11:09:37.600 [main] INFO  n.d.o.commons.config.ConfigModule - Configuration file: C:\Users\MGozzi\.oxalis\oxalis.conf
+11:09:37.600 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => POOL_TOTAL: 20
+11:09:37.600 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => POOL_MAX_ROUTE: 2
+11:09:37.600 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => TIMEOUT_CONNECT: 0
+11:09:37.600 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => TIMEOUT_READ: 0
+11:09:37.600 [main] INFO  n.d.o.c.settings.SettingsBuilder - Error => TRACKER: quiet
+11:09:37.600 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => HOSTNAME: 
+11:09:37.600 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => NOTIFICATION: not.in.use@difi.no
+11:09:37.600 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => MSGID_GENERATOR: default
+11:09:37.600 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => CONF: 
+11:09:37.600 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => INBOUND: C:\Users\MGozzi\Desktop
+11:09:37.600 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => PLUGIN: oxalis-plugin
+11:09:37.600 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => PATH: peppol-keystore.jks
+11:09:37.600 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => PASSWORD: peppol
+11:09:37.600 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => KEY_ALIAS: 1
+11:09:37.600 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => KEY_PASSWORD: peppol
+11:09:37.600 [main] INFO  n.d.o.c.settings.SettingsBuilder - Header => PARSER: sbdh
+11:09:37.600 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => PAYLOAD: default
+11:09:37.600 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => RECEIPT: plugin
+11:09:37.600 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => EXCEPTION: default
+11:09:37.600 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => HANDLER: default
+11:09:37.600 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => REPORTER: noop
+11:09:37.600 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => HTTP: null
+11:09:37.600 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => TRACER: noop
+11:09:37.600 [main] INFO  n.d.o.c.settings.SettingsBuilder - Executor => DEFAULT: 50
+11:09:37.600 [main] INFO  n.d.o.c.settings.SettingsBuilder - Executor => STATISTICS: 50
+11:09:37.600 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tag => GENERATOR: noop
+11:09:37.600 [main] INFO  n.d.o.c.settings.SettingsBuilder - Timestamp => SERVICE: system
+11:09:37.600 [main] INFO  n.d.o.c.settings.SettingsBuilder - Evidence => SERVICE: rem
+11:09:37.600 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transformer => DETECTOR: legacy
+11:09:37.600 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transformer => WRAPPER: xml
+11:09:37.600 [main] INFO  n.d.o.c.settings.SettingsBuilder - Statistics => SERVICE: noop
+11:09:37.600 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transmission => VERIFIER: default
+11:09:37.600 [main] INFO  n.d.o.c.settings.SettingsBuilder - Logging => CONFIG: null
+11:09:37.600 [main] INFO  n.d.o.c.settings.SettingsBuilder - Logging => SERVICE: logback
+11:09:37.616 [main] INFO  n.d.o.o.t.MessageSenderFactory - Prioritized list of transport profiles:
+11:09:37.616 [main] INFO  n.d.o.o.t.MessageSenderFactory - => busdox-transport-as2-ver1p0r1
+11:09:37.616 [main] INFO  n.d.o.o.t.MessageSenderFactory - => busdox-transport-as2-ver1p0
+11:09:37.634 [main] INFO  n.d.oxalis.commons.mode.ModeModule - Detected mode: TEST
+11:09:38.411 [main] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+11:09:38.422 [main] INFO  o.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+11:09:38.478 [main] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.2.1 created.
+11:09:38.478 [main] INFO  o.q.p.x.XMLSchedulingDataProcessorPlugin - Registering Quartz Job Initialization Plug-in.
+11:09:38.478 [main] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+11:09:38.478 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.2.1) 'QuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 5 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+11:09:38.478 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'QuartzScheduler' initialized from an externally provided properties instance.
+11:09:38.494 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.2.1
+11:09:38.494 [main] INFO  org.quartz.core.QuartzScheduler - JobFactory set to: it.eng.intercenter.oxalis.quartz.scheduler.GuiceJobFactory@2a1edad4
+11:09:38.494 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Parsing XML file: quartz-config.xml with systemId: quartz-config.xml
+11:09:38.588 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Adding 1 jobs, 1 triggers.
+11:09:38.588 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Adding job: default_job_group.JobTest
+11:09:38.588 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler QuartzScheduler_$_NON_CLUSTERED started.
+11:09:38.603 [main] WARN  n.d.o.sniffer.document.NoSbdhParser - You have enabled support for automatic detection of content. This functionality will be turned of by default in version 4.1 and removed in version 4.2/5.0. Use configuration "oxalis.transformer.detector = noop" to disable it today.
+11:09:38.958 [pool-2-thread-1] WARN  n.d.o.o.t.TransmissionRequestBuilder - Endpoint was set by caller not retrieved from SMP, make sure this is intended behaviour.
+11:09:39.036 [main] ERROR eu.sendregning.oxalis.Main - Execution failed: no.difi.oxalis.api.lang.OxalisTransmissionException: Unable to verify certificate of receiving access point.
+java.util.concurrent.ExecutionException: no.difi.oxalis.api.lang.OxalisTransmissionException: Unable to verify certificate of receiving access point.
+	at java.util.concurrent.FutureTask.report(Unknown Source)
+	at java.util.concurrent.FutureTask.get(Unknown Source)
+	at eu.sendregning.oxalis.Main.main(Main.java:230)
+Caused by: no.difi.oxalis.api.lang.OxalisTransmissionException: Unable to verify certificate of receiving access point.
+	at no.difi.oxalis.outbound.transmission.DefaultTransmitter.perform(DefaultTransmitter.java:162)
+	at no.difi.oxalis.outbound.transmission.DefaultTransmitter.transmit(DefaultTransmitter.java:93)
+	at eu.sendregning.oxalis.TransmissionTask.performTransmission(TransmissionTask.java:168)
+	at eu.sendregning.oxalis.TransmissionTask.call(TransmissionTask.java:96)
+	at eu.sendregning.oxalis.TransmissionTask.call(TransmissionTask.java:49)
+	at java.util.concurrent.FutureTask.run(Unknown Source)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Unknown Source)
+	at java.util.concurrent.FutureTask.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: no.difi.vefa.peppol.security.lang.PeppolSecurityException: Validation of subject principal(CN) failed.
+	at no.difi.vefa.peppol.security.util.DifiCertificateValidator.validate(DifiCertificateValidator.java:64)
+	at no.difi.oxalis.commons.mode.OxalisCertificateValidator.perform(OxalisCertificateValidator.java:48)
+	at no.difi.oxalis.commons.mode.OxalisCertificateValidator.validate(OxalisCertificateValidator.java:38)
+	at no.difi.oxalis.outbound.transmission.DefaultTransmitter.perform(DefaultTransmitter.java:127)
+	... 10 common frames omitted
+Caused by: no.difi.certvalidator.api.FailedValidationException: Validation of subject principal(CN) failed.
+	at no.difi.certvalidator.rule.PrincipalNameRule.validate(PrincipalNameRule.java:68)
+	at no.difi.certvalidator.structure.AndJunction.validate(AndJunction.java:29)
+	at no.difi.certvalidator.structure.AbstractJunction.validate(AbstractJunction.java:36)
+	at no.difi.certvalidator.util.CachedValidatorRule.load(CachedValidatorRule.java:43)
+	at no.difi.certvalidator.util.CachedValidatorRule.load(CachedValidatorRule.java:13)
+	at com.google.common.cache.LocalCache$LoadingValueReference.loadFuture(LocalCache.java:3528)
+	at com.google.common.cache.LocalCache$Segment.loadSync(LocalCache.java:2277)
+	at com.google.common.cache.LocalCache$Segment.lockedGetOrLoad(LocalCache.java:2154)
+	at com.google.common.cache.LocalCache$Segment.get(LocalCache.java:2044)
+	at com.google.common.cache.LocalCache.get(LocalCache.java:3952)
+	at com.google.common.cache.LocalCache.getOrLoad(LocalCache.java:3974)
+	at com.google.common.cache.LocalCache$LocalLoadingCache.get(LocalCache.java:4958)
+	at com.google.common.cache.LocalCache$LocalLoadingCache.getUnchecked(LocalCache.java:4964)
+	at no.difi.certvalidator.util.CachedValidatorRule.validate(CachedValidatorRule.java:30)
+	at no.difi.certvalidator.util.CachedValidatorRule.validate(CachedValidatorRule.java:35)
+	at no.difi.certvalidator.ValidatorGroup.validate(ValidatorGroup.java:79)
+	at no.difi.certvalidator.ValidatorGroup.validate(ValidatorGroup.java:70)
+	at no.difi.vefa.peppol.security.util.DifiCertificateValidator.validate(DifiCertificateValidator.java:62)
+	... 13 common frames omitted
+11:11:23.598 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Home folder: C:\Users\MGozzi\.oxalis
+11:11:23.598 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Configuration folder: C:\Users\MGozzi\.oxalis
+11:11:23.598 [main] INFO  n.d.o.commons.config.ConfigModule - Configuration file: C:\Users\MGozzi\.oxalis\oxalis.conf
+11:11:23.632 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => CONF: 
+11:11:23.633 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => INBOUND: C:\Users\MGozzi\Desktop
+11:11:23.633 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => PLUGIN: oxalis-plugin
+11:11:23.783 [main] INFO  n.d.o.commons.quartz.QuartzModule - JobTest has been binded
+11:11:23.783 [main] INFO  n.d.o.commons.quartz.QuartzModule - Scheduler has been binded
+11:11:24.278 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Home folder: C:\Users\MGozzi\.oxalis
+11:11:24.278 [main] INFO  n.d.o.c.filesystem.FileSystemModule - Configuration folder: C:\Users\MGozzi\.oxalis
+11:11:24.278 [main] INFO  n.d.o.commons.config.ConfigModule - Configuration file: C:\Users\MGozzi\.oxalis\oxalis.conf
+11:11:24.278 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => POOL_TOTAL: 20
+11:11:24.278 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => POOL_MAX_ROUTE: 2
+11:11:24.278 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => TIMEOUT_CONNECT: 0
+11:11:24.278 [main] INFO  n.d.o.c.settings.SettingsBuilder - HTTP => TIMEOUT_READ: 0
+11:11:24.278 [main] INFO  n.d.o.c.settings.SettingsBuilder - Error => TRACKER: quiet
+11:11:24.278 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => HOSTNAME: 
+11:11:24.278 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => NOTIFICATION: not.in.use@difi.no
+11:11:24.278 [main] INFO  n.d.o.c.settings.SettingsBuilder - AS2 => MSGID_GENERATOR: default
+11:11:24.278 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => CONF: 
+11:11:24.278 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => INBOUND: C:\Users\MGozzi\Desktop
+11:11:24.278 [main] INFO  n.d.o.c.settings.SettingsBuilder - File system => PLUGIN: oxalis-plugin
+11:11:24.278 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => PATH: peppol-keystore.jks
+11:11:24.278 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => PASSWORD: peppol
+11:11:24.278 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => KEY_ALIAS: 1
+11:11:24.278 [main] INFO  n.d.o.c.settings.SettingsBuilder - Key store => KEY_PASSWORD: peppol
+11:11:24.278 [main] INFO  n.d.o.c.settings.SettingsBuilder - Header => PARSER: sbdh
+11:11:24.278 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => PAYLOAD: default
+11:11:24.278 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => RECEIPT: plugin
+11:11:24.278 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => EXCEPTION: default
+11:11:24.278 [main] INFO  n.d.o.c.settings.SettingsBuilder - Persister => HANDLER: default
+11:11:24.278 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => REPORTER: noop
+11:11:24.278 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => HTTP: null
+11:11:24.278 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tracing => TRACER: noop
+11:11:24.278 [main] INFO  n.d.o.c.settings.SettingsBuilder - Executor => DEFAULT: 50
+11:11:24.278 [main] INFO  n.d.o.c.settings.SettingsBuilder - Executor => STATISTICS: 50
+11:11:24.278 [main] INFO  n.d.o.c.settings.SettingsBuilder - Tag => GENERATOR: noop
+11:11:24.278 [main] INFO  n.d.o.c.settings.SettingsBuilder - Timestamp => SERVICE: system
+11:11:24.278 [main] INFO  n.d.o.c.settings.SettingsBuilder - Evidence => SERVICE: rem
+11:11:24.278 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transformer => DETECTOR: legacy
+11:11:24.278 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transformer => WRAPPER: xml
+11:11:24.278 [main] INFO  n.d.o.c.settings.SettingsBuilder - Statistics => SERVICE: noop
+11:11:24.278 [main] INFO  n.d.o.c.settings.SettingsBuilder - Transmission => VERIFIER: default
+11:11:24.278 [main] INFO  n.d.o.c.settings.SettingsBuilder - Logging => CONFIG: null
+11:11:24.278 [main] INFO  n.d.o.c.settings.SettingsBuilder - Logging => SERVICE: logback
+11:11:24.294 [main] INFO  n.d.o.o.t.MessageSenderFactory - Prioritized list of transport profiles:
+11:11:24.294 [main] INFO  n.d.o.o.t.MessageSenderFactory - => busdox-transport-as2-ver1p0r1
+11:11:24.294 [main] INFO  n.d.o.o.t.MessageSenderFactory - => busdox-transport-as2-ver1p0
+11:11:24.310 [main] INFO  n.d.oxalis.commons.mode.ModeModule - Detected mode: TEST
+11:11:25.126 [main] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+11:11:25.144 [main] INFO  o.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+11:11:25.145 [main] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.2.1 created.
+11:11:25.147 [main] INFO  o.q.p.x.XMLSchedulingDataProcessorPlugin - Registering Quartz Job Initialization Plug-in.
+11:11:25.149 [main] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+11:11:25.227 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.2.1) 'QuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 5 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+11:11:25.227 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'QuartzScheduler' initialized from an externally provided properties instance.
+11:11:25.227 [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.2.1
+11:11:25.227 [main] INFO  org.quartz.core.QuartzScheduler - JobFactory set to: it.eng.intercenter.oxalis.quartz.scheduler.GuiceJobFactory@2a1edad4
+11:11:25.239 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Parsing XML file: quartz-config.xml with systemId: quartz-config.xml
+11:11:25.359 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Adding 1 jobs, 1 triggers.
+11:11:25.359 [main] INFO  o.q.xml.XMLSchedulingDataProcessor - Adding job: default_job_group.JobTest
+11:11:25.362 [main] INFO  org.quartz.core.QuartzScheduler - Scheduler QuartzScheduler_$_NON_CLUSTERED started.
+11:11:25.368 [main] WARN  n.d.o.sniffer.document.NoSbdhParser - You have enabled support for automatic detection of content. This functionality will be turned of by default in version 4.1 and removed in version 4.2/5.0. Use configuration "oxalis.transformer.detector = noop" to disable it today.
+11:11:25.752 [pool-2-thread-1] WARN  n.d.o.o.t.TransmissionRequestBuilder - Endpoint was set by caller not retrieved from SMP, make sure this is intended behaviour.
+11:11:25.834 [main] ERROR eu.sendregning.oxalis.Main - Execution failed: no.difi.oxalis.api.lang.OxalisTransmissionException: Unable to verify certificate of receiving access point.
+java.util.concurrent.ExecutionException: no.difi.oxalis.api.lang.OxalisTransmissionException: Unable to verify certificate of receiving access point.
+	at java.util.concurrent.FutureTask.report(Unknown Source)
+	at java.util.concurrent.FutureTask.get(Unknown Source)
+	at eu.sendregning.oxalis.Main.main(Main.java:230)
+Caused by: no.difi.oxalis.api.lang.OxalisTransmissionException: Unable to verify certificate of receiving access point.
+	at no.difi.oxalis.outbound.transmission.DefaultTransmitter.perform(DefaultTransmitter.java:162)
+	at no.difi.oxalis.outbound.transmission.DefaultTransmitter.transmit(DefaultTransmitter.java:93)
+	at eu.sendregning.oxalis.TransmissionTask.performTransmission(TransmissionTask.java:168)
+	at eu.sendregning.oxalis.TransmissionTask.call(TransmissionTask.java:96)
+	at eu.sendregning.oxalis.TransmissionTask.call(TransmissionTask.java:49)
+	at java.util.concurrent.FutureTask.run(Unknown Source)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Unknown Source)
+	at java.util.concurrent.FutureTask.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: no.difi.vefa.peppol.security.lang.PeppolSecurityException: Validation of subject principal(CN) failed.
+	at no.difi.vefa.peppol.security.util.DifiCertificateValidator.validate(DifiCertificateValidator.java:64)
+	at no.difi.oxalis.commons.mode.OxalisCertificateValidator.perform(OxalisCertificateValidator.java:48)
+	at no.difi.oxalis.commons.mode.OxalisCertificateValidator.validate(OxalisCertificateValidator.java:38)
+	at no.difi.oxalis.outbound.transmission.DefaultTransmitter.perform(DefaultTransmitter.java:127)
+	... 10 common frames omitted
+Caused by: no.difi.certvalidator.api.FailedValidationException: Validation of subject principal(CN) failed.
+	at no.difi.certvalidator.rule.PrincipalNameRule.validate(PrincipalNameRule.java:68)
+	at no.difi.certvalidator.structure.AndJunction.validate(AndJunction.java:29)
+	at no.difi.certvalidator.structure.AbstractJunction.validate(AbstractJunction.java:36)
+	at no.difi.certvalidator.util.CachedValidatorRule.load(CachedValidatorRule.java:43)
+	at no.difi.certvalidator.util.CachedValidatorRule.load(CachedValidatorRule.java:13)
+	at com.google.common.cache.LocalCache$LoadingValueReference.loadFuture(LocalCache.java:3528)
+	at com.google.common.cache.LocalCache$Segment.loadSync(LocalCache.java:2277)
+	at com.google.common.cache.LocalCache$Segment.lockedGetOrLoad(LocalCache.java:2154)
+	at com.google.common.cache.LocalCache$Segment.get(LocalCache.java:2044)
+	at com.google.common.cache.LocalCache.get(LocalCache.java:3952)
+	at com.google.common.cache.LocalCache.getOrLoad(LocalCache.java:3974)
+	at com.google.common.cache.LocalCache$LocalLoadingCache.get(LocalCache.java:4958)
+	at com.google.common.cache.LocalCache$LocalLoadingCache.getUnchecked(LocalCache.java:4964)
+	at no.difi.certvalidator.util.CachedValidatorRule.validate(CachedValidatorRule.java:30)
+	at no.difi.certvalidator.util.CachedValidatorRule.validate(CachedValidatorRule.java:35)
+	at no.difi.certvalidator.ValidatorGroup.validate(ValidatorGroup.java:79)
+	at no.difi.certvalidator.ValidatorGroup.validate(ValidatorGroup.java:70)
+	at no.difi.vefa.peppol.security.util.DifiCertificateValidator.validate(DifiCertificateValidator.java:62)
+	... 13 common frames omitted
