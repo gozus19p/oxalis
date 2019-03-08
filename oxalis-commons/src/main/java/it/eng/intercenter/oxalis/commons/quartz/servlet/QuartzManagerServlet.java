@@ -7,7 +7,9 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -47,6 +49,8 @@ public class QuartzManagerServlet extends HttpServlet {
 	 * Attributes.
 	 */
 	private static String cssContent;
+	private static Date pauseDate;
+	private static Map<String, Date> audits = new HashMap<String, Date>();
 
 	/**
 	 * DI instances.
@@ -62,21 +66,36 @@ public class QuartzManagerServlet extends HttpServlet {
 		response.setStatus(HttpServletResponse.SC_OK);
 		response.setContentType(RESPONSE_CONTENT_TYPE);
 		printHead(response.getWriter());
-		response.getWriter().write("<div>");
+
 		if (request.getParameter(KEY_HTML_PARAMETER).equals(HTML_PARAMETER_STOP)) {
-			quartz.pauseScheduler();
-			response.getWriter().println("<h1 class=\"standby\">Scheduler has been paused succesfully</h1>");
-
+			if (quartz.pauseScheduler()) {
+				response.getWriter().println(
+						"<script type=\"text/javascript\">alert('Scheduler has been paused succesfully')</script>");
+				pauseDate = new Date();
+			} else {
+				response.getWriter()
+						.println("<script type=\"text/javascript\">alert('Pausing scheduler process failed')</script>");
+			}
 		} else if (request.getParameter(KEY_HTML_PARAMETER).equals(HTML_PARAMETER_START)) {
-			quartz.startScheduler();
-			response.getWriter().println("<h1 class=\"online\">Scheduler has been started</h1>");
-
+			if (quartz.startScheduler()) {
+				pauseDate = null;
+				response.getWriter().println(
+						"<script type=\"text/javascript\">alert('Scheduler has started succesfully')</script>");
+			} else {
+				response.getWriter().println(
+						"<script type=\"text/javascript\">alert('Starting scheduler process failed')</script>");
+			}
 		} else {
-			response.getWriter().println("<h1 class=\"offline\">Unsupported operation! Check system logs\"</h1>");
+			response.getWriter().println(
+					"<script type=\"text/javascript\">alert('Unsupported operation, check logs for further details')</script>");
 		}
-		response.getWriter().println(
-				"<form action=\"quartz\" method=\"GET\"><input type=\"submit\" value=\"Go back to Quartz management\"></input></form>");
-		response.getWriter().println("</div></body></html>");
+
+		try {
+			printQuartzSchedulerStatus(response.getWriter());
+		} catch (SchedulerException e) {
+			response.getOutputStream().println(e.getMessage());
+		}
+		response.getWriter().println("</body></html>");
 	}
 
 	/**
@@ -89,20 +108,23 @@ public class QuartzManagerServlet extends HttpServlet {
 		try {
 			printQuartzSchedulerStatus(response.getWriter());
 		} catch (SchedulerException e) {
-			response.getOutputStream().println(e.getMessage());
+			response.getWriter().println(e.getMessage());
 		}
+		response.getWriter().println("</body></html>");
 	}
 
 	/**
 	 * Print Quartz and available actions.
 	 * 
-	 * @param writer is the response writer
-	 * @throws IOException 
-	 * @throws SchedulerException 
+	 * @param writer
+	 *            is the response writer
+	 * @throws IOException
+	 * @throws SchedulerException
 	 */
 	@SuppressWarnings("unchecked")
 	private void printQuartzSchedulerStatus(final PrintWriter writer) throws IOException, SchedulerException {
 		printHead(writer);
+		printHomeLink(writer);
 		boolean schedulerIsRunning = !quartz.getScheduler().isInStandbyMode() && !quartz.getScheduler().isShutdown(),
 				schedulerIsInStandby = quartz.getScheduler().isInStandbyMode(),
 				schedulerIsShutdown = quartz.getScheduler().isShutdown();
@@ -114,7 +136,8 @@ public class QuartzManagerServlet extends HttpServlet {
 			 * If the scheduler is online list all the configured jobs.
 			 */
 			for (String groupName : quartz.getScheduler().getJobGroupNames()) {
-				writer.println("<h1>Scheduled jobs queried at: <span>" + DATE_FORMATTER.format(new Date()) + "</span></h1>");
+				writer.println(
+						"<h1>Scheduled jobs queried at: <span>" + DATE_FORMATTER.format(new Date()) + "</span></h1>");
 				for (JobKey jobKey : quartz.getScheduler().getJobKeys(GroupMatcher.jobGroupEquals(groupName))) {
 					writer.println("<p><b>Job name:</b> " + jobKey.getName() + "</p>");
 					writer.println("<p><b>Job group:</b> " + jobKey.getGroup() + "</p>");
@@ -138,10 +161,21 @@ public class QuartzManagerServlet extends HttpServlet {
 					} else {
 						writer.println("<p>Trigger not started yet</p>");
 					}
+					audits.put(jobKey.getName(), currentTrigger.getPreviousFireTime());
 				}
 			}
 		} else if (schedulerIsInStandby) {
 			writer.println("<h1>Scheduler is: <span class=\"standby\">In Standby</span></h1>");
+			writer.println("<h1>Scheduler paused at: <span>" + DATE_FORMATTER.format(pauseDate) + "</span></h1>");
+			writer.println("<h2>Last executions:</h2>");
+			audits.forEach((jobName, lastFireDate) -> {
+				writer.println("<p><b>Job name:</b> " + jobName + "</p>");
+				if (lastFireDate != null) {
+					writer.println("<p><b>Last execution:</b> " + DATE_FORMATTER.format(lastFireDate) + "</p>");
+				} else {
+					writer.println("<p>No previous execution found</p>");
+				}
+			});
 		} else if (schedulerIsShutdown) {
 			writer.println("<h1>Scheduler is: <span class=\"offline\">Offline</span></h1>");
 		} else {
@@ -159,8 +193,7 @@ public class QuartzManagerServlet extends HttpServlet {
 							+ "<input type=\"hidden\" name=\"" + KEY_HTML_PARAMETER + "\" value=\""
 							+ HTML_PARAMETER_START + "\"></input></form>");
 		}
-
-		writer.println("</div></body></html>");
+		writer.println("</div>");
 	}
 
 	/**
@@ -175,21 +208,33 @@ public class QuartzManagerServlet extends HttpServlet {
 	}
 
 	/**
+	 * Print the link to oxalis home.
+	 * 
+	 * @param w
+	 */
+	private static void printHomeLink(PrintWriter w) {
+		w.println("<div>");
+		w.println("<button class=\"home\"><a href=\"./\">Go to home</a></button>");
+		w.println("</div>");
+	}
+
+	/**
 	 * Method that gives CSS to the current page.
 	 * 
 	 * @return The whole page CSS.
 	 */
 	private static String getCss() {
 		if (cssContent == null) {
-			InputStream cssFile = QuartzManagerServlet.class.getClassLoader().getResourceAsStream(RESOURCE_CSS_FILE_NAME);
+			InputStream cssFile = QuartzManagerServlet.class.getClassLoader()
+					.getResourceAsStream(RESOURCE_CSS_FILE_NAME);
 			String filePath = QuartzManagerServlet.class.getClassLoader().getResource(RESOURCE_CSS_FILE_NAME).getPath();
-			
+
 			log.info("Starting to parse CSS file located at: {}", filePath);
 			BufferedReader br = new BufferedReader(new InputStreamReader(cssFile));
 			StringBuilder sb = new StringBuilder();
 			try {
 				String currentLine = null;
-				while((currentLine = br.readLine()) != null) {
+				while ((currentLine = br.readLine()) != null) {
 					sb.append(currentLine);
 				}
 				cssContent = sb.toString();
@@ -198,7 +243,7 @@ public class QuartzManagerServlet extends HttpServlet {
 				log.error("CSS file parsing failed with root cause: {}", e.getMessage());
 				log.error("Full stack trace: {}", e);
 				log.warn("CSS usage disabled");
-				cssContent ="";
+				cssContent = "";
 			}
 		}
 		return cssContent;

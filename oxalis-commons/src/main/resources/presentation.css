@@ -1,5 +1,5 @@
 div {
-	padding: 2%;
+	padding: 1%;
 }
 
 h1 {
@@ -9,6 +9,13 @@ h1 {
 	color: #0078e6;
 }
 
+h2 {
+	text-align: left;
+	text-transform: uppercase;
+	font-family: Calibri;
+	color: #777777;
+}
+
 p {
 	text-align: left;
 	font-family: Calibri;
@@ -16,7 +23,6 @@ p {
 
 a {
 	text-decoration: none;
-	color: #008CBA;
 }
 
 span {
@@ -36,6 +42,27 @@ input[type=submit] {
 	font-size: 18px;
 	text-transform: uppercase;
 	text-align: center;
+}
+
+button.home {
+	width: auto;
+	background-color: #FFFFFF;
+	color: white;
+	padding: 14px 20px;
+	margin: 8px 0;
+	border: solid;
+	border-width: 1px;
+	border-radius: 4px;
+	border-color: #0078e6;
+	cursor: pointer;
+	font-family: Calibri;
+	font-size: 18px;
+	text-transform: uppercase;
+	text-align: center;
+}
+
+button.home:hover {
+	background-color: #adc9f7;
 }
 
 input[type=submit]:hover {
