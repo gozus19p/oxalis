@@ -4,6 +4,7 @@ import com.google.inject.servlet.ServletModule;
 
 /**
  * Servlet Module.
+ * 
  * @author Manuel Gozzi
  */
 public class ConfigServletModule extends ServletModule {
@@ -13,5 +14,5 @@ public class ConfigServletModule extends ServletModule {
 		super.configureServlets();
 		install(new QuartzModule());
 	}
-	
+
 }

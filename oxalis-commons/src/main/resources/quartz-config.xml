@@ -7,10 +7,10 @@
     <schedule>
         <job>
             <name>JobTest</name>
-            <group>default_job_group</group>
+            <group>NOTIER</group>
 
-            <description>Test.</description>
-            <job-class>no.difi.oxalis.commons.quartz.job.JobTest</job-class>
+            <description>Test JOB.</description>
+            <job-class>it.eng.intercenter.oxalis.commons.quartz.job.JobTest</job-class>
         </job>
 
         <trigger>
@@ -19,7 +19,7 @@
                 <group>minute_trriger_group</group>
 
                 <job-name>JobTest</job-name>
-                <job-group>default_job_group</job-group>
+                <job-group>NOTIER</job-group>
 
                 <cron-expression>0 * * * * ?</cron-expression>
             </cron>
