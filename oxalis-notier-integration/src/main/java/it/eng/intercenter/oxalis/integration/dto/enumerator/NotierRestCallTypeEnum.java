@@ -1,4 +1,4 @@
-package it.eng.intercenter.oxalis.integration.dto;
+package it.eng.intercenter.oxalis.integration.dto.enumerator;
 
 /**
  * 

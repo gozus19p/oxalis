@@ -28,9 +28,9 @@ import com.google.gson.GsonBuilder;
 import com.google.inject.Inject;
 
 import it.eng.intercenter.oxalis.commons.quartz.transmission.NotierTransmissionMessageBuilder;
-import it.eng.intercenter.oxalis.integration.dto.NotierRestCallTypeEnum;
 import it.eng.intercenter.oxalis.integration.dto.OxalisMdn;
-import it.eng.intercenter.oxalis.integration.dto.OxalisStatusEnum;
+import it.eng.intercenter.oxalis.integration.dto.enumerator.NotierRestCallTypeEnum;
+import it.eng.intercenter.oxalis.integration.dto.enumerator.OxalisStatusEnum;
 import it.eng.intercenter.oxalis.quartz.config.ConfigRestCall;
 import it.eng.intercenter.oxalis.quartz.job.exception.NotierRestCallException;
 import no.difi.oxalis.api.lang.OxalisTransmissionException;

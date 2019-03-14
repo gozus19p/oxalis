@@ -1,5 +1,7 @@
 package it.eng.intercenter.oxalis.integration.dto;
 
+import it.eng.intercenter.oxalis.integration.dto.enumerator.OxalisStatusEnum;
+
 /**
  * Classe atta a incapsulare l'esito dell'invio su rete Peppol di un documento
  * da parte di Oxalis.
@@ -30,6 +32,10 @@ public class OxalisMdn {
 
 	public String getMessage() {
 		return errorMessage;
+	}
+	
+	public boolean hasPositiveStatus() {
+		return status.equals(OxalisStatusEnum.OK);
 	}
 
 }
