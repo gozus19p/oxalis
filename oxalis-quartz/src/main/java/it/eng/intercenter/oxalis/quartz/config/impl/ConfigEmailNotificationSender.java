@@ -1,7 +1,9 @@
-package it.eng.intercenter.oxalis.quartz.config;
+package it.eng.intercenter.oxalis.quartz.config.impl;
 
 import java.io.IOException;
 import java.util.Properties;
+
+import it.eng.intercenter.oxalis.quartz.config.PropertiesConfigurationManager;
 
 /**
  * 

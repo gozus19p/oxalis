@@ -1,4 +1,4 @@
-package it.eng.intercenter.oxalis.commons.quartz;
+package it.eng.intercenter.oxalis.quartz.module;
 
 import static com.google.inject.name.Names.bindProperties;
 
@@ -10,19 +10,19 @@ import org.quartz.SchedulerException;
 import org.quartz.SchedulerFactory;
 import org.quartz.impl.StdSchedulerFactory;
 
+import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 
-import it.eng.intercenter.oxalis.commons.quartz.job.JobTest;
+import it.eng.intercenter.oxalis.quartz.job.JobTest;
 import it.eng.intercenter.oxalis.quartz.scheduler.GuiceJobFactory;
 import it.eng.intercenter.oxalis.quartz.scheduler.Quartz;
 import lombok.extern.slf4j.Slf4j;
-import no.difi.oxalis.commons.guice.OxalisModule;
 
 /**
  * @author Manuel Gozzi
  */
 @Slf4j
-public class QuartzModule extends OxalisModule {
+public class QuartzModule extends AbstractModule {
 
 	/**
 	 * Constants.
@@ -38,7 +38,7 @@ public class QuartzModule extends OxalisModule {
 		bind(Job.class).to(JobTest.class).in(Singleton.class);
 		log.info("JobTest has been binded");
 	}
-
+	
 	/**
 	 * Retrieve Quartz properties from file name located in src/main/resources.
 	 * 

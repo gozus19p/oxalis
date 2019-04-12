@@ -1,4 +1,4 @@
-package it.eng.intercenter.oxalis.commons.quartz.servlet;
+package it.eng.intercenter.oxalis.quartz.servlet;
 
 import java.io.BufferedReader;
 import java.io.IOException;

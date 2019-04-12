@@ -38,6 +38,6 @@
 	</appender>
 
 	<root level="info">
-		<appender-ref ref="oxalis" />
+		<appender-ref ref="STDOUT" />
 	</root>
 </configuration>

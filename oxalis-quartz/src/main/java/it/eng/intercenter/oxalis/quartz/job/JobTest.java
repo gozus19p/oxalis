@@ -1,4 +1,4 @@
-package it.eng.intercenter.oxalis.commons.quartz.job;
+package it.eng.intercenter.oxalis.quartz.job;
 
 import java.util.Date;
 

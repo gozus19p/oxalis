@@ -163,6 +163,7 @@
                 <classifier>classes</classifier>
             </dependency>
             
+            <!-- Quartz -->
             <dependency>
                 <groupId>it.eng.intercenter</groupId>
                 <artifactId>oxalis-quartz</artifactId>

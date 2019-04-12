@@ -71,11 +71,8 @@
 			<scope>provided</scope>
 		</dependency>
 		<!-- Oxalis/Quartz -->
-		<dependency>
-			<groupId>it.eng.intercenter</groupId>
-			<artifactId>oxalis-quartz</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
+		<!-- <dependency> <groupId>it.eng.intercenter</groupId> <artifactId>oxalis-quartz</artifactId> 
+			<version>0.0.1-SNAPSHOT</version> </dependency> -->
 		<!-- Quartz Scheduler -->
 		<dependency>
 			<groupId>org.quartz-scheduler</groupId>

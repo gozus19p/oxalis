@@ -27,7 +27,6 @@ import com.google.inject.Singleton;
 import com.google.inject.servlet.ServletModule;
 import io.opentracing.Tracer;
 import io.opentracing.contrib.web.servlet.filter.TracingFilter;
-import it.eng.intercenter.oxalis.commons.quartz.servlet.QuartzManagerServlet;
 import no.difi.oxalis.api.inbound.InboundService;
 import no.difi.oxalis.inbound.servlet.HomeServlet;
 import no.difi.oxalis.inbound.servlet.StatusServlet;
@@ -43,7 +42,6 @@ public class InboundModule extends ServletModule {
 
         serve("/").with(HomeServlet.class);
         serve("/status").with(StatusServlet.class);
-        serve("/quartz").with(QuartzManagerServlet.class);
 
         bind(InboundService.class).to(DefaultInboundService.class);
     }
