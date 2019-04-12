@@ -1,7 +1,6 @@
 package it.eng.intercenter.oxalis.integration.dto;
 
 import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 
 /**
  * 
@@ -11,7 +10,7 @@ import java.io.InputStream;
  */
 public class PeppolMessage {
 	
-	private InputStream payload;
+	private ByteArrayInputStream payload;
 	private PeppolDetails header;
 
 	public PeppolMessage(byte[] payload, PeppolDetails header) {
@@ -19,7 +18,7 @@ public class PeppolMessage {
 		this.header = header;
 	}
 
-	public InputStream getPayload() {
+	public ByteArrayInputStream getPayload() {
 		return payload;
 	}
 

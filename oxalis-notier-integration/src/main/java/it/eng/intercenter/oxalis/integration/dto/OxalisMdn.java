@@ -35,7 +35,7 @@ public class OxalisMdn {
 	}
 	
 	public boolean hasPositiveStatus() {
-		return status.equals(OxalisStatusEnum.OK);
+		return OxalisStatusEnum.OK.equals(status);
 	}
 
 }

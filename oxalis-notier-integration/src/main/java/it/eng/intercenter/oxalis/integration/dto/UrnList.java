@@ -1,5 +1,6 @@
 package it.eng.intercenter.oxalis.integration.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,10 +12,11 @@ public class UrnList {
 	private final int urnCount;
 
 	public UrnList(List<NotierDocumentIndex> urns) {
-		this.documents = urns;
 		if (urns != null) {
+			this.documents = urns;
 			urnCount = urns.size();
 		} else {
+			this.documents = new ArrayList<NotierDocumentIndex>();
 			urnCount = 0;
 		}
 	}
