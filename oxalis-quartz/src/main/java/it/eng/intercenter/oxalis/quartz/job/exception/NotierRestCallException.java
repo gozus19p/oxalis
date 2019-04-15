@@ -7,6 +7,8 @@ package it.eng.intercenter.oxalis.quartz.job.exception;
  */
 public class NotierRestCallException extends Exception {
 
+	private static final long serialVersionUID = 1L;
+
 	public NotierRestCallException(String message) {
 		super(message);
 	}

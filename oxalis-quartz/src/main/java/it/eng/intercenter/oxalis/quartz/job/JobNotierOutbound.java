@@ -11,13 +11,9 @@ import static it.eng.intercenter.oxalis.quartz.config.impl.ConfigRestCallMessage
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.google.inject.Inject;
 
 import it.eng.intercenter.oxalis.commons.quartz.transmission.NotierTransmissionMessageBuilder;
@@ -29,6 +25,7 @@ import it.eng.intercenter.oxalis.integration.dto.enumerator.OxalisStatusEnum;
 import it.eng.intercenter.oxalis.quartz.config.impl.ConfigRestCall;
 import it.eng.intercenter.oxalis.quartz.job.exception.NotierRestCallException;
 import it.eng.intercenter.oxalis.quartz.ws.RestManagement;
+import lombok.extern.slf4j.Slf4j;
 import no.difi.oxalis.api.lang.OxalisTransmissionException;
 import no.difi.oxalis.api.outbound.TransmissionMessage;
 import no.difi.oxalis.api.outbound.TransmissionResponse;
@@ -40,11 +37,10 @@ import no.difi.oxalis.outbound.OxalisOutboundComponent;
  * 
  * @author Manuel Gozzi
  */
-public class JobNotierGetter implements Job {
+@Slf4j
+public class JobNotierOutbound implements Job {
 
 	// TODO: Sicurezza e certificati.
-
-	private static final Logger log = LoggerFactory.getLogger(JobNotierGetter.class);
 
 	/**
 	 * Variables useful to process REST.
@@ -66,12 +62,13 @@ public class JobNotierGetter implements Job {
 	public void execute(JobExecutionContext context) throws JobExecutionException {
 
 		/**
-		 * Setup configuration.
+		 * Phase 0: setup REST configuration if needed.
 		 */
-		setupRestConfiguration();
+		setupOutboundRestConfiguration();
 
 		/**
-		 * Fase 1. Recupero URN dei documenti da inviare su rete Peppol.
+		 * Phase 1: get URN of documents that need to be sent on Peppol directly from
+		 * Notier via REST web service.
 		 */
 		String jsonUrnGetterResponse = null;
 		try {
@@ -87,60 +84,75 @@ public class JobNotierGetter implements Job {
 		}
 
 		/**
-		 * Se ho ottenuto una response valida converto in arraylist di String il
-		 * contenuto della response. Per ogni stringa (URN) eseguo il puntuale recupero
-		 * documento.
+		 * Phase 1b: check the received response and parse it as UrnList object.
 		 */
 		System.out.println(jsonUrnGetterResponse);
 		UrnList urnListRetrievedFromNotier = new Gson().fromJson(jsonUrnGetterResponse, UrnList.class);
-		
+
 		if (urnListRetrievedFromNotier != null) {
 			log.info("Found {} documents to send on Peppol", urnListRetrievedFromNotier.getUrnCount());
 		} else {
-			log.warn("Notier answered that has no documents to send on Peppol right now");
+			log.error("Invalid response received from Notier: {}{}",
+					new Object[] { System.getProperty("line.separator"), urnListRetrievedFromNotier });
 			return;
 		}
 
 		/**
-		 * Fase 2a. Recupero il singolo documento da inviare.
+		 * Phase 2: iterate over UrnList.NotierDocumentIndex' collection in order to
+		 * send each document one by one.
 		 */
 		OxalisMdn oxalisMdn = null;
-		
+
 		for (NotierDocumentIndex index : urnListRetrievedFromNotier.getDocuments()) {
 			log.info(MESSAGE_STARTING_TO_PROCESS_URN, index.getUrn());
 
 			try {
+				/**
+				 * Phase 2a: get document payload by REST web service from Notier.
+				 */
 				String peppolMessageJson = RestManagement.executeRestCallFromURI(restDocumentGetterUri + index.getUrn(),
 						NotierRestCallTypeEnum.GET, null);
 				System.out.println(peppolMessageJson);
 				try {
 					/**
-					 * Fase 2b. Converto la response, ottenuta in formato Json, in
-					 * TransmissionMessage e processo l'invio del medesimo su rete Peppol.
+					 * Phase 2b: build TransmissionMessage object and send that on Peppol network.
+					 * The status of the transaction determines how the Oxalis Mdn needs to be
+					 * created.
 					 */
 					oxalisMdn = buildTransmissionAndSendOnPeppol(oxalisMdn, index.getUrn(), peppolMessageJson);
 
 				} catch (OxalisTransmissionException e) {
 					oxalisMdn = new OxalisMdn(index.getUrn(), OxalisStatusEnum.KO, e.getMessage());
-
 					log.error(MESSAGE_OUTBOUND_FAILED_FOR_URN, index.getUrn());
 					log.error(e.getMessage());
 				}
 			} catch (NotierRestCallException e) {
 				oxalisMdn = new OxalisMdn(index.getUrn(), OxalisStatusEnum.KO, e.getMessage());
-
 				log.error(MESSAGE_REST_CALL_FAILED, e.getMessage());
 				log.error(MESSAGE_OUTBOUND_FAILED_FOR_URN, index.getUrn());
 			}
 
 			/**
-			 * Fase 4. Invio la notifica MDN a Notier.
+			 * Phase 3: forward the OxalisMdn object to Notier in order to communicate the
+			 * status of transaction.
 			 */
 			sendStatusToNotier(oxalisMdn, index.getUrn());
 		}
 
 	}
 
+	/**
+	 * Builds a TransmissionMessage object and send it on Peppol.
+	 * 
+	 * @param oxalisMdn               is the object that holds the URN and the
+	 *                                status
+	 * @param urn                     is the URN of the involved document
+	 * @param peppolMessageJsonFormat is the json format of PeppolMessage instance
+	 *                                related to involved document
+	 * @return the final OxalisMdn object
+	 * @throws OxalisTransmissionException if some problems occur while sending
+	 *                                     document on Peppol network
+	 */
 	private OxalisMdn buildTransmissionAndSendOnPeppol(OxalisMdn oxalisMdn, String urn, String peppolMessageJsonFormat)
 			throws OxalisTransmissionException {
 		TransmissionMessage messageToSend = NotierTransmissionMessageBuilder
@@ -159,6 +171,12 @@ public class JobNotierGetter implements Job {
 		return oxalisMdn;
 	}
 
+	/**
+	 * Forward the OxalisMdn to Notier.
+	 * 
+	 * @param oxalisMdn is the status of the transaction
+	 * @param urn       is the URN of involved document
+	 */
 	private void sendStatusToNotier(OxalisMdn oxalisMdn, String urn) {
 		try {
 			String resp = RestManagement.executeRestCallFromURI(restSendStatusUri, NotierRestCallTypeEnum.POST,
@@ -215,7 +233,7 @@ public class JobNotierGetter implements Job {
 	 * @throws JobExecutionException if the configuration has not been setup
 	 *                               properly.
 	 */
-	private void setupRestConfiguration() throws JobExecutionException {
+	private void setupOutboundRestConfiguration() throws JobExecutionException {
 		if (StringUtils.isEmpty(restDocumentGetterUri) || StringUtils.isEmpty(restDocumentGetterUri)
 				|| StringUtils.isEmpty(restSendStatusUri)) {
 			loadRestUriReferences();

@@ -64,7 +64,7 @@ public class Quartz {
 						scheduler.interrupt(jobKey);
 						log.info("Job {} has been interrupted successfully", jobKey.getName());
 					} catch (SchedulerException e) {
-						log.error("Job {} did not interrupt with root cause: {}",
+						log.error("Job {} has not been interrupted with root cause: {}",
 								new Object[] { jobKey.getName(), e.getMessage() });
 						log.error("Full stack trace: {}", e);
 					}
@@ -74,7 +74,6 @@ public class Quartz {
 			log.warn("Quartz scheduler entered in standby mode successfully");
 			return true;
 		} catch (SchedulerException e) {
-			System.out.println("Pausing Quartz scheduler process failed");
 			log.error("Pausing Quartz scheduler process failed with root cause: {}", e.getMessage());
 			log.error("Full stack trace: {}", e);
 			return false;
@@ -92,8 +91,6 @@ public class Quartz {
 			log.info("Quartz scheduler started succesfully");
 			return true;
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			System.out.println("Quartz scheduler starting process failed");
 			log.error("Quartz scheduler starting process failed with root cause: {}", e.getMessage());
 			log.error("Full stack trace: {}", e);
 			return false;

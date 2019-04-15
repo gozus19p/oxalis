@@ -38,12 +38,11 @@ public class QuartzModule extends AbstractModule {
 		bind(Job.class).to(JobTest.class).in(Singleton.class);
 		log.info("JobTest has been binded");
 	}
-	
+
 	/**
 	 * Retrieve Quartz properties from file name located in src/main/resources.
 	 * 
-	 * @param resourceStreamFileName
-	 *            is the file name
+	 * @param resourceStreamFileName is the file name
 	 * @return the properties defined in the given file
 	 */
 	private Properties getProperties(String resourceStreamFileName) {
@@ -53,7 +52,6 @@ public class QuartzModule extends AbstractModule {
 		} catch (IOException e) {
 			log.error("Error: {}", e.getMessage());
 			log.error("{}", e);
-			e.printStackTrace();
 		}
 		return properties;
 	}
@@ -63,8 +61,9 @@ public class QuartzModule extends AbstractModule {
 	 */
 	private void bindScheduler() {
 		try {
-			log.info("Binding {} to a new standard instance based on file: {}",
-					new Object[] { SchedulerFactory.class.getName(), QUARTZ_PROPRERTIES_FILE_NAME });
+			log.info("Binding {} to {} using properties defined in file: {}",
+					new Object[] { SchedulerFactory.class.getName(), StdSchedulerFactory.class.getName(),
+							QUARTZ_PROPRERTIES_FILE_NAME });
 			bind(SchedulerFactory.class)
 					.toInstance(new StdSchedulerFactory(getProperties(QUARTZ_PROPRERTIES_FILE_NAME)));
 			log.info("Binding {} as eager singleton", GuiceJobFactory.class.getName());

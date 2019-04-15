@@ -15,10 +15,10 @@ public class JobTest implements Job {
 	public void execute(JobExecutionContext context) throws JobExecutionException {
 		System.out.println();
 		System.out.println();
-		System.out.println("Il job ha girato!");
+		System.out.println("Esecuzione di " + JobTest.class.getName() + " - " + new Date().toString());
 		System.out.println();
 		System.out.println();
-		log.info("Job: {} has been executed at {}", new Object[] { "JobTest", new Date().toString() });
+		log.info("Job: {} has been executed at {}", new Object[] { JobTest.class.getName(), new Date().toString() });
 	}
 
 }
