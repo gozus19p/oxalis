@@ -10,7 +10,7 @@ import it.eng.intercenter.oxalis.integration.dto.enumerator.OxalisStatusEnum;
  * @date 25 feb 2019
  * @time 11:11:00
  */
-public class OxalisMdn {
+public class OxalisMdn implements NotierDTO {
 
 	private String documentUrn;
 	private String errorMessage;

@@ -1,10 +1,12 @@
 package it.eng.intercenter.oxalis.integration.dto.enumerator;
 
+import it.eng.intercenter.oxalis.integration.dto.NotierDTO;
+
 /**
  * 
  * @author Manuel Gozzi
  */
-public enum NotierRestCallTypeEnum {
+public enum NotierRestCallTypeEnum implements NotierDTO {
 
 	POST,
 	GET,

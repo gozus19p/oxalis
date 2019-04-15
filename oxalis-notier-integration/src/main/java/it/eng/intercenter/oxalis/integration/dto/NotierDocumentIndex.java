@@ -3,7 +3,7 @@ package it.eng.intercenter.oxalis.integration.dto;
 /**
  * @author Manuel Gozzi
  */
-public class NotierDocumentIndex {
+public class NotierDocumentIndex implements NotierDTO {
 	
 	private final String urn;
 	private final boolean isInternal;

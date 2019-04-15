@@ -1,5 +1,7 @@
 package it.eng.intercenter.oxalis.integration.dto.enumerator;
 
+import it.eng.intercenter.oxalis.integration.dto.NotierDTO;
+
 /**
  * Enumeratore che conserva le possibili risposte da Oxalis.
  * 
@@ -7,7 +9,7 @@ package it.eng.intercenter.oxalis.integration.dto.enumerator;
  * @date 25 feb 2019
  * @time 11:15:27
  */
-public enum OxalisStatusEnum {
+public enum OxalisStatusEnum implements NotierDTO {
 
 	OK("Success"), KO("Failed");
 

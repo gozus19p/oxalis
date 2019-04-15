@@ -43,11 +43,11 @@ public class JobNotierOutbound implements Job {
 	// TODO: Sicurezza e certificati.
 
 	/**
-	 * Variables useful to process REST.
+	 * Variables useful to process REST calls.
 	 */
-	private static String restUrnGetterUri = null;
-	private static String restDocumentGetterUri = null;
-	private static String restSendStatusUri = null;
+	private static String restUrnGetterUri;
+	private static String restDocumentGetterUri;
+	private static String restSendStatusUri;
 
 	@Inject
 	ConfigRestCall configuration;

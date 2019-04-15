@@ -8,7 +8,7 @@ import java.io.ByteArrayInputStream;
  * @date 21 feb 2019
  * @time 17:31:30
  */
-public class PeppolMessage {
+public class PeppolMessage implements NotierDTO {
 	
 	private ByteArrayInputStream payload;
 	private PeppolDetails header;

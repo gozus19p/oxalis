@@ -2,12 +2,14 @@ package it.eng.intercenter.oxalis.integration.dto.enumerator;
 
 import java.util.Date;
 
+import it.eng.intercenter.oxalis.integration.dto.NotierDTO;
+
 /**
  * Enumeratore corrispondente allo status della risposta da inviare a Notier.
  * 
  * @author Manuel Gozzi
  */
-public enum NotierResponseStatusEnum {
+public enum NotierResponseStatusEnum implements NotierDTO {
 
 	OK("Process completed successfully"), KO("The document has not been sent successfully");
 

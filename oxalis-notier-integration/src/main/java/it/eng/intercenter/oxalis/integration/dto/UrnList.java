@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * @author Manuel Gozzi
  */
-public class UrnList {
+public class UrnList implements NotierDTO {
 
 	private final List<NotierDocumentIndex> documents;
 	private final int urnCount;

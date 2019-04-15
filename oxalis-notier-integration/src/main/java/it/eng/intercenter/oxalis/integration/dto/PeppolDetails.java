@@ -8,7 +8,7 @@ package it.eng.intercenter.oxalis.integration.dto;
  * @date 21 feb 2019
  * @time 16:24:27
  */
-public class PeppolDetails {
+public class PeppolDetails implements NotierDTO {
 
 	private String participantIdSender;
 	private String participantIdReceiver;

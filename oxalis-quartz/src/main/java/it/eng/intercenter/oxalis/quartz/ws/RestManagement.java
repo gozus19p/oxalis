@@ -34,9 +34,10 @@ import org.apache.http.message.BasicNameValuePair;
 import com.google.gson.GsonBuilder;
 import com.google.inject.Inject;
 
-import it.eng.intercenter.oxalis.integration.dto.OxalisMdn;
+import it.eng.intercenter.oxalis.integration.dto.NotierDTO;
 import it.eng.intercenter.oxalis.integration.dto.enumerator.NotierRestCallTypeEnum;
 import it.eng.intercenter.oxalis.quartz.config.impl.ConfigNotierCertificate;
+import it.eng.intercenter.oxalis.quartz.config.impl.ConfigRestCallMessageConstants;
 import it.eng.intercenter.oxalis.quartz.job.exception.NotierRestCallException;
 import lombok.extern.slf4j.Slf4j;
 
@@ -69,6 +70,22 @@ public class RestManagement {
 	 */
 	private static boolean restConfigurationIsReady = false;
 	private static boolean certificateHasBeenLoaded = false;
+	
+	/**
+	 * Esegue una chiamata REST prendendo in input un URI e restituisce la risposta
+	 * in formato stringa.
+	 * 
+	 * @param restUri is the URI of the destination
+	 * @return the response in String format (json)
+	 * @throws URISyntaxException      if URI is not set properly
+	 * @throws ClientProtocolException if something goes wrong while accessing HTTPS
+	 *                                 or HTTP
+	 * @throws IOException             if something goes wrong during response or
+	 *                                 file management
+	 */
+	public static String executeRestCallFromURI(String restUri, NotierRestCallTypeEnum restCallType) throws NotierRestCallException {
+		return executeRestCallFromURI(restUri, restCallType, null);
+	}
 
 	/**
 	 * Esegue una chiamata REST prendendo in input un URI e restituisce la risposta
@@ -83,7 +100,7 @@ public class RestManagement {
 	 *                                 file management
 	 */
 	public static String executeRestCallFromURI(String restUri, NotierRestCallTypeEnum restCallType,
-			OxalisMdn oxalisMdn) throws NotierRestCallException {
+			NotierDTO oxalisContent) throws NotierRestCallException {
 		if (!certificateHasBeenLoaded) {
 			loadCertDetails();
 		}
@@ -113,8 +130,8 @@ public class RestManagement {
 				addCertHeaders(request);
 
 				List<NameValuePair> postParameters = new ArrayList<NameValuePair>();
-				postParameters.add(new BasicNameValuePair("oxalisMdnJson",
-						new GsonBuilder().setPrettyPrinting().create().toJson(oxalisMdn)));
+				postParameters.add(new BasicNameValuePair("oxalisContent",
+						new GsonBuilder().setPrettyPrinting().create().toJson(oxalisContent)));
 				request.setEntity(new UrlEncodedFormEntity(postParameters, "UTF-8"));
 				HttpResponse response = client.execute(request);
 
@@ -159,10 +176,11 @@ public class RestManagement {
 
 		password = "o40qrkh3td";
 		// certConfig.readSingleProperty("cert.password");
-		log.info("Reading certificate path from configuration file");
+		log.info(ConfigRestCallMessageConstants.MESSAGE_READING_PROPERTY, "cert.password");
 		String certPath = "C:\\Users\\MGozzi\\Desktop\\ONOTIER.p12";
 		// certConfig.readSingleProperty("cert.path");
 
+		log.info(ConfigRestCallMessageConstants.MESSAGE_READING_PROPERTY, "cert.path");
 		log.info("Retrieving certificate file from path {}", certPath);
 		File cert = new File(certPath);
 		FileInputStream certInputStream;
