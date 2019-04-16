@@ -1,4 +1,4 @@
-package it.eng.intercenter.oxalis.quartz.config;
+package it.eng.intercenter.oxalis.config;
 
 import java.util.Properties;
 

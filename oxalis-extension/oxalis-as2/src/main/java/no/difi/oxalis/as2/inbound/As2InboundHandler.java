@@ -22,8 +22,19 @@
 
 package no.difi.oxalis.as2.inbound;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.nio.file.Path;
+import java.security.NoSuchAlgorithmException;
+
+import javax.mail.internet.InternetHeaders;
+import javax.mail.internet.MimeMessage;
+
 import com.google.inject.Inject;
+
 import io.opentracing.Span;
+import it.eng.intercenter.oxalis.as2.inbound.NotierPersisterHandler;
 import no.difi.oxalis.api.header.HeaderParser;
 import no.difi.oxalis.api.inbound.InboundService;
 import no.difi.oxalis.api.lang.OxalisContentException;
@@ -43,20 +54,16 @@ import no.difi.oxalis.as2.code.Disposition;
 import no.difi.oxalis.as2.code.MdnHeader;
 import no.difi.oxalis.as2.lang.OxalisAs2InboundException;
 import no.difi.oxalis.as2.model.Mic;
-import no.difi.oxalis.as2.util.*;
+import no.difi.oxalis.as2.util.MdnBuilder;
+import no.difi.oxalis.as2.util.MessageIdUtil;
+import no.difi.oxalis.as2.util.SMimeDigestMethod;
+import no.difi.oxalis.as2.util.SMimeMessageFactory;
+import no.difi.oxalis.as2.util.SignedMessage;
 import no.difi.oxalis.commons.mode.OxalisCertificateValidator;
 import no.difi.vefa.peppol.common.code.Service;
 import no.difi.vefa.peppol.common.model.Digest;
 import no.difi.vefa.peppol.common.model.Header;
 import no.difi.vefa.peppol.security.lang.PeppolSecurityException;
-
-import javax.mail.internet.InternetHeaders;
-import javax.mail.internet.MimeMessage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.nio.file.Path;
-import java.security.NoSuchAlgorithmException;
 
 /**
  * Main entry point for receiving AS2 messages.
@@ -67,160 +74,182 @@ import java.security.NoSuchAlgorithmException;
  */
 class As2InboundHandler {
 
-    private final InboundService inboundService;
+	/**
+	 * Notier custom PersisterHandler implementation.
+	 * 
+	 * @author Manuel Gozzi
+	 */
+	private final NotierPersisterHandler notierPersisterHandler;
 
-    private final TimestampProvider timestampProvider;
+	private final InboundService inboundService;
 
-    private final PersisterHandler persisterHandler;
+	private final TimestampProvider timestampProvider;
 
-    private final TransmissionVerifier transmissionVerifier;
+	private final PersisterHandler persisterHandler;
 
-    private final OxalisCertificateValidator certificateValidator;
+	private final TransmissionVerifier transmissionVerifier;
 
-    private final SMimeMessageFactory sMimeMessageFactory;
+	private final OxalisCertificateValidator certificateValidator;
 
-    private final TagGenerator tagGenerator;
+	private final SMimeMessageFactory sMimeMessageFactory;
 
-    private final MessageIdGenerator messageIdGenerator;
+	private final TagGenerator tagGenerator;
 
-    private final HeaderParser headerParser;
+	private final MessageIdGenerator messageIdGenerator;
 
-    @Inject
-    public As2InboundHandler(InboundService inboundService, TimestampProvider timestampProvider,
-                             OxalisCertificateValidator certificateValidator, PersisterHandler persisterHandler,
-                             TransmissionVerifier transmissionVerifier, SMimeMessageFactory sMimeMessageFactory,
-                             TagGenerator tagGenerator, MessageIdGenerator messageIdGenerator,
-                             HeaderParser headerParser) {
-        this.inboundService = inboundService;
-        this.timestampProvider = timestampProvider;
-        this.certificateValidator = certificateValidator;
+	private final HeaderParser headerParser;
 
-        this.persisterHandler = persisterHandler;
-        this.transmissionVerifier = transmissionVerifier;
+	@Inject
+	public As2InboundHandler(InboundService inboundService, TimestampProvider timestampProvider,
+			OxalisCertificateValidator certificateValidator, PersisterHandler persisterHandler,
+			TransmissionVerifier transmissionVerifier, SMimeMessageFactory sMimeMessageFactory,
+			TagGenerator tagGenerator, MessageIdGenerator messageIdGenerator, HeaderParser headerParser, /** NOTIER */
+			NotierPersisterHandler notierPersisterHandler) {
+		this.inboundService = inboundService;
+		this.timestampProvider = timestampProvider;
+		this.certificateValidator = certificateValidator;
 
-        this.sMimeMessageFactory = sMimeMessageFactory;
+		this.persisterHandler = persisterHandler;
+		this.transmissionVerifier = transmissionVerifier;
 
-        this.tagGenerator = tagGenerator;
-        this.messageIdGenerator = messageIdGenerator;
-        this.headerParser = headerParser;
-    }
+		this.sMimeMessageFactory = sMimeMessageFactory;
 
-    /**
-     * Receives an AS2 Message in the form of a map of headers together with the payload,
-     * which is made available in an input stream
-     * <p>
-     * If persisting message to the Message Repository fails, we have to return negative MDN.
-     *
-     * @param httpHeaders the http headers received
-     * @param mimeMessage supplies the MIME message
-     * @return MDN object to signal if everything is ok or if some error occurred while receiving
-     */
-    public MimeMessage receive(InternetHeaders httpHeaders, MimeMessage mimeMessage, Span root) throws OxalisAs2InboundException {
-        TransmissionIdentifier transmissionIdentifier = null;
-        Header header = null;
-        Path payloadPath = null;
-        OxalisAs2InboundException exception;
+		this.tagGenerator = tagGenerator;
+		this.messageIdGenerator = messageIdGenerator;
+		this.headerParser = headerParser;
 
-        try {
-            SignedMessage message = SignedMessage.load(mimeMessage);
+		this.notierPersisterHandler = notierPersisterHandler;
+	}
 
-            // Validate content
-            message.validate(Service.AP, certificateValidator,
-                    httpHeaders.getHeader(As2Header.AS2_FROM)[0].replace("\"", ""));
+	/**
+	 * Receives an AS2 Message in the form of a map of headers together with the
+	 * payload, which is made available in an input stream
+	 * <p>
+	 * If persisting message to the Message Repository fails, we have to return
+	 * negative MDN.
+	 *
+	 * @param httpHeaders the http headers received
+	 * @param mimeMessage supplies the MIME message
+	 * @return MDN object to signal if everything is ok or if some error occurred
+	 *         while receiving
+	 */
+	public MimeMessage receive(InternetHeaders httpHeaders, MimeMessage mimeMessage, Span root)
+			throws OxalisAs2InboundException {
+		TransmissionIdentifier transmissionIdentifier = null;
+		Header header = null;
+		Path payloadPath = null;
+		OxalisAs2InboundException exception;
 
-            // Get timestamp using signature as input
-            Timestamp t2 = timestampProvider.generate(message.getSignature(), Direction.IN);
+		try {
+			SignedMessage message = SignedMessage.load(mimeMessage);
 
-            Tag tag = tagGenerator.generate(Direction.IN);
+			// Validate content
+			message.validate(Service.AP, certificateValidator,
+					httpHeaders.getHeader(As2Header.AS2_FROM)[0].replace("\"", ""));
 
-            // Initiate MDN
-            MdnBuilder mdnBuilder = MdnBuilder.newInstance(mimeMessage);
-            mdnBuilder.addHeader(MdnHeader.DATE, t2.getDate());
+			// Get timestamp using signature as input
+			Timestamp t2 = timestampProvider.generate(message.getSignature(), Direction.IN);
 
-            // Extract Message-ID
-            transmissionIdentifier = TransmissionIdentifier.fromHeader(httpHeaders.getHeader(As2Header.MESSAGE_ID)[0]);
-            mdnBuilder.addHeader(MdnHeader.ORIGINAL_MESSAGE_ID, httpHeaders.getHeader(As2Header.MESSAGE_ID)[0]);
+			Tag tag = tagGenerator.generate(Direction.IN);
 
-            // Extract digest algorithm
-            SMimeDigestMethod digestMethod = SMimeDigestMethod.findByIdentifier(message.getMicalg());
+			// Initiate MDN
+			MdnBuilder mdnBuilder = MdnBuilder.newInstance(mimeMessage);
+			mdnBuilder.addHeader(MdnHeader.DATE, t2.getDate());
 
-            // Extract content headers
-            byte[] headerBytes = message.getBodyHeader();
-            mdnBuilder.addHeader(MdnHeader.ORIGINAL_CONTENT_HEADER, headerBytes);
+			// Extract Message-ID
+			transmissionIdentifier = TransmissionIdentifier.fromHeader(httpHeaders.getHeader(As2Header.MESSAGE_ID)[0]);
+			mdnBuilder.addHeader(MdnHeader.ORIGINAL_MESSAGE_ID, httpHeaders.getHeader(As2Header.MESSAGE_ID)[0]);
 
-            byte[] content = message.getContentBytes();
+			// Extract digest algorithm
+			SMimeDigestMethod digestMethod = SMimeDigestMethod.findByIdentifier(message.getMicalg());
 
-            // Extract header
-            header = headerParser.parse(new ByteArrayInputStream(content));
+			// Extract content headers
+			byte[] headerBytes = message.getBodyHeader();
+			mdnBuilder.addHeader(MdnHeader.ORIGINAL_CONTENT_HEADER, headerBytes);
 
-            // Perform validation of header
-            transmissionVerifier.verify(header, Direction.IN);
+			byte[] content = message.getContentBytes();
 
-            // Create "fresh" InputStream
-            try (InputStream payloadInputStream = new ByteArrayInputStream(content)) {
-                // Persist content
-                payloadPath = persisterHandler.persist(transmissionIdentifier, header, payloadInputStream);
-            }
+			// Extract header
+			header = headerParser.parse(new ByteArrayInputStream(content));
 
-            // Fetch calculated digest
-            Digest calculatedDigest = Digest.of(digestMethod.getDigestMethod(), message.getDigest());
-            mdnBuilder.addHeader(MdnHeader.RECEIVED_CONTENT_MIC, new Mic(calculatedDigest));
+			// Perform validation of header
+			transmissionVerifier.verify(header, Direction.IN);
 
-            // Generate Message-Id
-            String messageId = messageIdGenerator.generate(new As2InboundMetadata(transmissionIdentifier, header, t2,
-                    null, null, message.getSigner(), null, tag));
+			// Create "fresh" InputStream
+			try (InputStream payloadInputStream = new ByteArrayInputStream(content)) {
+				// Persist content
+				payloadPath = persisterHandler.persist(transmissionIdentifier, header, payloadInputStream);
 
-            if (!MessageIdUtil.verify(messageId))
-                throw new OxalisAs2InboundException(
-                        "Invalid Message-ID '" + messageId + "' generated.",
-                        Disposition.UNEXPECTED_PROCESSING_ERROR);
+			}
 
-            // Create receipt (MDN)
-            mdnBuilder.addHeader(MdnHeader.DISPOSITION, Disposition.PROCESSED);
-            MimeMessage mdn = sMimeMessageFactory.createSignedMimeMessage(mdnBuilder.build(), digestMethod);
-            // MimeMessage mdn = sMimeMessageFactory.createSignedMimeMessageNew(mdnBuilder.build(), calculatedDigest, digestMethod);
-            mdn.setHeader(As2Header.MESSAGE_ID, messageId);
-            mdn.setHeader(As2Header.AS2_VERSION, As2Header.VERSION);
-            mdn.setHeader(As2Header.AS2_FROM, httpHeaders.getHeader(As2Header.AS2_TO)[0]);
-            mdn.setHeader(As2Header.AS2_TO, httpHeaders.getHeader(As2Header.AS2_FROM)[0]);
+			// Fetch calculated digest
+			Digest calculatedDigest = Digest.of(digestMethod.getDigestMethod(), message.getDigest());
+			mdnBuilder.addHeader(MdnHeader.RECEIVED_CONTENT_MIC, new Mic(calculatedDigest));
 
-            // Prepare MDN
-            ByteArrayOutputStream mdnOutputStream = new ByteArrayOutputStream();
-            mdn.writeTo(mdnOutputStream);
+			// Generate Message-Id
+			String messageId = messageIdGenerator.generate(new As2InboundMetadata(transmissionIdentifier, header, t2,
+					null, null, message.getSigner(), null, tag));
 
-            // Persist metadata
-            As2InboundMetadata inboundMetadata = new As2InboundMetadata(transmissionIdentifier, header, t2,
-                    digestMethod.getTransportProfile(), calculatedDigest, message.getSigner(), mdnOutputStream.toByteArray(), tag);
-            persisterHandler.persist(inboundMetadata, payloadPath);
+			if (!MessageIdUtil.verify(messageId))
+				throw new OxalisAs2InboundException("Invalid Message-ID '" + messageId + "' generated.",
+						Disposition.UNEXPECTED_PROCESSING_ERROR);
 
-            // Persist statistics
-            inboundService.complete(inboundMetadata);
+			// Create receipt (MDN)
+			mdnBuilder.addHeader(MdnHeader.DISPOSITION, Disposition.PROCESSED);
+			MimeMessage mdn = sMimeMessageFactory.createSignedMimeMessage(mdnBuilder.build(), digestMethod);
+			// MimeMessage mdn =
+			// sMimeMessageFactory.createSignedMimeMessageNew(mdnBuilder.build(),
+			// calculatedDigest, digestMethod);
+			mdn.setHeader(As2Header.MESSAGE_ID, messageId);
+			mdn.setHeader(As2Header.AS2_VERSION, As2Header.VERSION);
+			mdn.setHeader(As2Header.AS2_FROM, httpHeaders.getHeader(As2Header.AS2_TO)[0]);
+			mdn.setHeader(As2Header.AS2_TO, httpHeaders.getHeader(As2Header.AS2_FROM)[0]);
 
-            return mdn;
-        } catch (OxalisContentException e) {
-            exception = new OxalisAs2InboundException(Disposition.UNSUPPORTED_FORMAT, e.getMessage(), e);
-            persisterHandler.persist(transmissionIdentifier, header, payloadPath, exception);
-            throw exception;
-        } catch (NoSuchAlgorithmException e) {
-            exception = new OxalisAs2InboundException(Disposition.UNSUPPORTED_MIC_ALGORITHMS, e.getMessage(), e);
-            persisterHandler.persist(transmissionIdentifier, header, payloadPath, exception);
-            throw exception;
-        } catch (VerifierException e) {
-            exception = new OxalisAs2InboundException(Disposition.fromVerifierException(e), e.getMessage(), e);
-            persisterHandler.persist(transmissionIdentifier, header, payloadPath, exception);
-            throw exception;
-        } catch (PeppolSecurityException e) {
-            exception = new OxalisAs2InboundException(Disposition.AUTHENTICATION_FAILED, e.getMessage(), e);
-            persisterHandler.persist(transmissionIdentifier, header, payloadPath, exception);
-            throw exception;
-        } catch (OxalisSecurityException e) {
-            exception = new OxalisAs2InboundException(Disposition.INTEGRITY_CHECK_FAILED, e.getMessage(), e);
-            persisterHandler.persist(transmissionIdentifier, header, payloadPath, exception);
-            throw exception;
-        } catch (Exception e) {
-            exception = new OxalisAs2InboundException(Disposition.UNEXPECTED_PROCESSING_ERROR, e.getMessage(), e);
-            persisterHandler.persist(transmissionIdentifier, header, payloadPath, exception);
-            throw exception;
-        }
-    }
+			// Prepare MDN
+			ByteArrayOutputStream mdnOutputStream = new ByteArrayOutputStream();
+			mdn.writeTo(mdnOutputStream);
+
+			// Persist metadata
+			As2InboundMetadata inboundMetadata = new As2InboundMetadata(transmissionIdentifier, header, t2,
+					digestMethod.getTransportProfile(), calculatedDigest, message.getSigner(),
+					mdnOutputStream.toByteArray(), tag);
+			persisterHandler.persist(inboundMetadata, payloadPath);
+
+			/**
+			 * This method persist file on Notier also.
+			 * 
+			 * @author Manuel Gozzi
+			 */
+			notierPersisterHandler.persist(inboundMetadata, payloadPath);
+
+			// Persist statistics
+			inboundService.complete(inboundMetadata);
+
+			return mdn;
+		} catch (OxalisContentException e) {
+			exception = new OxalisAs2InboundException(Disposition.UNSUPPORTED_FORMAT, e.getMessage(), e);
+			persisterHandler.persist(transmissionIdentifier, header, payloadPath, exception);
+			throw exception;
+		} catch (NoSuchAlgorithmException e) {
+			exception = new OxalisAs2InboundException(Disposition.UNSUPPORTED_MIC_ALGORITHMS, e.getMessage(), e);
+			persisterHandler.persist(transmissionIdentifier, header, payloadPath, exception);
+			throw exception;
+		} catch (VerifierException e) {
+			exception = new OxalisAs2InboundException(Disposition.fromVerifierException(e), e.getMessage(), e);
+			persisterHandler.persist(transmissionIdentifier, header, payloadPath, exception);
+			throw exception;
+		} catch (PeppolSecurityException e) {
+			exception = new OxalisAs2InboundException(Disposition.AUTHENTICATION_FAILED, e.getMessage(), e);
+			persisterHandler.persist(transmissionIdentifier, header, payloadPath, exception);
+			throw exception;
+		} catch (OxalisSecurityException e) {
+			exception = new OxalisAs2InboundException(Disposition.INTEGRITY_CHECK_FAILED, e.getMessage(), e);
+			persisterHandler.persist(transmissionIdentifier, header, payloadPath, exception);
+			throw exception;
+		} catch (Exception e) {
+			exception = new OxalisAs2InboundException(Disposition.UNEXPECTED_PROCESSING_ERROR, e.getMessage(), e);
+			persisterHandler.persist(transmissionIdentifier, header, payloadPath, exception);
+			throw exception;
+		}
+	}
 }

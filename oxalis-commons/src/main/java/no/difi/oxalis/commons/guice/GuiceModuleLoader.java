@@ -90,11 +90,6 @@ public class GuiceModuleLoader extends AbstractModule {
                     moduleConfigs.put(String.format("%s.%s", group, module), moduleConfig);
             }
         }
-        
-        /**
-         * Manuel
-         */
-        moduleConfigs.forEach((k, v) -> System.out.println("Item: " + k + " Value: " + v));
 
         return moduleConfigs.values().stream()
                 // Verify depending module is enabled.

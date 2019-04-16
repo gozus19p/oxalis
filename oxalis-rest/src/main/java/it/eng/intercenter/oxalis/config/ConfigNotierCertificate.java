@@ -1,9 +1,7 @@
-package it.eng.intercenter.oxalis.quartz.config.impl;
+package it.eng.intercenter.oxalis.config;
 
 import java.io.IOException;
 import java.util.Properties;
-
-import it.eng.intercenter.oxalis.quartz.config.PropertiesConfigurationManager;
 
 public class ConfigNotierCertificate implements PropertiesConfigurationManager {
 

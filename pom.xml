@@ -1,676 +1,676 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  ~ Copyright 2010-2018 Norwegian Agency for Public Management and eGovernment (Difi)
-  ~
-  ~ Licensed under the EUPL, Version 1.1 or – as soon they
-  ~ will be approved by the European Commission - subsequent
-  ~ versions of the EUPL (the "Licence");
-  ~
-  ~ You may not use this work except in compliance with the Licence.
-  ~
-  ~ You may obtain a copy of the Licence at:
-  ~
-  ~ https://joinup.ec.europa.eu/community/eupl/og_page/eupl
-  ~
-  ~ Unless required by applicable law or agreed to in
-  ~ writing, software distributed under the Licence is
-  ~ distributed on an "AS IS" basis,
-  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
-  ~ express or implied.
-  ~ See the Licence for the specific language governing
-  ~ permissions and limitations under the Licence.
-  -->
+<!-- ~ Copyright 2010-2018 Norwegian Agency for Public Management and eGovernment 
+	(Difi) ~ ~ Licensed under the EUPL, Version 1.1 or – as soon they ~ will 
+	be approved by the European Commission - subsequent ~ versions of the EUPL 
+	(the "Licence"); ~ ~ You may not use this work except in compliance with 
+	the Licence. ~ ~ You may obtain a copy of the Licence at: ~ ~ https://joinup.ec.europa.eu/community/eupl/og_page/eupl 
+	~ ~ Unless required by applicable law or agreed to in ~ writing, software 
+	distributed under the Licence is ~ distributed on an "AS IS" basis, ~ WITHOUT 
+	WARRANTIES OR CONDITIONS OF ANY KIND, either ~ express or implied. ~ See 
+	the Licence for the specific language governing ~ permissions and limitations 
+	under the Licence. -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-    <modelVersion>4.0.0</modelVersion>
+	<modelVersion>4.0.0</modelVersion>
 
-    <groupId>no.difi.oxalis</groupId>
-    <artifactId>oxalis</artifactId>
-    <version>4.0.4-SNAPSHOT</version>
-    <packaging>pom</packaging>
+	<groupId>no.difi.oxalis</groupId>
+	<artifactId>oxalis</artifactId>
+	<version>4.0.4-SNAPSHOT</version>
+	<packaging>pom</packaging>
 
-    <name>Oxalis :: Parent</name>
-    <description>The binary plug-and-play implementation of the PEPPOL sample extension.</description>
-    <url>https://github.com/difi/oxalis</url>
+	<name>Oxalis :: Parent</name>
+	<description>The binary plug-and-play implementation of the PEPPOL sample extension.</description>
+	<url>https://github.com/difi/oxalis</url>
 
-    <scm>
-        <connection>scm:git:git@github.com:difi/oxalis.git</connection>
-        <url>scm:git:git@github.com:difi/oxalis.git</url>
-        <developerConnection>scm:git:git@github.com:difi/oxalis.git</developerConnection>
-        <tag>HEAD</tag>
-    </scm>
+	<scm>
+		<connection>scm:git:git@github.com:difi/oxalis.git</connection>
+		<url>scm:git:git@github.com:difi/oxalis.git</url>
+		<developerConnection>scm:git:git@github.com:difi/oxalis.git</developerConnection>
+		<tag>HEAD</tag>
+	</scm>
 
-    <modules>
-        <module>oxalis-api</module>
-        <module>oxalis-test</module>
-        <module>oxalis-commons</module>
-        <module>oxalis-inbound</module>
-        <module>oxalis-dist/oxalis-war</module>
-        <module>oxalis-outbound</module>
-        <module>oxalis-dist/oxalis-standalone</module>
-        <module>oxalis-dist/oxalis-server</module>
-        <module>oxalis-dist/oxalis-distribution</module>
-        <module>oxalis-legacy/oxalis-statistics</module>
-        <module>oxalis-legacy/oxalis-persistence</module>
-        <module>oxalis-legacy/oxalis-document-sniffer</module>
-        <module>oxalis-extension</module>
-        <module>oxalis-quartz</module>
-    </modules>
+	<modules>
+		<module>oxalis-api</module>
+		<module>oxalis-test</module>
+		<module>oxalis-commons</module>
+		<module>oxalis-inbound</module>
+		<module>oxalis-dist/oxalis-war</module>
+		<module>oxalis-outbound</module>
+		<module>oxalis-dist/oxalis-standalone</module>
+		<module>oxalis-dist/oxalis-server</module>
+		<module>oxalis-dist/oxalis-distribution</module>
+		<module>oxalis-legacy/oxalis-statistics</module>
+		<module>oxalis-legacy/oxalis-persistence</module>
+		<module>oxalis-legacy/oxalis-document-sniffer</module>
+		<module>oxalis-extension</module>
+		<module>oxalis-quartz</module>
+		<module>oxalis-rest</module>
+	</modules>
 
-    <properties>
-        <java.version>1.8</java.version>
-        <java.encoding>UTF-8</java.encoding>
-        <slf4j.version>1.7.25</slf4j.version>
-        <logback.version>1.2.3</logback.version>
-        <bouncycastle.version>1.57</bouncycastle.version>
-        <google.guice.version>4.2.2</google.guice.version>
-        <vefa.peppol.version>1.1.1</vefa.peppol.version>
-        <brave.version>4.19.3</brave.version>
-        <jetty.version>9.4.14.v20181114</jetty.version>
-        <opentracing.version>0.31.0</opentracing.version>
-    </properties>
+	<properties>
+		<java.version>1.8</java.version>
+		<java.encoding>UTF-8</java.encoding>
+		<slf4j.version>1.7.25</slf4j.version>
+		<logback.version>1.2.3</logback.version>
+		<bouncycastle.version>1.57</bouncycastle.version>
+		<google.guice.version>4.2.2</google.guice.version>
+		<vefa.peppol.version>1.1.1</vefa.peppol.version>
+		<brave.version>4.19.3</brave.version>
+		<jetty.version>9.4.14.v20181114</jetty.version>
+		<opentracing.version>0.31.0</opentracing.version>
+	</properties>
 
-    <dependencies>
-        <!-- Lombok -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.4</version>
-            <scope>provided</scope>
-        </dependency>
+	<dependencies>
+		<!-- Lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.4</version>
+			<scope>provided</scope>
+		</dependency>
 
-        <!-- META-INF Services -->
-        <dependency>
-            <groupId>org.kohsuke.metainf-services</groupId>
-            <artifactId>metainf-services</artifactId>
-            <version>1.8</version>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
+		<!-- META-INF Services -->
+		<dependency>
+			<groupId>org.kohsuke.metainf-services</groupId>
+			<artifactId>metainf-services</artifactId>
+			<version>1.8</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
 
-    <dependencyManagement>
+	<dependencyManagement>
 
-        <dependencies>
+		<dependencies>
 
-            <!-- Oxalis -->
-            <dependency>
-                <groupId>no.difi.oxalis</groupId>
-                <artifactId>oxalis-api</artifactId>
-                <version>4.0.4-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>no.difi.oxalis</groupId>
-                <artifactId>oxalis-as2</artifactId>
-                <version>4.0.4-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>no.difi.oxalis</groupId>
-                <artifactId>oxalis-commons</artifactId>
-                <version>4.0.4-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>no.difi.oxalis</groupId>
-                <artifactId>oxalis-inbound</artifactId>
-                <version>4.0.4-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>no.difi.oxalis</groupId>
-                <artifactId>oxalis-outbound</artifactId>
-                <version>4.0.4-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>no.difi.oxalis</groupId>
-                <artifactId>oxalis-persistence</artifactId>
-                <version>4.0.4-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>no.difi.oxalis</groupId>
-                <artifactId>oxalis-persistence</artifactId>
-                <type>test-jar</type>
-                <version>4.0.4-SNAPSHOT</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>no.difi.oxalis</groupId>
-                <artifactId>oxalis-standalone</artifactId>
-                <version>4.0.4-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>no.difi.oxalis</groupId>
-                <artifactId>oxalis-statistics</artifactId>
-                <version>4.0.4-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>no.difi.oxalis</groupId>
-                <artifactId>oxalis-test</artifactId>
-                <version>4.0.4-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>no.difi.oxalis</groupId>
-                <artifactId>oxalis-document-sniffer</artifactId>
-                <version>4.0.4-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>no.difi.oxalis</groupId>
-                <artifactId>oxalis-extension-testbed</artifactId>
-                <version>4.0.4-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>no.difi.oxalis</groupId>
-                <artifactId>oxalis-war</artifactId>
-                <version>4.0.4-SNAPSHOT</version>
-                <classifier>classes</classifier>
-            </dependency>
-            
-            <!-- Quartz -->
-            <dependency>
-                <groupId>it.eng.intercenter</groupId>
-                <artifactId>oxalis-quartz</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
-            </dependency>
+			<!-- Oxalis -->
 
-            <!-- Logging -->
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-api</artifactId>
-                <version>${slf4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>jul-to-slf4j</artifactId>
-                <version>${slf4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>jcl-over-slf4j</artifactId>
-                <version>${slf4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-classic</artifactId>
-                <version>${logback.version}</version>
-            </dependency>
+			<dependency>
+				<groupId>no.difi.oxalis</groupId>
+				<artifactId>oxalis-api</artifactId>
+				<version>4.0.4-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>no.difi.oxalis</groupId>
+				<artifactId>oxalis-as2</artifactId>
+				<version>4.0.4-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>no.difi.oxalis</groupId>
+				<artifactId>oxalis-commons</artifactId>
+				<version>4.0.4-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>no.difi.oxalis</groupId>
+				<artifactId>oxalis-inbound</artifactId>
+				<version>4.0.4-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>no.difi.oxalis</groupId>
+				<artifactId>oxalis-outbound</artifactId>
+				<version>4.0.4-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>no.difi.oxalis</groupId>
+				<artifactId>oxalis-persistence</artifactId>
+				<version>4.0.4-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>no.difi.oxalis</groupId>
+				<artifactId>oxalis-persistence</artifactId>
+				<type>test-jar</type>
+				<version>4.0.4-SNAPSHOT</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>no.difi.oxalis</groupId>
+				<artifactId>oxalis-standalone</artifactId>
+				<version>4.0.4-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>no.difi.oxalis</groupId>
+				<artifactId>oxalis-statistics</artifactId>
+				<version>4.0.4-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>no.difi.oxalis</groupId>
+				<artifactId>oxalis-test</artifactId>
+				<version>4.0.4-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>no.difi.oxalis</groupId>
+				<artifactId>oxalis-document-sniffer</artifactId>
+				<version>4.0.4-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>no.difi.oxalis</groupId>
+				<artifactId>oxalis-extension-testbed</artifactId>
+				<version>4.0.4-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>no.difi.oxalis</groupId>
+				<artifactId>oxalis-war</artifactId>
+				<version>4.0.4-SNAPSHOT</version>
+				<classifier>classes</classifier>
+			</dependency>
 
-            <dependency>
-                <groupId>com.google.guava</groupId>
-                <artifactId>guava</artifactId>
-                <version>27.0.1-jre</version>
-            </dependency>
+			<!-- Quartz -->
+			<dependency>
+				<groupId>it.eng.intercenter</groupId>
+				<artifactId>oxalis-quartz</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
 
-            <!-- Command line argument parsing -->
-            <dependency>
-                <groupId>net.sf.jopt-simple</groupId>
-                <artifactId>jopt-simple</artifactId>
-                <version>4.9</version>
-            </dependency>
+			<!-- Rest -->
+			<dependency>
+				<groupId>it.eng.intercenter</groupId>
+				<artifactId>oxalis-rest</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
 
-            <!-- Joda -->
-            <dependency>
-                <groupId>joda-time</groupId>
-                <artifactId>joda-time</artifactId>
-                <version>2.10.1</version>
-            </dependency>
+			<!-- Logging -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>jul-to-slf4j</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>jcl-over-slf4j</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-classic</artifactId>
+				<version>${logback.version}</version>
+			</dependency>
 
-            <!-- Google Guice -->
-            <dependency>
-                <groupId>com.google.inject</groupId>
-                <artifactId>guice</artifactId>
-                <version>${google.guice.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.google.inject.extensions</groupId>
-                <artifactId>guice-servlet</artifactId>
-                <version>${google.guice.version}</version>
-            </dependency>
+			<dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+				<version>27.0.1-jre</version>
+			</dependency>
 
-            <dependency>
-                <groupId>javax.inject</groupId>
-                <artifactId>javax.inject</artifactId>
-                <version>1</version>
-            </dependency>
+			<!-- Command line argument parsing -->
+			<dependency>
+				<groupId>net.sf.jopt-simple</groupId>
+				<artifactId>jopt-simple</artifactId>
+				<version>4.9</version>
+			</dependency>
 
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-dbcp2</artifactId>
-                <version>2.2.0</version>
-            </dependency>
+			<!-- Joda -->
+			<dependency>
+				<groupId>joda-time</groupId>
+				<artifactId>joda-time</artifactId>
+				<version>2.10.1</version>
+			</dependency>
 
-            <!-- Bouncy Castle -->
-            <dependency>
-                <groupId>org.bouncycastle</groupId>
-                <artifactId>bcmail-jdk15on</artifactId>
-                <version>${bouncycastle.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.bouncycastle</groupId>
-                <artifactId>bcprov-jdk15on</artifactId>
-                <version>${bouncycastle.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.bouncycastle</groupId>
-                <artifactId>bcpkix-jdk15on</artifactId>
-                <version>${bouncycastle.version}</version>
-            </dependency>
+			<!-- Google Guice -->
+			<dependency>
+				<groupId>com.google.inject</groupId>
+				<artifactId>guice</artifactId>
+				<version>${google.guice.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.google.inject.extensions</groupId>
+				<artifactId>guice-servlet</artifactId>
+				<version>${google.guice.version}</version>
+			</dependency>
 
-            <!-- VEFA PEPPOL -->
-            <dependency>
-                <groupId>no.difi.vefa</groupId>
-                <artifactId>peppol-common</artifactId>
-                <version>${vefa.peppol.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>no.difi.vefa</groupId>
-                <artifactId>peppol-evidence</artifactId>
-                <version>${vefa.peppol.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>no.difi.vefa</groupId>
-                <artifactId>peppol-icd</artifactId>
-                <version>${vefa.peppol.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>no.difi.vefa</groupId>
-                <artifactId>peppol-mode</artifactId>
-                <version>${vefa.peppol.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>no.difi.vefa</groupId>
-                <artifactId>peppol-lookup</artifactId>
-                <version>${vefa.peppol.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>no.difi.vefa</groupId>
-                <artifactId>peppol-sbdh</artifactId>
-                <version>${vefa.peppol.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>no.difi.vefa</groupId>
-                <artifactId>peppol-security</artifactId>
-                <version>${vefa.peppol.version}</version>
-            </dependency>
+			<dependency>
+				<groupId>javax.inject</groupId>
+				<artifactId>javax.inject</artifactId>
+				<version>1</version>
+			</dependency>
 
-            <dependency>
-                <groupId>javax.servlet</groupId>
-                <artifactId>javax.servlet-api</artifactId>
-                <version>4.0.1</version>
-            </dependency>
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-dbcp2</artifactId>
+				<version>2.2.0</version>
+			</dependency>
 
-            <dependency>
-                <groupId>javax.mail</groupId>
-                <artifactId>mail</artifactId>
-                <version>1.4.7</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>javax.activation</groupId>
-                        <artifactId>activation</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>javax.mail</groupId>
-                <artifactId>javax.mail-api</artifactId>
-                <version>1.5.6</version>
-            </dependency>
+			<!-- Bouncy Castle -->
+			<dependency>
+				<groupId>org.bouncycastle</groupId>
+				<artifactId>bcmail-jdk15on</artifactId>
+				<version>${bouncycastle.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.bouncycastle</groupId>
+				<artifactId>bcprov-jdk15on</artifactId>
+				<version>${bouncycastle.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.bouncycastle</groupId>
+				<artifactId>bcpkix-jdk15on</artifactId>
+				<version>${bouncycastle.version}</version>
+			</dependency>
 
-            <!-- Apache commons -->
-            <dependency>
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpclient</artifactId>
-                <version>4.5.6</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>commons-logging</groupId>
-                        <artifactId>commons-logging</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>commons-codec</groupId>
-                <artifactId>commons-codec</artifactId>
-                <version>1.11</version>
-            </dependency>
+			<!-- VEFA PEPPOL -->
+			<dependency>
+				<groupId>no.difi.vefa</groupId>
+				<artifactId>peppol-common</artifactId>
+				<version>${vefa.peppol.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>no.difi.vefa</groupId>
+				<artifactId>peppol-evidence</artifactId>
+				<version>${vefa.peppol.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>no.difi.vefa</groupId>
+				<artifactId>peppol-icd</artifactId>
+				<version>${vefa.peppol.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>no.difi.vefa</groupId>
+				<artifactId>peppol-mode</artifactId>
+				<version>${vefa.peppol.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>no.difi.vefa</groupId>
+				<artifactId>peppol-lookup</artifactId>
+				<version>${vefa.peppol.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>no.difi.vefa</groupId>
+				<artifactId>peppol-sbdh</artifactId>
+				<version>${vefa.peppol.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>no.difi.vefa</groupId>
+				<artifactId>peppol-security</artifactId>
+				<version>${vefa.peppol.version}</version>
+			</dependency>
 
-            <!-- Jetty -->
-            <dependency>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-server</artifactId>
-                <version>${jetty.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-servlet</artifactId>
-                <version>${jetty.version}</version>
-            </dependency>
+			<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>javax.servlet-api</artifactId>
+				<version>4.0.1</version>
+			</dependency>
 
-            <!-- MySQL -->
-            <dependency>
-                <groupId>mysql</groupId>
-                <artifactId>mysql-connector-java</artifactId>
-                <version>5.1.43</version>
-            </dependency>
+			<dependency>
+				<groupId>javax.mail</groupId>
+				<artifactId>mail</artifactId>
+				<version>1.4.7</version>
+				<exclusions>
+					<exclusion>
+						<groupId>javax.activation</groupId>
+						<artifactId>activation</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>javax.mail</groupId>
+				<artifactId>javax.mail-api</artifactId>
+				<version>1.5.6</version>
+			</dependency>
 
-            <!-- H2 -->
-            <dependency>
-                <groupId>com.h2database</groupId>
-                <artifactId>h2</artifactId>
-                <version>1.4.197</version>
-            </dependency>
+			<!-- Apache commons -->
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpclient</artifactId>
+				<version>4.5.6</version>
+				<exclusions>
+					<exclusion>
+						<groupId>commons-logging</groupId>
+						<artifactId>commons-logging</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>commons-codec</groupId>
+				<artifactId>commons-codec</artifactId>
+				<version>1.11</version>
+			</dependency>
 
-            <!-- HSQL -->
-            <dependency>
-                <groupId>org.hsqldb</groupId>
-                <artifactId>hsqldb</artifactId>
-                <version>2.4.1</version>
-            </dependency>
+			<!-- Jetty -->
+			<dependency>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-server</artifactId>
+				<version>${jetty.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-servlet</artifactId>
+				<version>${jetty.version}</version>
+			</dependency>
 
-            <!-- OpenTracing -->
-            <dependency>
-                <groupId>io.opentracing</groupId>
-                <artifactId>opentracing-api</artifactId>
-                <version>${opentracing.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.opentracing</groupId>
-                <artifactId>opentracing-noop</artifactId>
-                <version>${opentracing.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.opentracing.brave</groupId>
-                <artifactId>brave-opentracing</artifactId>
-                <version>0.33.7</version>
-            </dependency>
-            <dependency>
-                <groupId>io.opentracing.contrib</groupId>
-                <artifactId>opentracing-apache-httpclient</artifactId>
-                <version>0.1.0</version>
-            </dependency>
-            <dependency>
-                <groupId>io.opentracing.contrib</groupId>
-                <artifactId>opentracing-web-servlet-filter</artifactId>
-                <version>0.2.2</version>
-            </dependency>
-            <dependency>
-                <groupId>io.opentracing.contrib</groupId>
-                <artifactId>opentracing-spanmanager</artifactId>
-                <version>0.0.5</version>
-            </dependency>
+			<!-- MySQL -->
+			<dependency>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<version>5.1.43</version>
+			</dependency>
 
-            <!-- Zipkin -->
-            <dependency>
-                <groupId>io.zipkin.brave</groupId>
-                <artifactId>brave</artifactId>
-                <version>${brave.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.zipkin.reporter2</groupId>
-                <artifactId>zipkin-sender-urlconnection</artifactId>
-                <version>2.7.10</version>
-            </dependency>
+			<!-- H2 -->
+			<dependency>
+				<groupId>com.h2database</groupId>
+				<artifactId>h2</artifactId>
+				<version>1.4.197</version>
+			</dependency>
 
-            <!-- Testing -->
-            <dependency>
-                <groupId>org.testng</groupId>
-                <artifactId>testng</artifactId>
-                <version>6.14.3</version>
-            </dependency>
-            <dependency>
-                <groupId>org.mockito</groupId>
-                <artifactId>mockito-core</artifactId>
-                <version>2.23.4</version>
-            </dependency>
+			<!-- HSQL -->
+			<dependency>
+				<groupId>org.hsqldb</groupId>
+				<artifactId>hsqldb</artifactId>
+				<version>2.4.1</version>
+			</dependency>
 
-        </dependencies>
-    </dependencyManagement>
+			<!-- OpenTracing -->
+			<dependency>
+				<groupId>io.opentracing</groupId>
+				<artifactId>opentracing-api</artifactId>
+				<version>${opentracing.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.opentracing</groupId>
+				<artifactId>opentracing-noop</artifactId>
+				<version>${opentracing.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.opentracing.brave</groupId>
+				<artifactId>brave-opentracing</artifactId>
+				<version>0.33.7</version>
+			</dependency>
+			<dependency>
+				<groupId>io.opentracing.contrib</groupId>
+				<artifactId>opentracing-apache-httpclient</artifactId>
+				<version>0.1.0</version>
+			</dependency>
+			<dependency>
+				<groupId>io.opentracing.contrib</groupId>
+				<artifactId>opentracing-web-servlet-filter</artifactId>
+				<version>0.2.2</version>
+			</dependency>
+			<dependency>
+				<groupId>io.opentracing.contrib</groupId>
+				<artifactId>opentracing-spanmanager</artifactId>
+				<version>0.0.5</version>
+			</dependency>
 
-    <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <artifactId>maven-assembly-plugin</artifactId>
-                    <version>2.6</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-jar-plugin</artifactId>
-                    <version>2.6</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-enforcer-plugin</artifactId>
-                    <version>1.4.1</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-release-plugin</artifactId>
-                    <version>2.5.3</version>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.apache.maven.scm</groupId>
-                            <artifactId>maven-scm-provider-gitexe</artifactId>
-                            <version>1.9.4</version>
-                        </dependency>
-                    </dependencies>
-                    <configuration>
-                        <arguments>-Pdist</arguments>
-                    </configuration>
-                </plugin>
+			<!-- Zipkin -->
+			<dependency>
+				<groupId>io.zipkin.brave</groupId>
+				<artifactId>brave</artifactId>
+				<version>${brave.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.zipkin.reporter2</groupId>
+				<artifactId>zipkin-sender-urlconnection</artifactId>
+				<version>2.7.10</version>
+			</dependency>
 
-                <plugin>
-                    <artifactId>maven-failsafe-plugin</artifactId>
-                    <version>2.19.1</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-site-plugin</artifactId>
-                    <version>3.4</version>
-                </plugin>
+			<!-- Testing -->
+			<dependency>
+				<groupId>org.testng</groupId>
+				<artifactId>testng</artifactId>
+				<version>6.14.3</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mockito</groupId>
+				<artifactId>mockito-core</artifactId>
+				<version>2.23.4</version>
+			</dependency>
 
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>3.0.1</version>
-                    <executions>
-                        <execution>
-                            <id>package-javadoc</id>
-                            <phase>package</phase>
-                            <goals>
-                                <goal>jar</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <configuration>
-                        <encoding>${java.encoding}</encoding>
-                        <!-- <additionalparam>-Xdoclint:none</additionalparam> -->
-                        <failOnError>true</failOnError>
-                        <excludePackageNames>*.jaxb.*:*.jaxb</excludePackageNames>
-                    </configuration>
-                </plugin>
+		</dependencies>
+	</dependencyManagement>
 
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <configuration>
-                        <useSystemClassLoader>false</useSystemClassLoader>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>maven-assembly-plugin</artifactId>
+					<version>2.6</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>2.6</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-enforcer-plugin</artifactId>
+					<version>1.4.1</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-release-plugin</artifactId>
+					<version>2.5.3</version>
+					<dependencies>
+						<dependency>
+							<groupId>org.apache.maven.scm</groupId>
+							<artifactId>maven-scm-provider-gitexe</artifactId>
+							<version>1.9.4</version>
+						</dependency>
+					</dependencies>
+					<configuration>
+						<arguments>-Pdist</arguments>
+					</configuration>
+				</plugin>
 
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.5</version>
-                <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                    <encoding>${java.encoding}</encoding>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>2.7</version>
-                <configuration>
-                    <encoding>${java.encoding}</encoding>
-                </configuration>
-            </plugin>
+				<plugin>
+					<artifactId>maven-failsafe-plugin</artifactId>
+					<version>2.19.1</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-site-plugin</artifactId>
+					<version>3.4</version>
+				</plugin>
 
-            <plugin>
-                <artifactId>maven-enforcer-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>enforce-maven</id>
-                        <goals>
-                            <goal>enforce</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <rules>
-                        <requireMavenVersion>
-                            <version>[3.3,)</version>
-                        </requireMavenVersion>
-                        <requireJavaVersion>
-                            <version>[1.8,)</version>
-                        </requireJavaVersion>
-                    </rules>
-                </configuration>
-            </plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>3.0.1</version>
+					<executions>
+						<execution>
+							<id>package-javadoc</id>
+							<phase>package</phase>
+							<goals>
+								<goal>jar</goal>
+							</goals>
+						</execution>
+					</executions>
+					<configuration>
+						<encoding>${java.encoding}</encoding>
+						<!-- <additionalparam>-Xdoclint:none</additionalparam> -->
+						<failOnError>true</failOnError>
+						<excludePackageNames>*.jaxb.*:*.jaxb</excludePackageNames>
+					</configuration>
+				</plugin>
 
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.2</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>report</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<configuration>
+						<useSystemClassLoader>false</useSystemClassLoader>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 
-    <issueManagement>
-        <url>https://github.com/difi/oxalis/issues</url>
-        <system>GitHub Issues</system>
-    </issueManagement>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.5</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+					<encoding>${java.encoding}</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.7</version>
+				<configuration>
+					<encoding>${java.encoding}</encoding>
+				</configuration>
+			</plugin>
 
-    <organization>
-        <name>Norwegian Agency for Public Management and eGovernment (Difi)</name>
-        <url>http://www.difi.no/</url>
-    </organization>
+			<plugin>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>enforce-maven</id>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<rules>
+						<requireMavenVersion>
+							<version>[3.3,)</version>
+						</requireMavenVersion>
+						<requireJavaVersion>
+							<version>[1.8,)</version>
+						</requireJavaVersion>
+					</rules>
+				</configuration>
+			</plugin>
 
-    <developers>
-        <developer>
-            <name>Nigel Parker</name>
-            <organization>Mazeppa AS</organization>
-            <roles>
-                <role>Developer</role>
-            </roles>
-        </developer>
-        <developer>
-            <name>Steinar Overbeck Cook</name>
-            <organization>Balder Programvare AS</organization>
-            <roles>
-                <role>Principal author</role>
-                <role>Architect</role>
-                <role>Developer</role>
-                <role>Manager</role>
-            </roles>
-        </developer>
-        <developer>
-            <name>Thore Johnsen</name>
-            <organization>SendRegning.no</organization>
-            <roles>
-                <role>Developer</role>
-            </roles>
-        </developer>
-        <developer>
-            <name>Erlend Klakegg Bergheim</name>
-            <organization>Norwegian Agency for Public Management and eGovernment (Difi)</organization>
-            <roles>
-                <role>Developer</role>
-            </roles>
-        </developer>
-    </developers>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.2</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 
-    <licenses>
-        <license>
-            <name>GNU Lesser General Public License (LGPL), Version 3.0</name>
-            <url>http://www.gnu.org/licenses/lgpl-3.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-        <license>
-            <name>European Union Public Licence (EUPL v.1.1)</name>
-            <url>https://joinup.ec.europa.eu/community/eupl/og_page/european-union-public-licence-eupl-v11</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
+	<issueManagement>
+		<url>https://github.com/difi/oxalis/issues</url>
+		<system>GitHub Issues</system>
+	</issueManagement>
 
-    <profiles>
-        <profile>
-            <id>release-sign-artifacts</id>
-            <activation>
-                <property>
-                    <name>performRelease</name>
-                    <value>true</value>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <version>3.0.1</version>
-                        <executions>
-                            <execution>
-                                <id>package-sources</id>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.6</version>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
+	<organization>
+		<name>Norwegian Agency for Public Management and eGovernment (Difi)</name>
+		<url>http://www.difi.no/</url>
+	</organization>
 
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
+	<developers>
+		<developer>
+			<name>Nigel Parker</name>
+			<organization>Mazeppa AS</organization>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</developer>
+		<developer>
+			<name>Steinar Overbeck Cook</name>
+			<organization>Balder Programvare AS</organization>
+			<roles>
+				<role>Principal author</role>
+				<role>Architect</role>
+				<role>Developer</role>
+				<role>Manager</role>
+			</roles>
+		</developer>
+		<developer>
+			<name>Thore Johnsen</name>
+			<organization>SendRegning.no</organization>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</developer>
+		<developer>
+			<name>Erlend Klakegg Bergheim</name>
+			<organization>Norwegian Agency for Public Management and eGovernment (Difi)</organization>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</developer>
+	</developers>
+
+	<licenses>
+		<license>
+			<name>GNU Lesser General Public License (LGPL), Version 3.0</name>
+			<url>http://www.gnu.org/licenses/lgpl-3.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+		<license>
+			<name>European Union Public Licence (EUPL v.1.1)</name>
+			<url>https://joinup.ec.europa.eu/community/eupl/og_page/european-union-public-licence-eupl-v11</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<profiles>
+		<profile>
+			<id>release-sign-artifacts</id>
+			<activation>
+				<property>
+					<name>performRelease</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<version>3.0.1</version>
+						<executions>
+							<execution>
+								<id>package-sources</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.6</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
 
 </project>

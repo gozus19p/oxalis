@@ -30,7 +30,7 @@
 			<cron>
 				<name>minute_trriger2</name>
 				<group>minute_trriger_group2</group>
-				<job-name>JobNotierGetter</job-name>
+				<job-name>JobNotierOutbound</job-name>
 				<job-group>NOTIER</job-group>
 				<cron-expression>0 * * * * ?</cron-expression>
 			</cron>

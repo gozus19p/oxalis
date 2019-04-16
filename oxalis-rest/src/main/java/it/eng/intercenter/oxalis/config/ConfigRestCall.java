@@ -1,9 +1,9 @@
-package it.eng.intercenter.oxalis.quartz.config.impl;
+package it.eng.intercenter.oxalis.config;
 
 import java.io.IOException;
 import java.util.Properties;
 
-import it.eng.intercenter.oxalis.quartz.config.PropertiesConfigurationManager;
+import it.eng.intercenter.oxalis.config.PropertiesConfigurationManager;
 
 /**
  * Configurazione delle chiamate rest.
@@ -16,6 +16,7 @@ public class ConfigRestCall implements PropertiesConfigurationManager {
 	private static final String CONFIGURATION_FILE_NAME = "rest-call-configuration.properties";
 	public static final String CONFIG_KEY_REST_GETTER_URNS = "rest.notier.getter.urns";
 	public static final String CONFIG_KEY_REST_GETTER_DOCUMENT = "rest.notier.getter.document";
+	public static final String CONFIG_KEY_REST_DOCUMENT_INBOUND = "rest.notier.inbound";
 	public static final String CONFIG_KEY_REST_SENDER_STATUS = "rest.notier.sender.status";
 	
 	/**

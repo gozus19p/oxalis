@@ -1,9 +1,7 @@
-package it.eng.intercenter.oxalis.quartz.config.impl;
+package it.eng.intercenter.oxalis.config;
 
 import java.io.IOException;
 import java.util.Properties;
-
-import it.eng.intercenter.oxalis.quartz.config.PropertiesConfigurationManager;
 
 /**
  * 
@@ -17,7 +15,7 @@ public class ConfigEmailNotificationSender implements PropertiesConfigurationMan
 	@Override
 	public void loadConfiguration() {
 		try {
-			fullEmailNotificationSenderConfiguration.load(ConfigRestCall.class.getClassLoader().getResourceAsStream(CONFIGURATION_FILE_NAME));
+			fullEmailNotificationSenderConfiguration.load(ConfigEmailNotificationSender.class.getClassLoader().getResourceAsStream(CONFIGURATION_FILE_NAME));
 		} catch (IOException ioex) {
 			ioex.printStackTrace();
 		}

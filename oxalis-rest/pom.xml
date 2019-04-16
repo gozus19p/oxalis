@@ -3,26 +3,19 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>it.eng.intercenter</groupId>
-	<artifactId>oxalis-quartz</artifactId>
+	<artifactId>oxalis-rest</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>oxalis-quartz</name>
 	<parent>
 		<groupId>no.difi.oxalis</groupId>
 		<artifactId>oxalis</artifactId>
 		<version>4.0.4-SNAPSHOT</version>
 	</parent>
 	<dependencies>
-		<!-- Oxalis - Notier integration -->
+		<!-- Guice -->
 		<dependency>
-			<groupId>it.eng.intercenter</groupId>
-			<artifactId>oxalis-notier-integration</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<!-- Oxalis - Rest -->
-		<dependency>
-			<groupId>it.eng.intercenter</groupId>
-			<artifactId>oxalis-rest</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<groupId>com.google.inject.extensions</groupId>
+			<artifactId>guice-servlet</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<!-- Apache Commons DBCP2 -->
 		<dependency>
@@ -35,27 +28,10 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		<!-- Oxalis Outbound -->
-		<dependency>
-			<groupId>no.difi.oxalis</groupId>
-			<artifactId>oxalis-outbound</artifactId>
-		</dependency>
 		<!-- Oxalis Commons -->
 		<dependency>
 			<groupId>no.difi.oxalis</groupId>
 			<artifactId>oxalis-commons</artifactId>
-		</dependency>
-		<!-- Guice -->
-		<dependency>
-			<groupId>com.google.inject.extensions</groupId>
-			<artifactId>guice-servlet</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<!-- Quartz -->
-		<dependency>
-			<groupId>org.quartz-scheduler</groupId>
-			<artifactId>quartz</artifactId>
-			<version>2.2.1</version>
 		</dependency>
 		<!-- Apache Commons -->
 		<dependency>

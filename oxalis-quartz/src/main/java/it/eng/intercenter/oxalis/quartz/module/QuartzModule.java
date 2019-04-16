@@ -12,7 +12,9 @@ import org.quartz.impl.StdSchedulerFactory;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
+import com.google.inject.multibindings.Multibinder;
 
+import it.eng.intercenter.oxalis.quartz.job.JobNotierOutbound;
 import it.eng.intercenter.oxalis.quartz.job.JobTest;
 import it.eng.intercenter.oxalis.quartz.scheduler.GuiceJobFactory;
 import it.eng.intercenter.oxalis.quartz.scheduler.Quartz;
@@ -35,7 +37,9 @@ public class QuartzModule extends AbstractModule {
 		log.info("Binding properties retrieved from file: {}", CONFIG_FILE_NAME);
 		bindProperties(binder(), getProperties(CONFIG_FILE_NAME));
 		bindScheduler();
-		bind(Job.class).to(JobTest.class).in(Singleton.class);
+		Multibinder<Job> jobs = Multibinder.newSetBinder(binder(), Job.class);
+		jobs.addBinding().to(JobTest.class).in(Singleton.class);;
+		jobs.addBinding().to(JobNotierOutbound.class).in(Singleton.class);
 		log.info("JobTest has been binded");
 	}
 

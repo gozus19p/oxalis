@@ -24,6 +24,7 @@ package no.difi.oxalis.as2.inbound;
 
 import com.google.inject.Inject;
 import io.opentracing.Tracer;
+import it.eng.intercenter.oxalis.as2.inbound.NotierPersisterHandler;
 import no.difi.oxalis.api.inbound.InboundService;
 import no.difi.oxalis.api.lang.OxalisTransmissionException;
 import no.difi.oxalis.api.model.Direction;
@@ -115,7 +116,7 @@ public class As2InboundHandlerTest {
         As2InboundHandler as2InboundHandler = new As2InboundHandler(Mockito.mock(InboundService.class),
                 mockTimestampProvider, new OxalisCertificateValidator(CertificateValidator.EMPTY, tracer), new NoopPersister(),
                 new DefaultTransmissionVerifier(), sMimeMessageFactory, new NoopTagGenerator(),
-                new DefaultMessageIdGenerator("test"), new SbdhHeaderParser());
+                new DefaultMessageIdGenerator("test"), new SbdhHeaderParser(), /**NOTIER*/new NotierPersisterHandler());
 
         MimeMessage mimeMessage = MimeMessageHelper.parse(inputStream, headers);
         as2InboundHandler.receive(headers, mimeMessage, tracer.buildSpan("test").start());

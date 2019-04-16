@@ -1,4 +1,4 @@
-package it.eng.intercenter.oxalis.quartz.job.exception;
+package it.eng.intercenter.oxalis.integration.exception;
 
 /**
  * Gestisce le eccezioni che si verificano in sede di gestione delle REST call.

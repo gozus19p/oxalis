@@ -33,10 +33,17 @@
 			<groupId>no.difi.oxalis</groupId>
 			<artifactId>oxalis-inbound</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>it.eng.intercenter</groupId>
 			<artifactId>oxalis-quartz</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>it.eng.intercenter</groupId>
+			<artifactId>oxalis-rest</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
 		<!-- Servlet -->
