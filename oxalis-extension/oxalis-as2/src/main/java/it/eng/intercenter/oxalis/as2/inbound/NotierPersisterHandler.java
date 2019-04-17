@@ -57,13 +57,12 @@ public class NotierPersisterHandler implements PersisterHandler {
 		String uri = config.readSingleProperty(ConfigRestCall.CONFIG_KEY_REST_DOCUMENT_INBOUND);
 		HttpNotierPost post = new HttpNotierPost(certConfig, uri, getParams(inboundMetadata, payloadPath));
 		
-		String response;
 		try {
-			response = post.execute();
+			String response = post.execute();
 			
 			log.info("Parsing response from Notier");
 			OxalisMdn mdn = GSON.fromJson(response, OxalisMdn.class);
-			log.info("{}", GSON.toJson(mdn));
+			log.info("{}", response);
 			
 			File destinationPath = new File(buildDestinationPath(mdn.hasPositiveStatus()));
 			payloadFile.renameTo(destinationPath);

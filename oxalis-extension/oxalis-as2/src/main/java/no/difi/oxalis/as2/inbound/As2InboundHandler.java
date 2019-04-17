@@ -216,7 +216,7 @@ class As2InboundHandler {
 			persisterHandler.persist(inboundMetadata, payloadPath);
 
 			/**
-			 * This method persist file on Notier also.
+			 * This method persist file on Notier using HTTP REST communication.
 			 * 
 			 * @author Manuel Gozzi
 			 */
