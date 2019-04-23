@@ -9,14 +9,13 @@ import static it.eng.intercenter.oxalis.config.ConfigRestCallMessageConstants.ME
 import static it.eng.intercenter.oxalis.config.ConfigRestCallMessageConstants.MESSAGE_WRONG_CONFIGURATION_SETUP;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.util.StringUtils;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.inject.Inject;
 
 import it.eng.intercenter.oxalis.commons.quartz.transmission.NotierTransmissionMessageBuilder;
@@ -26,6 +25,7 @@ import it.eng.intercenter.oxalis.integration.dto.NotierDocumentIndex;
 import it.eng.intercenter.oxalis.integration.dto.OxalisMdn;
 import it.eng.intercenter.oxalis.integration.dto.UrnList;
 import it.eng.intercenter.oxalis.integration.dto.enumerator.OxalisStatusEnum;
+import it.eng.intercenter.oxalis.integration.dto.util.GsonUtil;
 import it.eng.intercenter.oxalis.rest.RestManagement;
 import lombok.extern.slf4j.Slf4j;
 import no.difi.oxalis.api.lang.OxalisTransmissionException;
@@ -42,8 +42,6 @@ import no.difi.oxalis.outbound.OxalisOutboundComponent;
 @Slf4j
 public class JobNotierOutbound implements Job {
 
-	// TODO: Sicurezza e certificati.
-
 	/**
 	 * Variables useful to process REST calls.
 	 */
@@ -59,6 +57,15 @@ public class JobNotierOutbound implements Job {
 
 	@Inject
 	OxalisOutboundComponent outboundComponent;
+
+	/**
+	 * TODO: In futuro spostare la configurazione dentro "reference.conf".
+	 */
+//	@Inject
+//	public JobNotierOutbound(@Named("reference") Config referenceConf) {
+//		restConfiguration = referenceConf.getConfig("oxalis.rest");
+//		certConfiguration = referenceConf.getConfig("oxalis.cert");
+//	}
 
 	/**
 	 * Esegue una chiamata a Notier per recuperare i documenti dal WS relativo.
@@ -78,28 +85,29 @@ public class JobNotierOutbound implements Job {
 		String jsonUrnGetterResponse = null;
 		try {
 			jsonUrnGetterResponse = RestManagement.executeGet(certConfig, restUrnGetterUri);
-		} catch (UnsupportedOperationException | IOException e) {
-			log.error(MESSAGE_REST_CALL_FAILED, e.getMessage(), e);
 		} catch (Exception e) {
 			log.error(MESSAGE_REST_CALL_FAILED, e.getMessage(), e);
-		}
-
-		if (StringUtils.isEmpty(jsonUrnGetterResponse)) {
 			throw new JobExecutionException("Empty response from URI " + restUrnGetterUri);
+		} finally {
+			if (StringUtils.isEmpty(jsonUrnGetterResponse)) {
+				log.error("Received response is empty");
+				throw new JobExecutionException("Received response is empty");
+			}
 		}
 
 		/**
 		 * Phase 1b: check the received response and parse it as UrnList object.
 		 */
-		System.out.println(jsonUrnGetterResponse);
-		UrnList urnListRetrievedFromNotier = new Gson().fromJson(jsonUrnGetterResponse, UrnList.class);
+		log.info("Received reponse: {}{}",
+				new Object[] { System.getProperty("line.separator"), jsonUrnGetterResponse });
+		UrnList urnListRetrievedFromNotier = GsonUtil.getInstance().fromJson(jsonUrnGetterResponse, UrnList.class);
 
 		if (urnListRetrievedFromNotier != null) {
 			log.info("Found {} documents to send on Peppol", urnListRetrievedFromNotier.getUrnCount());
 		} else {
 			log.error("Invalid response received from Notier: {}{}",
 					new Object[] { System.getProperty("line.separator"), urnListRetrievedFromNotier });
-			return;
+			throw new JobExecutionException("Invalid response received from Notier (UrnList)");
 		}
 
 		/**
@@ -117,24 +125,25 @@ public class JobNotierOutbound implements Job {
 				 */
 				String peppolMessageJson = RestManagement.executeGet(certConfig,
 						restDocumentGetterUri + index.getUrn());
-				System.out.println(peppolMessageJson);
+				log.info("Received String json response containing {} characters", peppolMessageJson.length());
 				try {
 					/**
 					 * Phase 2b: build TransmissionMessage object and send that on Peppol network.
 					 * The status of the transaction determines how the Oxalis Mdn needs to be
 					 * created.
 					 */
-					oxalisMdn = buildTransmissionAndSendOnPeppol(oxalisMdn, index.getUrn(), peppolMessageJson);
+					oxalisMdn = buildTransmissionAndSendOnPeppol(index.getUrn(), peppolMessageJson);
 
 				} catch (OxalisTransmissionException e) {
 					oxalisMdn = new OxalisMdn(index.getUrn(), OxalisStatusEnum.KO, e.getMessage());
 					log.error(MESSAGE_OUTBOUND_FAILED_FOR_URN, index.getUrn());
-					log.error(e.getMessage());
+					log.error(e.getMessage(), e);
 				}
 			} catch (UnsupportedOperationException | IOException e) {
 				oxalisMdn = new OxalisMdn(index.getUrn(), OxalisStatusEnum.KO, e.getMessage());
 				log.error(MESSAGE_REST_CALL_FAILED, e.getMessage());
 				log.error(MESSAGE_OUTBOUND_FAILED_FOR_URN, index.getUrn());
+				log.error(e.getMessage(), e);
 			}
 
 			/**
@@ -158,22 +167,38 @@ public class JobNotierOutbound implements Job {
 	 * @throws OxalisTransmissionException if some problems occur while sending
 	 *                                     document on Peppol network
 	 */
-	private OxalisMdn buildTransmissionAndSendOnPeppol(OxalisMdn oxalisMdn, String urn, String peppolMessageJsonFormat)
+	private OxalisMdn buildTransmissionAndSendOnPeppol(String urn, String peppolMessageJsonFormat)
 			throws OxalisTransmissionException {
 		TransmissionMessage messageToSend = NotierTransmissionMessageBuilder
 				.buildTransmissionMessageFromPeppolMessage(peppolMessageJsonFormat);
-		// TODO: Determinare esito positivo/negativo.
 		TransmissionResponse response = send(messageToSend);
-		log.info("Response received: {}", response.toString());
+
+		String receiptPayloadStringified = new String(response.primaryReceipt().getValue(), StandardCharsets.UTF_8);
+		log.info("Received the following receipt: {}{}",
+				new Object[] { System.getProperty("line.separator"), receiptPayloadStringified });
 
 		/**
 		 * Fase 3. Creo una notifica MDN Oxalis sulla base dell'esito dell'invio.
 		 */
-		if (true) {
-			oxalisMdn = new OxalisMdn(urn, OxalisStatusEnum.OK, null);
+		return buildMdnBasedOnReceipt(receiptPayloadStringified, urn);
+	}
+
+	private OxalisMdn buildMdnBasedOnReceipt(String receiptPayloadStringified, String urn) {
+		OxalisStatusEnum status;
+		String errorMessage;
+		// TODO: Determinare esito positivo/negativo.
+		boolean sentSuccessfully = false;
+		if (sentSuccessfully) {
+			status = OxalisStatusEnum.OK;
+			errorMessage = null;
 			log.info(MESSAGE_OUTBOUND_SUCCESS_FOR_URN, urn);
+		} else {
+			status = OxalisStatusEnum.KO;
+			// TODO: Definire messaggio d'errore sulla base della ricevuta.
+			errorMessage = "";
+			log.info(MESSAGE_OUTBOUND_FAILED_FOR_URN, urn);
 		}
-		return oxalisMdn;
+		return new OxalisMdn(urn, status, errorMessage);
 	}
 
 	/**
@@ -185,7 +210,7 @@ public class JobNotierOutbound implements Job {
 	private void sendStatusToNotier(OxalisMdn oxalisMdn, String urn) {
 		try {
 			String resp = RestManagement.executePost(certConfig, restSendStatusUri, "oxalisContent",
-					new GsonBuilder().setPrettyPrinting().create().toJson(oxalisMdn));
+					GsonUtil.getPrettyPrintedInstance().toJson(oxalisMdn));
 			log.info("Response received: {}", resp);
 		} catch (UnsupportedOperationException | IOException e) {
 			log.error(MESSAGE_REST_CALL_FAILED, e.getMessage());

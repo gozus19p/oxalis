@@ -5,6 +5,8 @@
 	<groupId>it.eng.intercenter</groupId>
 	<artifactId>oxalis-rest</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<name>E :: Oxalis :: Rest</name>
+	<description>Library that provides REST classes definition in order to interact with Notier.</description>
 	<parent>
 		<groupId>no.difi.oxalis</groupId>
 		<artifactId>oxalis</artifactId>

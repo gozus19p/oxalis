@@ -10,7 +10,6 @@ import org.apache.http.message.BasicNameValuePair;
 
 import com.google.common.io.Files;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
@@ -18,6 +17,7 @@ import it.eng.intercenter.oxalis.commons.quartz.transmission.NotierTransmissionM
 import it.eng.intercenter.oxalis.config.ConfigNotierCertificate;
 import it.eng.intercenter.oxalis.config.ConfigRestCall;
 import it.eng.intercenter.oxalis.integration.dto.OxalisMdn;
+import it.eng.intercenter.oxalis.integration.dto.util.GsonUtil;
 import it.eng.intercenter.oxalis.rest.http.impl.HttpNotierPost;
 import lombok.extern.slf4j.Slf4j;
 import no.difi.oxalis.api.inbound.InboundMetadata;
@@ -31,7 +31,7 @@ import no.difi.vefa.peppol.common.model.Header;
 @Slf4j
 public class NotierPersisterHandler implements PersisterHandler {
 
-	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+	private static final Gson GSON = GsonUtil.getPrettyPrintedInstance();
 	private static final String SENT_PATH = "/sent/";
 	private static final String LOCKED_PATH = "/locked/";
 
@@ -63,7 +63,11 @@ public class NotierPersisterHandler implements PersisterHandler {
 			log.info("Parsing response from Notier");
 			OxalisMdn mdn = GSON.fromJson(response, OxalisMdn.class);
 			log.info("{}", response);
-			
+			if (mdn.hasPositiveStatus()) {
+				log.info("Received document, succesfully sent on Notier");
+			} else {
+				log.warn("Received document, found some problems during sending process on Notier");
+			}
 			File destinationPath = new File(buildDestinationPath(mdn.hasPositiveStatus()));
 			payloadFile.renameTo(destinationPath);
 			log.warn("File {} has been moved to {}",
@@ -86,11 +90,6 @@ public class NotierPersisterHandler implements PersisterHandler {
 	 * @return the path as String
 	 */
 	private String buildDestinationPath(boolean documentHasBeenSentSuccessfully) {
-		if (documentHasBeenSentSuccessfully) {
-			log.info("Received document, succesfully sent on Notier");
-		} else {
-			log.error("Received document, found some problems during sending process on Notier");
-		}
 		StringBuilder sb = new StringBuilder();
 		sb.append(inboundPath);
 		sb.append(documentHasBeenSentSuccessfully ? SENT_PATH : LOCKED_PATH);

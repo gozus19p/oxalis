@@ -22,20 +22,19 @@
 
 package no.difi.oxalis.commons.filesystem;
 
-import no.difi.oxalis.api.filesystem.HomeDetector;
-import no.difi.oxalis.api.lang.OxalisLoadingException;
-import no.difi.oxalis.commons.util.Sortables;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Objects;
 import java.util.ServiceLoader;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import no.difi.oxalis.api.filesystem.HomeDetector;
+import no.difi.oxalis.api.lang.OxalisLoadingException;
+import no.difi.oxalis.commons.util.Sortables;
 
 /**
  * Represents the Oxalis Home directory, which is located by inspecting various
@@ -69,15 +68,13 @@ public class OxalisHomeDirectory {
     }
 
     public File detect() {
-    	//TODO: attualmente disabilitata
-        File directory = new File("C:\\Users\\MGozzi\\.oxalis");
-        /*directory = homeDetectors.stream()
+        File directory = homeDetectors.stream()
                 .sequential()
                 .map(HomeDetector::detect)
                 .filter(Objects::nonNull)
                 .findFirst()
                 .orElseThrow(() -> new OxalisLoadingException(
-                        "Unable to detect Oxalis home folder."));*/
+                        "Unable to detect Oxalis home folder."));
         try {
             validateOxalisHomeDirectory(directory);
         } catch (OxalisLoadingException ex) {

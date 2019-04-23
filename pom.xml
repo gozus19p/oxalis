@@ -46,8 +46,11 @@
 		<module>oxalis-legacy/oxalis-persistence</module>
 		<module>oxalis-legacy/oxalis-document-sniffer</module>
 		<module>oxalis-extension</module>
+		<!-- Other oxalis modules @author Manuel Gozzi -->
 		<module>oxalis-quartz</module>
 		<module>oxalis-rest</module>
+		<module>oxalis-notier-integration</module>
+		<!-- <module>oxalis-as4</module> -->
 	</modules>
 
 	<properties>
