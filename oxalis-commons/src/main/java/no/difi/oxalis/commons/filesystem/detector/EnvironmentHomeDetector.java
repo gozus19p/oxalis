@@ -38,7 +38,7 @@ import java.util.Map;
 @MetaInfServices
 public class EnvironmentHomeDetector implements HomeDetector {
 
-    protected static final String VARIABLE = "OXALIS_HOME";
+    protected static final String VARIABLE = "OXALIS_TEST";
 
     private Map<String, String> environment;
 

@@ -1,7 +1,7 @@
 package it.eng.intercenter.oxalis.rest.http;
 
-import static it.eng.intercenter.oxalis.config.ConfigRestCallMessageConstants.MESSAGE_REST_STRING;
-import static it.eng.intercenter.oxalis.config.ConfigRestCallMessageConstants.MESSAGE_USING_REST_URI;
+import static it.eng.intercenter.oxalis.config.impl.ConfigRestCallMessageConstants.MESSAGE_REST_STRING;
+import static it.eng.intercenter.oxalis.config.impl.ConfigRestCallMessageConstants.MESSAGE_USING_REST_URI;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -27,8 +27,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.impl.client.HttpClients;
 
-import it.eng.intercenter.oxalis.config.ConfigNotierCertificate;
-import it.eng.intercenter.oxalis.config.ConfigRestCallMessageConstants;
+import it.eng.intercenter.oxalis.config.impl.ConfigNotierCertificate;
 import it.eng.intercenter.oxalis.integration.dto.enumerator.NotierRestCallTypeEnum;
 import lombok.extern.slf4j.Slf4j;
 
@@ -66,7 +65,7 @@ public abstract class HttpNotierCall<T extends HttpRequestBase> {
 	 * 
 	 */
 	private Boolean detectProductionMode() {
-		String propertyValue = certConfig.readSingleProperty("production.mode");
+		String propertyValue = certConfig.readValue(ConfigNotierCertificate.CONFIG_KEY_PRODUCTION_MODE_ENABLED);
 		return new Boolean(propertyValue);
 	}
 
@@ -123,13 +122,10 @@ public abstract class HttpNotierCall<T extends HttpRequestBase> {
 		log.info("Preparing certificate for Notier REST communications");
 		log.info("Reading password from configuration file");
 
-		password = certConfig.readSingleProperty("cert.password");
-		// "o40qrkh3td";
-		log.info(ConfigRestCallMessageConstants.MESSAGE_READING_PROPERTY, "cert.password");
-		String certPath = certConfig.readSingleProperty("cert.path");
-		// "C:\\Users\\MGozzi\\Desktop\\ONOTIER.p12";
+		password = certConfig.readValue(ConfigNotierCertificate.CONFIG_KEY_CERT_PASSWORD);
+		
+		String certPath = certConfig.readValue(ConfigNotierCertificate.CONFIG_KEY_CERT_PATH);
 
-		log.info(ConfigRestCallMessageConstants.MESSAGE_READING_PROPERTY, "cert.path");
 		log.info("Retrieving certificate file from path {}", certPath);
 		File cert = new File(certPath);
 		FileInputStream certInputStream;
@@ -144,27 +140,25 @@ public abstract class HttpNotierCall<T extends HttpRequestBase> {
 			Enumeration<String> e = keyStoreP12.aliases();
 			String alias = e.nextElement();
 			log.info("Alias found: {}", alias);
+			
 			X509Certificate x509Certificate = (X509Certificate) keyStoreP12.getCertificate(alias);
 			distinguishedName = x509Certificate.getSubjectDN().getName();
 			serialNumber = x509Certificate.getSerialNumber().toString();
 			log.info("The DN is: {}", distinguishedName);
 			log.info("The SN is: {}", serialNumber);
 			log.info("Certificate loaded successfully");
+			
 		} catch (KeyStoreException e) {
-			log.error("An error occurs while accessing KeyStore with root cause: {}", e.getMessage());
-			log.error("{}", e);
+			log.error("An error occurs while accessing KeyStore with root cause: {}", e.getMessage(), e);
 			return;
 		} catch (NoSuchAlgorithmException e) {
-			log.error("An error occurs with root cause: {}", e.getMessage());
-			log.error("{}", e);
+			log.error("An error occurs with root cause: {}", e.getMessage(), e);
 			return;
 		} catch (CertificateException e) {
-			log.error("Caught exception related to X509Certificate with root cause: {}", e.getMessage());
-			log.error("{}", e);
+			log.error("Caught exception related to X509Certificate with root cause: {}", e.getMessage(), e);
 			return;
 		} catch (IOException e) {
-			log.error("An error occurs during I/O operations with root cause: {}", e.getMessage());
-			log.error("{}", e);
+			log.error("An error occurs during I/O operations with root cause: {}", e.getMessage(), e);
 			return;
 		}
 	}

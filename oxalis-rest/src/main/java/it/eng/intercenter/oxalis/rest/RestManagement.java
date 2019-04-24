@@ -1,19 +1,23 @@
 package it.eng.intercenter.oxalis.rest;
 
+import static it.eng.intercenter.oxalis.config.impl.ConfigRestCallMessageConstants.MESSAGE_REST_CALL_FAILED;
+
 import java.io.IOException;
 
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.message.BasicNameValuePair;
 
-import it.eng.intercenter.oxalis.config.ConfigNotierCertificate;
+import it.eng.intercenter.oxalis.config.impl.ConfigNotierCertificate;
 import it.eng.intercenter.oxalis.rest.http.impl.HttpNotierGet;
 import it.eng.intercenter.oxalis.rest.http.impl.HttpNotierPost;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * This class provides static methods that allows to easily manage REST call.
  * 
  * @author Manuel Gozzi
  */
+@Slf4j
 public class RestManagement {
 
 	/**
@@ -50,7 +54,12 @@ public class RestManagement {
 	public static String executePost(ConfigNotierCertificate certConfig, String uri, BasicNameValuePair... params)
 			throws UnsupportedOperationException, ClientProtocolException, IOException {
 		HttpNotierPost request = new HttpNotierPost(certConfig, uri, params);
-		return request.execute();
+		try{
+			return request.execute();
+		} catch(UnsupportedOperationException | IOException e) {
+			log.error(MESSAGE_REST_CALL_FAILED, e.getMessage(), e);
+			throw e;
+		}
 	}
 
 	/**
@@ -66,7 +75,12 @@ public class RestManagement {
 	public static String executeGet(ConfigNotierCertificate certConfig, String uri)
 			throws UnsupportedOperationException, ClientProtocolException, IOException {
 		HttpNotierGet request = new HttpNotierGet(certConfig, uri);
-		return request.execute();
+		try{
+			return request.execute();
+		} catch(UnsupportedOperationException | IOException e) {
+			log.error(MESSAGE_REST_CALL_FAILED, e.getMessage(), e);
+			throw e;
+		}
 	}
 
 }

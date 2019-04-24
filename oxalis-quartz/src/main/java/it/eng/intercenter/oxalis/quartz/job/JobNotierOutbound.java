@@ -1,12 +1,10 @@
 package it.eng.intercenter.oxalis.quartz.job;
 
-import static it.eng.intercenter.oxalis.config.ConfigRestCallMessageConstants.MESSAGE_MDN_SEND_FAILED;
-import static it.eng.intercenter.oxalis.config.ConfigRestCallMessageConstants.MESSAGE_OUTBOUND_FAILED_FOR_URN;
-import static it.eng.intercenter.oxalis.config.ConfigRestCallMessageConstants.MESSAGE_OUTBOUND_SUCCESS_FOR_URN;
-import static it.eng.intercenter.oxalis.config.ConfigRestCallMessageConstants.MESSAGE_READING_PROPERTY;
-import static it.eng.intercenter.oxalis.config.ConfigRestCallMessageConstants.MESSAGE_REST_CALL_FAILED;
-import static it.eng.intercenter.oxalis.config.ConfigRestCallMessageConstants.MESSAGE_STARTING_TO_PROCESS_URN;
-import static it.eng.intercenter.oxalis.config.ConfigRestCallMessageConstants.MESSAGE_WRONG_CONFIGURATION_SETUP;
+import static it.eng.intercenter.oxalis.config.impl.ConfigRestCallMessageConstants.MESSAGE_MDN_SEND_FAILED;
+import static it.eng.intercenter.oxalis.config.impl.ConfigRestCallMessageConstants.MESSAGE_OUTBOUND_FAILED_FOR_URN;
+import static it.eng.intercenter.oxalis.config.impl.ConfigRestCallMessageConstants.MESSAGE_OUTBOUND_SUCCESS_FOR_URN;
+import static it.eng.intercenter.oxalis.config.impl.ConfigRestCallMessageConstants.MESSAGE_STARTING_TO_PROCESS_URN;
+import static it.eng.intercenter.oxalis.config.impl.ConfigRestCallMessageConstants.MESSAGE_WRONG_CONFIGURATION_SETUP;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -19,8 +17,8 @@ import org.springframework.util.StringUtils;
 import com.google.inject.Inject;
 
 import it.eng.intercenter.oxalis.commons.quartz.transmission.NotierTransmissionMessageBuilder;
-import it.eng.intercenter.oxalis.config.ConfigNotierCertificate;
-import it.eng.intercenter.oxalis.config.ConfigRestCall;
+import it.eng.intercenter.oxalis.config.impl.ConfigNotierCertificate;
+import it.eng.intercenter.oxalis.config.impl.ConfigRestCall;
 import it.eng.intercenter.oxalis.integration.dto.NotierDocumentIndex;
 import it.eng.intercenter.oxalis.integration.dto.OxalisMdn;
 import it.eng.intercenter.oxalis.integration.dto.UrnList;
@@ -48,24 +46,15 @@ public class JobNotierOutbound implements Job {
 	private static String restUrnGetterUri;
 	private static String restDocumentGetterUri;
 	private static String restSendStatusUri;
-
-	@Inject
-	ConfigRestCall configuration;
-
+	
 	@Inject
 	ConfigNotierCertificate certConfig;
+	
+	@Inject
+	ConfigRestCall restConfig;
 
 	@Inject
 	OxalisOutboundComponent outboundComponent;
-
-	/**
-	 * TODO: In futuro spostare la configurazione dentro "reference.conf".
-	 */
-//	@Inject
-//	public JobNotierOutbound(@Named("reference") Config referenceConf) {
-//		restConfiguration = referenceConf.getConfig("oxalis.rest");
-//		certConfiguration = referenceConf.getConfig("oxalis.cert");
-//	}
 
 	/**
 	 * Esegue una chiamata a Notier per recuperare i documenti dal WS relativo.
@@ -86,7 +75,6 @@ public class JobNotierOutbound implements Job {
 		try {
 			jsonUrnGetterResponse = RestManagement.executeGet(certConfig, restUrnGetterUri);
 		} catch (Exception e) {
-			log.error(MESSAGE_REST_CALL_FAILED, e.getMessage(), e);
 			throw new JobExecutionException("Empty response from URI " + restUrnGetterUri);
 		} finally {
 			if (StringUtils.isEmpty(jsonUrnGetterResponse)) {
@@ -123,8 +111,7 @@ public class JobNotierOutbound implements Job {
 				/**
 				 * Phase 2a: get document payload by REST web service from Notier.
 				 */
-				String peppolMessageJson = RestManagement.executeGet(certConfig,
-						restDocumentGetterUri + index.getUrn());
+				String peppolMessageJson = RestManagement.executeGet(certConfig, restDocumentGetterUri + index.getUrn());
 				log.info("Received String json response containing {} characters", peppolMessageJson.length());
 				try {
 					/**
@@ -141,7 +128,6 @@ public class JobNotierOutbound implements Job {
 				}
 			} catch (UnsupportedOperationException | IOException e) {
 				oxalisMdn = new OxalisMdn(index.getUrn(), OxalisStatusEnum.KO, e.getMessage());
-				log.error(MESSAGE_REST_CALL_FAILED, e.getMessage());
 				log.error(MESSAGE_OUTBOUND_FAILED_FOR_URN, index.getUrn());
 				log.error(e.getMessage(), e);
 			}
@@ -211,9 +197,8 @@ public class JobNotierOutbound implements Job {
 		try {
 			String resp = RestManagement.executePost(certConfig, restSendStatusUri, "oxalisContent",
 					GsonUtil.getPrettyPrintedInstance().toJson(oxalisMdn));
-			log.info("Response received: {}", resp);
+			log.info("Received response contains {} characters", resp.length());
 		} catch (UnsupportedOperationException | IOException e) {
-			log.error(MESSAGE_REST_CALL_FAILED, e.getMessage());
 			log.error(MESSAGE_MDN_SEND_FAILED, urn);
 		}
 	}
@@ -237,12 +222,9 @@ public class JobNotierOutbound implements Job {
 		 * Recupero la lista di URN corrispondenti ai documenti che devono essere
 		 * inviati su rete Peppol.
 		 */
-		log.info(MESSAGE_READING_PROPERTY, ConfigRestCall.CONFIG_KEY_REST_GETTER_URNS);
-		restUrnGetterUri = configuration.readSingleProperty(ConfigRestCall.CONFIG_KEY_REST_GETTER_URNS);
-		log.info(MESSAGE_READING_PROPERTY, ConfigRestCall.CONFIG_KEY_REST_GETTER_DOCUMENT);
-		restDocumentGetterUri = configuration.readSingleProperty(ConfigRestCall.CONFIG_KEY_REST_GETTER_DOCUMENT);
-		log.info(MESSAGE_READING_PROPERTY, ConfigRestCall.CONFIG_KEY_REST_SENDER_STATUS);
-		restSendStatusUri = configuration.readSingleProperty(ConfigRestCall.CONFIG_KEY_REST_SENDER_STATUS);
+		restUrnGetterUri = restConfig.readValue(ConfigRestCall.CONFIG_KEY_REST_GETTER_URNS);
+		restDocumentGetterUri = restConfig.readValue(ConfigRestCall.CONFIG_KEY_REST_GETTER_DOCUMENT);
+		restSendStatusUri = restConfig.readValue(ConfigRestCall.CONFIG_KEY_REST_SENDER_STATUS);
 
 		boolean restUrnConfigIsReady = !StringUtils.isEmpty(restUrnGetterUri);
 		boolean restDocumentGetterConfigIsReady = !StringUtils.isEmpty(restDocumentGetterUri);

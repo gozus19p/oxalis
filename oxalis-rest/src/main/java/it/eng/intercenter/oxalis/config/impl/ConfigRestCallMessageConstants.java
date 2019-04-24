@@ -1,11 +1,12 @@
-package it.eng.intercenter.oxalis.config;
+package it.eng.intercenter.oxalis.config.impl;
 
 public class ConfigRestCallMessageConstants {
 	
 	public static final String MESSAGE_MDN_SEND_FAILED = "MDN has not been sent to Notier for URN: {}";
 	public static final String MESSAGE_OUTBOUND_FAILED_FOR_URN = "Outbound process failed for URN: {}";
 	public static final String MESSAGE_OUTBOUND_SUCCESS_FOR_URN = "Outbound process completed succesfully for URN: {}";
-	public static final String MESSAGE_READING_PROPERTY = "Reading configuration value defined for key: {}";
+	public static final String MESSAGE_READING_PROPERTY = "Accessing configuration with key \"{}\" and value \"{}\"";
+	public static final String MESSAGE_READING_PROPERTY_NOT_READY = "Accessing unavailable configuration with key \"{}\", value is null";
 	public static final String MESSAGE_REST_CALL_FAILED = "Something went wrong during REST call execution, message: {}";
 	public static final String MESSAGE_REST_STRING = "REST call executed. HTTP status: {}";
 	public static final String MESSAGE_STARTING_TO_PROCESS_URN = "Starting to process URN: {}";

@@ -8,7 +8,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.message.BasicNameValuePair;
 
-import it.eng.intercenter.oxalis.config.ConfigNotierCertificate;
+import it.eng.intercenter.oxalis.config.impl.ConfigNotierCertificate;
 import it.eng.intercenter.oxalis.integration.dto.enumerator.NotierRestCallTypeEnum;
 import it.eng.intercenter.oxalis.rest.http.HttpNotierCall;
 
