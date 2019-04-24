@@ -14,8 +14,8 @@ import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
 import it.eng.intercenter.oxalis.commons.quartz.transmission.NotierTransmissionMessage;
-import it.eng.intercenter.oxalis.config.impl.ConfigNotierCertificate;
-import it.eng.intercenter.oxalis.config.impl.ConfigRestCall;
+import it.eng.intercenter.oxalis.config.impl.CertificateConfigManager;
+import it.eng.intercenter.oxalis.config.impl.RestConfigManager;
 import it.eng.intercenter.oxalis.integration.dto.OxalisMdn;
 import it.eng.intercenter.oxalis.integration.dto.util.GsonUtil;
 import it.eng.intercenter.oxalis.rest.http.impl.HttpNotierPost;
@@ -36,10 +36,10 @@ public class NotierPersisterHandler implements PersisterHandler {
 	private static final String LOCKED_PATH = "/locked/";
 
 	@Inject
-	ConfigRestCall config;
+	RestConfigManager config;
 
 	@Inject
-	ConfigNotierCertificate certConfig;
+	CertificateConfigManager certConfig;
 
 	@Named("inbound")
 	private String inboundPath;
@@ -54,7 +54,7 @@ public class NotierPersisterHandler implements PersisterHandler {
 	public void persist(InboundMetadata inboundMetadata, Path payloadPath) throws IOException {
 		File payloadFile = new File(payloadPath.normalize().toString());
 		
-		String uri = config.readValue(ConfigRestCall.CONFIG_KEY_REST_DOCUMENT_INBOUND);
+		String uri = config.readValue(RestConfigManager.CONFIG_KEY_REST_DOCUMENT_INBOUND);
 		HttpNotierPost post = new HttpNotierPost(certConfig, uri, getParams(inboundMetadata, payloadPath));
 		
 		try {

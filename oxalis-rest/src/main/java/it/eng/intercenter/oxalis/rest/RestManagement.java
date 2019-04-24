@@ -1,13 +1,13 @@
 package it.eng.intercenter.oxalis.rest;
 
-import static it.eng.intercenter.oxalis.config.impl.ConfigRestCallMessageConstants.MESSAGE_REST_CALL_FAILED;
+import static it.eng.intercenter.oxalis.config.ConfigManagerUtil.MESSAGE_REST_CALL_FAILED;
 
 import java.io.IOException;
 
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.message.BasicNameValuePair;
 
-import it.eng.intercenter.oxalis.config.impl.ConfigNotierCertificate;
+import it.eng.intercenter.oxalis.config.impl.CertificateConfigManager;
 import it.eng.intercenter.oxalis.rest.http.impl.HttpNotierGet;
 import it.eng.intercenter.oxalis.rest.http.impl.HttpNotierPost;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +34,7 @@ public class RestManagement {
 	 * @throws ClientProtocolException
 	 * @throws IOException
 	 */
-	public static String executePost(ConfigNotierCertificate certConfig, String uri, String paramKey, String paramValue)
+	public static String executePost(CertificateConfigManager certConfig, String uri, String paramKey, String paramValue)
 			throws UnsupportedOperationException, ClientProtocolException, IOException {
 		return executePost(certConfig, uri, new BasicNameValuePair(paramKey, paramValue));
 	}
@@ -51,7 +51,7 @@ public class RestManagement {
 	 * @throws ClientProtocolException
 	 * @throws IOException
 	 */
-	public static String executePost(ConfigNotierCertificate certConfig, String uri, BasicNameValuePair... params)
+	public static String executePost(CertificateConfigManager certConfig, String uri, BasicNameValuePair... params)
 			throws UnsupportedOperationException, ClientProtocolException, IOException {
 		HttpNotierPost request = new HttpNotierPost(certConfig, uri, params);
 		try{
@@ -72,7 +72,7 @@ public class RestManagement {
 	 * @throws ClientProtocolException
 	 * @throws IOException
 	 */
-	public static String executeGet(ConfigNotierCertificate certConfig, String uri)
+	public static String executeGet(CertificateConfigManager certConfig, String uri)
 			throws UnsupportedOperationException, ClientProtocolException, IOException {
 		HttpNotierGet request = new HttpNotierGet(certConfig, uri);
 		try{

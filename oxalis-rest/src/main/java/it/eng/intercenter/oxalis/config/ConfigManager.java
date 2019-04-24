@@ -10,14 +10,12 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import it.eng.intercenter.oxalis.config.impl.ConfigRestCallMessageConstants;
-
 /**
  * Definizione dello standard di configurazione per oxalis-quartz.
  * 
  * @author Manuel Gozzi
  */
-public abstract class PropertiesConfigurationManager {
+public abstract class ConfigManager {
 
 	/**
 	 * Fields.
@@ -42,8 +40,8 @@ public abstract class PropertiesConfigurationManager {
 	 * @param configurationFileName is the file name of the subclass
 	 * @param clazz                 is the class of the subclass
 	 */
-	public PropertiesConfigurationManager(String configurationFileName,
-			Class<? extends PropertiesConfigurationManager> clazz) {
+	public ConfigManager(String configurationFileName,
+			Class<? extends ConfigManager> clazz) {
 		log = LoggerFactory.getLogger(clazz);
 		configuration = new Properties();
 		this.configurationFileName = configurationFileName;
@@ -67,7 +65,7 @@ public abstract class PropertiesConfigurationManager {
 	 * @param clazz is the class of the subclass
 	 * @throws IOException if something goes wrong during file parsing
 	 */
-	private void loadConfiguration(Class<? extends PropertiesConfigurationManager> clazz) throws IOException {
+	private void loadConfiguration(Class<? extends ConfigManager> clazz) throws IOException {
 		configuration.load(clazz.getClassLoader().getResourceAsStream(configurationFileName));
 	}
 
@@ -76,7 +74,7 @@ public abstract class PropertiesConfigurationManager {
 	 * 
 	 * @param clazz
 	 */
-	private void logKeyFields(Class<? extends PropertiesConfigurationManager> clazz) {
+	private void logKeyFields(Class<? extends ConfigManager> clazz) {
 		List<Field> fields = Arrays.asList(clazz.getDeclaredFields()).stream()
 				.filter(field -> field.getType().equals(String.class)
 						&& field.getName().toUpperCase().contains(KEY_PREFIX.toUpperCase()))
@@ -107,10 +105,10 @@ public abstract class PropertiesConfigurationManager {
 	public String readValue(String key) {
 		String value = null;
 		if (!isAvailable) {
-			log.warn(ConfigRestCallMessageConstants.MESSAGE_READING_PROPERTY_NOT_READY, key);
+			log.warn(ConfigManagerUtil.MESSAGE_READING_PROPERTY_NOT_READY, key);
 		} else {
 			value = configuration.getProperty(key);
-			log.info(ConfigRestCallMessageConstants.MESSAGE_READING_PROPERTY, key, value);
+			log.info(ConfigManagerUtil.MESSAGE_READING_PROPERTY, key, value);
 		}
 		return value;
 	}

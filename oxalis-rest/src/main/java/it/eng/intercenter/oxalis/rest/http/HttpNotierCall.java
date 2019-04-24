@@ -1,7 +1,7 @@
 package it.eng.intercenter.oxalis.rest.http;
 
-import static it.eng.intercenter.oxalis.config.impl.ConfigRestCallMessageConstants.MESSAGE_REST_STRING;
-import static it.eng.intercenter.oxalis.config.impl.ConfigRestCallMessageConstants.MESSAGE_USING_REST_URI;
+import static it.eng.intercenter.oxalis.config.ConfigManagerUtil.MESSAGE_REST_STRING;
+import static it.eng.intercenter.oxalis.config.ConfigManagerUtil.MESSAGE_USING_REST_URI;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -27,7 +27,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.impl.client.HttpClients;
 
-import it.eng.intercenter.oxalis.config.impl.ConfigNotierCertificate;
+import it.eng.intercenter.oxalis.config.impl.CertificateConfigManager;
 import it.eng.intercenter.oxalis.integration.dto.enumerator.NotierRestCallTypeEnum;
 import lombok.extern.slf4j.Slf4j;
 
@@ -37,7 +37,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public abstract class HttpNotierCall<T extends HttpRequestBase> {
 
-	private ConfigNotierCertificate certConfig;
+	private CertificateConfigManager certConfig;
 	private HttpClient client;
 	protected T request;
 	protected NotierRestCallTypeEnum requestType;
@@ -54,7 +54,7 @@ public abstract class HttpNotierCall<T extends HttpRequestBase> {
 	private static final String DN_KEY = "X-FwdCertSubject_0";
 	private static final String SN_KEY = "X-FwdCertSerialNumber_0";
 
-	public HttpNotierCall(ConfigNotierCertificate certConfig) {
+	public HttpNotierCall(CertificateConfigManager certConfig) {
 		this.certConfig = certConfig;
 		isProductionMode = detectProductionMode();
 		loadCertDetails();
@@ -65,7 +65,7 @@ public abstract class HttpNotierCall<T extends HttpRequestBase> {
 	 * 
 	 */
 	private Boolean detectProductionMode() {
-		String propertyValue = certConfig.readValue(ConfigNotierCertificate.CONFIG_KEY_PRODUCTION_MODE_ENABLED);
+		String propertyValue = certConfig.readValue(CertificateConfigManager.CONFIG_KEY_PRODUCTION_MODE_ENABLED);
 		return new Boolean(propertyValue);
 	}
 
@@ -122,9 +122,9 @@ public abstract class HttpNotierCall<T extends HttpRequestBase> {
 		log.info("Preparing certificate for Notier REST communications");
 		log.info("Reading password from configuration file");
 
-		password = certConfig.readValue(ConfigNotierCertificate.CONFIG_KEY_CERT_PASSWORD);
+		password = certConfig.readValue(CertificateConfigManager.CONFIG_KEY_CERT_PASSWORD);
 		
-		String certPath = certConfig.readValue(ConfigNotierCertificate.CONFIG_KEY_CERT_PATH);
+		String certPath = certConfig.readValue(CertificateConfigManager.CONFIG_KEY_CERT_PATH);
 
 		log.info("Retrieving certificate file from path {}", certPath);
 		File cert = new File(certPath);

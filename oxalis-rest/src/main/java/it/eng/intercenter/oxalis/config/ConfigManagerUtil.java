@@ -1,6 +1,6 @@
-package it.eng.intercenter.oxalis.config.impl;
+package it.eng.intercenter.oxalis.config;
 
-public class ConfigRestCallMessageConstants {
+public class ConfigManagerUtil {
 	
 	public static final String MESSAGE_MDN_SEND_FAILED = "MDN has not been sent to Notier for URN: {}";
 	public static final String MESSAGE_OUTBOUND_FAILED_FOR_URN = "Outbound process failed for URN: {}";

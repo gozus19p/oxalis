@@ -2,12 +2,12 @@ package it.eng.intercenter.oxalis.config.impl;
 
 import java.io.IOException;
 
-import it.eng.intercenter.oxalis.config.PropertiesConfigurationManager;
+import it.eng.intercenter.oxalis.config.ConfigManager;
 
 /**
  * @author Manuel Gozzi
  */
-public class ConfigNotierCertificate extends PropertiesConfigurationManager {
+public class CertificateConfigManager extends ConfigManager {
 
 	// "cert.properties" for production.
 	// "cert.local-tst.properties" for production.
@@ -17,8 +17,8 @@ public class ConfigNotierCertificate extends PropertiesConfigurationManager {
 	public static final String CONFIG_KEY_CERT_PATH = "cert.path";
 	public static final String CONFIG_KEY_PRODUCTION_MODE_ENABLED = "production.mode";
 
-	public ConfigNotierCertificate() throws IOException {
-		super(CONFIGURATION_FILE_NAME, ConfigNotierCertificate.class);
+	public CertificateConfigManager() throws IOException {
+		super(CONFIGURATION_FILE_NAME, CertificateConfigManager.class);
 	}
 
 }

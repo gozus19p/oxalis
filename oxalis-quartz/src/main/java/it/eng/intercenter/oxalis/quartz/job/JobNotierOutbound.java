@@ -1,10 +1,10 @@
 package it.eng.intercenter.oxalis.quartz.job;
 
-import static it.eng.intercenter.oxalis.config.impl.ConfigRestCallMessageConstants.MESSAGE_MDN_SEND_FAILED;
-import static it.eng.intercenter.oxalis.config.impl.ConfigRestCallMessageConstants.MESSAGE_OUTBOUND_FAILED_FOR_URN;
-import static it.eng.intercenter.oxalis.config.impl.ConfigRestCallMessageConstants.MESSAGE_OUTBOUND_SUCCESS_FOR_URN;
-import static it.eng.intercenter.oxalis.config.impl.ConfigRestCallMessageConstants.MESSAGE_STARTING_TO_PROCESS_URN;
-import static it.eng.intercenter.oxalis.config.impl.ConfigRestCallMessageConstants.MESSAGE_WRONG_CONFIGURATION_SETUP;
+import static it.eng.intercenter.oxalis.config.ConfigManagerUtil.MESSAGE_MDN_SEND_FAILED;
+import static it.eng.intercenter.oxalis.config.ConfigManagerUtil.MESSAGE_OUTBOUND_FAILED_FOR_URN;
+import static it.eng.intercenter.oxalis.config.ConfigManagerUtil.MESSAGE_OUTBOUND_SUCCESS_FOR_URN;
+import static it.eng.intercenter.oxalis.config.ConfigManagerUtil.MESSAGE_STARTING_TO_PROCESS_URN;
+import static it.eng.intercenter.oxalis.config.ConfigManagerUtil.MESSAGE_WRONG_CONFIGURATION_SETUP;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -17,8 +17,8 @@ import org.springframework.util.StringUtils;
 import com.google.inject.Inject;
 
 import it.eng.intercenter.oxalis.commons.quartz.transmission.NotierTransmissionMessageBuilder;
-import it.eng.intercenter.oxalis.config.impl.ConfigNotierCertificate;
-import it.eng.intercenter.oxalis.config.impl.ConfigRestCall;
+import it.eng.intercenter.oxalis.config.impl.CertificateConfigManager;
+import it.eng.intercenter.oxalis.config.impl.RestConfigManager;
 import it.eng.intercenter.oxalis.integration.dto.NotierDocumentIndex;
 import it.eng.intercenter.oxalis.integration.dto.OxalisMdn;
 import it.eng.intercenter.oxalis.integration.dto.UrnList;
@@ -48,10 +48,10 @@ public class JobNotierOutbound implements Job {
 	private static String restSendStatusUri;
 	
 	@Inject
-	ConfigNotierCertificate certConfig;
+	CertificateConfigManager certConfig;
 	
 	@Inject
-	ConfigRestCall restConfig;
+	RestConfigManager restConfig;
 
 	@Inject
 	OxalisOutboundComponent outboundComponent;
@@ -66,7 +66,7 @@ public class JobNotierOutbound implements Job {
 		 * Phase 0: setup REST configuration if needed.
 		 */
 		setupOutboundRestConfiguration();
-
+		
 		/**
 		 * Phase 1: get URN of documents that need to be sent on Peppol directly from
 		 * Notier via REST web service.
@@ -222,9 +222,9 @@ public class JobNotierOutbound implements Job {
 		 * Recupero la lista di URN corrispondenti ai documenti che devono essere
 		 * inviati su rete Peppol.
 		 */
-		restUrnGetterUri = restConfig.readValue(ConfigRestCall.CONFIG_KEY_REST_GETTER_URNS);
-		restDocumentGetterUri = restConfig.readValue(ConfigRestCall.CONFIG_KEY_REST_GETTER_DOCUMENT);
-		restSendStatusUri = restConfig.readValue(ConfigRestCall.CONFIG_KEY_REST_SENDER_STATUS);
+		restUrnGetterUri = restConfig.readValue(RestConfigManager.CONFIG_KEY_REST_GETTER_URNS);
+		restDocumentGetterUri = restConfig.readValue(RestConfigManager.CONFIG_KEY_REST_GETTER_DOCUMENT);
+		restSendStatusUri = restConfig.readValue(RestConfigManager.CONFIG_KEY_REST_SENDER_STATUS);
 
 		boolean restUrnConfigIsReady = !StringUtils.isEmpty(restUrnGetterUri);
 		boolean restDocumentGetterConfigIsReady = !StringUtils.isEmpty(restDocumentGetterUri);
