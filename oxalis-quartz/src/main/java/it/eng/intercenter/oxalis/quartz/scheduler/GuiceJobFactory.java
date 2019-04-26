@@ -17,8 +17,8 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * @author Manuel Gozzi
  */
-@Singleton
 @Slf4j
+@Singleton
 public class GuiceJobFactory implements JobFactory {
 
 	private final Injector guice;

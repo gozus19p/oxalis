@@ -24,12 +24,12 @@
 
 <configuration>
     <appender name="logfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <File>../logs/oxalis.log</File>
+        <File>/home/tomcat/logs/oxalis.log</File>
         <encoder>
             <pattern>%d %p [%c] [%X{senderId}] %m %n</pattern>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>../logs/oxalis.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>/home/tomcat/logs/oxalis.%d{yyyy-MM-dd}.log</fileNamePattern>
         </rollingPolicy>
     </appender>
 
@@ -37,12 +37,12 @@
         <MaxSize>280</MaxSize>
     </appender>
 
-    <logger name="oxalis-tes" level="debug"/>
-    <logger name="oxalis-com" level="debug"/>
-    <logger name="oxalis-out" level="debug"/>
-    <logger name="oxalis-inb" level="debug"/>
+    <logger name="oxalis-tes" level="info"/>
+    <logger name="oxalis-com" level="info"/>
+    <logger name="oxalis-out" level="info"/>
+    <logger name="oxalis-inb" level="info"/>
     
-    <root level="debug">
+    <root level="info">
         <appender-ref ref="cyclic-buffer"/>
         <appender-ref ref="logfile"/>
     </root>

@@ -24,7 +24,7 @@ import it.eng.intercenter.oxalis.integration.dto.OxalisMdn;
 import it.eng.intercenter.oxalis.integration.dto.UrnList;
 import it.eng.intercenter.oxalis.integration.dto.enumerator.OxalisStatusEnum;
 import it.eng.intercenter.oxalis.integration.dto.util.GsonUtil;
-import it.eng.intercenter.oxalis.rest.RestManagement;
+import it.eng.intercenter.oxalis.rest.HttpCallManager;
 import lombok.extern.slf4j.Slf4j;
 import no.difi.oxalis.api.lang.OxalisTransmissionException;
 import no.difi.oxalis.api.outbound.TransmissionMessage;
@@ -38,7 +38,7 @@ import no.difi.oxalis.outbound.OxalisOutboundComponent;
  * @author Manuel Gozzi
  */
 @Slf4j
-public class JobNotierOutbound implements Job {
+public class OutboundJob implements Job {
 
 	/**
 	 * Variables useful to process REST calls.
@@ -73,7 +73,7 @@ public class JobNotierOutbound implements Job {
 		 */
 		String jsonUrnGetterResponse = null;
 		try {
-			jsonUrnGetterResponse = RestManagement.executeGet(certConfig, restUrnGetterUri);
+			jsonUrnGetterResponse = HttpCallManager.executeGet(certConfig, restUrnGetterUri);
 		} catch (Exception e) {
 			throw new JobExecutionException("Empty response from URI " + restUrnGetterUri);
 		} finally {
@@ -111,7 +111,7 @@ public class JobNotierOutbound implements Job {
 				/**
 				 * Phase 2a: get document payload by REST web service from Notier.
 				 */
-				String peppolMessageJson = RestManagement.executeGet(certConfig, restDocumentGetterUri + index.getUrn());
+				String peppolMessageJson = HttpCallManager.executeGet(certConfig, restDocumentGetterUri + index.getUrn());
 				log.info("Received String json response containing {} characters", peppolMessageJson.length());
 				try {
 					/**
@@ -195,7 +195,7 @@ public class JobNotierOutbound implements Job {
 	 */
 	private void sendStatusToNotier(OxalisMdn oxalisMdn, String urn) {
 		try {
-			String resp = RestManagement.executePost(certConfig, restSendStatusUri, "oxalisContent",
+			String resp = HttpCallManager.executePost(certConfig, restSendStatusUri, "oxalisContent",
 					GsonUtil.getPrettyPrintedInstance().toJson(oxalisMdn));
 			log.info("Received response contains {} characters", resp.length());
 		} catch (UnsupportedOperationException | IOException e) {

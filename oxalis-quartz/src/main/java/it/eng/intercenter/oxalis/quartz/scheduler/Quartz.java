@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 public class Quartz {
 
 	/**
-	 * Class attributes
+	 * Quartz Scheduler instance.
 	 */
 	private final Scheduler scheduler;
 
@@ -70,7 +70,7 @@ public class Quartz {
 					}
 				}
 			}
-			this.scheduler.standby();
+			scheduler.standby();
 			log.warn("Quartz scheduler entered in standby mode successfully");
 			return true;
 		} catch (SchedulerException e) {
@@ -87,7 +87,7 @@ public class Quartz {
 	public boolean startScheduler() {
 		log.info("Starting Quartz scheduler");
 		try {
-			this.scheduler.start();
+			scheduler.start();
 			log.info("Quartz scheduler started succesfully");
 			return true;
 		} catch (Exception e) {

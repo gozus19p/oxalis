@@ -13,7 +13,7 @@ import com.typesafe.config.Config;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class JobTest implements Job {
+public class TestJob implements Job {
 
 	@Inject
 	@Named("reference")
@@ -21,7 +21,7 @@ public class JobTest implements Job {
 
 	@Override
 	public void execute(JobExecutionContext context) throws JobExecutionException {
-		log.info("Job: {} has been executed at {}{}Message: {}", new Object[] { JobTest.class.getName(),
+		log.info("Job: {} has been executed at {}{}Message: {}", new Object[] { TestJob.class.getName(),
 				new Date().toString(), System.getProperty("line.separator"), referenceConf.getString("test.test") });
 	}
 

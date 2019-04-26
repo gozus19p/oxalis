@@ -14,8 +14,8 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 import com.google.inject.multibindings.Multibinder;
 
-import it.eng.intercenter.oxalis.quartz.job.JobNotierOutbound;
-import it.eng.intercenter.oxalis.quartz.job.JobTest;
+import it.eng.intercenter.oxalis.quartz.job.OutboundJob;
+import it.eng.intercenter.oxalis.quartz.job.TestJob;
 import it.eng.intercenter.oxalis.quartz.scheduler.GuiceJobFactory;
 import it.eng.intercenter.oxalis.quartz.scheduler.Quartz;
 import lombok.extern.slf4j.Slf4j;
@@ -38,8 +38,8 @@ public class QuartzModule extends AbstractModule {
 		bindProperties(binder(), getProperties(CONFIG_FILE_NAME));
 		bindScheduler();
 		Multibinder<Job> jobs = Multibinder.newSetBinder(binder(), Job.class);
-		jobs.addBinding().to(JobTest.class).in(Singleton.class);;
-		jobs.addBinding().to(JobNotierOutbound.class).in(Singleton.class);
+		jobs.addBinding().to(TestJob.class).in(Singleton.class);;
+		jobs.addBinding().to(OutboundJob.class).in(Singleton.class);
 		log.info("JobTest has been binded");
 	}
 

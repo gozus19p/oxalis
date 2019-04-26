@@ -13,12 +13,12 @@ import it.eng.intercenter.oxalis.rest.http.impl.HttpNotierPost;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * This class provides static methods that allows to easily manage REST call.
+ * This class provides static methods that allows to easily manage Http call.
  * 
  * @author Manuel Gozzi
  */
 @Slf4j
-public class RestManagement {
+public class HttpCallManager {
 
 	/**
 	 * This method executes an HTTP POST call to a given URI, building only one

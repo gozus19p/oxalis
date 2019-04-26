@@ -9,6 +9,9 @@ import it.eng.intercenter.oxalis.config.ConfigManager;
  */
 public class EmailSenderConfigManager extends ConfigManager {
 
+	/**
+	 * Configuration file name (it needs to be located under /src/main/resources/[filename]).
+	 */
 	private static final String CONFIGURATION_FILE_NAME = "email-configuration.properties";
 
 	public EmailSenderConfigManager() throws IOException {
