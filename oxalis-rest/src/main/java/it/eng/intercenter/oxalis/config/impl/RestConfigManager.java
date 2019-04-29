@@ -23,7 +23,7 @@ public class RestConfigManager extends ConfigManager {
 	public static final String CONFIG_KEY_REST_SENDER_STATUS = "rest.notier.sender.status";
 
 	public RestConfigManager() throws IOException {
-		super(CONFIGURATION_FILE_NAME, RestConfigManager.class);
+		super(CONFIGURATION_FILE_NAME);
 	}
 
 }

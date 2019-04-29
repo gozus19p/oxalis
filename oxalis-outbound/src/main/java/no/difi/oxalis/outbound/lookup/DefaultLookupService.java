@@ -22,9 +22,12 @@
 
 package no.difi.oxalis.outbound.lookup;
 
+import java.util.List;
+
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
+
 import no.difi.oxalis.api.lang.OxalisTransmissionException;
 import no.difi.oxalis.api.lookup.LookupService;
 import no.difi.oxalis.api.util.Type;
@@ -35,8 +38,6 @@ import no.difi.vefa.peppol.common.model.TransportProfile;
 import no.difi.vefa.peppol.lookup.LookupClient;
 import no.difi.vefa.peppol.lookup.api.LookupException;
 import no.difi.vefa.peppol.security.lang.PeppolSecurityException;
-
-import java.util.List;
 
 /**
  * Default implementation of {@link LookupService}. This implementation performs no caching except caching part of
@@ -71,7 +72,7 @@ class DefaultLookupService implements LookupService {
      */
     @Override
     public Endpoint lookup(Header header) throws OxalisTransmissionException {
-        try {
+    	try {
             return lookupClient.getEndpoint(header, transportProfiles);
         } catch (LookupException | PeppolSecurityException | EndpointNotFoundException e) {
             throw new OxalisTransmissionException(e.getMessage(), e);

@@ -22,9 +22,29 @@
 
 package no.difi.oxalis.as2.inbound;
 
+import static org.testng.Assert.assertNotNull;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.security.PrivateKey;
+import java.security.cert.X509Certificate;
+import java.util.Date;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.InternetHeaders;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+
+import org.mockito.Mockito;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Guice;
+import org.testng.annotations.Test;
+
 import com.google.inject.Inject;
+
 import io.opentracing.Tracer;
-import it.eng.intercenter.oxalis.as2.inbound.NotierPersisterHandler;
 import no.difi.oxalis.api.inbound.InboundService;
 import no.difi.oxalis.api.lang.OxalisTransmissionException;
 import no.difi.oxalis.api.model.Direction;
@@ -43,24 +63,6 @@ import no.difi.oxalis.commons.security.CertificateUtils;
 import no.difi.oxalis.commons.tag.NoopTagGenerator;
 import no.difi.oxalis.commons.transmission.DefaultTransmissionVerifier;
 import no.difi.vefa.peppol.security.api.CertificateValidator;
-import org.mockito.Mockito;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Guice;
-import org.testng.annotations.Test;
-
-import javax.mail.MessagingException;
-import javax.mail.internet.InternetHeaders;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.security.PrivateKey;
-import java.security.cert.X509Certificate;
-import java.util.Date;
-
-import static org.testng.Assert.assertNotNull;
 
 /**
  * Verifies that the As2InboundHandler works as expected.
@@ -116,7 +118,7 @@ public class As2InboundHandlerTest {
         As2InboundHandler as2InboundHandler = new As2InboundHandler(Mockito.mock(InboundService.class),
                 mockTimestampProvider, new OxalisCertificateValidator(CertificateValidator.EMPTY, tracer), new NoopPersister(),
                 new DefaultTransmissionVerifier(), sMimeMessageFactory, new NoopTagGenerator(),
-                new DefaultMessageIdGenerator("test"), new SbdhHeaderParser(), /**NOTIER*/new NotierPersisterHandler());
+                new DefaultMessageIdGenerator("test"), new SbdhHeaderParser() /**NOTIER*/);
 
         MimeMessage mimeMessage = MimeMessageHelper.parse(inputStream, headers);
         as2InboundHandler.receive(headers, mimeMessage, tracer.buildSpan("test").start());

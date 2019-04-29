@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Properties;
 
 import org.testng.Assert;
-import org.testng.annotations.Guice;
 import org.testng.annotations.Test;
 
 import com.google.inject.Inject;
@@ -14,13 +13,12 @@ import it.eng.intercenter.oxalis.config.impl.CertificateConfigManager;
 import it.eng.intercenter.oxalis.config.impl.EmailSenderConfigManager;
 import it.eng.intercenter.oxalis.config.impl.RestConfigManager;
 import lombok.extern.slf4j.Slf4j;
-import no.difi.oxalis.commons.guice.GuiceModuleLoader;
 
 /**
  * @author Manuel Gozzi
  */
 @Slf4j
-@Guice(modules = GuiceModuleLoader.class)
+//@Guice(modules = GuiceModuleLoader.class)
 public class ConfigManagerTest {
 	
 	private static final String EMPTY = "";
@@ -44,10 +42,10 @@ public class ConfigManagerTest {
 		/**
 		 * Assert that exist a value for each defined key field.
 		 */
-		List<Field> keyFields = certificateConfigManager.getConfigurationKeyFields(CertificateConfigManager.class);
+		List<Field> keyFields = certificateConfigManager.getConfigurationKeyFields();
 		keyFields.stream().forEach(field -> {
 			try {
-				String value = certificateConfigManager.readValue((String) field.get(CertificateConfigManager.class));
+				String value = certificateConfigManager.readValue((String) field.get(certificateConfigManager.getClass()));
 				Assert.assertNotNull(value);
 				Assert.assertNotEquals(value.trim(), EMPTY);
 			} catch (IllegalArgumentException | IllegalAccessException e) {
@@ -66,10 +64,10 @@ public class ConfigManagerTest {
 		/**
 		 * Assert that exist a value for each defined key field.
 		 */
-		List<Field> keyFields = restConfigManager.getConfigurationKeyFields(RestConfigManager.class);
+		List<Field> keyFields = restConfigManager.getConfigurationKeyFields();
 		keyFields.stream().forEach(field -> {
 			try {
-				String value = restConfigManager.readValue((String) field.get(RestConfigManager.class));
+				String value = restConfigManager.readValue((String) field.get(restConfigManager.getClass()));
 				Assert.assertNotNull(value);
 				Assert.assertNotEquals(value.trim(), EMPTY);
 			} catch (IllegalArgumentException | IllegalAccessException e) {

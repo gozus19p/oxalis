@@ -19,8 +19,10 @@ public class CertificateConfigManager extends ConfigManager {
 	/**
 	 * Config keys to access configuration file.
 	 */
-	public static final String CONFIG_KEY_CERT_PASSWORD = "cert.password";
-	public static final String CONFIG_KEY_CERT_PATH = "cert.path";
+	public static final String CONFIG_KEY_HTTPS_CERT_PASSWORD = "cert.cacerts.password";
+	public static final String CONFIG_KEY_HTTPS_CERT_PATH = "cert.cacerts.path";
+	public static final String CONFIG_KEY_ORG_CERT_PASSWORD = "cert.org.password";
+	public static final String CONFIG_KEY_ORG_CERT_PATH = "cert.org.path";
 	public static final String CONFIG_KEY_PRODUCTION_MODE_ENABLED = "production.mode";
 	
 	/**
@@ -30,7 +32,7 @@ public class CertificateConfigManager extends ConfigManager {
 	public static final String HEADER_SN_KEY = "X-FwdCertSerialNumber_0";
 
 	public CertificateConfigManager() throws IOException {
-		super(CONFIGURATION_FILE_NAME, CertificateConfigManager.class);
+		super(CONFIGURATION_FILE_NAME);
 	}
 
 }

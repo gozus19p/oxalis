@@ -16,7 +16,6 @@ import org.springframework.util.StringUtils;
 
 import com.google.inject.Inject;
 
-import it.eng.intercenter.oxalis.commons.quartz.transmission.NotierTransmissionMessageBuilder;
 import it.eng.intercenter.oxalis.config.impl.CertificateConfigManager;
 import it.eng.intercenter.oxalis.config.impl.RestConfigManager;
 import it.eng.intercenter.oxalis.integration.dto.NotierDocumentIndex;
@@ -24,12 +23,16 @@ import it.eng.intercenter.oxalis.integration.dto.OxalisMdn;
 import it.eng.intercenter.oxalis.integration.dto.UrnList;
 import it.eng.intercenter.oxalis.integration.dto.enumerator.OxalisStatusEnum;
 import it.eng.intercenter.oxalis.integration.dto.util.GsonUtil;
+import it.eng.intercenter.oxalis.quartz.job.transmission.NotierTransmissionMessageBuilder;
 import it.eng.intercenter.oxalis.rest.HttpCallManager;
 import lombok.extern.slf4j.Slf4j;
+import no.difi.oxalis.api.lang.OxalisContentException;
 import no.difi.oxalis.api.lang.OxalisTransmissionException;
 import no.difi.oxalis.api.outbound.TransmissionMessage;
+import no.difi.oxalis.api.outbound.TransmissionRequest;
 import no.difi.oxalis.api.outbound.TransmissionResponse;
 import no.difi.oxalis.outbound.OxalisOutboundComponent;
+import no.difi.oxalis.outbound.transmission.TransmissionRequestBuilder;
 
 /**
  * Job che si occupa dell'acquisizione e dell'invio dei documenti da Notier
@@ -46,10 +49,13 @@ public class OutboundJob implements Job {
 	private static String restUrnGetterUri;
 	private static String restDocumentGetterUri;
 	private static String restSendStatusUri;
-	
+
+	@Inject
+	TransmissionRequestBuilder requestBuilder;
+
 	@Inject
 	CertificateConfigManager certConfig;
-	
+
 	@Inject
 	RestConfigManager restConfig;
 
@@ -66,7 +72,7 @@ public class OutboundJob implements Job {
 		 * Phase 0: setup REST configuration if needed.
 		 */
 		setupOutboundRestConfiguration();
-		
+
 		/**
 		 * Phase 1: get URN of documents that need to be sent on Peppol directly from
 		 * Notier via REST web service.
@@ -111,22 +117,29 @@ public class OutboundJob implements Job {
 				/**
 				 * Phase 2a: get document payload by REST web service from Notier.
 				 */
-				String peppolMessageJson = HttpCallManager.executeGet(certConfig, restDocumentGetterUri + index.getUrn());
+				String peppolMessageJson = HttpCallManager.executeGet(certConfig,
+						restDocumentGetterUri + index.getUrn());
 				log.info("Received String json response containing {} characters", peppolMessageJson.length());
-				try {
-					/**
-					 * Phase 2b: build TransmissionMessage object and send that on Peppol network.
-					 * The status of the transaction determines how the Oxalis Mdn needs to be
-					 * created.
-					 */
-					oxalisMdn = buildTransmissionAndSendOnPeppol(index.getUrn(), peppolMessageJson);
-
-				} catch (OxalisTransmissionException e) {
-					oxalisMdn = new OxalisMdn(index.getUrn(), OxalisStatusEnum.KO, e.getMessage());
-					log.error(MESSAGE_OUTBOUND_FAILED_FOR_URN, index.getUrn());
-					log.error(e.getMessage(), e);
-				}
+				/**
+				 * Phase 2b: build TransmissionMessage object and send that on Peppol network.
+				 * The status of the transaction determines how the Oxalis Mdn needs to be
+				 * created.
+				 */
+				oxalisMdn = buildTransmissionAndSendOnPeppol(index.getUrn(), peppolMessageJson);
+				log.info(MESSAGE_OUTBOUND_SUCCESS_FOR_URN, index.getUrn());
 			} catch (UnsupportedOperationException | IOException e) {
+				oxalisMdn = new OxalisMdn(index.getUrn(), OxalisStatusEnum.KO, e.getMessage());
+				log.error(MESSAGE_OUTBOUND_FAILED_FOR_URN, index.getUrn());
+				log.error(e.getMessage(), e);
+			} catch (OxalisTransmissionException e) {
+				oxalisMdn = new OxalisMdn(index.getUrn(), OxalisStatusEnum.KO, e.getMessage());
+				log.error(MESSAGE_OUTBOUND_FAILED_FOR_URN, index.getUrn());
+				log.error(e.getMessage(), e);
+			} catch (OxalisContentException e) {
+				oxalisMdn = new OxalisMdn(index.getUrn(), OxalisStatusEnum.KO, e.getMessage());
+				log.error(MESSAGE_OUTBOUND_FAILED_FOR_URN, index.getUrn());
+				log.error(e.getMessage(), e);
+			} catch (Exception e) {
 				oxalisMdn = new OxalisMdn(index.getUrn(), OxalisStatusEnum.KO, e.getMessage());
 				log.error(MESSAGE_OUTBOUND_FAILED_FOR_URN, index.getUrn());
 				log.error(e.getMessage(), e);
@@ -152,13 +165,13 @@ public class OutboundJob implements Job {
 	 * @return the final OxalisMdn object
 	 * @throws OxalisTransmissionException if some problems occur while sending
 	 *                                     document on Peppol network
+	 * @throws OxalisContentException
 	 */
 	private OxalisMdn buildTransmissionAndSendOnPeppol(String urn, String peppolMessageJsonFormat)
-			throws OxalisTransmissionException {
-		TransmissionMessage messageToSend = NotierTransmissionMessageBuilder
-				.buildTransmissionMessageFromPeppolMessage(peppolMessageJsonFormat);
+			throws OxalisTransmissionException, OxalisContentException {
+		TransmissionRequest messageToSend = NotierTransmissionMessageBuilder
+				.buildTransmissionRequestFromPeppolMessage(requestBuilder, peppolMessageJsonFormat);
 		TransmissionResponse response = send(messageToSend);
-
 		String receiptPayloadStringified = new String(response.primaryReceipt().getValue(), StandardCharsets.UTF_8);
 		log.info("Received the following receipt: {}{}",
 				new Object[] { System.getProperty("line.separator"), receiptPayloadStringified });
@@ -166,25 +179,28 @@ public class OutboundJob implements Job {
 		/**
 		 * Fase 3. Creo una notifica MDN Oxalis sulla base dell'esito dell'invio.
 		 */
-		return buildMdnBasedOnReceipt(receiptPayloadStringified, urn);
+		return buildMdn(urn, OxalisStatusEnum.OK, null);
 	}
 
-	private OxalisMdn buildMdnBasedOnReceipt(String receiptPayloadStringified, String urn) {
-		OxalisStatusEnum status;
-		String errorMessage;
-		// TODO: Determinare esito positivo/negativo.
-		boolean sentSuccessfully = false;
-		if (sentSuccessfully) {
-			status = OxalisStatusEnum.OK;
-			errorMessage = null;
+	/**
+	 * Provides an OxalisMdn.
+	 * 
+	 * @param urn          is the document URN
+	 * @param status       is the status of the sending
+	 * @param errorMessage is the error message thrown by exceptions
+	 * @return the mdn
+	 */
+	private OxalisMdn buildMdn(String urn, OxalisStatusEnum status, String errorMessage) {
+		switch (status) {
+		case OK:
 			log.info(MESSAGE_OUTBOUND_SUCCESS_FOR_URN, urn);
-		} else {
-			status = OxalisStatusEnum.KO;
-			// TODO: Definire messaggio d'errore sulla base della ricevuta.
-			errorMessage = "";
+			return new OxalisMdn(urn, status, "Document has been sent successfully");
+		case KO:
 			log.info(MESSAGE_OUTBOUND_FAILED_FOR_URN, urn);
+			return new OxalisMdn(urn, status, errorMessage);
+		default:
+			return new OxalisMdn(urn, OxalisStatusEnum.KO, "Internal server error");
 		}
-		return new OxalisMdn(urn, status, errorMessage);
 	}
 
 	/**

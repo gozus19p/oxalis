@@ -47,11 +47,11 @@ public abstract class HttpNotierCall<T extends HttpRequestBase> {
 	 * Values of p12 certificate.
 	 */
 	private static boolean isProductionMode;
-	private static String certPath;
+	private static String organizationCertificateP12Path;
 	private static String distinguishedName;
-	private static String password;
+	private static String organizationCertificateP12Password;
 	private static String serialNumber;
-	private static KeyStore keyStoreP12;
+	private static KeyStore organizationCertificateP12;
 	private static X509Certificate x509Certificate;
 
 	/**
@@ -62,7 +62,7 @@ public abstract class HttpNotierCall<T extends HttpRequestBase> {
 	public HttpNotierCall(CertificateConfigManager certConfig) {
 		this.certConfig = certConfig;
 		isProductionMode = detectProductionMode();
-		loadCertificate();
+		loadCertificates();
 		try {
 			client = HttpClients.custom().setSSLContext(getSSLContext()).build();
 		} catch (KeyManagementException | KeyStoreException e) {
@@ -100,16 +100,30 @@ public abstract class HttpNotierCall<T extends HttpRequestBase> {
 		log.info(MESSAGE_REST_EXECUTED_WITH_STATUS, response.getStatusLine().getStatusCode());
 		return IOUtils.toString(response.getEntity().getContent(), StandardCharsets.UTF_8.toString());
 	}
+	
+	private KeyStore getTrustStore() throws KeyStoreException, Exception  {
+		KeyStore trustStore = KeyStore.getInstance(KeyStore.getDefaultType());
+		String trustStorePath = certConfig.readValue(CertificateConfigManager.CONFIG_KEY_HTTPS_CERT_PATH);
+		String trustStorePassword = certConfig.readValue(CertificateConfigManager.CONFIG_KEY_HTTPS_CERT_PASSWORD);
+		try (FileInputStream trustInputStream = new FileInputStream(trustStorePath);){
+			trustStore.load(trustInputStream, trustStorePassword.toCharArray());
+		} catch (Exception e) {
+			throw e;
+		}
+		return trustStore;
+	}
 
 	/**
 	 * @return SSLContext used to execute HTTP calls.
 	 */
 	private SSLContext getSSLContext() throws KeyStoreException, KeyManagementException, Exception {
 		try {
-			KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509"); // SunX509
-			kmf.init(keyStoreP12, password.toCharArray());
-			TrustManagerFactory tmf = TrustManagerFactory.getInstance("SunX509");
-			tmf.init((KeyStore) keyStoreP12);
+			KeyManagerFactory kmf = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm()); // SunX509
+			kmf.init(organizationCertificateP12, organizationCertificateP12Password.toCharArray());
+			
+			TrustManagerFactory tmf = TrustManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
+			tmf.init(getTrustStore());
+			
 			SSLContext context = SSLContext.getInstance("TLS");
 			context.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
 			clientIsAvailable = true;
@@ -132,23 +146,23 @@ public abstract class HttpNotierCall<T extends HttpRequestBase> {
 	/**
 	 * Method that loads details of the PKCS12 certificate.
 	 */
-	private void loadCertificate() {
+	private void loadCertificates() {
 		log.info("Preparing certificate for Notier REST communications");
 		log.info("Reading password from configuration file");
 
-		certPath = certConfig.readValue(CertificateConfigManager.CONFIG_KEY_CERT_PATH);
-		password = certConfig.readValue(CertificateConfigManager.CONFIG_KEY_CERT_PASSWORD);
+		organizationCertificateP12Path = certConfig.readValue(CertificateConfigManager.CONFIG_KEY_ORG_CERT_PATH);
+		organizationCertificateP12Password = certConfig.readValue(CertificateConfigManager.CONFIG_KEY_ORG_CERT_PASSWORD);
 
-		log.info("Retrieving certificate file from path {}", certPath);
+		log.info("Retrieving certificate file from path {}", organizationCertificateP12Path);
 
-		try (FileInputStream certInputStream = new FileInputStream(new File(certPath));) {
+		try (FileInputStream certInputStream = new FileInputStream(new File(organizationCertificateP12Path));) {
 
-			log.info("Parsing certificate details from file {}", certPath);
-			keyStoreP12 = KeyStore.getInstance("PKCS12");
+			log.info("Parsing certificate details from file {}", organizationCertificateP12Path);
+			organizationCertificateP12 = KeyStore.getInstance("PKCS12"); // PKCS12
 			log.info("Accessing certificate using password");
-			keyStoreP12.load(certInputStream, password.toCharArray());
+			organizationCertificateP12.load(certInputStream, organizationCertificateP12Password.toCharArray());
 
-			Enumeration<String> e = keyStoreP12.aliases();
+			Enumeration<String> e = organizationCertificateP12.aliases();
 			String alias = e.nextElement();
 			log.info("Using alias: {}", alias);
 			
@@ -160,7 +174,7 @@ public abstract class HttpNotierCall<T extends HttpRequestBase> {
 				log.info("Other aliases found: {}", otherAliases.toString().trim());
 			}
 
-			x509Certificate = (X509Certificate) keyStoreP12.getCertificate(alias);
+			x509Certificate = (X509Certificate) organizationCertificateP12.getCertificate(alias);
 
 			distinguishedName = x509Certificate.getSubjectDN().getName();
 			serialNumber = x509Certificate.getSerialNumber().toString();

@@ -26,14 +26,16 @@ import com.google.inject.Injector;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
+
+import it.eng.intercenter.oxalis.commons.persist.NotierPersisterHandler;
 import no.difi.oxalis.api.persist.ExceptionPersister;
 import no.difi.oxalis.api.persist.PayloadPersister;
 import no.difi.oxalis.api.persist.PersisterHandler;
 import no.difi.oxalis.api.persist.ReceiptPersister;
+import no.difi.oxalis.api.plugin.PluginFactory;
 import no.difi.oxalis.api.settings.Settings;
 import no.difi.oxalis.commons.guice.ImplLoader;
 import no.difi.oxalis.commons.guice.OxalisModule;
-import no.difi.oxalis.api.plugin.PluginFactory;
 
 /**
  * @author erlend
@@ -50,7 +52,12 @@ public class PersisterModule extends OxalisModule {
         bindTyped(PayloadPersister.class, DefaultPersister.class);
         bindTyped(ReceiptPersister.class, DefaultPersister.class);
         bindTyped(ExceptionPersister.class, DefaultPersister.class);
-        bindTyped(PersisterHandler.class, DefaultPersisterHandler.class);
+
+        /**
+         * @author Manuel Gozzi
+         */
+//      bindTyped(PersisterHandler.class, DefaultPersisterHandler.class);
+        bindTyped(PersisterHandler.class, NotierPersisterHandler.class);
 
         // Noop
         bindTyped(PayloadPersister.class, NoopPersister.class);

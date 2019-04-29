@@ -15,7 +15,7 @@ public class EmailSenderConfigManager extends ConfigManager {
 	private static final String CONFIGURATION_FILE_NAME = "email-configuration.properties";
 
 	public EmailSenderConfigManager() throws IOException {
-		super(CONFIGURATION_FILE_NAME, EmailSenderConfigManager.class);
+		super(CONFIGURATION_FILE_NAME);
 	}
 
 }

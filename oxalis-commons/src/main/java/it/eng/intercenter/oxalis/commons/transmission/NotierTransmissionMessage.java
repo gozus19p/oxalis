@@ -1,4 +1,4 @@
-package it.eng.intercenter.oxalis.commons.quartz.transmission;
+package it.eng.intercenter.oxalis.commons.transmission;
 
 import java.io.InputStream;
 import java.io.Serializable;

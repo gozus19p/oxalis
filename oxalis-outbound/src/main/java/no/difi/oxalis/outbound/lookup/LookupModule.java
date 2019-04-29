@@ -27,6 +27,7 @@ import com.google.inject.Key;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.google.inject.name.Names;
+
 import no.difi.oxalis.api.lookup.LookupService;
 import no.difi.oxalis.commons.guice.OxalisModule;
 import no.difi.oxalis.commons.mode.OxalisCertificateValidator;
@@ -42,29 +43,24 @@ import no.difi.vefa.peppol.mode.Mode;
  */
 public class LookupModule extends OxalisModule {
 
-    @Override
-    protected void configure() {
-        bindTyped(LookupService.class, CachedLookupService.class);
-        bindTyped(LookupService.class, DefaultLookupService.class);
+	@Override
+	protected void configure() {
+		bindTyped(LookupService.class, CachedLookupService.class);
+		bindTyped(LookupService.class, DefaultLookupService.class);
 
-        bind(MetadataFetcher.class)
-                .to(OxalisApacheFetcher.class);
-    }
+		bind(MetadataFetcher.class).to(OxalisApacheFetcher.class);
+	}
 
-    @Provides
-    @Singleton
-    protected LookupService getLookupService(Mode mode, Injector injector) {
-        return injector.getInstance(Key.get(LookupService.class, Names.named(mode.getString("oxalis.lookup.service"))));
-    }
+	@Provides
+	@Singleton
+	protected LookupService getLookupService(Mode mode, Injector injector) {
+		return injector.getInstance(Key.get(LookupService.class, Names.named(mode.getString("oxalis.lookup.service"))));
+	}
 
-    @Provides
-    @Singleton
-    protected LookupClient providesLookupClient(Mode mode, OxalisCertificateValidator certificateValidator,
-                                                MetadataFetcher fetcher)
-            throws PeppolLoadingException {
-        return LookupClientBuilder.forMode(mode)
-                .fetcher(fetcher)
-                .certificateValidator(certificateValidator)
-                .build();
-    }
+	@Provides
+	@Singleton
+	protected LookupClient providesLookupClient(Mode mode, OxalisCertificateValidator certificateValidator,
+			MetadataFetcher fetcher) throws PeppolLoadingException {
+		return LookupClientBuilder.forMode(mode).fetcher(fetcher).certificateValidator(certificateValidator).build();
+	}
 }

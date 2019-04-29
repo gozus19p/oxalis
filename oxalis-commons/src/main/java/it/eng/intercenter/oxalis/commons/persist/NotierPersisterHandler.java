@@ -1,10 +1,11 @@
-package it.eng.intercenter.oxalis.as2.inbound;
+package it.eng.intercenter.oxalis.commons.persist;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Path;
+
+import javax.inject.Singleton;
 
 import org.apache.http.message.BasicNameValuePair;
 
@@ -13,7 +14,7 @@ import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
-import it.eng.intercenter.oxalis.commons.quartz.transmission.NotierTransmissionMessage;
+import it.eng.intercenter.oxalis.commons.transmission.NotierTransmissionMessage;
 import it.eng.intercenter.oxalis.config.impl.CertificateConfigManager;
 import it.eng.intercenter.oxalis.config.impl.RestConfigManager;
 import it.eng.intercenter.oxalis.integration.dto.OxalisMdn;
@@ -21,15 +22,25 @@ import it.eng.intercenter.oxalis.integration.dto.util.GsonUtil;
 import it.eng.intercenter.oxalis.rest.http.impl.HttpNotierPost;
 import lombok.extern.slf4j.Slf4j;
 import no.difi.oxalis.api.inbound.InboundMetadata;
-import no.difi.oxalis.api.model.TransmissionIdentifier;
-import no.difi.oxalis.api.persist.PersisterHandler;
-import no.difi.vefa.peppol.common.model.Header;
+import no.difi.oxalis.api.persist.ExceptionPersister;
+import no.difi.oxalis.api.persist.PayloadPersister;
+import no.difi.oxalis.api.persist.ReceiptPersister;
+import no.difi.oxalis.api.util.Type;
+import no.difi.oxalis.commons.persist.DefaultPersisterHandler;
 
 /**
  * @author Manuel Gozzi
  */
+@Singleton
+@Type("default")
 @Slf4j
-public class NotierPersisterHandler implements PersisterHandler {
+public class NotierPersisterHandler extends DefaultPersisterHandler {
+
+	@Inject
+	public NotierPersisterHandler(PayloadPersister payloadPersister, ReceiptPersister receiptPersister,
+			ExceptionPersister exceptionPersister) {
+		super(payloadPersister, receiptPersister, exceptionPersister);
+	}
 
 	private static final Gson GSON = GsonUtil.getPrettyPrintedInstance();
 	private static final String SENT_PATH = "/sent/";
@@ -45,13 +56,9 @@ public class NotierPersisterHandler implements PersisterHandler {
 	private String inboundPath;
 
 	@Override
-	public Path persist(TransmissionIdentifier transmissionIdentifier, Header header, InputStream inputStream)
-			throws IOException {
-		throw new IOException("Unsupported operation");
-	}
-
-	@Override
 	public void persist(InboundMetadata inboundMetadata, Path payloadPath) throws IOException {
+		super.persist(inboundMetadata, payloadPath);
+		
 		File payloadFile = new File(payloadPath.normalize().toString());
 		
 		String uri = config.readValue(RestConfigManager.CONFIG_KEY_REST_DOCUMENT_INBOUND);

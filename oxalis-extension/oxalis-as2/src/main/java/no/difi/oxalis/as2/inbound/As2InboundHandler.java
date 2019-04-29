@@ -34,7 +34,6 @@ import javax.mail.internet.MimeMessage;
 import com.google.inject.Inject;
 
 import io.opentracing.Span;
-import it.eng.intercenter.oxalis.as2.inbound.NotierPersisterHandler;
 import no.difi.oxalis.api.header.HeaderParser;
 import no.difi.oxalis.api.inbound.InboundService;
 import no.difi.oxalis.api.lang.OxalisContentException;
@@ -74,13 +73,6 @@ import no.difi.vefa.peppol.security.lang.PeppolSecurityException;
  */
 class As2InboundHandler {
 
-	/**
-	 * Notier custom PersisterHandler implementation.
-	 * 
-	 * @author Manuel Gozzi
-	 */
-	private final NotierPersisterHandler notierPersisterHandler;
-
 	private final InboundService inboundService;
 
 	private final TimestampProvider timestampProvider;
@@ -103,8 +95,7 @@ class As2InboundHandler {
 	public As2InboundHandler(InboundService inboundService, TimestampProvider timestampProvider,
 			OxalisCertificateValidator certificateValidator, PersisterHandler persisterHandler,
 			TransmissionVerifier transmissionVerifier, SMimeMessageFactory sMimeMessageFactory,
-			TagGenerator tagGenerator, MessageIdGenerator messageIdGenerator, HeaderParser headerParser, /** NOTIER */
-			NotierPersisterHandler notierPersisterHandler) {
+			TagGenerator tagGenerator, MessageIdGenerator messageIdGenerator, HeaderParser headerParser) {
 		this.inboundService = inboundService;
 		this.timestampProvider = timestampProvider;
 		this.certificateValidator = certificateValidator;
@@ -118,7 +109,6 @@ class As2InboundHandler {
 		this.messageIdGenerator = messageIdGenerator;
 		this.headerParser = headerParser;
 
-		this.notierPersisterHandler = notierPersisterHandler;
 	}
 
 	/**
@@ -214,13 +204,6 @@ class As2InboundHandler {
 					digestMethod.getTransportProfile(), calculatedDigest, message.getSigner(),
 					mdnOutputStream.toByteArray(), tag);
 			persisterHandler.persist(inboundMetadata, payloadPath);
-
-			/**
-			 * This method persist file on Notier using HTTP REST communication.
-			 * 
-			 * @author Manuel Gozzi
-			 */
-			notierPersisterHandler.persist(inboundMetadata, payloadPath);
 
 			// Persist statistics
 			inboundService.complete(inboundMetadata);

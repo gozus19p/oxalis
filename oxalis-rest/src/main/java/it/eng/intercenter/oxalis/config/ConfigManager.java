@@ -30,7 +30,7 @@ public abstract class ConfigManager {
 	private Logger log;
 
 	/**
-	 * All the fields that define keys has to start with this prefix.
+	 * All the fields that define keys must start with this prefix.
 	 */
 	private static final String KEY_PREFIX = "CONFIG_KEY";
 
@@ -40,19 +40,26 @@ public abstract class ConfigManager {
 	 * @param configurationFileName is the file name of the subclass
 	 * @param clazz                 is the class of the subclass
 	 */
-	public ConfigManager(String configurationFileName, Class<? extends ConfigManager> clazz) {
-		log = LoggerFactory.getLogger(clazz);
+	public ConfigManager(String configurationFileName) {
+		/**
+		 * Init logger.
+		 */
+		log = LoggerFactory.getLogger(this.getClass());
+
+		/**
+		 * Init configuration.
+		 */
 		this.configurationFileName = configurationFileName;
 		try {
-			loadConfiguration(clazz);
+			loadConfiguration();
 			log.info("{} configuration file related to the class {} has been successfully loaded",
-					configurationFileName, clazz.getName());
+					configurationFileName, this.getClass().getName());
 			configurationIsAvailable = true;
-			logKeyFields(clazz);
+			logKeyFields();
 		} catch (IOException e) {
 			log.error(
 					"Unable to load {} configuration file, the class {} is not available due to a IOException. Root cause: {}",
-					configurationFileName, clazz.getName(), e.getMessage(), e);
+					configurationFileName, this.getClass().getName(), e.getMessage(), e);
 			configurationIsAvailable = false;
 		}
 	}
@@ -63,9 +70,9 @@ public abstract class ConfigManager {
 	 * @param clazz is the class of the subclass
 	 * @throws IOException if something goes wrong during file parsing
 	 */
-	private void loadConfiguration(Class<? extends ConfigManager> clazz) throws IOException {
+	private void loadConfiguration() throws IOException {
 		configuration = new Properties();
-		configuration.load(clazz.getClassLoader().getResourceAsStream(configurationFileName));
+		configuration.load(this.getClass().getClassLoader().getResourceAsStream(configurationFileName));
 	}
 
 	/**
@@ -73,20 +80,26 @@ public abstract class ConfigManager {
 	 * 
 	 * @param clazz
 	 */
-	private void logKeyFields(Class<? extends ConfigManager> clazz) {
-		List<Field> fields = getConfigurationKeyFields(clazz);
+	private void logKeyFields() {
+		List<Field> fields = getConfigurationKeyFields();
 		log.info("{} configuration file has {} keys", configurationFileName, fields.size());
 		fields.forEach(field -> {
 			try {
-				log.info("Key: \"{}\"; Value: \"{}\";", field.getName(), field.get(clazz));
+				log.info("Key: \"{}\"; Value: \"{}\";", field.getName(), field.get(this.getClass()));
 			} catch (IllegalArgumentException | IllegalAccessException e) {
 				log.error("An error occurs during logging, root cause: {}", e.getMessage(), e);
 			}
 		});
 	}
 
-	public List<Field> getConfigurationKeyFields(Class<? extends ConfigManager> clazz) {
-		return Arrays.asList(clazz.getDeclaredFields()).stream()
+	/**
+	 * Retrieve configuration key fields of current subclass.
+	 * 
+	 * @param clazz is the subclass
+	 * @return the Field's list
+	 */
+	public List<Field> getConfigurationKeyFields() {
+		return Arrays.asList(this.getClass().getDeclaredFields()).stream()
 				.filter(field -> field.getType().equals(String.class)
 						&& field.getName().toUpperCase().contains(KEY_PREFIX.toUpperCase()))
 				.collect(Collectors.toList());
