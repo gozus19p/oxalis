@@ -1,6 +1,7 @@
 package it.eng.intercenter.oxalis.integration.dto;
 
 import it.eng.intercenter.oxalis.integration.dto.enumerator.OxalisStatusEnum;
+import it.eng.intercenter.oxalis.integration.dto.util.GsonUtil;
 
 /**
  * Classe atta a incapsulare l'esito dell'invio su rete Peppol di un documento
@@ -36,6 +37,11 @@ public class OxalisMdn implements NotierDTO {
 	
 	public boolean hasPositiveStatus() {
 		return OxalisStatusEnum.OK.equals(status);
+	}
+	
+	@Override
+	public String toString() {
+		return GsonUtil.getPrettyPrintedInstance().toJson(this);
 	}
 
 }

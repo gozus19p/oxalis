@@ -1,5 +1,7 @@
 package it.eng.intercenter.oxalis.integration.dto;
 
+import it.eng.intercenter.oxalis.integration.dto.util.GsonUtil;
+
 /**
  * @author Manuel Gozzi
  */
@@ -16,8 +18,14 @@ public class NotierDocumentIndex implements NotierDTO {
 	public String getUrn() {
 		return urn;
 	}
+	
 	public boolean isInternal() {
 		return isInternal;
+	}
+	
+	@Override
+	public String toString() {
+		return GsonUtil.getPrettyPrintedInstance().toJson(this);
 	}
 
 }

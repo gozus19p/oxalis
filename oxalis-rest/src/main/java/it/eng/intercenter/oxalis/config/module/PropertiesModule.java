@@ -10,9 +10,12 @@ import it.eng.intercenter.oxalis.config.impl.EmailSenderConfigManager;
 import it.eng.intercenter.oxalis.config.impl.RestConfigManager;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * @author Manuel Gozzi
+ */
 @Slf4j
 public class PropertiesModule extends AbstractModule {
-	
+
 	@Override
 	protected void configure() {
 		Multibinder<ConfigManager> configMultibinder = Multibinder.newSetBinder(binder(), ConfigManager.class);

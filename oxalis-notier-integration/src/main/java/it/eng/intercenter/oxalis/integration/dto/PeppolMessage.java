@@ -2,6 +2,8 @@ package it.eng.intercenter.oxalis.integration.dto;
 
 import java.io.ByteArrayInputStream;
 
+import it.eng.intercenter.oxalis.integration.dto.util.GsonUtil;
+
 /**
  * 
  * @author Manuel Gozzi
@@ -24,6 +26,11 @@ public class PeppolMessage implements NotierDTO {
 
 	public PeppolDetails getHeader() {
 		return header;
+	}
+	
+	@Override
+	public String toString() {
+		return GsonUtil.getPrettyPrintedInstance().toJson(this);
 	}
 
 }

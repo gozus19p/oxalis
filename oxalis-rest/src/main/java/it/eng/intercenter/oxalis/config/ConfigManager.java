@@ -88,6 +88,9 @@ public abstract class ConfigManager {
 		}
 	}
 	
+	/**
+	 * @return Oxalis home path
+	 */
 	protected Path getOxalisHome() {
 		return oxalisHomePath;
 	}
@@ -131,13 +134,10 @@ public abstract class ConfigManager {
 					this.getClass().getSimpleName(), e.getMessage(), e);
 			throw e;
 		}
-		// configuration.load(this.getClass().getClassLoader().getResourceAsStream(configurationFullPath));
 	}
 
 	/**
 	 * This prints keys defined in subclass.
-	 * 
-	 * @param clazz
 	 */
 	private void logKeyFields() {
 		List<Field> fields = getConfigurationKeyFields();

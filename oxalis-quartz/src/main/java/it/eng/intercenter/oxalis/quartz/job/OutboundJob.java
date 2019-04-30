@@ -23,7 +23,7 @@ import it.eng.intercenter.oxalis.integration.dto.OxalisMdn;
 import it.eng.intercenter.oxalis.integration.dto.UrnList;
 import it.eng.intercenter.oxalis.integration.dto.enumerator.OxalisStatusEnum;
 import it.eng.intercenter.oxalis.integration.dto.util.GsonUtil;
-import it.eng.intercenter.oxalis.quartz.job.transmission.NotierTransmissionMessageBuilder;
+import it.eng.intercenter.oxalis.quartz.job.transmission.NotierTransmissionRequestBuilder;
 import it.eng.intercenter.oxalis.rest.HttpCallManager;
 import lombok.extern.slf4j.Slf4j;
 import no.difi.oxalis.api.lang.OxalisContentException;
@@ -169,8 +169,8 @@ public class OutboundJob implements Job {
 	 */
 	private OxalisMdn buildTransmissionAndSendOnPeppol(String urn, String peppolMessageJsonFormat)
 			throws OxalisTransmissionException, OxalisContentException {
-		TransmissionRequest messageToSend = NotierTransmissionMessageBuilder
-				.buildTransmissionRequestFromPeppolMessage(requestBuilder, peppolMessageJsonFormat);
+		TransmissionRequest messageToSend = NotierTransmissionRequestBuilder
+				.build(requestBuilder, peppolMessageJsonFormat);
 		TransmissionResponse response = send(messageToSend);
 		String receiptPayloadStringified = new String(response.primaryReceipt().getValue(), StandardCharsets.UTF_8);
 		log.info("Received the following receipt: {}{}",

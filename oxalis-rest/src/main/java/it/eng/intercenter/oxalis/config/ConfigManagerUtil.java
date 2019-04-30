@@ -20,6 +20,7 @@ public class ConfigManagerUtil {
 	public static final String MESSAGE_REST_EXECUTED_WITH_STATUS = "REST call executed. HTTP status: {}";
 	public static final String MESSAGE_STARTING_TO_PROCESS_URN = "Starting to process URN: {}";
 	public static final String MESSAGE_USING_REST_URI = "Executing HTTP {} REST call to URI: {}";
+	public static final String MESSAGE_PRODUCTION_MODE_DISABLED = "Oxalis is running in TEST mode";
 	public static final String MESSAGE_WRONG_HTTP_PROTOCOL = "Something went wrong with HttpClient protocol, message: {}";
 	public static final String MESSAGE_WRONG_INPUT_OUTPUT = "Something went wrong with input/output, message: {}";
 	public static final String MESSAGE_WRONG_CONFIGURATION_SETUP = "Rest configuration has not been setup properly. Configuration status: {}";

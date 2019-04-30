@@ -15,9 +15,8 @@ import it.eng.intercenter.oxalis.config.ConfigManager;
 public class CertificateConfigManager extends ConfigManager {
 
 	/**
-	 * Configuration file name (it needs to be located under
-	 * /src/main/resources/[filename]).
-	 * 
+	 * Configuration file name.
+	 *
 	 * "cert.properties" for production, "cert.local-test.properties" for local
 	 * test.
 	 */
@@ -26,8 +25,6 @@ public class CertificateConfigManager extends ConfigManager {
 	/**
 	 * Config keys to access configuration file.
 	 */
-	public static final String CONFIG_KEY_HTTPS_CERT_PASSWORD = "cert.cacerts.password";
-	public static final String CONFIG_KEY_HTTPS_CERT_PATH = "cert.cacerts.path";
 	public static final String CONFIG_KEY_ORG_CERT_PASSWORD = "cert.org.password";
 	public static final String CONFIG_KEY_ORG_CERT_FILE_NAME = "cert.org.filename";
 	public static final String CONFIG_KEY_PRODUCTION_MODE_ENABLED = "production.mode";

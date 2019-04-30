@@ -2,6 +2,7 @@ package it.eng.intercenter.oxalis.rest.http;
 
 import static it.eng.intercenter.oxalis.config.ConfigManagerUtil.MESSAGE_REST_EXECUTED_WITH_STATUS;
 import static it.eng.intercenter.oxalis.config.ConfigManagerUtil.MESSAGE_USING_REST_URI;
+import static it.eng.intercenter.oxalis.config.ConfigManagerUtil.MESSAGE_PRODUCTION_MODE_DISABLED;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -39,7 +40,7 @@ public abstract class HttpNotierCall<T extends HttpRequestBase> {
 	private CertificateConfigManager certificateConfiguration;
 	private HttpClient httpClient;
 	protected T httpRequest;
-	
+
 	/**
 	 * As of 04.30.2019 only POST and GET are supported.
 	 */
@@ -60,6 +61,8 @@ public abstract class HttpNotierCall<T extends HttpRequestBase> {
 	private static String serialNumber;
 	private static KeyStore organizationCertificateP12;
 	private static X509Certificate x509Certificate;
+
+	private static final String ORGANIZATION_CERTIFICATE_ALGORITHM = "PKCS12";
 
 	/**
 	 * Constructor.
@@ -102,6 +105,7 @@ public abstract class HttpNotierCall<T extends HttpRequestBase> {
 		}
 		if (!isProductionMode) {
 			addDistinguishedNameAndSerialNumberToRequestHeaders();
+			log.warn(MESSAGE_PRODUCTION_MODE_DISABLED);
 		}
 		log.info(MESSAGE_USING_REST_URI,
 				new Object[] { httpRequestType.name(), httpRequest.getURI().normalize().toString() });
@@ -145,34 +149,28 @@ public abstract class HttpNotierCall<T extends HttpRequestBase> {
 	 * Method that loads details of the PKCS12 certificate.
 	 */
 	private void loadCertificate() {
-		log.info("Preparing certificate for Notier REST communications");
+		log.info("Preparing certificate for Notier HTTP communications");
 
 		organizationCertificateP12FileName = certificateConfiguration
 				.readValue(CertificateConfigManager.CONFIG_KEY_ORG_CERT_FILE_NAME);
 		organizationCertificateP12Password = certificateConfiguration
 				.readValue(CertificateConfigManager.CONFIG_KEY_ORG_CERT_PASSWORD, true);
 
-		String certificatePath = certificateConfiguration.getCertificatesDirectoryPath().normalize().toString()
-				+ System.getProperty("file.separator") + organizationCertificateP12FileName;
+		String certificatePath = buildCertificatePath(organizationCertificateP12FileName);
 
-		try (FileInputStream certInputStream = new FileInputStream(new File(certificatePath));) {
+		try (FileInputStream certificateInputStream = new FileInputStream(new File(certificatePath));) {
 
 			log.info("Parsing certificate details from file {}", organizationCertificateP12FileName);
-			organizationCertificateP12 = KeyStore.getInstance("PKCS12"); // PKCS12
+			organizationCertificateP12 = KeyStore.getInstance(ORGANIZATION_CERTIFICATE_ALGORITHM);
+			
 			log.info("Accessing certificate using password");
-			organizationCertificateP12.load(certInputStream, organizationCertificateP12Password.toCharArray());
+			organizationCertificateP12.load(certificateInputStream, organizationCertificateP12Password.toCharArray());
 
-			Enumeration<String> e = organizationCertificateP12.aliases();
-			String alias = e.nextElement();
+			Enumeration<String> aliasesEnumeration = organizationCertificateP12.aliases();
+			String alias = aliasesEnumeration.nextElement();
 			log.info("Using alias: {}", alias);
-
-			if (e.hasMoreElements()) {
-				StringBuilder otherAliases = new StringBuilder();
-				while (e.hasMoreElements()) {
-					otherAliases.append(e.nextElement() + "; ");
-				}
-				log.info("Other aliases found: {}", otherAliases.toString().trim());
-			}
+			
+			logOtherAliases(aliasesEnumeration);
 
 			x509Certificate = (X509Certificate) organizationCertificateP12.getCertificate(alias);
 
@@ -194,6 +192,37 @@ public abstract class HttpNotierCall<T extends HttpRequestBase> {
 			log.error("An error occurs during I/O operations with root cause: {}", e.getMessage(), e);
 			httpClientIsAvailable = false;
 		}
+	}
+
+	/**
+	 * If certificate has more aliases than one, then this method logs the others.
+	 * 
+	 * @param aliasesEnumeration is the Enumeration that contains other aliases
+	 */
+	private static void logOtherAliases(Enumeration<String> aliasesEnumeration) {
+		if (aliasesEnumeration.hasMoreElements()) {
+			StringBuilder otherAliases = new StringBuilder();
+			while (aliasesEnumeration.hasMoreElements()) {
+				otherAliases.append(aliasesEnumeration.nextElement() + "; ");
+			}
+			log.info("Other aliases found: {}", otherAliases.toString().trim());
+		}
+	}
+
+	/**
+	 * @param fileName is the certificate file name (without path)
+	 * @return full certificate path
+	 */
+	private String buildCertificatePath(String fileName) {
+		StringBuilder sb = new StringBuilder();
+		String configuredDirectoryPath = certificateConfiguration.getCertificatesDirectoryPath().normalize().toString();
+		sb.append(configuredDirectoryPath);
+		if (!configuredDirectoryPath.substring(configuredDirectoryPath.length() - 2)
+				.equals(System.getProperty("file.separator"))) {
+			sb.append(System.getProperty("file.separator"));
+		}
+		sb.append(fileName);
+		return sb.toString();
 	}
 
 	/**

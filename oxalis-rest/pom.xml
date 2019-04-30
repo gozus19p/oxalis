@@ -67,11 +67,13 @@
 			<artifactId>javax.servlet-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		<!-- Testng -->
+		<!-- Junit -->
 		<dependency>
-			<groupId>org.testng</groupId>
-			<artifactId>testng</artifactId>
-		</dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.11</version>
+				<scope>test</scope>
+			</dependency>
 		<!-- Mockito -->
 		<dependency>
 			<groupId>org.mockito</groupId>

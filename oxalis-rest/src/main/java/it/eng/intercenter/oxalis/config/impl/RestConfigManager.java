@@ -14,7 +14,7 @@ import it.eng.intercenter.oxalis.config.ConfigManager;
 public class RestConfigManager extends ConfigManager {
 
 	/**
-	 * Configuration file name (it needs to be located under /src/main/resources/[filename]).
+	 * Configuration file name.
 	 */
 	private static final String CONFIGURATION_FILE_NAME = "rest-call-configuration.properties";
 	

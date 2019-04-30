@@ -3,6 +3,8 @@ package it.eng.intercenter.oxalis.integration.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.eng.intercenter.oxalis.integration.dto.util.GsonUtil;
+
 /**
  * @author Manuel Gozzi
  */
@@ -29,4 +31,9 @@ public class UrnList implements NotierDTO {
 		return urnCount;
 	}
 
+	@Override
+	public String toString() {
+		return GsonUtil.getPrettyPrintedInstance().toJson(this);
+	}
+	
 }

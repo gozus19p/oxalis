@@ -12,7 +12,8 @@ import org.quartz.impl.matchers.GroupMatcher;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Class that implements Quartz inside Guice workflow
+ * Class that implements Quartz inside Guice workflow.
+ * 
  * @author Manuel Gozzi
  */
 @Singleton
@@ -27,13 +28,10 @@ public class Quartz {
 	/**
 	 * Quartz DI injection
 	 * 
-	 * @param factory
-	 *            is the Quartz Scheduler factory class
-	 * @param jobFactory
-	 *            is the Quartz Job factory class
-	 * @throws SchedulerException
-	 *             if something goes wrong during the Quartz scheduler startup
-	 *             process
+	 * @param factory    is the Quartz Scheduler factory class
+	 * @param jobFactory is the Quartz Job factory class
+	 * @throws SchedulerException if something goes wrong during the Quartz
+	 *                            scheduler startup process
 	 */
 	@Inject
 	public Quartz(final SchedulerFactory factory, final GuiceJobFactory jobFactory) throws SchedulerException {
@@ -52,7 +50,6 @@ public class Quartz {
 	}
 
 	/**
-	 * @author Manuel Gozzi
 	 * @return true if scheduler paused correctly, false otherwise
 	 */
 	public boolean pauseScheduler() {
@@ -81,7 +78,6 @@ public class Quartz {
 	}
 
 	/**
-	 * @author Manuel Gozzi
 	 * @return true if scheduler started correctly, false otherwise
 	 */
 	public boolean startScheduler() {

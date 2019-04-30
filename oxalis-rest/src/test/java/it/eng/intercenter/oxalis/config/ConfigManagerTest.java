@@ -1,13 +1,13 @@
 package it.eng.intercenter.oxalis.config;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Properties;
 
-import org.testng.Assert;
-import org.testng.annotations.Test;
-
-import com.google.inject.Inject;
+import org.junit.Assert;
+import org.junit.Test;
 
 import it.eng.intercenter.oxalis.config.impl.CertificateConfigManager;
 import it.eng.intercenter.oxalis.config.impl.EmailSenderConfigManager;
@@ -18,24 +18,24 @@ import lombok.extern.slf4j.Slf4j;
  * @author Manuel Gozzi
  */
 @Slf4j
-//@Guice(modules = GuiceModuleLoader.class)
 public class ConfigManagerTest {
 	
 	private static final String EMPTY = "";
 
-	@Inject
 	CertificateConfigManager certificateConfigManager;
 	
-	@Inject
 	EmailSenderConfigManager emailSenderConfigManager;
 	
-	@Inject
 	RestConfigManager restConfigManager;
 	
 	@Test
 	public void testCertificateConfig() {
 		log.info("Starting to test: {}", CertificateConfigManager.class.getName());
-		
+		try {
+			certificateConfigManager = new CertificateConfigManager(Paths.get("C:\\Users\\MGozzi\\.oxalis"));
+		} catch (IOException e1) {
+			Assert.fail();
+		}
 		Properties prop = certificateConfigManager.getFullConfiguration();
 		Assert.assertNotNull(prop);
 		
@@ -57,6 +57,12 @@ public class ConfigManagerTest {
 	@Test
 	public void testRestConfig() {
 		log.info("Starting to test: {}", RestConfigManager.class.getName());
+		
+		try {
+			restConfigManager = new RestConfigManager(Paths.get("C:\\Users\\MGozzi\\.oxalis"));
+		} catch (IOException e1) {
+			Assert.fail();
+		}
 		
 		Properties prop = restConfigManager.getFullConfiguration();
 		Assert.assertNotNull(prop);

@@ -3,6 +3,8 @@ package it.eng.intercenter.oxalis.integration.dto;
 import java.io.ByteArrayInputStream;
 import java.util.Date;
 
+import it.eng.intercenter.oxalis.integration.dto.util.GsonUtil;
+
 /**
  * This class represents documents that need to be sent on Notier (inbound
  * flow).
@@ -33,4 +35,9 @@ public class ReceivedDocument implements NotierDTO {
 		return payload;
 	}
 
+	@Override
+	public String toString() {
+		return GsonUtil.getPrettyPrintedInstance().toJson(this);
+	}
+	
 }

@@ -1,5 +1,7 @@
 package it.eng.intercenter.oxalis.integration.dto;
 
+import it.eng.intercenter.oxalis.integration.dto.util.GsonUtil;
+
 /**
  * Classe che conserva le informazioni relative ai metadati per inviare un
  * documento su rete Peppol.
@@ -39,4 +41,9 @@ public class PeppolDetails implements NotierDTO {
 		return documentTypeIdentifier;
 	}
 
+	@Override
+	public String toString() {
+		return GsonUtil.getPrettyPrintedInstance().toJson(this);
+	}
+	
 }
