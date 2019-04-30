@@ -19,9 +19,9 @@ public class HttpNotierPost extends HttpNotierCall<HttpPost> {
 	public HttpNotierPost(CertificateConfigManager certConfig, String uri, BasicNameValuePair... params) throws UnsupportedEncodingException {
 		super(certConfig);
 		log.info("Creating new POST request with URI {} and {} params", uri, params.length);
-		request = new HttpPost(uri);
-		request.setEntity(new UrlEncodedFormEntity(Arrays.asList(params), StandardCharsets.UTF_8.toString()));
-		requestType = NotierRestCallTypeEnum.POST;
+		httpRequest = new HttpPost(uri);
+		httpRequest.setEntity(new UrlEncodedFormEntity(Arrays.asList(params), StandardCharsets.UTF_8.toString()));
+		httpRequestType = NotierRestCallTypeEnum.POST;
 	}
 
 }
