@@ -27,11 +27,11 @@
     <parent>
         <groupId>no.difi.oxalis</groupId>
         <artifactId>oxalis</artifactId>
-        <version>4.0.3</version>
+        <version>4.0.4-SNAPSHOT</version>
     </parent>
 
     <artifactId>oxalis-as4</artifactId>
-    <version>4.1.0-SNAPSHOT</version>
+    <!-- Edited: was 4.1.4-SNAPSHOT -->
 
     <packaging>jar</packaging>
 
@@ -287,7 +287,6 @@
             </plugin>
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
-                <version>2.6</version>
                 <configuration>
                     <descriptors>
                         <descriptor>src/main/assembly/assembly-dist.xml</descriptor>

@@ -7,6 +7,7 @@ import java.nio.file.Path;
 
 import javax.inject.Singleton;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.http.message.BasicNameValuePair;
 
 import com.google.common.io.Files;
@@ -14,10 +15,11 @@ import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
-import it.eng.intercenter.oxalis.commons.transmission.NotierTransmissionMessage;
 import it.eng.intercenter.oxalis.config.impl.CertificateConfigManager;
 import it.eng.intercenter.oxalis.config.impl.RestConfigManager;
 import it.eng.intercenter.oxalis.integration.dto.OxalisMdn;
+import it.eng.intercenter.oxalis.integration.dto.OxalisMessage;
+import it.eng.intercenter.oxalis.integration.dto.PeppolDetails;
 import it.eng.intercenter.oxalis.integration.dto.util.GsonUtil;
 import it.eng.intercenter.oxalis.rest.http.impl.HttpNotierPost;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +29,7 @@ import no.difi.oxalis.api.persist.PayloadPersister;
 import no.difi.oxalis.api.persist.ReceiptPersister;
 import no.difi.oxalis.api.util.Type;
 import no.difi.oxalis.commons.persist.DefaultPersisterHandler;
+import no.difi.vefa.peppol.common.model.Header;
 
 /**
  * @author Manuel Gozzi
@@ -62,7 +65,7 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 		File payloadFile = new File(payloadPath.normalize().toString());
 		
 		String uri = config.readValue(RestConfigManager.CONFIG_KEY_REST_DOCUMENT_INBOUND);
-		HttpNotierPost post = new HttpNotierPost(certConfig, uri, getParams(inboundMetadata, payloadPath));
+		HttpNotierPost post = new HttpNotierPost(certConfig, uri, getParams(inboundMetadata, inboundMetadata.getHeader(), payloadPath));
 		
 		try {
 			String response = post.execute();
@@ -111,13 +114,30 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 	 * @return the array of params to attach on POST request
 	 * @throws IOException if something goes wrong during payload management
 	 */
-	private BasicNameValuePair[] getParams(InboundMetadata inboundMetadata, Path payloadPath) throws IOException {
+	private BasicNameValuePair[] getParams(InboundMetadata inboundMetadata, Header header, Path payloadPath) throws IOException {
 		BasicNameValuePair[] arr = new BasicNameValuePair[2];
+		
 		byte[] payload = getPayload(payloadPath);
-		NotierTransmissionMessage tm = new NotierTransmissionMessage(inboundMetadata.getHeader(),
-				new ByteArrayInputStream(payload), inboundMetadata.getTag());
-		arr[0] = new BasicNameValuePair("peppolMessage", GSON.toJson(tm));
-		arr[1] = new BasicNameValuePair("inboundMetadata", GSON.toJson(inboundMetadata));
+		ByteArrayInputStream bais = new ByteArrayInputStream(payload);
+		
+		OxalisMessage oxalisMessage = new OxalisMessage(inboundMetadata.getTransmissionIdentifier().getIdentifier(),
+				new PeppolDetails(header.getSender().getIdentifier(),
+						header.getReceiver().getIdentifier(),
+						header.getProcess().getIdentifier(),
+						header.getDocumentType().getIdentifier()),
+						null, //timestamp
+						null, //
+						null,
+						inboundMetadata.getTransportProtocol().toString(),
+						inboundMetadata.getDigest().getMethod().name(),
+						inboundMetadata.getDigest().getValue(),
+						inboundMetadata.getReceipts().get(0).getValue(),
+						inboundMetadata.getTag().toString());
+
+		
+		arr[0] = new BasicNameValuePair("document", GSON.toJson(oxalisMessage));
+		arr[1] = new BasicNameValuePair("peppolPayload", GSON.toJson(new ByteArrayInputStream(IOUtils.toByteArray(bais))));
+		
 		return arr;
 	}
 
