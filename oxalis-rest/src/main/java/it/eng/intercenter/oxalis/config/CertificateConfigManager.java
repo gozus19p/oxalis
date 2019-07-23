@@ -1,4 +1,4 @@
-package it.eng.intercenter.oxalis.config.impl;
+package it.eng.intercenter.oxalis.config;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -7,12 +7,12 @@ import java.nio.file.Paths;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
-import it.eng.intercenter.oxalis.config.ConfigManager;
+import it.eng.intercenter.oxalis.api.AbstractConfigManager;
 
 /**
  * @author Manuel Gozzi
  */
-public class CertificateConfigManager extends ConfigManager {
+public class CertificateConfigManager extends AbstractConfigManager {
 
 	/**
 	 * Configuration file name.

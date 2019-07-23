@@ -3,6 +3,7 @@ package it.eng.intercenter.oxalis.integration.dto;
 import java.io.ByteArrayInputStream;
 import java.util.Date;
 
+import it.eng.intercenter.oxalis.integration.api.NotierDTO;
 import it.eng.intercenter.oxalis.integration.dto.util.GsonUtil;
 
 /**

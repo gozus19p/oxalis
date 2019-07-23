@@ -2,7 +2,7 @@ package it.eng.intercenter.oxalis.integration.dto.enumerator;
 
 import java.util.Date;
 
-import it.eng.intercenter.oxalis.integration.dto.NotierDTO;
+import it.eng.intercenter.oxalis.integration.api.NotierDTO;
 
 /**
  * Enumeratore corrispondente allo status della risposta da inviare a Notier.

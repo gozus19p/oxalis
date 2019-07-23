@@ -1,5 +1,6 @@
 package it.eng.intercenter.oxalis.integration.dto;
 
+import it.eng.intercenter.oxalis.integration.api.NotierDTO;
 import it.eng.intercenter.oxalis.integration.dto.enumerator.OxalisStatusEnum;
 import it.eng.intercenter.oxalis.integration.dto.util.GsonUtil;
 

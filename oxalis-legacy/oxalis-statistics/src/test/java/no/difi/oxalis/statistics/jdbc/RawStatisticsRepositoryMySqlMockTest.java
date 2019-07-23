@@ -22,10 +22,22 @@
 
 package no.difi.oxalis.statistics.jdbc;
 
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
+
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+
+import javax.sql.DataSource;
+
+import org.h2.tools.RunScript;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Guice;
+import org.testng.annotations.Test;
+
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import no.difi.oxalis.test.identifier.PeppolDocumentTypeIdAcronym;
-import no.difi.oxalis.test.identifier.PeppolProcessTypeIdAcronym;
+
 import no.difi.oxalis.api.model.AccessPointIdentifier;
 import no.difi.oxalis.persistence.annotation.Transactional;
 import no.difi.oxalis.persistence.platform.MySQLPlatform;
@@ -36,18 +48,9 @@ import no.difi.oxalis.statistics.api.RawStatisticsRepository;
 import no.difi.oxalis.statistics.api.StatisticsGranularity;
 import no.difi.oxalis.statistics.guice.RawStatisticsRepositoryModule;
 import no.difi.oxalis.statistics.model.DefaultRawStatistics;
+import no.difi.oxalis.test.identifier.PeppolDocumentTypeIdAcronym;
+import no.difi.oxalis.test.identifier.PeppolProcessTypeIdAcronym;
 import no.difi.vefa.peppol.common.model.ParticipantIdentifier;
-import org.h2.tools.RunScript;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Guice;
-import org.testng.annotations.Test;
-
-import javax.sql.DataSource;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
-
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
 
 /**
  * Tests the MySQL implementation

@@ -1,10 +1,10 @@
 package it.eng.intercenter.oxalis.quartz.job;
 
-import static it.eng.intercenter.oxalis.config.ConfigManagerUtil.MESSAGE_MDN_SEND_FAILED;
-import static it.eng.intercenter.oxalis.config.ConfigManagerUtil.MESSAGE_OUTBOUND_FAILED_FOR_URN;
-import static it.eng.intercenter.oxalis.config.ConfigManagerUtil.MESSAGE_OUTBOUND_SUCCESS_FOR_URN;
-import static it.eng.intercenter.oxalis.config.ConfigManagerUtil.MESSAGE_STARTING_TO_PROCESS_URN;
-import static it.eng.intercenter.oxalis.config.ConfigManagerUtil.MESSAGE_WRONG_CONFIGURATION_SETUP;
+import static it.eng.intercenter.oxalis.config.util.ConfigManagerUtil.MESSAGE_MDN_SEND_FAILED;
+import static it.eng.intercenter.oxalis.config.util.ConfigManagerUtil.MESSAGE_OUTBOUND_FAILED_FOR_URN;
+import static it.eng.intercenter.oxalis.config.util.ConfigManagerUtil.MESSAGE_OUTBOUND_SUCCESS_FOR_URN;
+import static it.eng.intercenter.oxalis.config.util.ConfigManagerUtil.MESSAGE_STARTING_TO_PROCESS_URN;
+import static it.eng.intercenter.oxalis.config.util.ConfigManagerUtil.MESSAGE_WRONG_CONFIGURATION_SETUP;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -16,15 +16,15 @@ import org.springframework.util.StringUtils;
 
 import com.google.inject.Inject;
 
-import it.eng.intercenter.oxalis.config.impl.CertificateConfigManager;
-import it.eng.intercenter.oxalis.config.impl.RestConfigManager;
+import it.eng.intercenter.oxalis.config.CertificateConfigManager;
+import it.eng.intercenter.oxalis.config.RestConfigManager;
 import it.eng.intercenter.oxalis.integration.dto.NotierDocumentIndex;
 import it.eng.intercenter.oxalis.integration.dto.OxalisMdn;
 import it.eng.intercenter.oxalis.integration.dto.UrnList;
 import it.eng.intercenter.oxalis.integration.dto.enumerator.OxalisStatusEnum;
 import it.eng.intercenter.oxalis.integration.dto.util.GsonUtil;
 import it.eng.intercenter.oxalis.quartz.job.transmission.NotierTransmissionRequestBuilder;
-import it.eng.intercenter.oxalis.rest.HttpCallManager;
+import it.eng.intercenter.oxalis.rest.HttpCaller;
 import lombok.extern.slf4j.Slf4j;
 import no.difi.oxalis.api.lang.OxalisContentException;
 import no.difi.oxalis.api.lang.OxalisTransmissionException;
@@ -79,7 +79,7 @@ public class OutboundJob implements Job {
 		 */
 		String jsonUrnGetterResponse = null;
 		try {
-			jsonUrnGetterResponse = HttpCallManager.executeGet(certConfig, restUrnGetterUri);
+			jsonUrnGetterResponse = HttpCaller.executeGet(certConfig, restUrnGetterUri);
 		} catch (Exception e) {
 			throw new JobExecutionException("Empty response from URI " + restUrnGetterUri);
 		} finally {
@@ -117,7 +117,7 @@ public class OutboundJob implements Job {
 				/**
 				 * Phase 2a: get document payload by REST web service from Notier.
 				 */
-				String peppolMessageJson = HttpCallManager.executeGet(certConfig,
+				String peppolMessageJson = HttpCaller.executeGet(certConfig,
 						restDocumentGetterUri + index.getUrn());
 				log.info("Received String json response containing {} characters", peppolMessageJson.length());
 				/**
@@ -211,7 +211,7 @@ public class OutboundJob implements Job {
 	 */
 	private void sendStatusToNotier(OxalisMdn oxalisMdn, String urn) {
 		try {
-			String resp = HttpCallManager.executePost(certConfig, restSendStatusUri, "oxalisContent",
+			String resp = HttpCaller.executePost(certConfig, restSendStatusUri, "oxalisContent",
 					GsonUtil.getPrettyPrintedInstance().toJson(oxalisMdn));
 			log.info("Received response contains {} characters", resp.length());
 		} catch (UnsupportedOperationException | IOException e) {

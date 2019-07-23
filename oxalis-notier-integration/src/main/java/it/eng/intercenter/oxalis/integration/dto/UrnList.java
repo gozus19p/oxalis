@@ -3,6 +3,7 @@ package it.eng.intercenter.oxalis.integration.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.eng.intercenter.oxalis.integration.api.NotierDTO;
 import it.eng.intercenter.oxalis.integration.dto.util.GsonUtil;
 
 /**

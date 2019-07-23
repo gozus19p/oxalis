@@ -1,6 +1,6 @@
 package it.eng.intercenter.oxalis.integration.dto.enumerator;
 
-import it.eng.intercenter.oxalis.integration.dto.NotierDTO;
+import it.eng.intercenter.oxalis.integration.api.NotierDTO;
 
 /**
  * 

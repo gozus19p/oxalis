@@ -1,8 +1,8 @@
-package it.eng.intercenter.oxalis.rest.http;
+package it.eng.intercenter.oxalis.api;
 
-import static it.eng.intercenter.oxalis.config.ConfigManagerUtil.MESSAGE_REST_EXECUTED_WITH_STATUS;
-import static it.eng.intercenter.oxalis.config.ConfigManagerUtil.MESSAGE_USING_REST_URI;
-import static it.eng.intercenter.oxalis.config.ConfigManagerUtil.MESSAGE_PRODUCTION_MODE_DISABLED;
+import static it.eng.intercenter.oxalis.config.util.ConfigManagerUtil.MESSAGE_PRODUCTION_MODE_DISABLED;
+import static it.eng.intercenter.oxalis.config.util.ConfigManagerUtil.MESSAGE_REST_EXECUTED_WITH_STATUS;
+import static it.eng.intercenter.oxalis.config.util.ConfigManagerUtil.MESSAGE_USING_REST_URI;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -27,7 +27,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.impl.client.HttpClients;
 
-import it.eng.intercenter.oxalis.config.impl.CertificateConfigManager;
+import it.eng.intercenter.oxalis.config.CertificateConfigManager;
 import it.eng.intercenter.oxalis.integration.dto.enumerator.NotierRestCallTypeEnum;
 import lombok.extern.slf4j.Slf4j;
 
@@ -35,7 +35,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author Manuel Gozzi
  */
 @Slf4j
-public abstract class HttpNotierCall<T extends HttpRequestBase> {
+public abstract class AbstractHttpNotierCall<T extends HttpRequestBase> {
 
 	private CertificateConfigManager certificateConfiguration;
 	private HttpClient httpClient;
@@ -69,7 +69,7 @@ public abstract class HttpNotierCall<T extends HttpRequestBase> {
 	 * 
 	 * @param certConfig is the configuration that holds certificate details
 	 */
-	public HttpNotierCall(CertificateConfigManager certConfig) {
+	public AbstractHttpNotierCall(CertificateConfigManager certConfig) {
 		this.certificateConfiguration = certConfig;
 		isProductionMode = detectProductionMode();
 		loadCertificate();

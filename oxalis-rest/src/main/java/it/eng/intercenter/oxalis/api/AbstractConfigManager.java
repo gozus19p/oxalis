@@ -1,4 +1,4 @@
-package it.eng.intercenter.oxalis.config;
+package it.eng.intercenter.oxalis.api;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,12 +14,14 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import it.eng.intercenter.oxalis.config.util.ConfigManagerUtil;
+
 /**
  * Custom configuration abstract class based on Properties technology.
  * 
  * @author Manuel Gozzi
  */
-public abstract class ConfigManager {
+public abstract class AbstractConfigManager {
 
 	/**
 	 * Configuration fields.
@@ -60,7 +62,7 @@ public abstract class ConfigManager {
 	 * @param configurationFileName is the file name of the subclass
 	 * @param clazz                 is the class of the subclass
 	 */
-	public ConfigManager(String configurationFileName, Path oxalisHome) {
+	public AbstractConfigManager(String configurationFileName, Path oxalisHome) {
 
 		this.oxalisHomePath = oxalisHome;
 		

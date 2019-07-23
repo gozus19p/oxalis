@@ -1,6 +1,9 @@
-package it.eng.intercenter.oxalis.config;
+package it.eng.intercenter.oxalis.config.util;
 
 import java.util.Map.Entry;
+
+import it.eng.intercenter.oxalis.api.AbstractConfigManager;
+
 import java.util.Set;
 
 /**
@@ -31,7 +34,7 @@ public class ConfigManagerUtil {
 	 * @param config is the configuration that needs to be printed.
 	 * @return the String format of configuration
 	 */
-	public static <T extends ConfigManager> String printConfigToString(T config) {
+	public static <T extends AbstractConfigManager> String printConfigToString(T config) {
 		StringBuilder sb = new StringBuilder();
 		Set<Entry<Object, Object>> entries = config.getFullConfiguration().entrySet();
 		entries.stream().forEach((entry) -> sb

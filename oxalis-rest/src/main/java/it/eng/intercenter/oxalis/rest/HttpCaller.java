@@ -1,15 +1,15 @@
 package it.eng.intercenter.oxalis.rest;
 
-import static it.eng.intercenter.oxalis.config.ConfigManagerUtil.MESSAGE_REST_CALL_FAILED;
+import static it.eng.intercenter.oxalis.config.util.ConfigManagerUtil.MESSAGE_REST_CALL_FAILED;
 
 import java.io.IOException;
 
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.message.BasicNameValuePair;
 
-import it.eng.intercenter.oxalis.config.impl.CertificateConfigManager;
-import it.eng.intercenter.oxalis.rest.http.impl.HttpNotierGet;
-import it.eng.intercenter.oxalis.rest.http.impl.HttpNotierPost;
+import it.eng.intercenter.oxalis.config.CertificateConfigManager;
+import it.eng.intercenter.oxalis.rest.http.HttpNotierGet;
+import it.eng.intercenter.oxalis.rest.http.HttpNotierPost;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author Manuel Gozzi
  */
 @Slf4j
-public class HttpCallManager {
+public class HttpCaller {
 
 	/**
 	 * This method executes an HTTP POST call to a given URI, building only one

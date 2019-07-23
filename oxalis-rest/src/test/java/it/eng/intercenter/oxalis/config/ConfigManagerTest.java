@@ -9,9 +9,9 @@ import java.util.Properties;
 import org.junit.Assert;
 import org.junit.Test;
 
-import it.eng.intercenter.oxalis.config.impl.CertificateConfigManager;
-import it.eng.intercenter.oxalis.config.impl.EmailSenderConfigManager;
-import it.eng.intercenter.oxalis.config.impl.RestConfigManager;
+import it.eng.intercenter.oxalis.config.CertificateConfigManager;
+import it.eng.intercenter.oxalis.config.EmailSenderConfigManager;
+import it.eng.intercenter.oxalis.config.RestConfigManager;
 import lombok.extern.slf4j.Slf4j;
 
 /**
