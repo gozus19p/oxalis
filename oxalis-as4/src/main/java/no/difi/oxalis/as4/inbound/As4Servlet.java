@@ -1,14 +1,21 @@
 package no.difi.oxalis.as4.inbound;
 
-import com.google.common.collect.Maps;
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
-import com.google.inject.name.Named;
-import no.difi.oxalis.api.settings.Settings;
-import no.difi.oxalis.as4.config.TrustStore;
-import no.difi.oxalis.as4.util.Constants;
-import no.difi.oxalis.commons.security.KeyStoreConf;
-import no.difi.vefa.peppol.security.api.CertificateValidator;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.security.KeyStore;
+import java.util.Enumeration;
+import java.util.Map;
+import java.util.StringTokenizer;
+
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.xml.soap.MimeHeaders;
+import javax.xml.ws.Endpoint;
+
 import org.apache.cxf.binding.soap.interceptor.SoapInterceptor;
 import org.apache.cxf.jaxws.EndpointImpl;
 import org.apache.cxf.transport.servlet.CXFNonSpringServlet;
@@ -20,20 +27,16 @@ import org.apache.wss4j.dom.handler.WSHandlerConstants;
 import org.apache.wss4j.policy.SPConstants;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.xml.soap.MimeHeaders;
-import javax.xml.ws.Endpoint;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.security.KeyStore;
-import java.util.Enumeration;
-import java.util.Map;
-import java.util.StringTokenizer;
+import com.google.common.collect.Maps;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import com.google.inject.name.Named;
+
+import no.difi.oxalis.api.settings.Settings;
+import no.difi.oxalis.as4.config.TrustStore;
+import no.difi.oxalis.as4.util.Constants;
+import no.difi.oxalis.commons.security.KeyStoreConf;
+import no.difi.vefa.peppol.security.api.CertificateValidator;
 
 @Singleton
 public class As4Servlet extends CXFNonSpringServlet {
@@ -152,7 +155,7 @@ public class As4Servlet extends CXFNonSpringServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException {
         try {
             response.setStatus(HttpServletResponse.SC_OK);
-            response.getWriter().write("Hello AS4 world\n");
+            response.getWriter().write("AS4 servlet is up and running!\n");
         } catch (IOException e) {
             throw new ServletException("Unable to send response", e);
         }

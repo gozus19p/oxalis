@@ -57,7 +57,6 @@ public class PersisterModule extends OxalisModule {
          * @author Manuel Gozzi
          */
 //      bindTyped(PersisterHandler.class, DefaultPersisterHandler.class);
-        System.out.println("Binding di NPH");
         bindTyped(PersisterHandler.class, NotierPersisterHandler.class);
 
         // Noop
