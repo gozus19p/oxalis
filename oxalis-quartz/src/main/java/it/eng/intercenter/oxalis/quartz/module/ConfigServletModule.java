@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * Servlet Module.
- * 
+ *
  * @author Manuel Gozzi
  */
 @Slf4j
@@ -18,7 +18,7 @@ public class ConfigServletModule extends ServletModule {
 	@Override
 	protected void configureServlets() {
 		super.configureServlets();
-		log.info("Install {}", QuartzModule.class.getName());
+		log.info("Installing {}", QuartzModule.class.getName());
 		install(new QuartzModule());
 		log.info("Serving Quartz management servlet on {} with {}",
 				new Object[] { SERVLET_PATH_QUARTZ, QuartzManagerServlet.class.getName() });

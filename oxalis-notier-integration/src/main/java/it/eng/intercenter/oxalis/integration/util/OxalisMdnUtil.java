@@ -1,4 +1,4 @@
-package it.eng.intercenter.oxalis.integration.dto.util;
+package it.eng.intercenter.oxalis.integration.util;
 
 import it.eng.intercenter.oxalis.integration.dto.OxalisMdn;
 import it.eng.intercenter.oxalis.integration.dto.enumerator.OxalisStatusEnum;

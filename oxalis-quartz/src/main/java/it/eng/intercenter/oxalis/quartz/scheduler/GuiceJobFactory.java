@@ -32,7 +32,7 @@ public class GuiceJobFactory implements JobFactory {
 	@Override
 	public Job newJob(TriggerFiredBundle bundle, Scheduler scheduler) throws SchedulerException {
 		JobDetail jobDetail = bundle.getJobDetail();
-		log.info("Creating instance of Job {}", jobDetail.getJobClass().getName());
+		log.info("Creating instance of job {}", jobDetail.getJobClass().getName());
 		Class<? extends Job> jobClass = jobDetail.getJobClass();
 		return guice.getInstance(jobClass);
 	}

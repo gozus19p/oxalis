@@ -4,7 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.util.Date;
 
 import it.eng.intercenter.oxalis.integration.api.NotierDTO;
-import it.eng.intercenter.oxalis.integration.dto.util.GsonUtil;
+import it.eng.intercenter.oxalis.integration.util.GsonUtil;
 
 /**
  * This class represents documents that need to be sent on Notier (inbound

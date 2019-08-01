@@ -1,20 +1,20 @@
-package it.eng.intercenter.oxalis.config.module;
+package it.eng.intercenter.oxalis.rest.module;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 import com.google.inject.multibindings.Multibinder;
 
-import it.eng.intercenter.oxalis.api.AbstractConfigManager;
-import it.eng.intercenter.oxalis.config.CertificateConfigManager;
-import it.eng.intercenter.oxalis.config.EmailSenderConfigManager;
-import it.eng.intercenter.oxalis.config.RestConfigManager;
+import it.eng.intercenter.oxalis.rest.api.AbstractConfigManager;
+import it.eng.intercenter.oxalis.rest.config.CertificateConfigManager;
+import it.eng.intercenter.oxalis.rest.config.EmailSenderConfigManager;
+import it.eng.intercenter.oxalis.rest.config.RestConfigManager;
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Manuel Gozzi
  */
 @Slf4j
-public class PropertiesModule extends AbstractModule {
+public class ConfigManagerModule extends AbstractModule {
 
 	@Override
 	protected void configure() {

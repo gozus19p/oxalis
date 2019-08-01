@@ -2,7 +2,7 @@ package it.eng.intercenter.oxalis.integration.dto;
 
 import it.eng.intercenter.oxalis.integration.api.NotierDTO;
 import it.eng.intercenter.oxalis.integration.dto.enumerator.OxalisStatusEnum;
-import it.eng.intercenter.oxalis.integration.dto.util.GsonUtil;
+import it.eng.intercenter.oxalis.integration.util.GsonUtil;
 
 /**
  * Classe atta a incapsulare l'esito dell'invio su rete Peppol di un documento

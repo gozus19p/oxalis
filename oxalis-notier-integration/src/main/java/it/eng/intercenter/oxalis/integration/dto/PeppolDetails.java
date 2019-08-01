@@ -1,7 +1,7 @@
 package it.eng.intercenter.oxalis.integration.dto;
 
 import it.eng.intercenter.oxalis.integration.api.NotierDTO;
-import it.eng.intercenter.oxalis.integration.dto.util.GsonUtil;
+import it.eng.intercenter.oxalis.integration.util.GsonUtil;
 
 /**
  * Classe che conserva le informazioni relative ai metadati per inviare un

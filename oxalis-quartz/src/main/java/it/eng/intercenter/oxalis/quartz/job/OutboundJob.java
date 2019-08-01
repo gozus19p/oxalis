@@ -1,10 +1,10 @@
 package it.eng.intercenter.oxalis.quartz.job;
 
-import static it.eng.intercenter.oxalis.config.util.ConfigManagerUtil.MESSAGE_MDN_SEND_FAILED;
-import static it.eng.intercenter.oxalis.config.util.ConfigManagerUtil.MESSAGE_OUTBOUND_FAILED_FOR_URN;
-import static it.eng.intercenter.oxalis.config.util.ConfigManagerUtil.MESSAGE_OUTBOUND_SUCCESS_FOR_URN;
-import static it.eng.intercenter.oxalis.config.util.ConfigManagerUtil.MESSAGE_STARTING_TO_PROCESS_URN;
-import static it.eng.intercenter.oxalis.config.util.ConfigManagerUtil.MESSAGE_WRONG_CONFIGURATION_SETUP;
+import static it.eng.intercenter.oxalis.rest.util.ConfigManagerUtil.MESSAGE_MDN_SEND_FAILED;
+import static it.eng.intercenter.oxalis.rest.util.ConfigManagerUtil.MESSAGE_OUTBOUND_FAILED_FOR_URN;
+import static it.eng.intercenter.oxalis.rest.util.ConfigManagerUtil.MESSAGE_OUTBOUND_SUCCESS_FOR_URN;
+import static it.eng.intercenter.oxalis.rest.util.ConfigManagerUtil.MESSAGE_STARTING_TO_PROCESS_URN;
+import static it.eng.intercenter.oxalis.rest.util.ConfigManagerUtil.MESSAGE_WRONG_CONFIGURATION_SETUP;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -16,15 +16,15 @@ import org.springframework.util.StringUtils;
 
 import com.google.inject.Inject;
 
-import it.eng.intercenter.oxalis.config.CertificateConfigManager;
-import it.eng.intercenter.oxalis.config.RestConfigManager;
 import it.eng.intercenter.oxalis.integration.dto.NotierDocumentIndex;
 import it.eng.intercenter.oxalis.integration.dto.OxalisMdn;
 import it.eng.intercenter.oxalis.integration.dto.UrnList;
 import it.eng.intercenter.oxalis.integration.dto.enumerator.OxalisStatusEnum;
-import it.eng.intercenter.oxalis.integration.dto.util.GsonUtil;
+import it.eng.intercenter.oxalis.integration.util.GsonUtil;
 import it.eng.intercenter.oxalis.quartz.job.transmission.NotierTransmissionRequestBuilder;
-import it.eng.intercenter.oxalis.rest.HttpCaller;
+import it.eng.intercenter.oxalis.rest.config.CertificateConfigManager;
+import it.eng.intercenter.oxalis.rest.config.RestConfigManager;
+import it.eng.intercenter.oxalis.rest.http.HttpCaller;
 import lombok.extern.slf4j.Slf4j;
 import no.difi.oxalis.api.lang.OxalisContentException;
 import no.difi.oxalis.api.lang.OxalisTransmissionException;
@@ -37,7 +37,7 @@ import no.difi.oxalis.outbound.transmission.TransmissionRequestBuilder;
 /**
  * Job che si occupa dell'acquisizione e dell'invio dei documenti da Notier
  * verso rete Peppol.
- * 
+ *
  * @author Manuel Gozzi
  */
 @Slf4j
@@ -61,6 +61,15 @@ public class OutboundJob implements Job {
 
 	@Inject
 	OxalisOutboundComponent outboundComponent;
+
+	/**
+	 * Initializing REST configuration on OutboundJob new instance creation.
+	 *
+	 * @throws JobExecutionException
+	 */
+	public OutboundJob() throws JobExecutionException {
+		setupOutboundRestConfiguration();
+	}
 
 	/**
 	 * Esegue una chiamata a Notier per recuperare i documenti dal WS relativo.
@@ -117,8 +126,7 @@ public class OutboundJob implements Job {
 				/**
 				 * Phase 2a: get document payload by REST web service from Notier.
 				 */
-				String peppolMessageJson = HttpCaller.executeGet(certConfig,
-						restDocumentGetterUri + index.getUrn());
+				String peppolMessageJson = HttpCaller.executeGet(certConfig, restDocumentGetterUri + index.getUrn());
 				log.info("Received String json response containing {} characters", peppolMessageJson.length());
 				/**
 				 * Phase 2b: build TransmissionMessage object and send that on Peppol network.
@@ -156,7 +164,7 @@ public class OutboundJob implements Job {
 
 	/**
 	 * Builds a TransmissionMessage object and send it on Peppol.
-	 * 
+	 *
 	 * @param oxalisMdn               is the object that holds the URN and the
 	 *                                status
 	 * @param urn                     is the URN of the involved document
@@ -169,8 +177,8 @@ public class OutboundJob implements Job {
 	 */
 	private OxalisMdn buildTransmissionAndSendOnPeppol(String urn, String peppolMessageJsonFormat)
 			throws OxalisTransmissionException, OxalisContentException {
-		TransmissionRequest messageToSend = NotierTransmissionRequestBuilder
-				.build(requestBuilder, peppolMessageJsonFormat);
+		TransmissionRequest messageToSend = NotierTransmissionRequestBuilder.build(requestBuilder,
+				peppolMessageJsonFormat);
 		TransmissionResponse response = send(messageToSend);
 		String receiptPayloadStringified = new String(response.primaryReceipt().getValue(), StandardCharsets.UTF_8);
 		log.info("Received the following receipt: {}{}",
@@ -184,7 +192,7 @@ public class OutboundJob implements Job {
 
 	/**
 	 * Provides an OxalisMdn.
-	 * 
+	 *
 	 * @param urn          is the document URN
 	 * @param status       is the status of the sending
 	 * @param errorMessage is the error message thrown by exceptions
@@ -205,7 +213,7 @@ public class OutboundJob implements Job {
 
 	/**
 	 * Forward the OxalisMdn to Notier.
-	 * 
+	 *
 	 * @param oxalisMdn is the status of the transaction
 	 * @param urn       is the URN of involved document
 	 */
@@ -221,7 +229,7 @@ public class OutboundJob implements Job {
 
 	/**
 	 * Processa l'invio su rete Peppol del documento recuperato.
-	 * 
+	 *
 	 * @param documento
 	 * @param urn
 	 */
@@ -245,9 +253,10 @@ public class OutboundJob implements Job {
 		boolean restUrnConfigIsReady = !StringUtils.isEmpty(restUrnGetterUri);
 		boolean restDocumentGetterConfigIsReady = !StringUtils.isEmpty(restDocumentGetterUri);
 		boolean restSendStatusConfigIsReady = !StringUtils.isEmpty(restSendStatusUri);
-		boolean isAllReady = restUrnConfigIsReady && restDocumentGetterConfigIsReady && restSendStatusConfigIsReady;
+		boolean isAllReadyAndSet = restUrnConfigIsReady && restDocumentGetterConfigIsReady
+				&& restSendStatusConfigIsReady;
 
-		if (!isAllReady) {
+		if (!isAllReadyAndSet) {
 			String configStatus = "";
 			configStatus += "[URN getter=" + (restUrnConfigIsReady ? "OK]" : "ERROR]");
 			configStatus += "[document getter=" + (restDocumentGetterConfigIsReady ? "OK]" : "ERROR]");

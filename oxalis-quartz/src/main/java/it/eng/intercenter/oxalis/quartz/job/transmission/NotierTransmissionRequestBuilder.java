@@ -1,7 +1,7 @@
 package it.eng.intercenter.oxalis.quartz.job.transmission;
 
 import it.eng.intercenter.oxalis.integration.dto.PeppolMessage;
-import it.eng.intercenter.oxalis.integration.dto.util.GsonUtil;
+import it.eng.intercenter.oxalis.integration.util.GsonUtil;
 import no.difi.oxalis.api.lang.OxalisContentException;
 import no.difi.oxalis.api.lang.OxalisTransmissionException;
 import no.difi.oxalis.api.outbound.TransmissionRequest;

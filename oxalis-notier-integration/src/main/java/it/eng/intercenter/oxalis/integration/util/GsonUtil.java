@@ -1,4 +1,4 @@
-package it.eng.intercenter.oxalis.integration.dto.util;
+package it.eng.intercenter.oxalis.integration.util;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

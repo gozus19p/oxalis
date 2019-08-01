@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import it.eng.intercenter.oxalis.integration.api.NotierDTO;
-import it.eng.intercenter.oxalis.integration.dto.util.GsonUtil;
+import it.eng.intercenter.oxalis.integration.util.GsonUtil;
 
 /**
  * @author Manuel Gozzi

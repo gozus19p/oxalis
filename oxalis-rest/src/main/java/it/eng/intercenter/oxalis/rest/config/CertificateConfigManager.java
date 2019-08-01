@@ -1,4 +1,4 @@
-package it.eng.intercenter.oxalis.config;
+package it.eng.intercenter.oxalis.rest.config;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
-import it.eng.intercenter.oxalis.api.AbstractConfigManager;
+import it.eng.intercenter.oxalis.rest.api.AbstractConfigManager;
 
 /**
  * @author Manuel Gozzi
@@ -30,7 +30,7 @@ public class CertificateConfigManager extends AbstractConfigManager {
 	public static final String CONFIG_KEY_PRODUCTION_MODE_ENABLED = "production.mode";
 
 	/**
-	 * Keys used to communicate with Notier.
+	 * Header keys used to communicate with Notier.
 	 */
 	public static final String HEADER_DN_KEY = "X-FwdCertSubject_0";
 	public static final String HEADER_SN_KEY = "X-FwdCertSerialNumber_0";

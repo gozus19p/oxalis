@@ -15,13 +15,13 @@ import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
-import it.eng.intercenter.oxalis.config.CertificateConfigManager;
-import it.eng.intercenter.oxalis.config.RestConfigManager;
 import it.eng.intercenter.oxalis.integration.dto.OxalisMdn;
 import it.eng.intercenter.oxalis.integration.dto.OxalisMessage;
 import it.eng.intercenter.oxalis.integration.dto.PeppolDetails;
-import it.eng.intercenter.oxalis.integration.dto.util.GsonUtil;
-import it.eng.intercenter.oxalis.rest.http.HttpNotierPost;
+import it.eng.intercenter.oxalis.integration.util.GsonUtil;
+import it.eng.intercenter.oxalis.rest.config.CertificateConfigManager;
+import it.eng.intercenter.oxalis.rest.config.RestConfigManager;
+import it.eng.intercenter.oxalis.rest.http.types.HttpNotierPost;
 import lombok.extern.slf4j.Slf4j;
 import no.difi.oxalis.api.inbound.InboundMetadata;
 import no.difi.oxalis.api.persist.ExceptionPersister;

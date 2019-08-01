@@ -1,8 +1,8 @@
-package it.eng.intercenter.oxalis.api;
+package it.eng.intercenter.oxalis.rest.api;
 
-import static it.eng.intercenter.oxalis.config.util.ConfigManagerUtil.MESSAGE_PRODUCTION_MODE_DISABLED;
-import static it.eng.intercenter.oxalis.config.util.ConfigManagerUtil.MESSAGE_REST_EXECUTED_WITH_STATUS;
-import static it.eng.intercenter.oxalis.config.util.ConfigManagerUtil.MESSAGE_USING_REST_URI;
+import static it.eng.intercenter.oxalis.rest.util.ConfigManagerUtil.MESSAGE_PRODUCTION_MODE_DISABLED;
+import static it.eng.intercenter.oxalis.rest.util.ConfigManagerUtil.MESSAGE_REST_EXECUTED_WITH_STATUS;
+import static it.eng.intercenter.oxalis.rest.util.ConfigManagerUtil.MESSAGE_USING_REST_URI;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -27,8 +27,8 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.impl.client.HttpClients;
 
-import it.eng.intercenter.oxalis.config.CertificateConfigManager;
 import it.eng.intercenter.oxalis.integration.dto.enumerator.NotierRestCallTypeEnum;
+import it.eng.intercenter.oxalis.rest.config.CertificateConfigManager;
 import lombok.extern.slf4j.Slf4j;
 
 /**
