@@ -11,7 +11,7 @@
 	the Licence for the specific language governing ~ permissions and limitations 
 	under the Licence. -->
 
-<configuration debug="true" scan="true"
+<configuration scan="true"
 	scanPeriod="30 seconds">
 
 	<appender name="STDOUT"
@@ -26,14 +26,14 @@
 
 	<appender name="oxalis"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<File>/home/tomcat/logs/oxalis.log</File>
+		<File>/opt/tomcat-icent/logs/oxalis.log</File>
 		<encoder>
 			<pattern>%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n
 			</pattern>
 		</encoder>
 		<rollingPolicy
 			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>/home/tomcat/logs/oxalis.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<fileNamePattern>/opt/tomcat-icent/logs/oxalis.%d{yyyy-MM-dd}.log</fileNamePattern>
 		</rollingPolicy>
 	</appender>
 
