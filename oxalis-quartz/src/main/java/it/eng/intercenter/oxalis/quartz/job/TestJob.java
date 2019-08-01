@@ -21,6 +21,7 @@ public class TestJob implements Job {
 
 	@Override
 	public void execute(JobExecutionContext context) throws JobExecutionException {
+		System.out.println("Executed");
 		log.info("Job: {} has been executed at {}{}Message: {}", new Object[] { TestJob.class.getName(),
 				new Date().toString(), System.getProperty("line.separator"), referenceConf.getString("test.test") });
 	}

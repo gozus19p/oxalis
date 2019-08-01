@@ -50,7 +50,7 @@
 		<module>oxalis-quartz</module>
 		<module>oxalis-rest</module>
 		<module>oxalis-notier-integration</module>
-		<!-- <module>oxalis-as4</module> -->
+		<module>oxalis-as4</module>
 	</modules>
 
 	<properties>
@@ -100,6 +100,14 @@
 				<artifactId>oxalis-as2</artifactId>
 				<version>4.0.4-SNAPSHOT</version>
 			</dependency>
+			
+			<!-- Oxalis AS4 @author Manuel Gozzi -->
+			<dependency>
+				<groupId>no.difi.oxalis</groupId>
+				<artifactId>oxalis-as4</artifactId>
+				<version>4.0.4-SNAPSHOT</version>
+			</dependency>
+			
 			<dependency>
 				<groupId>no.difi.oxalis</groupId>
 				<artifactId>oxalis-commons</artifactId>

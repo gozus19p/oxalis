@@ -20,6 +20,7 @@ public class As4InboundModule extends ServletModule {
         bind(As4InboundHandler.class);
         SettingsBuilder.with(binder(), TrustStore.class);
 
+        System.out.println("Serving AS4...");
         serve("/as4*").with(Key.get(HttpServlet.class, Names.named("oxalis-as4")));
     }
 }

@@ -80,6 +80,10 @@
 			<groupId>no.difi.oxalis</groupId>
 			<artifactId>oxalis-as2</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>no.difi.oxalis</groupId>
+			<artifactId>oxalis-as4</artifactId>
+		</dependency>
 
 		<!-- Google Guice -->
 		<dependency>

@@ -87,7 +87,7 @@ public class As4Servlet extends CXFNonSpringServlet {
             }
             return trust_store;
         } catch (Exception e) {
-            throw new RuntimeException("Unable to load TrustStore!");
+            throw new RuntimeException("Unable to load TrustStore!", e);
         }
     }
     
