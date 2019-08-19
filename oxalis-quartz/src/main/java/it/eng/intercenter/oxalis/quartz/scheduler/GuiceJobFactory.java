@@ -25,14 +25,14 @@ public class GuiceJobFactory implements JobFactory {
 
 	@Inject
 	public GuiceJobFactory(final Injector guice) {
-		log.info("Injecting Guice Injector on {}", new Object[] { GuiceJobFactory.class.getName() });
+		log.info("Injecting Guice Injector on {}", GuiceJobFactory.class.getName());
 		this.guice = guice;
 	}
 
 	@Override
 	public Job newJob(TriggerFiredBundle bundle, Scheduler scheduler) throws SchedulerException {
 		JobDetail jobDetail = bundle.getJobDetail();
-		log.info("Creating instance of job {}", jobDetail.getJobClass().getName());
+		log.info("Creating instance of Job {}", jobDetail.getJobClass().getName());
 		Class<? extends Job> jobClass = jobDetail.getJobClass();
 		return guice.getInstance(jobClass);
 	}

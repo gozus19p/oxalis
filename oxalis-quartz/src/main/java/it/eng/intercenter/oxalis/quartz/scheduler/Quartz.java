@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * Class that implements Quartz inside Guice workflow.
- * 
+ *
  * @author Manuel Gozzi
  */
 @Singleton
@@ -27,7 +27,7 @@ public class Quartz {
 
 	/**
 	 * Quartz DI injection
-	 * 
+	 *
 	 * @param factory    is the Quartz Scheduler factory class
 	 * @param jobFactory is the Quartz Job factory class
 	 * @throws SchedulerException if something goes wrong during the Quartz
@@ -61,8 +61,7 @@ public class Quartz {
 						scheduler.interrupt(jobKey);
 						log.info("Job {} has been interrupted successfully", jobKey.getName());
 					} catch (SchedulerException e) {
-						log.error("Job {} has not been interrupted with root cause: {}",
-								new Object[] { jobKey.getName(), e.getMessage() });
+						log.error("Job {} has not been interrupted with root cause: {}", new Object[] { jobKey.getName(), e.getMessage() });
 						log.error("Full stack trace: {}", e);
 					}
 				}
@@ -88,7 +87,7 @@ public class Quartz {
 			return true;
 		} catch (Exception e) {
 			log.error("Quartz scheduler starting process failed with root cause: {}", e.getMessage());
-			log.error("Full stack trace: {}", e);
+			log.error("Full stack trace:", e);
 			return false;
 		}
 	}

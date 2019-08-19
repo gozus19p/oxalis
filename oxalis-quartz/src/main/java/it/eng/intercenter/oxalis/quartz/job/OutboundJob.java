@@ -63,15 +63,6 @@ public class OutboundJob implements Job {
 	OxalisOutboundComponent outboundComponent;
 
 	/**
-	 * Initializing REST configuration on OutboundJob new instance creation.
-	 *
-	 * @throws JobExecutionException
-	 */
-	public OutboundJob() throws JobExecutionException {
-		setupOutboundRestConfiguration();
-	}
-
-	/**
 	 * Esegue una chiamata a Notier per recuperare i documenti dal WS relativo.
 	 */
 	@Override
@@ -101,15 +92,13 @@ public class OutboundJob implements Job {
 		/**
 		 * Phase 1b: check the received response and parse it as UrnList object.
 		 */
-		log.info("Received reponse: {}{}",
-				new Object[] { System.getProperty("line.separator"), jsonUrnGetterResponse });
+		log.info("Received reponse: {}{}", new Object[] { System.getProperty("line.separator"), jsonUrnGetterResponse });
 		UrnList urnListRetrievedFromNotier = GsonUtil.getInstance().fromJson(jsonUrnGetterResponse, UrnList.class);
 
 		if (urnListRetrievedFromNotier != null) {
 			log.info("Found {} documents to send on Peppol", urnListRetrievedFromNotier.getUrnCount());
 		} else {
-			log.error("Invalid response received from Notier: {}{}",
-					new Object[] { System.getProperty("line.separator"), urnListRetrievedFromNotier });
+			log.error("Invalid response received from Notier: {}{}", new Object[] { System.getProperty("line.separator"), urnListRetrievedFromNotier });
 			throw new JobExecutionException("Invalid response received from Notier (UrnList)");
 		}
 
@@ -175,14 +164,11 @@ public class OutboundJob implements Job {
 	 *                                     document on Peppol network
 	 * @throws OxalisContentException
 	 */
-	private OxalisMdn buildTransmissionAndSendOnPeppol(String urn, String peppolMessageJsonFormat)
-			throws OxalisTransmissionException, OxalisContentException {
-		TransmissionRequest messageToSend = NotierTransmissionRequestBuilder.build(requestBuilder,
-				peppolMessageJsonFormat);
+	private OxalisMdn buildTransmissionAndSendOnPeppol(String urn, String peppolMessageJsonFormat) throws OxalisTransmissionException, OxalisContentException {
+		TransmissionRequest messageToSend = NotierTransmissionRequestBuilder.build(requestBuilder, peppolMessageJsonFormat);
 		TransmissionResponse response = send(messageToSend);
 		String receiptPayloadStringified = new String(response.primaryReceipt().getValue(), StandardCharsets.UTF_8);
-		log.info("Received the following receipt: {}{}",
-				new Object[] { System.getProperty("line.separator"), receiptPayloadStringified });
+		log.info("Received the following receipt: {}{}", new Object[] { System.getProperty("line.separator"), receiptPayloadStringified });
 
 		/**
 		 * Fase 3. Creo una notifica MDN Oxalis sulla base dell'esito dell'invio.
@@ -219,8 +205,7 @@ public class OutboundJob implements Job {
 	 */
 	private void sendStatusToNotier(OxalisMdn oxalisMdn, String urn) {
 		try {
-			String resp = HttpCaller.executePost(certConfig, restSendStatusUri, "oxalisContent",
-					GsonUtil.getPrettyPrintedInstance().toJson(oxalisMdn));
+			String resp = HttpCaller.executePost(certConfig, restSendStatusUri, "oxalisContent", GsonUtil.getPrettyPrintedInstance().toJson(oxalisMdn));
 			log.info("Received response contains {} characters", resp.length());
 		} catch (UnsupportedOperationException | IOException e) {
 			log.error(MESSAGE_MDN_SEND_FAILED, urn);
@@ -253,8 +238,7 @@ public class OutboundJob implements Job {
 		boolean restUrnConfigIsReady = !StringUtils.isEmpty(restUrnGetterUri);
 		boolean restDocumentGetterConfigIsReady = !StringUtils.isEmpty(restDocumentGetterUri);
 		boolean restSendStatusConfigIsReady = !StringUtils.isEmpty(restSendStatusUri);
-		boolean isAllReadyAndSet = restUrnConfigIsReady && restDocumentGetterConfigIsReady
-				&& restSendStatusConfigIsReady;
+		boolean isAllReadyAndSet = restUrnConfigIsReady && restDocumentGetterConfigIsReady && restSendStatusConfigIsReady;
 
 		if (!isAllReadyAndSet) {
 			String configStatus = "";
@@ -271,8 +255,7 @@ public class OutboundJob implements Job {
 	 *                               properly.
 	 */
 	private void setupOutboundRestConfiguration() throws JobExecutionException {
-		if (StringUtils.isEmpty(restDocumentGetterUri) || StringUtils.isEmpty(restDocumentGetterUri)
-				|| StringUtils.isEmpty(restSendStatusUri)) {
+		if (StringUtils.isEmpty(restDocumentGetterUri) || StringUtils.isEmpty(restDocumentGetterUri) || StringUtils.isEmpty(restSendStatusUri)) {
 			loadRestUriReferences();
 		}
 	}
