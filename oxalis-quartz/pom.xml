@@ -85,5 +85,11 @@
 			<artifactId>javax.servlet-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		<!-- Oxalis NoTI-ER integration -->
+		<dependency>
+			<groupId>it.eng.intercenter</groupId>
+			<artifactId>oxalis-notier-integration</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 </project>
