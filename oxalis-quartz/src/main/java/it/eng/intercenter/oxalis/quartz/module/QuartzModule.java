@@ -16,6 +16,7 @@ import it.eng.intercenter.oxalis.quartz.job.TestJob;
 import it.eng.intercenter.oxalis.quartz.scheduler.GuiceJobFactory;
 import it.eng.intercenter.oxalis.quartz.scheduler.Quartz;
 import it.eng.intercenter.oxalis.quartz.scheduler.QuartzSchedulerFactory;
+import it.eng.intercenter.oxalis.quartz.scheduler.service.QuartzSchedulerConsole;
 import it.eng.intercenter.oxalis.quartz.util.QuartzPropertiesUtil;
 import lombok.extern.slf4j.Slf4j;
 
@@ -35,6 +36,9 @@ public class QuartzModule extends AbstractModule {
 
 		log.info("Binding Quartz Scheduler");
 		bindScheduler();
+
+		log.info("Binding {} in {}", QuartzSchedulerConsole.class.getName(), Singleton.class.getName());
+		bind(QuartzSchedulerConsole.class).in(Singleton.class);
 
 		log.info("Starting multiple bindings related to {}", Job.class.getName());
 		Multibinder<Job> jobs = Multibinder.newSetBinder(binder(), Job.class);

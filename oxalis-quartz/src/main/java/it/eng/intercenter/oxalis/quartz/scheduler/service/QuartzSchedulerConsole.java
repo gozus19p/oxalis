@@ -9,6 +9,7 @@ import org.quartz.SchedulerException;
 import org.quartz.impl.matchers.GroupMatcher;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
 import it.eng.intercenter.oxalis.integration.dto.OxalisQuartzCommand;
 import it.eng.intercenter.oxalis.integration.dto.OxalisQuartzCommandResult;
@@ -27,12 +28,16 @@ import lombok.extern.slf4j.Slf4j;
  * @time 10:47:19
  * @jira
  */
+@Singleton
 @Slf4j
 public class QuartzSchedulerConsole {
 
 	@Inject
 	Quartz quartz;
 
+	/**
+	 * Constants.
+	 */
 	private static final String SUCCESS_MESSAGE = "Operation completed successfully";
 
 	/**
@@ -45,7 +50,7 @@ public class QuartzSchedulerConsole {
 	 * @return
 	 * @throws SchedulerException
 	 */
-	public OxalisQuartzCommandResult executeCommand(OxalisQuartzCommand command) throws SchedulerException {
+	public OxalisQuartzCommandResult executeCommand(OxalisQuartzCommand command) {
 		switch (command.getAction()) {
 		case START:
 			return doStart(command.getScope(), command.getJobNames());
@@ -71,7 +76,7 @@ public class QuartzSchedulerConsole {
 	 * @return
 	 * @throws SchedulerException
 	 */
-	private OxalisQuartzCommandResult doStop(OxalisQuartzCommandScopeEnum scope, List<String> jobNames) throws SchedulerException {
+	private OxalisQuartzCommandResult doStop(OxalisQuartzCommandScopeEnum scope, List<String> jobNames) {
 		final OxalisQuartzCommandActionEnum action = OxalisQuartzCommandActionEnum.STOP;
 		switch (scope) {
 		case ALL_JOBS:
@@ -229,7 +234,7 @@ public class QuartzSchedulerConsole {
 	 * @throws SchedulerException
 	 */
 	// TODO: to implement!
-	private OxalisQuartzCommandResult doView(OxalisQuartzCommandScopeEnum scope, List<String> jobNames) throws SchedulerException {
+	private OxalisQuartzCommandResult doView(OxalisQuartzCommandScopeEnum scope, List<String> jobNames) {
 //		final OxalisQuartzCommandActionEnum action = OxalisQuartzCommandActionEnum.VIEW;
 		switch (scope) {
 		case ALL_JOBS:
