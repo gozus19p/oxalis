@@ -27,7 +27,7 @@ public class OutboundJob implements Job {
 	@Override
 	public void execute(JobExecutionContext context) throws JobExecutionException {
 
-		outboundService.processOutbound();
+		outboundService.processOutboundFlow();
 
 	}
 

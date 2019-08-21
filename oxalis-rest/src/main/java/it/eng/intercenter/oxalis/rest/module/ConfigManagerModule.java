@@ -18,12 +18,18 @@ public class ConfigManagerModule extends AbstractModule {
 
 	@Override
 	protected void configure() {
+		log.info("Starting multibinding related to {}", AbstractConfigManager.class.getTypeName());
 		Multibinder<AbstractConfigManager> configMultibinder = Multibinder.newSetBinder(binder(), AbstractConfigManager.class);
-		log.info("Binding {} as Singleton", CertificateConfigManager.class.getName());
+
+		log.info("Binding {} to {} in {}", AbstractConfigManager.class.getTypeName(), CertificateConfigManager.class.getTypeName(),
+				Singleton.class.getTypeName());
 		configMultibinder.addBinding().to(CertificateConfigManager.class).in(Singleton.class);
-		log.info("Binding {} as Singleton", EmailSenderConfigManager.class.getName());
+
+		log.info("Binding {} to {} in {}", AbstractConfigManager.class.getTypeName(), EmailSenderConfigManager.class.getTypeName(),
+				Singleton.class.getTypeName());
 		configMultibinder.addBinding().to(EmailSenderConfigManager.class).in(Singleton.class);
-		log.info("Binding {} as Singleton", RestConfigManager.class.getName());
+
+		log.info("Binding {} to {} in {}", AbstractConfigManager.class.getTypeName(), RestConfigManager.class.getTypeName(), Singleton.class.getTypeName());
 		configMultibinder.addBinding().to(RestConfigManager.class).in(Singleton.class);
 	}
 

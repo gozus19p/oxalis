@@ -3,6 +3,7 @@ package it.eng.intercenter.oxalis.quartz.module;
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 
+import it.eng.intercenter.oxalis.quartz.api.IOutboundService;
 import it.eng.intercenter.oxalis.quartz.job.service.OutboundService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,8 +17,8 @@ public class JobModule extends AbstractModule {
 
 	@Override
 	protected void configure() {
-		log.info("Binding {} in {}", OutboundService.class.getName(), Singleton.class.getName());
-		bind(OutboundService.class).in(Singleton.class);
+		log.info("Binding {} to {} in {}", IOutboundService.class.getTypeName(), OutboundService.class.getTypeName(), Singleton.class.getTypeName());
+		bind(IOutboundService.class).to(OutboundService.class).in(Singleton.class);
 	}
 
 }

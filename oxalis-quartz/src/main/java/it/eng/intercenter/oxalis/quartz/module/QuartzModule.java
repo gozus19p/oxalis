@@ -37,16 +37,16 @@ public class QuartzModule extends AbstractModule {
 		log.info("Binding Quartz Scheduler");
 		bindScheduler();
 
-		log.info("Binding {} in {}", QuartzSchedulerConsole.class.getName(), Singleton.class.getName());
+		log.info("Binding {} in {}", QuartzSchedulerConsole.class.getTypeName(), Singleton.class.getTypeName());
 		bind(QuartzSchedulerConsole.class).in(Singleton.class);
 
-		log.info("Starting multiple bindings related to {}", Job.class.getName());
+		log.info("Starting multiple bindings related to {}", Job.class.getTypeName());
 		Multibinder<Job> jobs = Multibinder.newSetBinder(binder(), Job.class);
 
-		log.info("Binding {} to {} in {}", Job.class.getName(), TestJob.class.getName(), Singleton.class.getName());
+		log.info("Binding {} to {} in {}", Job.class.getTypeName(), TestJob.class.getTypeName(), Singleton.class.getTypeName());
 		jobs.addBinding().to(TestJob.class).in(Singleton.class);
 
-		log.info("Binding {} to {} in {}", Job.class.getName(), OutboundJob.class.getName(), Singleton.class.getName());
+		log.info("Binding {} to {} in {}", Job.class.getTypeName(), OutboundJob.class.getTypeName(), Singleton.class.getTypeName());
 		jobs.addBinding().to(OutboundJob.class).in(Singleton.class);
 	}
 
@@ -54,14 +54,14 @@ public class QuartzModule extends AbstractModule {
 	 * Bind Quartz scheduler to the Guice context.
 	 */
 	private void bindScheduler() {
-		log.info("Binding {} to {} in {} using properties defined in file: {}", new Object[] { SchedulerFactory.class.getName(),
-				StdSchedulerFactory.class.getName(), Singleton.class.getName(), QuartzPropertiesUtil.QUARTZ_PROPRERTIES_FILE_NAME });
+		log.info("Binding {} to {} in {} using properties defined in file: {}", new Object[] { SchedulerFactory.class.getTypeName(),
+				StdSchedulerFactory.class.getTypeName(), Singleton.class.getTypeName(), QuartzPropertiesUtil.QUARTZ_PROPRERTIES_FILE_NAME });
 		bind(SchedulerFactory.class).to(QuartzSchedulerFactory.class).in(Singleton.class);
 
-		log.info("Binding {} to {} in {}", JobFactory.class.getName(), GuiceJobFactory.class.getName(), Singleton.class);
+		log.info("Binding {} to {} in {}", JobFactory.class.getTypeName(), GuiceJobFactory.class.getTypeName(), Singleton.class);
 		bind(JobFactory.class).to(GuiceJobFactory.class).in(Singleton.class);
 
-		log.info("Binding {} in {}", Quartz.class.getName(), Singleton.class.getName());
+		log.info("Binding {} in {}", Quartz.class.getTypeName(), Singleton.class.getTypeName());
 		bind(Quartz.class).in(Singleton.class);
 	}
 

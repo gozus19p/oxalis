@@ -6,17 +6,17 @@ import it.eng.intercenter.oxalis.integration.api.NotierDTO;
 import it.eng.intercenter.oxalis.integration.util.GsonUtil;
 
 /**
- * 
+ *
  * @author Manuel Gozzi
  * @date 21 feb 2019
  * @time 17:31:30
  */
 public class PeppolMessage implements NotierDTO {
-	
-	private ByteArrayInputStream payload;
-	private PeppolDetails header;
 
-	public PeppolMessage(byte[] payload, PeppolDetails header) {
+	private final ByteArrayInputStream payload;
+	private final PeppolDetails header;
+
+	public PeppolMessage(final byte[] payload, final PeppolDetails header) {
 		this.payload = new ByteArrayInputStream(payload);
 		this.header = header;
 	}
@@ -28,7 +28,7 @@ public class PeppolMessage implements NotierDTO {
 	public PeppolDetails getHeader() {
 		return header;
 	}
-	
+
 	@Override
 	public String toString() {
 		return GsonUtil.getPrettyPrintedInstance().toJson(this);

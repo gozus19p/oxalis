@@ -16,7 +16,7 @@ public class ConfigServletModule extends ServletModule {
 	protected void configureServlets() {
 		super.configureServlets();
 
-		log.info("Installing {}", QuartzModule.class.getName());
+		log.info("Installing {}", QuartzModule.class.getTypeName());
 		install(new QuartzModule());
 	}
 

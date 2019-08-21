@@ -14,8 +14,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ServerModule extends ServletModule {
 
-	private static final String SERVER_SERVLET_PATH = "/sendOutbound";
-	private static final String CONSOLE_SERVLET_PATH = "/quartzConsole";
+	// Path denotating "server side" context of Oxalis.
+	private static final String SUB_CONTEXT_SERVLET_PATH = "/server";
+
+	// Send outbound on demand servlet path.
+	private static final String OUTBOUND_SERVLET_PATH = SUB_CONTEXT_SERVLET_PATH + "/sendOutbound";
+
+	// Quartz console servlet path.
+	private static final String QUARTZ_CONSOLE_SERVLET_PATH = SUB_CONTEXT_SERVLET_PATH + "/quartzConsole";
 
 	@Override
 	protected void configureServlets() {
@@ -24,14 +30,14 @@ public class ServerModule extends ServletModule {
 		log.info("Binding {} as eager singleton", OxalisQuartzConsoleServlet.class.getName());
 		bind(OxalisQuartzConsoleServlet.class).asEagerSingleton();
 
-		log.info("Serve {} with {}", CONSOLE_SERVLET_PATH, OxalisQuartzConsoleServlet.class.getName());
-		serve(CONSOLE_SERVLET_PATH).with(OxalisQuartzConsoleServlet.class);
+		log.info("Serve {} with {}", QUARTZ_CONSOLE_SERVLET_PATH, OxalisQuartzConsoleServlet.class.getName());
+		serve(QUARTZ_CONSOLE_SERVLET_PATH).with(OxalisQuartzConsoleServlet.class);
 
 		log.info("Binding {} as eager singleton", OutboundServlet.class.getName());
 		bind(OutboundServlet.class).asEagerSingleton();
 
-		log.info("Serve {} with {}", SERVER_SERVLET_PATH, OutboundServlet.class.getName());
-		serve(SERVER_SERVLET_PATH).with(OutboundServlet.class);
+		log.info("Serve {} with {}", OUTBOUND_SERVLET_PATH, OutboundServlet.class.getName());
+		serve(OUTBOUND_SERVLET_PATH).with(OutboundServlet.class);
 	}
 
 }

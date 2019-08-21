@@ -35,11 +35,10 @@ public class Quartz {
 	 */
 	@Inject
 	public Quartz(final SchedulerFactory factory, final GuiceJobFactory jobFactory) throws SchedulerException {
-		log.info("Inject {}", Quartz.class.getName());
+		log.info("Inject {}", Quartz.class.getTypeName());
 		this.scheduler = factory.getScheduler();
 		this.scheduler.setJobFactory(jobFactory);
 		startScheduler();
-		log.info("{} injecting process has been completed successfully", Quartz.class.getName());
 	}
 
 	/**
