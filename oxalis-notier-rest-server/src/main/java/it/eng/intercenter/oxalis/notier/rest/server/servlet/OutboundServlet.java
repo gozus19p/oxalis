@@ -19,6 +19,14 @@ public class OutboundServlet extends HttpServlet {
 	@Override
 	public void doPost(final HttpServletRequest request, final HttpServletResponse response) {
 
+		// TODO: extends PeppolMessage in order to contain endpoint URI, transport
+		// protocol and destination AP certificate (avoid lookup).
+
+		// 1. Retrieve peppol message from reuest and parse it into an object.
+
+		// 2. Directly send it on PEPPOL without process lookup. //TODO: understand
+		// "how"
+
 	}
 
 }

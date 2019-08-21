@@ -1,4 +1,4 @@
-package it.eng.intercenter.oxalis.quartz.servlet;
+package it.eng.intercenter.oxalis.notier.rest.server.servlet;
 
 import java.io.IOException;
 
