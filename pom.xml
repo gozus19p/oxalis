@@ -181,6 +181,13 @@
 				<artifactId>oxalis-rest</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
+			
+			<!-- Rest -->
+			<dependency>
+				<groupId>it.eng.intercenter</groupId>
+				<artifactId>oxalis-notier-rest-server</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
 
 			<!-- Logging -->
 			<dependency>

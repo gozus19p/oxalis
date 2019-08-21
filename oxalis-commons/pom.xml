@@ -45,9 +45,6 @@
 			<groupId>it.eng.intercenter</groupId>
 			<artifactId>oxalis-rest</artifactId>
 		</dependency>
-		<!-- Oxalis/Quartz -->
-		<!-- <dependency> <groupId>it.eng.intercenter</groupId> <artifactId>oxalis-quartz</artifactId> 
-			<version>0.0.1-SNAPSHOT</version> </dependency> -->
 		<!-- Quartz Scheduler -->
 		<dependency>
 			<groupId>org.quartz-scheduler</groupId>
@@ -168,12 +165,6 @@
 			<version>2.2.2</version>
 		</dependency>
 		
-		<dependency>
-			<groupId>it.eng.intercenter</groupId>
-			<artifactId>oxalis-notier-integration</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-
 		<!-- OpenTracing -->
 		<dependency>
 			<groupId>io.opentracing</groupId>

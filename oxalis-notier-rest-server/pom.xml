@@ -10,8 +10,8 @@
 	<groupId>it.eng.intercenter</groupId>
 	<artifactId>oxalis-notier-rest-server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Oxalis Notier Rest Server</name>
-	<description>E :: Oxalis :: Notier :: Rest - Server</description>
+	<name>E :: Oxalis :: Notier :: Rest - Server</name>
+	<description></description>
 
 	<dependencies>
 		<dependency>
