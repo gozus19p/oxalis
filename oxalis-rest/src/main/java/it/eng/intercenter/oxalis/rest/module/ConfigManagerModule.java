@@ -4,10 +4,10 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 import com.google.inject.multibindings.Multibinder;
 
-import it.eng.intercenter.oxalis.rest.api.AbstractConfigManager;
-import it.eng.intercenter.oxalis.rest.config.CertificateConfigManager;
-import it.eng.intercenter.oxalis.rest.config.EmailSenderConfigManager;
-import it.eng.intercenter.oxalis.rest.config.RestConfigManager;
+import it.eng.intercenter.oxalis.rest.client.api.AbstractConfigManager;
+import it.eng.intercenter.oxalis.rest.client.config.CertificateConfigManager;
+import it.eng.intercenter.oxalis.rest.client.config.EmailSenderConfigManager;
+import it.eng.intercenter.oxalis.rest.client.config.RestConfigManager;
 import lombok.extern.slf4j.Slf4j;
 
 /**

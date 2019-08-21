@@ -1,15 +1,15 @@
-package it.eng.intercenter.oxalis.rest.http;
+package it.eng.intercenter.oxalis.rest.client.http;
 
-import static it.eng.intercenter.oxalis.rest.util.ConfigManagerUtil.MESSAGE_REST_CALL_FAILED;
+import static it.eng.intercenter.oxalis.rest.client.util.ConfigManagerUtil.MESSAGE_REST_CALL_FAILED;
 
 import java.io.IOException;
 
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.message.BasicNameValuePair;
 
-import it.eng.intercenter.oxalis.rest.config.CertificateConfigManager;
-import it.eng.intercenter.oxalis.rest.http.types.HttpNotierGet;
-import it.eng.intercenter.oxalis.rest.http.types.HttpNotierPost;
+import it.eng.intercenter.oxalis.rest.client.config.CertificateConfigManager;
+import it.eng.intercenter.oxalis.rest.client.http.types.HttpNotierGet;
+import it.eng.intercenter.oxalis.rest.client.http.types.HttpNotierPost;
 import lombok.extern.slf4j.Slf4j;
 
 /**

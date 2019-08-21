@@ -2,28 +2,43 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>it.eng.intercenter</groupId>
-	<artifactId>oxalis-rest</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>E :: Oxalis :: Rest</name>
-	<description>Library that provides REST classes definition in order to interact with Notier.</description>
 	<parent>
 		<groupId>no.difi.oxalis</groupId>
 		<artifactId>oxalis</artifactId>
 		<version>4.0.4-SNAPSHOT</version>
 	</parent>
+	<groupId>it.eng.intercenter</groupId>
+	<artifactId>oxalis-notier-rest-server</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>Oxalis Notier Rest Server</name>
+	<description>E :: Oxalis :: Notier :: Rest - Server</description>
+
 	<dependencies>
-		<!-- Oxalis - NoTI-ER integration -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-server</artifactId>
+			<version>1.17.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.jersey.contribs</groupId>
+			<artifactId>jersey-guice</artifactId>
+			<version>1.11</version>
+		</dependency>
+		<!-- Oxalis - Notier integration -->
 		<dependency>
 			<groupId>it.eng.intercenter</groupId>
 			<artifactId>oxalis-notier-integration</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-		</dependency>		
-		<!-- Guice -->
+		</dependency>
+		<!-- Oxalis - Rest -->
 		<dependency>
-			<groupId>com.google.inject.extensions</groupId>
-			<artifactId>guice-servlet</artifactId>
-			<scope>provided</scope>
+			<groupId>it.eng.intercenter</groupId>
+			<artifactId>oxalis-rest</artifactId>
 		</dependency>
 		<!-- Apache Commons DBCP2 -->
 		<dependency>
@@ -36,9 +51,21 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<!-- Oxalis Outbound -->
 		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
+			<groupId>no.difi.oxalis</groupId>
+			<artifactId>oxalis-outbound</artifactId>
+		</dependency>
+		<!-- Oxalis Commons -->
+		<dependency>
+			<groupId>no.difi.oxalis</groupId>
+			<artifactId>oxalis-commons</artifactId>
+		</dependency>
+		<!-- Guice -->
+		<dependency>
+			<groupId>com.google.inject.extensions</groupId>
+			<artifactId>guice-servlet</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<!-- Apache Commons -->
 		<dependency>
@@ -67,18 +94,6 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<scope>provided</scope>
-		</dependency>
-		<!-- Junit -->
-		<dependency>
-				<groupId>junit</groupId>
-				<artifactId>junit</artifactId>
-				<version>4.11</version>
-				<scope>test</scope>
-			</dependency>
-		<!-- Mockito -->
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-core</artifactId>
 		</dependency>
 	</dependencies>
 </project>

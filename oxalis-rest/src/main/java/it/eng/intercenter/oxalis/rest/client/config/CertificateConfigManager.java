@@ -1,4 +1,4 @@
-package it.eng.intercenter.oxalis.rest.config;
+package it.eng.intercenter.oxalis.rest.client.config;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
-import it.eng.intercenter.oxalis.rest.api.AbstractConfigManager;
+import it.eng.intercenter.oxalis.rest.client.api.AbstractConfigManager;
 
 /**
  * @author Manuel Gozzi

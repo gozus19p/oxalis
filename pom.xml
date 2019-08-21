@@ -51,6 +51,7 @@
 		<module>oxalis-rest</module>
 		<module>oxalis-notier-integration</module>
 		<module>oxalis-as4</module>
+		<module>oxalis-notier-rest-server</module>
 	</modules>
 
 	<properties>

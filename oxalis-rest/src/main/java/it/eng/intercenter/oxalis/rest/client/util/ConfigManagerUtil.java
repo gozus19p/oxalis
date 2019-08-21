@@ -1,8 +1,8 @@
-package it.eng.intercenter.oxalis.rest.util;
+package it.eng.intercenter.oxalis.rest.client.util;
 
 import java.util.Map.Entry;
 
-import it.eng.intercenter.oxalis.rest.api.AbstractConfigManager;
+import it.eng.intercenter.oxalis.rest.client.api.AbstractConfigManager;
 
 import java.util.Set;
 

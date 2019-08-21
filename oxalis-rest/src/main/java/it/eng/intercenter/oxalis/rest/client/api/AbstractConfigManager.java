@@ -1,4 +1,4 @@
-package it.eng.intercenter.oxalis.rest.api;
+package it.eng.intercenter.oxalis.rest.client.api;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import it.eng.intercenter.oxalis.rest.util.ConfigManagerUtil;
+import it.eng.intercenter.oxalis.rest.client.util.ConfigManagerUtil;
 
 /**
  * Custom configuration abstract class based on Properties technology.
