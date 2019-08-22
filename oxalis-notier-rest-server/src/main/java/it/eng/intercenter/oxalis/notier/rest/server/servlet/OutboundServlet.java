@@ -35,6 +35,8 @@ public class OutboundServlet extends HttpServlet {
 	public void doPost(final HttpServletRequest request, final HttpServletResponse response) throws IOException {
 
 		try {
+			// TODO: handle AS2 also!
+
 			// Set content-type as "application/json" on response.
 			response.setContentType("application/json");
 

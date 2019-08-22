@@ -43,6 +43,11 @@ public class NotierTransmissionRequestBuilder {
 	public static TransmissionRequest build(TransmissionRequestBuilder builder, String peppolMessageJsonFormat)
 			throws OxalisTransmissionException, OxalisContentException {
 		PeppolMessage peppolMessage = GsonUtil.getInstance().fromJson(peppolMessageJsonFormat, PeppolMessage.class);
+		return prepareForLookup(builder, peppolMessage);
+	}
+
+	private static TransmissionRequest prepareForLookup(TransmissionRequestBuilder builder, PeppolMessage peppolMessage)
+			throws OxalisTransmissionException, OxalisContentException {
 		return builder.payLoad(peppolMessage.getPayload()).sender(ParticipantIdentifier.of(peppolMessage.getHeader().getParticipantIdSender()))
 				.receiver(ParticipantIdentifier.of(peppolMessage.getHeader().getParticipantIdReceiver()))
 				.processType(ProcessIdentifier.of(peppolMessage.getHeader().getProcessIdentifier()))
@@ -51,6 +56,12 @@ public class NotierTransmissionRequestBuilder {
 
 	public static TransmissionRequest build(TransmissionRequestBuilder builder, FullPeppolMessage fullPeppolMessage)
 			throws OxalisTransmissionException, OxalisContentException, CertificateException {
+		if (fullPeppolMessage.getEndpointAPCertificate() == null && fullPeppolMessage.getEndpointAPUri() == null
+				&& fullPeppolMessage.getTransportProfile() == null) {
+			// I have to do lookup here.
+			return prepareForLookup(builder, fullPeppolMessage);
+		}
+		// Avoid lookup here.
 		return builder.payLoad(fullPeppolMessage.getPayload()).sender(ParticipantIdentifier.of(fullPeppolMessage.getHeader().getParticipantIdSender()))
 				.receiver(ParticipantIdentifier.of(fullPeppolMessage.getHeader().getParticipantIdReceiver()))
 				.processType(ProcessIdentifier.of(fullPeppolMessage.getHeader().getProcessIdentifier()))

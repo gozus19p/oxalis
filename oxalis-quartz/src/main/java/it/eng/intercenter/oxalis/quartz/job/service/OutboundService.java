@@ -71,7 +71,7 @@ public class OutboundService implements IOutboundService {
 		log.info("Received the following receipt: {}{}", new Object[] { System.getProperty("line.separator"), receiptPayloadStringified });
 
 		// Build "OK" MDN for NoTI-ER.
-		return buildMdn(null, OxalisStatusEnum.OK, null);
+		return buildMdn(null, OxalisStatusEnum.OK, "Receipt: " + receiptPayloadStringified);
 	}
 
 	@Override
