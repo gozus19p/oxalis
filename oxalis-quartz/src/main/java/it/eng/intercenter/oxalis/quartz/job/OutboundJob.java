@@ -6,7 +6,7 @@ import org.quartz.JobExecutionException;
 
 import com.google.inject.Inject;
 
-import it.eng.intercenter.oxalis.quartz.job.service.OutboundService;
+import it.eng.intercenter.oxalis.quartz.api.IOutboundService;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -19,16 +19,12 @@ import lombok.extern.slf4j.Slf4j;
 public class OutboundJob implements Job {
 
 	@Inject
-	OutboundService outboundService;
+	IOutboundService outboundService;
 
-	/**
-	 * Esegue una chiamata a Notier per recuperare i documenti dal WS relativo.
-	 */
 	@Override
 	public void execute(JobExecutionContext context) throws JobExecutionException {
-
+		log.info("Executing {}", this.getClass().getTypeName());
 		outboundService.processOutboundFlow();
-
 	}
 
 }
