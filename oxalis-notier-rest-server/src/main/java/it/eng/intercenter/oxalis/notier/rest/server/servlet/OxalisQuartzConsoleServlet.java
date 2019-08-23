@@ -51,7 +51,8 @@ public class OxalisQuartzConsoleServlet extends HttpServlet {
 		response.setContentType("application/json");
 
 		// Print json output into response.
-		response.getOutputStream().print(jsonOutput);
+		response.getWriter().write(jsonOutput);
+		response.getWriter().flush();
 
 		// Set HTTP status to 200.
 		response.setStatus(HttpServletResponse.SC_OK);

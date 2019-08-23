@@ -6,6 +6,8 @@ import java.util.List;
 import org.quartz.JobKey;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
+import org.quartz.Trigger;
+import org.quartz.TriggerKey;
 import org.quartz.impl.matchers.GroupMatcher;
 
 import com.google.inject.Inject;
@@ -235,9 +237,37 @@ public class QuartzSchedulerConsole {
 	 */
 	// TODO: to implement!
 	private OxalisQuartzCommandResult doView(OxalisQuartzCommandScopeEnum scope, List<String> jobNames) {
-//		final OxalisQuartzCommandActionEnum action = OxalisQuartzCommandActionEnum.VIEW;
+		final OxalisQuartzCommandActionEnum action = OxalisQuartzCommandActionEnum.VIEW;
 		switch (scope) {
 		case ALL_JOBS:
+			try {
+				if (!scheduler().isStarted()) {
+					return QuartzSchedulerConsoleUtil.invalidSchedulerStatus(new SchedulerException("Scheduler is not started"), action);
+				}
+				List<OxalisQuartzCommandResultDetails> detailsList = new ArrayList<>();
+				for (TriggerKey tk : scheduler().getTriggerKeys(GroupMatcher.anyTriggerGroup())) {
+					for (JobKey jk : scheduler().getJobKeys(GroupMatcher.anyJobGroup())) {
+						Trigger t = scheduler().getTriggersOfJob(jk).get(0);
+					}
+					switch (scheduler().getTriggerState(tk)) {
+					case BLOCKED:
+					case COMPLETE:
+					case ERROR:
+					case NONE:
+					case NORMAL:
+					case PAUSED:
+						break;
+					}
+				}
+
+				log.info("{} job resumed successfully", jobNames.get(0));
+				return new OxalisQuartzCommandResult(OxalisQuartzCommandOutcomeEnum.OK, OxalisQuartzCommandResultDetails.ofAliveJob(jobNames.get(0)),
+						SUCCESS_MESSAGE);
+
+			} catch (SchedulerException e) {
+				log.error("Quartz SINGLE_JOB starting process failed!");
+				return QuartzSchedulerConsoleUtil.invalidSchedulerStatus(e, action);
+			}
 		case JOB_LIST:
 		case SINGLE_JOB:
 		default:

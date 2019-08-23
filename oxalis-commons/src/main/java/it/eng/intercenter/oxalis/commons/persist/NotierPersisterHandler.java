@@ -40,8 +40,7 @@ import no.difi.vefa.peppol.common.model.Header;
 public class NotierPersisterHandler extends DefaultPersisterHandler {
 
 	@Inject
-	public NotierPersisterHandler(PayloadPersister payloadPersister, ReceiptPersister receiptPersister,
-			ExceptionPersister exceptionPersister) {
+	public NotierPersisterHandler(PayloadPersister payloadPersister, ReceiptPersister receiptPersister, ExceptionPersister exceptionPersister) {
 		super(payloadPersister, receiptPersister, exceptionPersister);
 	}
 
@@ -61,18 +60,18 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 	@Override
 	public void persist(InboundMetadata inboundMetadata, Path payloadPath) throws IOException {
 		super.persist(inboundMetadata, payloadPath);
-		
+
 		File payloadFile = new File(payloadPath.normalize().toString());
-		
+
 		String uri = config.readValue(RestConfigManager.CONFIG_KEY_REST_DOCUMENT_INBOUND);
 		HttpNotierPost post = new HttpNotierPost(certConfig, uri, getParams(inboundMetadata, inboundMetadata.getHeader(), payloadPath));
-		
+
 		try {
 			String response = post.execute();
-			
+
 			log.info("Parsing response from Notier");
-			OxalisMdn mdn = GSON.fromJson(response, OxalisMdn.class);
 			log.info("{}", response);
+			OxalisMdn mdn = GSON.fromJson(response, OxalisMdn.class);
 			if (mdn.hasPositiveStatus()) {
 				log.info("Received document, succesfully sent on Notier");
 			} else {
@@ -80,9 +79,8 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 			}
 			File destinationPath = new File(buildDestinationPath(mdn.hasPositiveStatus()));
 			payloadFile.renameTo(destinationPath);
-			log.warn("File {} has been moved to {}",
-					new Object[] { payloadFile.getName(), destinationPath.getAbsolutePath() });
-			
+			log.warn("File {} has been moved to {}", new Object[] { payloadFile.getName(), destinationPath.getAbsolutePath() });
+
 		} catch (IOException e) {
 			log.error("I/O error: {}", e.getMessage(), e);
 		} catch (Exception e) {
@@ -94,7 +92,7 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 	/**
 	 * Builds destination path as String in which the file of received document will
 	 * be moved to.
-	 * 
+	 *
 	 * @param documentHasBeenSentSuccessfully determines if it has to be moved on
 	 *                                        "sent" cathegory or "locked" cathegory
 	 * @return the path as String
@@ -108,7 +106,7 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 
 	/**
 	 * Prepares params to attach on HTTP POST request.
-	 * 
+	 *
 	 * @param inboundMetadata is the metadata related to the document
 	 * @param payloadPath     is the payload reference
 	 * @return the array of params to attach on POST request
@@ -116,34 +114,27 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 	 */
 	private BasicNameValuePair[] getParams(InboundMetadata inboundMetadata, Header header, Path payloadPath) throws IOException {
 		BasicNameValuePair[] arr = new BasicNameValuePair[2];
-		
+
 		byte[] payload = getPayload(payloadPath);
 		ByteArrayInputStream bais = new ByteArrayInputStream(payload);
-		
-		OxalisMessage oxalisMessage = new OxalisMessage(inboundMetadata.getTransmissionIdentifier().getIdentifier(),
-				new PeppolDetails(header.getSender().getIdentifier(),
-						header.getReceiver().getIdentifier(),
-						header.getProcess().getIdentifier(),
-						header.getDocumentType().getIdentifier()),
-						null, //timestamp
-						null, //
-						null,
-						inboundMetadata.getTransportProtocol().toString(),
-						inboundMetadata.getDigest().getMethod().name(),
-						inboundMetadata.getDigest().getValue(),
-						inboundMetadata.getReceipts().get(0).getValue(),
-						inboundMetadata.getTag().toString());
 
-		
+		OxalisMessage oxalisMessage = new OxalisMessage(inboundMetadata.getTransmissionIdentifier().getIdentifier(),
+				new PeppolDetails(header.getSender().getIdentifier(), header.getReceiver().getIdentifier(), header.getProcess().getIdentifier(),
+						header.getDocumentType().getIdentifier()),
+				null, // timestamp
+				null, //
+				null, inboundMetadata.getTransportProtocol().toString(), inboundMetadata.getDigest().getMethod().name(), inboundMetadata.getDigest().getValue(),
+				inboundMetadata.getReceipts().get(0).getValue(), inboundMetadata.getTag().toString());
+
 		arr[0] = new BasicNameValuePair("document", GSON.toJson(oxalisMessage));
 		arr[1] = new BasicNameValuePair("peppolPayload", GSON.toJson(new ByteArrayInputStream(IOUtils.toByteArray(bais))));
-		
+
 		return arr;
 	}
 
 	/**
 	 * Retrieves byte[] payload from a given Path.
-	 * 
+	 *
 	 * @param payloadPath is the Path related to the Payload
 	 * @return the payload in byte[] format
 	 * @throws IOException if something goes wrong during I/O access
