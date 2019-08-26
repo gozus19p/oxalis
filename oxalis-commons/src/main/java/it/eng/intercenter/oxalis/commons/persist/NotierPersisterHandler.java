@@ -11,9 +11,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.http.message.BasicNameValuePair;
 
 import com.google.common.io.Files;
-import com.google.gson.Gson;
 import com.google.inject.Inject;
-import com.google.inject.name.Named;
 
 import it.eng.intercenter.oxalis.integration.dto.OxalisMdn;
 import it.eng.intercenter.oxalis.integration.dto.OxalisMessage;
@@ -44,26 +42,14 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 		super(payloadPersister, receiptPersister, exceptionPersister);
 	}
 
-	private static final Gson GSON = GsonUtil.getPrettyPrintedInstance();
-	private static final String SENT_PATH = "/sent/";
-	private static final String LOCKED_PATH = "/locked/";
-
 	@Inject
 	RestConfigManager config;
 
 	@Inject
 	CertificateConfigManager certConfig;
 
-	@Named("inbound")
-	private String inboundPath;
-
 	@Override
 	public void persist(InboundMetadata inboundMetadata, Path payloadPath) throws IOException {
-		super.persist(inboundMetadata, payloadPath);
-
-		// Get file from payload path.
-		File payloadFile = new File(payloadPath.normalize().toString());
-
 		try {
 			// Retrieve HTTP POST URI to execute.
 			String uri = config.readValue(RestConfigManager.CONFIG_KEY_REST_DOCUMENT_INBOUND);
@@ -77,7 +63,7 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 			log.info("{}", response);
 
 			// Parse response received from NoTI-ER.
-			OxalisMdn mdn = GSON.fromJson(response, OxalisMdn.class);
+			OxalisMdn mdn = GsonUtil.getInstance().fromJson(response, OxalisMdn.class);
 
 			// Logging.
 			if (mdn.hasPositiveStatus()) {
@@ -86,33 +72,11 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 				log.warn("Received document, found some problems during sending process on Notier");
 			}
 
-			// Move file to related directory, based on transaction result.
-			File destinationFile = new File(buildDestinationPath(mdn.hasPositiveStatus()));
-			Files.move(payloadFile, destinationFile);
-			log.info("File {} has been moved to {}", new Object[] { payloadFile.getName(), destinationFile.getAbsolutePath() });
-
-		} catch (IOException e) {
-			log.error("I/O error: {}", e.getMessage(), e);
 		} catch (Exception e) {
+			super.persist(inboundMetadata, payloadPath);
 			log.error("An error occurred during persist: {}", e.getMessage(), e);
 			throw e;
 		}
-
-	}
-
-	/**
-	 * Builds destination path as String in which the file of received document will
-	 * be moved to.
-	 *
-	 * @param documentHasBeenSentSuccessfully determines if it has to be moved on
-	 *                                        "sent" cathegory or "locked" cathegory
-	 * @return the path as String
-	 */
-	private String buildDestinationPath(boolean documentHasBeenSentSuccessfully) {
-		StringBuilder sb = new StringBuilder();
-		sb.append(inboundPath);
-		sb.append(documentHasBeenSentSuccessfully ? SENT_PATH : LOCKED_PATH);
-		return sb.toString();
 	}
 
 	/**
@@ -134,11 +98,11 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 						header.getDocumentType().getIdentifier()),
 				null, // timestamp
 				null, //
-				null, inboundMetadata.getTransportProtocol().toString(), inboundMetadata.getDigest().getMethod().name(), inboundMetadata.getDigest().getValue(),
-				inboundMetadata.getReceipts().get(0).getValue(), inboundMetadata.getTag().toString());
+				null, inboundMetadata.getTransportProtocol().getIdentifier(), inboundMetadata.getDigest().getMethod().name(),
+				inboundMetadata.getDigest().getValue(), inboundMetadata.getReceipts().get(0).getValue(), inboundMetadata.getTag().toString());
 
-		arr[0] = new BasicNameValuePair("document", GSON.toJson(oxalisMessage));
-		arr[1] = new BasicNameValuePair("peppolPayload", GSON.toJson(new ByteArrayInputStream(IOUtils.toByteArray(bais))));
+		arr[0] = new BasicNameValuePair("document", GsonUtil.getPrettyPrintedInstance().toJson(oxalisMessage));
+		arr[1] = new BasicNameValuePair("peppolPayload", GsonUtil.getPrettyPrintedInstance().toJson(new ByteArrayInputStream(IOUtils.toByteArray(bais))));
 		arr[2] = new BasicNameValuePair("isInternal", "false");
 
 		return arr;

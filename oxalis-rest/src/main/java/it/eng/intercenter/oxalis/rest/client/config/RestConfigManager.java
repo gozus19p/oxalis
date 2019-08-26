@@ -17,7 +17,7 @@ public class RestConfigManager extends AbstractConfigManager {
 	 * Configuration file name.
 	 */
 	private static final String CONFIGURATION_FILE_NAME = "rest-call-configuration.properties";
-	
+
 	/**
 	 * Keys used to communicate with Notier.
 	 */

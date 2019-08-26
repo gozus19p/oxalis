@@ -8,28 +8,28 @@ import java.util.Date;
 public class OxalisMessage {
 
 	private String transmissionIdentifier;
-	
+
 	private PeppolDetails header;
-	
+
 	private Date date;
-	
+
 	private String receiptType;
-	
+
 	private byte[] receiptValue;
-	
+
+	// "AS2" or "AS4"
 	private String transportProfile;
-	
+
 	private String digestMethod;
-	
+
 	private byte[] digestValue;
-	
+
 	private byte[] primaryReceipt;
-	
+
 	private String tag;
 
-	public OxalisMessage(String transmissionIdentifier, PeppolDetails header, Date date, String receiptType,
-			byte[] receiptValue, String transportProfile, String digestMethod, byte[] digestValue,
-			byte[] primaryReceipt, String tag) {
+	public OxalisMessage(String transmissionIdentifier, PeppolDetails header, Date date, String receiptType, byte[] receiptValue, String transportProfile,
+			String digestMethod, byte[] digestValue, byte[] primaryReceipt, String tag) {
 		super();
 		this.transmissionIdentifier = transmissionIdentifier;
 		this.header = header;
@@ -50,7 +50,7 @@ public class OxalisMessage {
 	public PeppolDetails getHeader() {
 		return header;
 	}
-	
+
 	public Date getDate() {
 		return date;
 	}
@@ -70,7 +70,7 @@ public class OxalisMessage {
 	public String getDigestMethod() {
 		return digestMethod;
 	}
-	
+
 	public byte[] getDigestValue() {
 		return digestValue;
 	}
@@ -82,5 +82,5 @@ public class OxalisMessage {
 	public String getTag() {
 		return tag;
 	}
-	
+
 }
