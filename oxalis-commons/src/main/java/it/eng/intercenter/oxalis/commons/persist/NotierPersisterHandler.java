@@ -61,30 +61,41 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 	public void persist(InboundMetadata inboundMetadata, Path payloadPath) throws IOException {
 		super.persist(inboundMetadata, payloadPath);
 
+		// Get file from payload path.
 		File payloadFile = new File(payloadPath.normalize().toString());
 
-		String uri = config.readValue(RestConfigManager.CONFIG_KEY_REST_DOCUMENT_INBOUND);
-		HttpNotierPost post = new HttpNotierPost(certConfig, uri, getParams(inboundMetadata, inboundMetadata.getHeader(), payloadPath));
-
 		try {
-			String response = post.execute();
+			// Retrieve HTTP POST URI to execute.
+			String uri = config.readValue(RestConfigManager.CONFIG_KEY_REST_DOCUMENT_INBOUND);
 
-			log.info("Parsing response from Notier");
+			// Build HTTP call.
+			HttpNotierPost post = new HttpNotierPost(certConfig, uri, getParams(inboundMetadata, inboundMetadata.getHeader(), payloadPath));
+
+			// Execute HTTP call.
+			String response = post.execute();
+			log.info("Parsing response from NoTI-ER");
 			log.info("{}", response);
+
+			// Parse response received from NoTI-ER.
 			OxalisMdn mdn = GSON.fromJson(response, OxalisMdn.class);
+
+			// Logging.
 			if (mdn.hasPositiveStatus()) {
 				log.info("Received document, succesfully sent on Notier");
 			} else {
 				log.warn("Received document, found some problems during sending process on Notier");
 			}
-			File destinationPath = new File(buildDestinationPath(mdn.hasPositiveStatus()));
-			payloadFile.renameTo(destinationPath);
-			log.warn("File {} has been moved to {}", new Object[] { payloadFile.getName(), destinationPath.getAbsolutePath() });
+
+			// Move file to related directory, based on transaction result.
+			File destinationFile = new File(buildDestinationPath(mdn.hasPositiveStatus()));
+			Files.move(payloadFile, destinationFile);
+			log.info("File {} has been moved to {}", new Object[] { payloadFile.getName(), destinationFile.getAbsolutePath() });
 
 		} catch (IOException e) {
 			log.error("I/O error: {}", e.getMessage(), e);
 		} catch (Exception e) {
-			log.error("An error occurs: {}", e.getMessage(), e);
+			log.error("An error occurred during persist: {}", e.getMessage(), e);
+			throw e;
 		}
 
 	}
@@ -113,7 +124,7 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 	 * @throws IOException if something goes wrong during payload management
 	 */
 	private BasicNameValuePair[] getParams(InboundMetadata inboundMetadata, Header header, Path payloadPath) throws IOException {
-		BasicNameValuePair[] arr = new BasicNameValuePair[2];
+		BasicNameValuePair[] arr = new BasicNameValuePair[3];
 
 		byte[] payload = getPayload(payloadPath);
 		ByteArrayInputStream bais = new ByteArrayInputStream(payload);
@@ -128,6 +139,7 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 
 		arr[0] = new BasicNameValuePair("document", GSON.toJson(oxalisMessage));
 		arr[1] = new BasicNameValuePair("peppolPayload", GSON.toJson(new ByteArrayInputStream(IOUtils.toByteArray(bais))));
+		arr[2] = new BasicNameValuePair("isInternal", "false");
 
 		return arr;
 	}
