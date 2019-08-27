@@ -37,7 +37,6 @@ public class OutboundServlet extends HttpServlet {
 	public void doPost(final HttpServletRequest request, final HttpServletResponse response) throws IOException {
 		log.info("Received request in order to send a document on demand");
 		try {
-			// TODO: handle AS2 also!
 
 			// Retrieve PEPPOL full message json String.
 			ServletInputStream sis = request.getInputStream();
@@ -49,7 +48,6 @@ public class OutboundServlet extends HttpServlet {
 			log.info("Json String successfully parsed into DTO");
 
 			// Directly send it on PEPPOL without process lookup.
-			// TODO: understand "how"
 			OxalisMdn result = outboundService.sendFullPeppolMessageOnDemand(fullPeppolMessage);
 			log.info("Outcome is {}", result.getStatus().name());
 
@@ -58,12 +56,12 @@ public class OutboundServlet extends HttpServlet {
 
 			// Write response in json format.
 			response.getWriter().write(GsonUtil.getPrettyPrintedInstance().toJson(result));
-			response.getWriter().flush();
 
 			// Set HTTP status code to 200.
 			response.setStatus(HttpServletResponse.SC_OK);
 
 		} catch (Exception e) {
+
 			log.error("An error occurred: {}", e.getMessage(), e);
 			OxalisMdn result = new OxalisMdn(null, OxalisStatusEnum.KO, e.getMessage());
 
@@ -72,7 +70,6 @@ public class OutboundServlet extends HttpServlet {
 
 			// Write json content.
 			response.getWriter().write(GsonUtil.getPrettyPrintedInstance().toJson(result));
-			response.getWriter().flush();
 
 			// Set HTTP status code to 500. If this code is running, something unexpected
 			// happened.

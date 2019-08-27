@@ -34,7 +34,7 @@ public class OxalisQuartzConsoleServlet extends HttpServlet {
 	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		// TODO: add SSL context here...
+
 		// Retrieve json content.
 		String jsonContent = IOUtils.toString(request.getInputStream());
 
@@ -52,10 +52,10 @@ public class OxalisQuartzConsoleServlet extends HttpServlet {
 
 		// Print json output into response.
 		response.getWriter().write(jsonOutput);
-		response.getWriter().flush();
 
 		// Set HTTP status to 200.
 		response.setStatus(HttpServletResponse.SC_OK);
+
 	}
 
 }
