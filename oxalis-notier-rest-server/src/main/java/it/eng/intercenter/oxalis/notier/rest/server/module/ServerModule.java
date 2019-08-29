@@ -3,6 +3,9 @@ package it.eng.intercenter.oxalis.notier.rest.server.module;
 import com.google.inject.Singleton;
 import com.google.inject.servlet.ServletModule;
 
+import it.eng.intercenter.oxalis.notier.rest.server.service.OxalisLookupNotierIntegrationService;
+import it.eng.intercenter.oxalis.notier.rest.server.service.api.IOxalisLookupNotierIntegrationService;
+import it.eng.intercenter.oxalis.notier.rest.server.servlet.LookupServlet;
 import it.eng.intercenter.oxalis.notier.rest.server.servlet.OutboundServlet;
 import it.eng.intercenter.oxalis.notier.rest.server.servlet.OxalisQuartzConsoleServlet;
 import lombok.extern.slf4j.Slf4j;
@@ -21,9 +24,22 @@ public class ServerModule extends ServletModule {
 	// Send outbound on demand servlet path.
 	private static final String OUTBOUND_SERVLET_PATH = "/sendOutbound";
 
+	// Lookup.
+	private static final String LOOKUP_SERVLET_PATH = "/lookup";
+
 	@Override
 	protected void configureServlets() {
 		super.configureServlets();
+
+		log.info("Binding {} to {} in {}", IOxalisLookupNotierIntegrationService.class.getTypeName(), OxalisLookupNotierIntegrationService.class.getTypeName(),
+				Singleton.class.getTypeName());
+		bind(IOxalisLookupNotierIntegrationService.class).to(OxalisLookupNotierIntegrationService.class).in(Singleton.class);
+
+		log.info("Binding {} in {}", LookupServlet.class.getTypeName(), Singleton.class.getTypeName());
+		bind(LookupServlet.class).in(Singleton.class);
+
+		log.info("Serve {} with {}", "", LookupServlet.class.getTypeName());
+		serve(LOOKUP_SERVLET_PATH).with(LookupServlet.class);
 
 		log.info("Binding {} in {}", OxalisQuartzConsoleServlet.class.getTypeName(), Singleton.class.getTypeName());
 		bind(OxalisQuartzConsoleServlet.class).in(Singleton.class);
