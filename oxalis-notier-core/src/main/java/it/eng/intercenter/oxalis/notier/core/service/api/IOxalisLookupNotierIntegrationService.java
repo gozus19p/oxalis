@@ -1,4 +1,4 @@
-package it.eng.intercenter.oxalis.notier.rest.server.service.api;
+package it.eng.intercenter.oxalis.notier.core.service.api;
 
 import it.eng.intercenter.oxalis.integration.dto.OxalisLookupResponse;
 

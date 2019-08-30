@@ -1,4 +1,4 @@
-package it.eng.intercenter.oxalis.quartz.job.service;
+package it.eng.intercenter.oxalis.notier.core.service.impl;
 
 import static it.eng.intercenter.oxalis.rest.client.util.ConfigManagerUtil.MESSAGE_MDN_SEND_FAILED;
 import static it.eng.intercenter.oxalis.rest.client.util.ConfigManagerUtil.MESSAGE_OUTBOUND_FAILED_FOR_URN;
@@ -21,8 +21,8 @@ import it.eng.intercenter.oxalis.integration.dto.OxalisMdn;
 import it.eng.intercenter.oxalis.integration.dto.UrnList;
 import it.eng.intercenter.oxalis.integration.dto.enumerator.OxalisStatusEnum;
 import it.eng.intercenter.oxalis.integration.util.GsonUtil;
-import it.eng.intercenter.oxalis.quartz.api.IOutboundService;
-import it.eng.intercenter.oxalis.quartz.job.transmission.NotierTransmissionRequestBuilder;
+import it.eng.intercenter.oxalis.notier.core.service.api.IOutboundService;
+import it.eng.intercenter.oxalis.notier.core.service.util.NotierTransmissionRequestBuilder;
 import it.eng.intercenter.oxalis.rest.client.config.CertificateConfigManager;
 import it.eng.intercenter.oxalis.rest.client.config.RestConfigManager;
 import it.eng.intercenter.oxalis.rest.client.http.HttpCaller;

@@ -11,7 +11,7 @@ import com.google.inject.Singleton;
 
 import it.eng.intercenter.oxalis.integration.dto.OxalisLookupResponse;
 import it.eng.intercenter.oxalis.integration.util.GsonUtil;
-import it.eng.intercenter.oxalis.notier.rest.server.service.api.IOxalisLookupNotierIntegrationService;
+import it.eng.intercenter.oxalis.notier.core.service.api.IOxalisLookupNotierIntegrationService;
 import lombok.extern.slf4j.Slf4j;
 
 /**

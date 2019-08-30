@@ -38,12 +38,17 @@
 			<groupId>it.eng.intercenter</groupId>
 			<artifactId>oxalis-quartz</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>it.eng.intercenter</groupId>
 			<artifactId>oxalis-rest</artifactId>
 		</dependency>
-		
+
+		<dependency>
+			<groupId>it.eng.intercenter</groupId>
+			<artifactId>oxalis-notier-core</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>it.eng.intercenter</groupId>
 			<artifactId>oxalis-notier-rest-server</artifactId>

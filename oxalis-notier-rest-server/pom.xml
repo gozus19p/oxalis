@@ -16,6 +16,10 @@
 	<dependencies>
 		<dependency>
 			<groupId>it.eng.intercenter</groupId>
+			<artifactId>oxalis-notier-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>it.eng.intercenter</groupId>
 			<artifactId>oxalis-quartz</artifactId>
 		</dependency>
 		<dependency>

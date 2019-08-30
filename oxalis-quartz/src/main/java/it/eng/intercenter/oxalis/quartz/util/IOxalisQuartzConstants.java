@@ -1,4 +1,4 @@
-package it.eng.intercenter.oxalis.quartz.api;
+package it.eng.intercenter.oxalis.quartz.util;
 
 import java.text.SimpleDateFormat;
 

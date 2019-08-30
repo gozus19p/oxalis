@@ -52,6 +52,7 @@
 		<module>oxalis-notier-integration</module>
 		<module>oxalis-as4</module>
 		<module>oxalis-notier-rest-server</module>
+		<module>oxalis-notier-core</module>
 	</modules>
 
 	<properties>
@@ -101,14 +102,14 @@
 				<artifactId>oxalis-as2</artifactId>
 				<version>4.0.4-SNAPSHOT</version>
 			</dependency>
-			
+
 			<!-- Oxalis AS4 @author Manuel Gozzi -->
 			<dependency>
 				<groupId>no.difi.oxalis</groupId>
 				<artifactId>oxalis-as4</artifactId>
 				<version>4.0.4-SNAPSHOT</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>no.difi.oxalis</groupId>
 				<artifactId>oxalis-commons</artifactId>
@@ -175,14 +176,21 @@
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 
-			<!-- Rest -->
+			<!-- Notier - Core -->
+			<dependency>
+				<groupId>it.eng.intercenter</groupId>
+				<artifactId>oxalis-notier-core</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+
+			<!-- Rest Client -->
 			<dependency>
 				<groupId>it.eng.intercenter</groupId>
 				<artifactId>oxalis-rest</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
-			
-			<!-- Rest -->
+
+			<!-- Rest Server -->
 			<dependency>
 				<groupId>it.eng.intercenter</groupId>
 				<artifactId>oxalis-notier-rest-server</artifactId>

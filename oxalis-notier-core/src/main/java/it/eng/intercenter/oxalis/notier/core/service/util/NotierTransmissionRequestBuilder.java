@@ -1,4 +1,4 @@
-package it.eng.intercenter.oxalis.quartz.job.transmission;
+package it.eng.intercenter.oxalis.notier.core.service.util;
 
 import java.io.ByteArrayInputStream;
 import java.net.URI;

@@ -1,4 +1,4 @@
-package it.eng.intercenter.oxalis.notier.rest.server.service;
+package it.eng.intercenter.oxalis.notier.core.service.impl;
 
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.X509Certificate;
@@ -11,7 +11,7 @@ import com.google.inject.Inject;
 import it.eng.intercenter.oxalis.integration.dto.OxalisLookupEndpoint;
 import it.eng.intercenter.oxalis.integration.dto.OxalisLookupMetadata;
 import it.eng.intercenter.oxalis.integration.dto.OxalisLookupResponse;
-import it.eng.intercenter.oxalis.notier.rest.server.service.api.IOxalisLookupNotierIntegrationService;
+import it.eng.intercenter.oxalis.notier.core.service.api.IOxalisLookupNotierIntegrationService;
 import lombok.extern.slf4j.Slf4j;
 import no.difi.oxalis.api.lookup.LookupService;
 import no.difi.vefa.peppol.common.model.DocumentTypeIdentifier;

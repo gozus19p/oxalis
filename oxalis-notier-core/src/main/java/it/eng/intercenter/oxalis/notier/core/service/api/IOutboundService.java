@@ -1,4 +1,4 @@
-package it.eng.intercenter.oxalis.quartz.api;
+package it.eng.intercenter.oxalis.notier.core.service.api;
 
 import java.security.cert.CertificateException;
 

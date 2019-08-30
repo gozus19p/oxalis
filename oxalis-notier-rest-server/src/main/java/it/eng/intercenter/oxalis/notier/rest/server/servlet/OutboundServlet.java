@@ -16,7 +16,7 @@ import it.eng.intercenter.oxalis.integration.dto.FullPeppolMessage;
 import it.eng.intercenter.oxalis.integration.dto.OxalisMdn;
 import it.eng.intercenter.oxalis.integration.dto.enumerator.OxalisStatusEnum;
 import it.eng.intercenter.oxalis.integration.util.GsonUtil;
-import it.eng.intercenter.oxalis.quartz.api.IOutboundService;
+import it.eng.intercenter.oxalis.notier.core.service.api.IOutboundService;
 import lombok.extern.slf4j.Slf4j;
 
 /**

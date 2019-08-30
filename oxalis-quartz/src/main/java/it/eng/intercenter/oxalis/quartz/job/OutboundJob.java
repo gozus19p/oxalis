@@ -6,7 +6,7 @@ import org.quartz.JobExecutionException;
 
 import com.google.inject.Inject;
 
-import it.eng.intercenter.oxalis.quartz.api.IOutboundService;
+import it.eng.intercenter.oxalis.notier.core.service.api.IOutboundService;
 import lombok.extern.slf4j.Slf4j;
 
 /**
