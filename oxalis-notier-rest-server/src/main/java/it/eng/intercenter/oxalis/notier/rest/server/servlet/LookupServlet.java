@@ -52,35 +52,42 @@ public class LookupServlet extends HttpServlet {
 
 		} else {
 
-			OxalisLookupResponse lookupResponse;
+			try {
 
-			if (documentTypeIdentifierString == null || documentTypeIdentifierString.isEmpty()) {
-				// Logging.
-				log.info("Preparing lookup for participant identifier \"{}\"", participantIdentifierString);
+				OxalisLookupResponse lookupResponse;
 
-				// Execute lookup.
-				lookupResponse = lookupService.executeLookup(participantIdentifierString);
-				log.info("Lookup outcome is: {}, {}", lookupResponse.getOutcome() ? "OK" : "KO", lookupResponse.getMessage());
+				if (documentTypeIdentifierString == null || documentTypeIdentifierString.isEmpty()) {
+					// Logging.
+					log.info("Preparing lookup for participant identifier \"{}\"", participantIdentifierString);
 
-			} else {
-				// Logging.
-				log.info("Preparing lookup for participant identifier \"{}\" and document type identifier \"{}\"",
-						new Object[] { participantIdentifierString, documentTypeIdentifierString });
+					// Execute lookup.
+					lookupResponse = lookupService.executeLookup(participantIdentifierString);
 
-				// Execute lookup.
-				lookupResponse = lookupService.executeLookup(participantIdentifierString, documentTypeIdentifierString);
-				log.info("Lookup outcome is: {}, {}", lookupResponse.getOutcome() ? "OK" : "KO", lookupResponse.getMessage());
+				} else {
+					// Logging.
+					log.info("Preparing lookup for participant identifier \"{}\" and document type identifier \"{}\"",
+							new Object[] { participantIdentifierString, documentTypeIdentifierString });
 
+					// Execute lookup.
+					lookupResponse = lookupService.executeLookup(participantIdentifierString, documentTypeIdentifierString);
+
+				}
+
+				// Set HTTP content type.
+				response.setContentType("application/json");
+
+				// Write result into HTTP response.
+				response.getWriter().write(GsonUtil.getPrettyPrintedInstance().toJson(lookupResponse));
+
+				// Set HTTP 200 status.
+				response.setStatus(200);
+
+			} catch (Exception e) {
+				log.error("Something went wrong during lookup process: {}", e.getMessage(), e);
+
+				// Set HTTP 200 status.
+				response.setStatus(500);
 			}
-
-			// Set HTTP content type.
-			response.setContentType("application/json");
-
-			// Write result into HTTP response.
-			response.getWriter().write(GsonUtil.getPrettyPrintedInstance().toJson(lookupResponse));
-
-			// Set HTTP 200 status.
-			response.setStatus(200);
 
 		}
 
