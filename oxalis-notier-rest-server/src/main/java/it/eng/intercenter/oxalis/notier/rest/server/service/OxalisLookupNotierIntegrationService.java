@@ -37,10 +37,36 @@ public class OxalisLookupNotierIntegrationService implements IOxalisLookupNotier
 
 	@Override
 	public OxalisLookupResponse executeLookup(String participantIdentifierString) {
+		return fetchResults(participantIdentifierString, null);
+	}
+
+	@Override
+	public OxalisLookupResponse executeLookup(String participantIdentifierString, String documentTypeIdentifierString) {
+		return fetchResults(participantIdentifierString, documentTypeIdentifierString);
+	}
+
+	/**
+	 * @author Manuel Gozzi
+	 * @date 30 ago 2019
+	 * @time 09:32:04
+	 * @param participantIdentifierString  is the given participant identifier to
+	 *                                     lookup for
+	 * @param documentTypeIdentifierString is the given document type identifier to
+	 *                                     match with participant id (optional)
+	 * @return the result
+	 */
+	private OxalisLookupResponse fetchResults(String participantIdentifierString, String documentTypeIdentifierString) {
 
 		// Parse String into PEPPOL object.
-		log.debug("Parse participant identifier String into {}", ParticipantIdentifier.class.getTypeName());
 		ParticipantIdentifier participantIdentifier = ParticipantIdentifier.of(participantIdentifierString);
+		log.debug("Parsed participant identifier String into {}", ParticipantIdentifier.class.getTypeName());
+
+		DocumentTypeIdentifier givenDocumentTypeIdentifier = (documentTypeIdentifierString != null && !documentTypeIdentifierString.trim().isEmpty())
+				? DocumentTypeIdentifier.of(documentTypeIdentifierString)
+				: null;
+		if (givenDocumentTypeIdentifier != null) {
+			log.debug("Parsed document type identifier String into {}", DocumentTypeIdentifier.class.getTypeName());
+		}
 
 		// Prepare response DTO.
 		OxalisLookupResponse lookupResponse = new OxalisLookupResponse();
@@ -53,23 +79,66 @@ public class OxalisLookupNotierIntegrationService implements IOxalisLookupNotier
 			log.debug("Retrieve document type identifiers list");
 			List<DocumentTypeIdentifier> documentTypeIdentifiers = lookupClient.getDocumentIdentifiers(participantIdentifier);
 
-			// Build metadata for each document type identifier.
-			for (DocumentTypeIdentifier documentTypeIdentifier : documentTypeIdentifiers) {
+			// If user gives me a document type identifier I have to search for it as single
+			// occurrence.
+			if (givenDocumentTypeIdentifier != null) {
 
-				log.debug("Get service metadata of participant identifier \"{}\" and document type identifier \"{}\"", participantIdentifier.toString(),
-						documentTypeIdentifier.toString());
-				ServiceMetadata serviceMetadata = lookupClient.getServiceMetadata(participantIdentifier, documentTypeIdentifier);
+				try {
+					// Try to find a valid document type identifier.
+					DocumentTypeIdentifier found = documentTypeIdentifiers.stream()
+							.filter(single -> single.toString().equals(givenDocumentTypeIdentifier.toString())).findFirst().get();
 
-				// Add single metadata to DTO.
-				lookupMetadataList.add(buildMetadata(participantIdentifierString, getEndpointList(serviceMetadata), documentTypeIdentifier.toString()));
+					// Retrieve service metadata.
+					ServiceMetadata serviceMetadata = lookupClient.getServiceMetadata(participantIdentifier, found);
+
+					// Add single metadata to DTO.
+					lookupMetadataList.add(buildMetadata(participantIdentifierString, getEndpointList(serviceMetadata), found.toString()));
+
+					// Set metadata
+					if (lookupMetadataList.isEmpty()) {
+						// Logging.
+						log.warn("Metadata list is empty, no results found for participant identifier \"{}\" and document type identifier \"{}\"",
+								participantIdentifierString, documentTypeIdentifierString);
+
+						// Setting outcome.
+						lookupResponse.setOutcome(false);
+						lookupResponse.setMessage((givenDocumentTypeIdentifier != null)
+								? "Participant identifier \"" + participantIdentifierString + "\" and document type identifier \""
+										+ documentTypeIdentifierString + "\" not registered on PEPPOL"
+								: "No results found for participant identifier \"" + participantIdentifierString + "\"");
+					}
+
+				} catch (Exception e) {
+					// Logging.
+					log.error("Something went wrong during lookup: {}", e.getMessage(), e);
+
+					// Setting outcome.
+					lookupResponse.setOutcome(false);
+					lookupResponse.setMessage(e.getMessage());
+				}
 
 			}
 
-			// Set metadata.
-			log.debug("Lookup executed successfully");
-			lookupResponse.setMetadata(lookupMetadataList);
-			lookupResponse.setOutcome(true);
-			lookupResponse.setMessage("Lookup executed successfully");
+			// If user doesn't give me a single document type identifier I have to retrieve
+			// all occurrences.
+			else {
+
+				// Build metadata for each document type identifier.
+				for (DocumentTypeIdentifier documentTypeIdentifier : documentTypeIdentifiers) {
+
+					// Logging.
+					log.debug("Get service metadata of participant identifier \"{}\" and document type identifier \"{}\"", participantIdentifier.toString(),
+							documentTypeIdentifier.toString());
+
+					// Retrieve service metadata for given participant identifier and document type
+					// identifier.
+					ServiceMetadata serviceMetadata = lookupClient.getServiceMetadata(participantIdentifier, documentTypeIdentifier);
+
+					// Add single metadata to DTO.
+					lookupMetadataList.add(buildMetadata(participantIdentifierString, getEndpointList(serviceMetadata), documentTypeIdentifier.toString()));
+				}
+
+			}
 
 		} catch (LookupException | PeppolSecurityException e) {
 
@@ -79,6 +148,11 @@ public class OxalisLookupNotierIntegrationService implements IOxalisLookupNotier
 			lookupResponse.setOutcome(false);
 
 		}
+
+		// Set metadata.
+		log.debug("Lookup executed successfully");
+		lookupResponse.setMetadata(lookupMetadataList);
+		lookupResponse.setMessage("Lookup executed successfully");
 
 		return lookupResponse;
 	}

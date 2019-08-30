@@ -25,7 +25,11 @@ public class LookupServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 5586688022899771024L;
 
+	// Participant identifier HTTP header key.
 	private static final String HEADER_PARTICIPANT_ID_KEY = "participant-identifier";
+
+	// Document type identifier HTTP header key.
+	private static final String HEADER_DOCUMENT_TYPE_ID_KEY = "document-type-identifier";
 
 	@Inject
 	IOxalisLookupNotierIntegrationService lookupService;
@@ -34,23 +38,40 @@ public class LookupServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		log.info("Received request in order to do perform a lookup");
 
-		// Retrieve participant identifier from HTTP request.
+		// Retrieve participant identifier from HTTP request (mandatory).
 		String participantIdentifierString = request.getHeader(HEADER_PARTICIPANT_ID_KEY);
+
+		// Retrieve document type identifier from HTTP request (optional).
+		String documentTypeIdentifierString = request.getHeader(HEADER_DOCUMENT_TYPE_ID_KEY);
 
 		// Check if HTTP call is made correctly, give an HTTP 400 otherwise.
 		if (participantIdentifierString == null || participantIdentifierString.trim().isEmpty()) {
 
-			log.warn("Missing header \"{}\" in HTTP GET, giving HTTP status 400", HEADER_PARTICIPANT_ID_KEY);
+			log.warn("Missing mandatory header \"{}\" in HTTP GET, giving HTTP status 400", HEADER_PARTICIPANT_ID_KEY);
 			response.setStatus(400);
 
 		} else {
 
-			// Logging.
-			log.info("Preparing lookup for participant identifier \"{}\"", participantIdentifierString);
+			OxalisLookupResponse lookupResponse;
 
-			// Execute lookup.
-			OxalisLookupResponse lookupResponse = lookupService.executeLookup(participantIdentifierString);
-			log.info("Lookup outcome is: {}, {}", lookupResponse.getOutcome() ? "OK" : "KO", lookupResponse.getMessage());
+			if (documentTypeIdentifierString == null || documentTypeIdentifierString.isEmpty()) {
+				// Logging.
+				log.info("Preparing lookup for participant identifier \"{}\"", participantIdentifierString);
+
+				// Execute lookup.
+				lookupResponse = lookupService.executeLookup(participantIdentifierString);
+				log.info("Lookup outcome is: {}, {}", lookupResponse.getOutcome() ? "OK" : "KO", lookupResponse.getMessage());
+
+			} else {
+				// Logging.
+				log.info("Preparing lookup for participant identifier \"{}\" and document type identifier \"{}\"",
+						new Object[] { participantIdentifierString, documentTypeIdentifierString });
+
+				// Execute lookup.
+				lookupResponse = lookupService.executeLookup(participantIdentifierString, documentTypeIdentifierString);
+				log.info("Lookup outcome is: {}, {}", lookupResponse.getOutcome() ? "OK" : "KO", lookupResponse.getMessage());
+
+			}
 
 			// Set HTTP content type.
 			response.setContentType("application/json");
