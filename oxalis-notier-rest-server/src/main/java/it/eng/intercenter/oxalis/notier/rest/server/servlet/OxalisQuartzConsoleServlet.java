@@ -14,7 +14,7 @@ import com.google.inject.Singleton;
 import it.eng.intercenter.oxalis.integration.dto.OxalisQuartzCommand;
 import it.eng.intercenter.oxalis.integration.dto.OxalisQuartzCommandResult;
 import it.eng.intercenter.oxalis.integration.util.GsonUtil;
-import it.eng.intercenter.oxalis.quartz.scheduler.service.QuartzSchedulerConsole;
+import it.eng.intercenter.oxalis.quartz.scheduler.QuartzSchedulerConsole;
 
 /**
  * @author Manuel Gozzi

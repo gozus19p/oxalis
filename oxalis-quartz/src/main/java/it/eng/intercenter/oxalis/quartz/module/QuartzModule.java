@@ -15,8 +15,8 @@ import it.eng.intercenter.oxalis.quartz.job.OutboundJob;
 import it.eng.intercenter.oxalis.quartz.job.TestJob;
 import it.eng.intercenter.oxalis.quartz.scheduler.GuiceJobFactory;
 import it.eng.intercenter.oxalis.quartz.scheduler.Quartz;
+import it.eng.intercenter.oxalis.quartz.scheduler.QuartzSchedulerConsole;
 import it.eng.intercenter.oxalis.quartz.scheduler.QuartzSchedulerFactory;
-import it.eng.intercenter.oxalis.quartz.scheduler.service.QuartzSchedulerConsole;
 import it.eng.intercenter.oxalis.quartz.util.QuartzPropertiesUtil;
 import lombok.extern.slf4j.Slf4j;
 

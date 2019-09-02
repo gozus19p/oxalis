@@ -1,4 +1,4 @@
-package it.eng.intercenter.oxalis.quartz.scheduler.service;
+package it.eng.intercenter.oxalis.quartz.scheduler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,6 @@ import it.eng.intercenter.oxalis.integration.dto.OxalisQuartzCommandResultDetail
 import it.eng.intercenter.oxalis.integration.dto.enumerator.OxalisQuartzCommandActionEnum;
 import it.eng.intercenter.oxalis.integration.dto.enumerator.OxalisQuartzCommandOutcomeEnum;
 import it.eng.intercenter.oxalis.integration.dto.enumerator.OxalisQuartzCommandScopeEnum;
-import it.eng.intercenter.oxalis.quartz.scheduler.Quartz;
 import it.eng.intercenter.oxalis.quartz.scheduler.service.util.QuartzSchedulerConsoleUtil;
 import lombok.extern.slf4j.Slf4j;
 

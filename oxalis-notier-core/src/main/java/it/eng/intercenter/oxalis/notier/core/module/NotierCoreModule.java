@@ -19,12 +19,14 @@ public class NotierCoreModule extends AbstractModule {
 
 	@Override
 	public void configure() {
+
 		log.info("Binding {} to {} in {}", IOxalisLookupNotierIntegrationService.class.getTypeName(), OxalisLookupNotierIntegrationService.class.getTypeName(),
 				Singleton.class.getTypeName());
 		bind(IOxalisLookupNotierIntegrationService.class).to(OxalisLookupNotierIntegrationService.class).in(Singleton.class);
 
 		log.info("Binding {} to {} in {}", IOutboundService.class.getTypeName(), OutboundService.class.getTypeName(), Singleton.class.getTypeName());
 		bind(IOutboundService.class).to(OutboundService.class).in(Singleton.class);
+
 	}
 
 }
