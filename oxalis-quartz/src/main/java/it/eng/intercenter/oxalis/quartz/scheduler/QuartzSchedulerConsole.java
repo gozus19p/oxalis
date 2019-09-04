@@ -57,11 +57,11 @@ public class QuartzSchedulerConsole {
 	public OxalisQuartzCommandResult executeCommand(OxalisQuartzCommand command) {
 		switch (command.getAction()) {
 		case START:
-			return doStart(command.getScope(), command.getJobNames());
+			return doStart(command.getScope(), command.getJobKeys());
 		case STOP:
-			return doStop(command.getScope(), command.getJobNames());
+			return doStop(command.getScope(), command.getJobKeys());
 		case VIEW:
-			return doView(command.getScope(), command.getJobNames());
+			return doView(command.getScope(), command.getJobKeys());
 		default:
 			log.warn("Unhandled action in executeCommand() method: {}", command.getAction().name());
 			break;

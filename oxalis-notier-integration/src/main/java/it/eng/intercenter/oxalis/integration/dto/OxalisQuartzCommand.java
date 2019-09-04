@@ -16,10 +16,6 @@ public class OxalisQuartzCommand {
 	private OxalisQuartzCommandScopeEnum scope;
 	private List<OxalisQuartzJobKey> jobKeys;
 
-	public List<OxalisQuartzJobKey> getJobKeys() {
-		return jobKeys;
-	}
-
 	public void setJobKeys(List<OxalisQuartzJobKey> jobKeys) {
 		this.jobKeys = jobKeys;
 	}
@@ -40,7 +36,7 @@ public class OxalisQuartzCommand {
 		return scope;
 	}
 
-	public List<OxalisQuartzJobKey> getJobNames() {
+	public List<OxalisQuartzJobKey> getJobKeys() {
 		return jobKeys;
 	}
 
