@@ -9,28 +9,28 @@ import it.eng.intercenter.oxalis.integration.dto.enumerator.OxalisJobStatusEnum;
  */
 public class OxalisQuartzCommandResultDetails {
 
-	private final OxalisQuartzJobKey jobName;
+	private final OxalisQuartzJobKey job;
 	private final OxalisJobStatusEnum jobStatus;
 
-	private OxalisQuartzCommandResultDetails(final OxalisQuartzJobKey jobName, final OxalisJobStatusEnum jobStatus) {
-		this.jobName = jobName;
+	private OxalisQuartzCommandResultDetails(final OxalisQuartzJobKey job, final OxalisJobStatusEnum jobStatus) {
+		this.job = job;
 		this.jobStatus = jobStatus;
 	}
 
-	public static OxalisQuartzCommandResultDetails ofAliveJob(final OxalisQuartzJobKey jobName) {
-		return new OxalisQuartzCommandResultDetails(jobName, OxalisJobStatusEnum.ALIVE);
+	public static OxalisQuartzCommandResultDetails ofAliveJob(final OxalisQuartzJobKey job) {
+		return new OxalisQuartzCommandResultDetails(job, OxalisJobStatusEnum.ALIVE);
 	}
 
-	public static OxalisQuartzCommandResultDetails ofStandbyJob(final OxalisQuartzJobKey jobName) {
-		return new OxalisQuartzCommandResultDetails(jobName, OxalisJobStatusEnum.STANDBY);
+	public static OxalisQuartzCommandResultDetails ofStandbyJob(final OxalisQuartzJobKey job) {
+		return new OxalisQuartzCommandResultDetails(job, OxalisJobStatusEnum.STANDBY);
 	}
 
-	public static OxalisQuartzCommandResultDetails ofDeadJob(final OxalisQuartzJobKey jobName) {
-		return new OxalisQuartzCommandResultDetails(jobName, OxalisJobStatusEnum.DEAD);
+	public static OxalisQuartzCommandResultDetails ofDeadJob(final OxalisQuartzJobKey job) {
+		return new OxalisQuartzCommandResultDetails(job, OxalisJobStatusEnum.DEAD);
 	}
 
-	public OxalisQuartzJobKey getJobName() {
-		return jobName;
+	public OxalisQuartzJobKey getJob() {
+		return job;
 	}
 
 	public OxalisJobStatusEnum getJobStatus() {
