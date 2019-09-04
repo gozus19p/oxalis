@@ -1,4 +1,4 @@
-package it.eng.intercenter.oxalis.quartz.scheduler.service.util;
+package it.eng.intercenter.oxalis.quartz.scheduler.util;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ public class QuartzSchedulerConsoleUtil {
 	 */
 	public static OxalisQuartzCommandResult invalidScope(OxalisQuartzCommandScopeEnum scope) {
 		return new OxalisQuartzCommandResult(OxalisQuartzCommandOutcomeEnum.KO, (List<OxalisQuartzCommandResultDetails>) null,
-				"OxalisQuartzCommand scope not supported: " + scope.name());
+				"OxalisQuartzCommand scope not supported: " + scope != null ? scope.name() : "null");
 	}
 
 	/**
