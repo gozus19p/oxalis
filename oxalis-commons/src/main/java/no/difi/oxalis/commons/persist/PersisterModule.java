@@ -45,6 +45,8 @@ public class PersisterModule extends OxalisModule {
 
     @Override
     protected void configure() {
+        System.out.println("------------------------ PersisterModule !!!! ------------------------");
+
         // Creates bindings between the annotated PersisterConf items and external type safe config
         bindSettings(PersisterConf.class);
 
@@ -56,8 +58,8 @@ public class PersisterModule extends OxalisModule {
         /**
          * @author Manuel Gozzi
          */
-//      bindTyped(PersisterHandler.class, DefaultPersisterHandler.class);
-        bindTyped(PersisterHandler.class, NotierPersisterHandler.class);
+      bindTyped(PersisterHandler.class, DefaultPersisterHandler.class);
+        //bindTyped(PersisterHandler.class, NotierPersisterHandler.class);
 
         // Noop
         bindTyped(PayloadPersister.class, NoopPersister.class);

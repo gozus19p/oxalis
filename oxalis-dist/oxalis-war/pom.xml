@@ -53,7 +53,10 @@
 			<groupId>it.eng.intercenter</groupId>
 			<artifactId>oxalis-notier-rest-server</artifactId>
 		</dependency>
-
+		<!-- <dependency>
+			<groupId>it.eng.intercenter</groupId>
+			<artifactId>oxalis-persist</artifactId>
+		</dependency> -->
 		<!-- Servlet -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
