@@ -7,6 +7,13 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>E :: Oxalis :: Notier :: Integration</name>
 	<description>Library that provides DTO and Util classes useful in order to interact with Notier.</description>
+	
+	<parent>
+		<groupId>no.difi.oxalis</groupId>
+		<artifactId>oxalis</artifactId>
+		<version>4.0.4-SNAPSHOT</version>
+	</parent>
+	
 	<dependencies>
 		<!-- Gson -->
 		<dependency>

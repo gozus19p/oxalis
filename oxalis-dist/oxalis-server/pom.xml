@@ -60,10 +60,10 @@
             <groupId>no.difi.oxalis</groupId>
             <artifactId>oxalis-as2</artifactId>
         </dependency>
-        <dependency>
+        <!-- <dependency>
             <groupId>no.difi.oxalis</groupId>
             <artifactId>oxalis-extension-testbed</artifactId>
-        </dependency>
+        </dependency> -->
 
         <!-- Jetty -->
         <dependency>
