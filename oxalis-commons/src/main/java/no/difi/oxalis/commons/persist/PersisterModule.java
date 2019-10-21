@@ -54,12 +54,7 @@ public class PersisterModule extends OxalisModule {
         bindTyped(PayloadPersister.class, DefaultPersister.class);
         bindTyped(ReceiptPersister.class, DefaultPersister.class);
         bindTyped(ExceptionPersister.class, DefaultPersister.class);
-
-        /**
-         * @author Manuel Gozzi
-         */
-      bindTyped(PersisterHandler.class, DefaultPersisterHandler.class);
-        //bindTyped(PersisterHandler.class, NotierPersisterHandler.class);
+        bindTyped(PersisterHandler.class, DefaultPersisterHandler.class);
 
         // Noop
         bindTyped(PayloadPersister.class, NoopPersister.class);

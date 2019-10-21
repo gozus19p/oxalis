@@ -22,8 +22,19 @@
 
 package no.difi.oxalis.commons.persist;
 
+import com.google.inject.Injector;
+import com.google.inject.Provides;
+import com.google.inject.Singleton;
+import com.google.inject.name.Named;
+
 import it.eng.intercenter.oxalis.commons.persist.NotierPersisterHandler;
+import no.difi.oxalis.api.persist.ExceptionPersister;
+import no.difi.oxalis.api.persist.PayloadPersister;
 import no.difi.oxalis.api.persist.PersisterHandler;
+import no.difi.oxalis.api.persist.ReceiptPersister;
+import no.difi.oxalis.api.plugin.PluginFactory;
+import no.difi.oxalis.api.settings.Settings;
+import no.difi.oxalis.commons.guice.ImplLoader;
 
 /**
  * @author erlend
@@ -33,10 +44,28 @@ public class PersisterCustomModule extends PersisterModule {
 
     @Override
     protected void configure() {
-    	super.configure();
-        // custom implementation
-        bindTyped(PersisterHandler.class, NotierPersisterHandler.class);
         System.out.println("------------------------ OK !!!! ------------------------");
-    }
 
+        // Creates bindings between the annotated PersisterConf items and external type safe config
+        bindSettings(PersisterConf.class);
+
+        // Default
+        bindTyped(PayloadPersister.class, DefaultPersister.class);
+        bindTyped(ReceiptPersister.class, DefaultPersister.class);
+        bindTyped(ExceptionPersister.class, DefaultPersister.class);
+        bindTyped(PersisterHandler.class, NotierPersisterHandler.class);
+
+        // Noop
+        bindTyped(PayloadPersister.class, NoopPersister.class);
+        bindTyped(ReceiptPersister.class, NoopPersister.class);
+        bindTyped(ExceptionPersister.class, NoopPersister.class);
+        bindTyped(PersisterHandler.class, NoopPersister.class);
+
+        // Temp
+        bindTyped(PayloadPersister.class, TempPersister.class);
+        bindTyped(ReceiptPersister.class, TempPersister.class);
+        bindTyped(ExceptionPersister.class, TempPersister.class);
+        bindTyped(PersisterHandler.class, TempPersister.class);
+    }
+    
 }
