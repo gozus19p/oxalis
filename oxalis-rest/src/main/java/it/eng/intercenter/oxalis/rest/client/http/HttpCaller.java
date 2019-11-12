@@ -3,7 +3,10 @@ package it.eng.intercenter.oxalis.rest.client.http;
 import static it.eng.intercenter.oxalis.rest.client.util.ConfigManagerUtil.MESSAGE_REST_CALL_FAILED;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
+import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.message.BasicNameValuePair;
 
@@ -14,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * This class provides static methods that allows to easily manage Http call.
- * 
+ *
  * @author Manuel Gozzi
  */
 @Slf4j
@@ -23,7 +26,7 @@ public class HttpCaller {
 	/**
 	 * This method executes an HTTP POST call to a given URI, building only one
 	 * BasicNameValuePair.
-	 * 
+	 *
 	 * @param certConfig is the configuration that holds certificates references
 	 * @param uri        is the URI of the HTTP call
 	 * @param paramKey   is the parameter key that needs to be insert into
@@ -34,7 +37,7 @@ public class HttpCaller {
 	 * @throws ClientProtocolException
 	 * @throws IOException
 	 */
-	public static String executePost(CertificateConfigManager certConfig, String uri, String paramKey, String paramValue)
+	public static HttpResponse executePost(CertificateConfigManager certConfig, String uri, String paramKey, String paramValue)
 			throws UnsupportedOperationException, ClientProtocolException, IOException {
 		return executePost(certConfig, uri, new BasicNameValuePair(paramKey, paramValue));
 	}
@@ -42,7 +45,7 @@ public class HttpCaller {
 	/**
 	 * This method executes an HTTP POST call to a given URI, receiving "n"
 	 * BasicNameValuePair.
-	 * 
+	 *
 	 * @param certConfig is the configuration that holds certificates references
 	 * @param uri        is the URI of the HTTP call
 	 * @param params     are the parameters that needs to be sent on HTTP
@@ -51,12 +54,12 @@ public class HttpCaller {
 	 * @throws ClientProtocolException
 	 * @throws IOException
 	 */
-	public static String executePost(CertificateConfigManager certConfig, String uri, BasicNameValuePair... params)
+	public static HttpResponse executePost(CertificateConfigManager certConfig, String uri, BasicNameValuePair... params)
 			throws UnsupportedOperationException, ClientProtocolException, IOException {
 		HttpNotierPost request = new HttpNotierPost(certConfig, uri, params);
-		try{
+		try {
 			return request.execute();
-		} catch(UnsupportedOperationException | IOException e) {
+		} catch (UnsupportedOperationException | IOException e) {
 			log.error(MESSAGE_REST_CALL_FAILED, e.getMessage(), e);
 			throw e;
 		}
@@ -64,7 +67,7 @@ public class HttpCaller {
 
 	/**
 	 * This method executes an HTTP GET call to a given URI.
-	 * 
+	 *
 	 * @param certConfig is the configuration that holds certificates references
 	 * @param uri        is the URI of the HTTP call
 	 * @return the response of the HTTP call parsed as String
@@ -72,15 +75,23 @@ public class HttpCaller {
 	 * @throws ClientProtocolException
 	 * @throws IOException
 	 */
-	public static String executeGet(CertificateConfigManager certConfig, String uri)
+	public static HttpResponse executeGet(CertificateConfigManager certConfig, String uri)
 			throws UnsupportedOperationException, ClientProtocolException, IOException {
 		HttpNotierGet request = new HttpNotierGet(certConfig, uri);
-		try{
+		try {
 			return request.execute();
-		} catch(UnsupportedOperationException | IOException e) {
+		} catch (UnsupportedOperationException | IOException e) {
 			log.error(MESSAGE_REST_CALL_FAILED, e.getMessage(), e);
 			throw e;
 		}
+	}
+
+	public static String extractResponseContentAsString(HttpResponse response) throws UnsupportedOperationException, IOException {
+		return IOUtils.toString(response.getEntity().getContent(), StandardCharsets.UTF_8.toString());
+	}
+
+	public static boolean responseStatusCodeIsValid(HttpResponse get_response) {
+		return get_response.getStatusLine().getStatusCode() >= 200 && get_response.getStatusLine().getStatusCode() <= 299;
 	}
 
 }

@@ -20,6 +20,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpResponse;
 import org.apache.http.message.BasicNameValuePair;
 
 import com.google.common.io.Files;
@@ -32,6 +33,7 @@ import it.eng.intercenter.oxalis.integration.util.GsonUtil;
 import it.eng.intercenter.oxalis.rest.client.config.CertificateConfigManager;
 import it.eng.intercenter.oxalis.rest.client.config.EmailSenderConfigManager;
 import it.eng.intercenter.oxalis.rest.client.config.RestConfigManager;
+import it.eng.intercenter.oxalis.rest.client.http.HttpCaller;
 import it.eng.intercenter.oxalis.rest.client.http.types.HttpNotierPost;
 import lombok.extern.slf4j.Slf4j;
 import no.difi.oxalis.api.inbound.InboundMetadata;
@@ -77,12 +79,13 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 			HttpNotierPost post = new HttpNotierPost(certificateConfig, uri, getParams(inboundMetadata, inboundMetadata.getHeader(), payloadPath));
 
 			// Execute HTTP call.
-			String response = post.execute();
+			HttpResponse response = post.execute();
+			String responseContent = HttpCaller.extractResponseContentAsString(response);
 			log.info("Parsing response from NoTI-ER");
-			log.info("{}", response);
+			log.info("{}", responseContent);
 
 			// Parse response received from NoTI-ER.
-			OxalisMdn mdn = GsonUtil.getInstance().fromJson(response, OxalisMdn.class);
+			OxalisMdn mdn = GsonUtil.getInstance().fromJson(responseContent, OxalisMdn.class);
 
 			// Logging.
 			if (mdn.hasPositiveStatus()) {

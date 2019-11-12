@@ -7,7 +7,6 @@ import static it.eng.intercenter.oxalis.rest.client.util.ConfigManagerUtil.MESSA
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.security.KeyManagementException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
@@ -20,7 +19,6 @@ import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManagerFactory;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -66,7 +64,7 @@ public abstract class AbstractHttpNotierCall<T extends HttpRequestBase> {
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @param certConfig is the configuration that holds certificate details
 	 */
 	public AbstractHttpNotierCall(CertificateConfigManager certConfig) {
@@ -86,20 +84,18 @@ public abstract class AbstractHttpNotierCall<T extends HttpRequestBase> {
 	 * @return tue if Oxalis has been set up to run in production, false otherwise
 	 */
 	private boolean detectProductionMode() {
-		return new Boolean(
-				certificateConfiguration.readValue(CertificateConfigManager.CONFIG_KEY_PRODUCTION_MODE_ENABLED))
-						.booleanValue();
+		return new Boolean(certificateConfiguration.readValue(CertificateConfigManager.CONFIG_KEY_PRODUCTION_MODE_ENABLED)).booleanValue();
 	}
 
 	/**
 	 * Executes the HTTP call.
-	 * 
+	 *
 	 * @return the content of the response in String format
 	 * @throws UnsupportedOperationException
 	 * @throws ClientProtocolException
 	 * @throws IOException
 	 */
-	public String execute() throws UnsupportedOperationException, ClientProtocolException, IOException {
+	public HttpResponse execute() throws UnsupportedOperationException, ClientProtocolException, IOException {
 		if (!httpClientIsAvailable) {
 			throw new IOException("HttpClient is not available");
 		}
@@ -107,11 +103,10 @@ public abstract class AbstractHttpNotierCall<T extends HttpRequestBase> {
 			addDistinguishedNameAndSerialNumberToRequestHeaders();
 			log.warn(MESSAGE_PRODUCTION_MODE_DISABLED);
 		}
-		log.info(MESSAGE_USING_REST_URI,
-				new Object[] { httpRequestType.name(), httpRequest.getURI().normalize().toString() });
+		log.info(MESSAGE_USING_REST_URI, new Object[] { httpRequestType.name(), httpRequest.getURI().normalize().toString() });
 		HttpResponse response = httpClient.execute(httpRequest);
 		log.info(MESSAGE_REST_EXECUTED_WITH_STATUS, response.getStatusLine().getStatusCode());
-		return IOUtils.toString(response.getEntity().getContent(), StandardCharsets.UTF_8.toString());
+		return response;
 	}
 
 	/**
@@ -151,10 +146,8 @@ public abstract class AbstractHttpNotierCall<T extends HttpRequestBase> {
 	private void loadCertificate() {
 		log.info("Preparing certificate for Notier HTTP communications");
 
-		organizationCertificateP12FileName = certificateConfiguration
-				.readValue(CertificateConfigManager.CONFIG_KEY_ORG_CERT_FILE_NAME);
-		organizationCertificateP12Password = certificateConfiguration
-				.readValue(CertificateConfigManager.CONFIG_KEY_ORG_CERT_PASSWORD, true);
+		organizationCertificateP12FileName = certificateConfiguration.readValue(CertificateConfigManager.CONFIG_KEY_ORG_CERT_FILE_NAME);
+		organizationCertificateP12Password = certificateConfiguration.readValue(CertificateConfigManager.CONFIG_KEY_ORG_CERT_PASSWORD, true);
 
 		String certificatePath = buildCertificatePath(organizationCertificateP12FileName);
 
@@ -162,14 +155,14 @@ public abstract class AbstractHttpNotierCall<T extends HttpRequestBase> {
 
 			log.info("Parsing certificate details from file {}", organizationCertificateP12FileName);
 			organizationCertificateP12 = KeyStore.getInstance(ORGANIZATION_CERTIFICATE_ALGORITHM);
-			
+
 			log.info("Accessing certificate using password");
 			organizationCertificateP12.load(certificateInputStream, organizationCertificateP12Password.toCharArray());
 
 			Enumeration<String> aliasesEnumeration = organizationCertificateP12.aliases();
 			String alias = aliasesEnumeration.nextElement();
 			log.info("Using alias: {}", alias);
-			
+
 			logOtherAliases(aliasesEnumeration);
 
 			x509Certificate = (X509Certificate) organizationCertificateP12.getCertificate(alias);
@@ -196,7 +189,7 @@ public abstract class AbstractHttpNotierCall<T extends HttpRequestBase> {
 
 	/**
 	 * If certificate has more aliases than one, then this method logs the others.
-	 * 
+	 *
 	 * @param aliasesEnumeration is the Enumeration that contains other aliases
 	 */
 	private static void logOtherAliases(Enumeration<String> aliasesEnumeration) {
@@ -217,8 +210,7 @@ public abstract class AbstractHttpNotierCall<T extends HttpRequestBase> {
 		StringBuilder sb = new StringBuilder();
 		String configuredDirectoryPath = certificateConfiguration.getCertificatesDirectoryPath().normalize().toString();
 		sb.append(configuredDirectoryPath);
-		if (!configuredDirectoryPath.substring(configuredDirectoryPath.length() - 2)
-				.equals(System.getProperty("file.separator"))) {
+		if (!configuredDirectoryPath.substring(configuredDirectoryPath.length() - 2).equals(System.getProperty("file.separator"))) {
 			sb.append(System.getProperty("file.separator"));
 		}
 		sb.append(fileName);
@@ -228,15 +220,13 @@ public abstract class AbstractHttpNotierCall<T extends HttpRequestBase> {
 	/**
 	 * This method adds headers to HttpRequest method (this handles both GET and
 	 * POST methods).
-	 * 
+	 *
 	 * @param httpRequest is the HTTP request object
 	 */
 	private void addDistinguishedNameAndSerialNumberToRequestHeaders() {
-		log.info("Adding SN \"{}\" to HTTP request header params with key \"{}\"", serialNumber,
-				CertificateConfigManager.HEADER_SN_KEY);
+		log.info("Adding SN \"{}\" to HTTP request header params with key \"{}\"", serialNumber, CertificateConfigManager.HEADER_SN_KEY);
 		httpRequest.setHeader(CertificateConfigManager.HEADER_SN_KEY, serialNumber);
-		log.info("Adding DN \"{}\" to HTTP request header params with key \"{}\"", distinguishedName,
-				CertificateConfigManager.HEADER_DN_KEY);
+		log.info("Adding DN \"{}\" to HTTP request header params with key \"{}\"", distinguishedName, CertificateConfigManager.HEADER_DN_KEY);
 		httpRequest.setHeader(CertificateConfigManager.HEADER_DN_KEY, distinguishedName);
 	}
 

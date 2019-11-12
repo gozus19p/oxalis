@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>no.difi.oxalis</groupId>
 		<artifactId>oxalis</artifactId>
-		<version>4.0.4-SNAPSHOT</version>
+		<version>4.1.1-SNAPSHOT</version>
 	</parent>
 	<groupId>it.eng.intercenter</groupId>
 	<artifactId>oxalis-notier-core</artifactId>
@@ -38,6 +38,7 @@
 		<dependency>
 			<groupId>it.eng.intercenter</groupId>
 			<artifactId>oxalis-rest</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<!-- Apache Commons DBCP2 -->
 		<dependency>

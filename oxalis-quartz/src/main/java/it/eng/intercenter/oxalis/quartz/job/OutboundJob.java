@@ -24,7 +24,11 @@ public class OutboundJob implements Job {
 	@Override
 	public void execute(JobExecutionContext context) throws JobExecutionException {
 		log.info("Executing {}", this.getClass().getTypeName());
-		outboundService.processOutboundFlow();
+		try {
+			outboundService.processOutboundFlow();
+		} catch (Exception e) {
+			log.error("{}", e.getMessage(), e);
+		}
 	}
 
 }

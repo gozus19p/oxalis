@@ -2,8 +2,6 @@ package it.eng.intercenter.oxalis.notier.core.service.api;
 
 import java.security.cert.CertificateException;
 
-import org.quartz.JobExecutionException;
-
 import it.eng.intercenter.oxalis.integration.dto.FullPeppolMessage;
 import it.eng.intercenter.oxalis.integration.dto.OxalisMdn;
 import no.difi.oxalis.api.lang.OxalisContentException;
@@ -18,7 +16,7 @@ import no.difi.oxalis.api.outbound.TransmissionResponse;
  */
 public interface IOutboundService {
 
-	void processOutboundFlow() throws JobExecutionException;
+	void processOutboundFlow() throws Exception;
 
 	OxalisMdn buildTransmissionAndSendOnPeppol(final String urn, final String peppolMessageJsonFormat)
 			throws OxalisTransmissionException, OxalisContentException;

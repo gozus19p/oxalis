@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.cert.CertificateException;
 
-import org.quartz.JobExecutionException;
+import org.apache.http.HttpResponse;
 
 import com.google.inject.Inject;
 
@@ -74,7 +74,7 @@ public class OutboundService implements IOutboundService {
 	}
 
 	@Override
-	public void processOutboundFlow() throws JobExecutionException {
+	public void processOutboundFlow() throws Exception {
 		/**
 		 * Phase 0: setup REST configuration if needed.
 		 */
@@ -86,13 +86,18 @@ public class OutboundService implements IOutboundService {
 		 */
 		String jsonUrnGetterResponse = null;
 		try {
-			jsonUrnGetterResponse = HttpCaller.executeGet(certConfig, restUrnGetterUri);
+			HttpResponse get_response = HttpCaller.executeGet(certConfig, restUrnGetterUri);
+			if (HttpCaller.responseStatusCodeIsValid(get_response)) {
+				jsonUrnGetterResponse = HttpCaller.extractResponseContentAsString(get_response);
+			} else
+				throw new IOException("Some problem occurs during HTTP GET URN getter response handling. Status code is \""
+						+ get_response.getStatusLine().getStatusCode() + "\"");
 		} catch (Exception e) {
-			throw new JobExecutionException("Empty response from URI " + restUrnGetterUri);
+			throw new Exception("Empty response from URI " + restUrnGetterUri);
 		} finally {
 			if (isEmpty(jsonUrnGetterResponse)) {
 				log.error("Received response is empty");
-				throw new JobExecutionException("Received response is empty");
+				throw new Exception("Received response is empty");
 			}
 		}
 
@@ -101,13 +106,7 @@ public class OutboundService implements IOutboundService {
 		 */
 		log.info("Received reponse containing {} characters", jsonUrnGetterResponse.length());
 		UrnList urnListRetrievedFromNotier = GsonUtil.getInstance().fromJson(jsonUrnGetterResponse, UrnList.class);
-
-		if (urnListRetrievedFromNotier != null) {
-			log.info("Found {} documents to send on Peppol", urnListRetrievedFromNotier.getUrnCount());
-		} else {
-			log.error("Invalid response received from Notier: {}{}", new Object[] { System.getProperty("line.separator"), urnListRetrievedFromNotier });
-			throw new JobExecutionException("Invalid response received from Notier (UrnList)");
-		}
+		checkUrnListContent(urnListRetrievedFromNotier);
 
 		/**
 		 * Phase 2: iterate over UrnList.NotierDocumentIndex' collection in order to
@@ -120,15 +119,20 @@ public class OutboundService implements IOutboundService {
 				/**
 				 * Phase 2a: get document payload by REST web service from Notier.
 				 */
-				String peppolMessageJson = HttpCaller.executeGet(certConfig, restDocumentGetterUri + index.getUrn());
-				log.info("Received json String response containing {} characters", peppolMessageJson.length());
-				/**
-				 * Phase 2b: build TransmissionMessage object and send that on Peppol network.
-				 * The status of the transaction determines how the Oxalis Mdn needs to be
-				 * created.
-				 */
-				oxalisMdn = buildTransmissionAndSendOnPeppol(index.getUrn(), peppolMessageJson);
-				log.info(MESSAGE_OUTBOUND_SUCCESS_FOR_URN, index.getUrn());
+				HttpResponse get_response = HttpCaller.executeGet(certConfig, restDocumentGetterUri + index.getUrn());
+				if (HttpCaller.responseStatusCodeIsValid(get_response)) {
+					String peppolMessageJson = HttpCaller.extractResponseContentAsString(get_response);
+					log.info("Received json String response containing {} characters", peppolMessageJson.length());
+					/**
+					 * Phase 2b: build TransmissionMessage object and send that on Peppol network.
+					 * The status of the transaction determines how the Oxalis Mdn needs to be
+					 * created.
+					 */
+					oxalisMdn = buildTransmissionAndSendOnPeppol(index.getUrn(), peppolMessageJson);
+					log.info(MESSAGE_OUTBOUND_SUCCESS_FOR_URN, index.getUrn());
+				} else
+					throw new IOException("Some problem occurs during HTTP GET document getter response handling. Status code is \""
+							+ get_response.getStatusLine().getStatusCode() + "\"");
 			} catch (Exception e) {
 				oxalisMdn = new OxalisMdn(index.getUrn(), OxalisStatusEnum.KO, e.getMessage());
 				log.error(MESSAGE_OUTBOUND_FAILED_FOR_URN, index.getUrn());
@@ -140,6 +144,15 @@ public class OutboundService implements IOutboundService {
 				 */
 				sendStatusToNotier(oxalisMdn, index.getUrn());
 			}
+		}
+	}
+
+	private void checkUrnListContent(UrnList urnListRetrievedFromNotier) throws Exception {
+		if (urnListRetrievedFromNotier != null) {
+			log.info("Found {} documents to send on Peppol", urnListRetrievedFromNotier.getUrnCount());
+		} else {
+			log.error("Invalid response received from Notier: {}{}", new Object[] { System.getProperty("line.separator"), urnListRetrievedFromNotier });
+			throw new Exception("Invalid response received from Notier (UrnList)");
 		}
 	}
 
@@ -208,8 +221,9 @@ public class OutboundService implements IOutboundService {
 	 */
 	private void sendStatusToNotier(OxalisMdn oxalisMdn, String urnDocument) {
 		try {
-			String resp = HttpCaller.executePost(certConfig, restSendStatusUri, "oxalisContent", GsonUtil.getPrettyPrintedInstance().toJson(oxalisMdn));
-			log.info("Received response contains {} characters", resp.length());
+			HttpResponse resp = HttpCaller.executePost(certConfig, restSendStatusUri, "oxalisContent", GsonUtil.getPrettyPrintedInstance().toJson(oxalisMdn));
+			String respContent = HttpCaller.extractResponseContentAsString(resp);
+			log.info("Received response contains {} characters", respContent.length());
 		} catch (UnsupportedOperationException | IOException e) {
 			log.error(MESSAGE_MDN_SEND_FAILED, urnDocument);
 		}
@@ -219,7 +233,7 @@ public class OutboundService implements IOutboundService {
 	 * @throws JobExecutionException if the configuration has not been setup
 	 *                               properly.
 	 */
-	private void loadRestUriReferences() throws JobExecutionException {
+	private void loadRestUriReferences() throws Exception {
 		/**
 		 * Recupero la lista di URN corrispondenti ai documenti che devono essere
 		 * inviati su rete Peppol.
@@ -239,7 +253,7 @@ public class OutboundService implements IOutboundService {
 			configStatus += "[document getter=" + (restDocumentGetterConfigIsReady ? "OK]" : "ERROR]");
 			configStatus += "[send status=" + (restSendStatusConfigIsReady ? "OK]" : "ERROR]");
 			log.error(MESSAGE_WRONG_CONFIGURATION_SETUP, configStatus);
-			throw new JobExecutionException("REST configuration has not been properly setup. Status: " + configStatus);
+			throw new Exception("REST configuration has not been properly setup. Status: " + configStatus);
 		}
 	}
 
@@ -247,7 +261,7 @@ public class OutboundService implements IOutboundService {
 	 * @throws JobExecutionException if the configuration has not been setup
 	 *                               properly.
 	 */
-	private void setupOutboundRestConfiguration() throws JobExecutionException {
+	private void setupOutboundRestConfiguration() throws Exception {
 		if (isEmpty(restDocumentGetterUri) || isEmpty(restDocumentGetterUri) || isEmpty(restSendStatusUri)) {
 			loadRestUriReferences();
 		}

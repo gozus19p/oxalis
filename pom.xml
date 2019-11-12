@@ -16,14 +16,13 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>no.difi.oxalis</groupId>
+	<groupId>it.eng.intercenter</groupId>
 	<artifactId>oxalis</artifactId>
-	<version>4.0.4-SNAPSHOT</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>Oxalis :: Parent</name>
 	<description>The binary plug-and-play implementation of the PEPPOL sample extension.</description>
-	<url>https://github.com/difi/oxalis</url>
 
 	<scm>
 		<connection>scm:git:git@github.com:difi/oxalis.git</connection>
@@ -33,41 +32,14 @@
 	</scm>
 
 	<modules>
-		<module>oxalis-api</module>
-		<module>oxalis-test</module>
-		<module>oxalis-commons</module>
-		<module>oxalis-inbound</module>
-		<module>oxalis-dist/oxalis-war</module>
-		<module>oxalis-outbound</module>
-		<module>oxalis-dist/oxalis-standalone</module>
-		<module>oxalis-dist/oxalis-server</module>
-		<module>oxalis-dist/oxalis-distribution</module>
-		<module>oxalis-legacy/oxalis-statistics</module>
-		<module>oxalis-legacy/oxalis-persistence</module>
-		<module>oxalis-legacy/oxalis-document-sniffer</module>
-		<module>oxalis-extension</module>
 		<!-- Other oxalis modules @author Manuel Gozzi -->
 		<module>oxalis-quartz</module>
 		<module>oxalis-rest</module>
 		<module>oxalis-notier-integration</module>
-		<module>oxalis-as4</module>
 		<module>oxalis-notier-rest-server</module>
 		<module>oxalis-notier-core</module>
 		<module>oxalis-persist</module>
 	</modules>
-
-	<properties>
-		<java.version>1.8</java.version>
-		<java.encoding>UTF-8</java.encoding>
-		<slf4j.version>1.7.25</slf4j.version>
-		<logback.version>1.2.3</logback.version>
-		<bouncycastle.version>1.57</bouncycastle.version>
-		<google.guice.version>4.2.2</google.guice.version>
-		<vefa.peppol.version>1.1.1</vefa.peppol.version>
-		<brave.version>4.19.3</brave.version>
-		<jetty.version>9.4.14.v20181114</jetty.version>
-		<opentracing.version>0.31.0</opentracing.version>
-	</properties>
 
 	<dependencies>
 		<!-- Lombok -->
@@ -90,87 +62,6 @@
 	<dependencyManagement>
 
 		<dependencies>
-
-			<!-- Oxalis -->
-
-			<dependency>
-				<groupId>no.difi.oxalis</groupId>
-				<artifactId>oxalis-api</artifactId>
-				<version>4.0.4-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>no.difi.oxalis</groupId>
-				<artifactId>oxalis-as2</artifactId>
-				<version>4.0.4-SNAPSHOT</version>
-			</dependency>
-
-			<!-- Oxalis AS4 @author Manuel Gozzi -->
-			<dependency>
-				<groupId>no.difi.oxalis</groupId>
-				<artifactId>oxalis-as4</artifactId>
-				<version>4.0.4-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>no.difi.oxalis</groupId>
-				<artifactId>oxalis-commons</artifactId>
-				<version>4.0.4-SNAPSHOT</version>
-			</dependency>
-			
-			
-			
-			<dependency>
-				<groupId>no.difi.oxalis</groupId>
-				<artifactId>oxalis-inbound</artifactId>
-				<version>4.0.4-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>no.difi.oxalis</groupId>
-				<artifactId>oxalis-outbound</artifactId>
-				<version>4.0.4-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>no.difi.oxalis</groupId>
-				<artifactId>oxalis-persistence</artifactId>
-				<version>4.0.4-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>no.difi.oxalis</groupId>
-				<artifactId>oxalis-persistence</artifactId>
-				<type>test-jar</type>
-				<version>4.0.4-SNAPSHOT</version>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>no.difi.oxalis</groupId>
-				<artifactId>oxalis-standalone</artifactId>
-				<version>4.0.4-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>no.difi.oxalis</groupId>
-				<artifactId>oxalis-statistics</artifactId>
-				<version>4.0.4-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>no.difi.oxalis</groupId>
-				<artifactId>oxalis-test</artifactId>
-				<version>4.0.4-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>no.difi.oxalis</groupId>
-				<artifactId>oxalis-document-sniffer</artifactId>
-				<version>4.0.4-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>no.difi.oxalis</groupId>
-				<artifactId>oxalis-extension-testbed</artifactId>
-				<version>4.0.4-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>no.difi.oxalis</groupId>
-				<artifactId>oxalis-war</artifactId>
-				<version>4.0.4-SNAPSHOT</version>
-				<classifier>classes</classifier>
-			</dependency>
 
 			<!-- Quartz -->
 			<dependency>
@@ -201,12 +92,12 @@
 			</dependency>
 
 			<dependency> 
-			<groupId>it.eng.intercenter</groupId>
-			  <artifactId>oxalis-persist</artifactId>
-			  <version>0.0.1-SNAPSHOT</version>
+				<groupId>it.eng.intercenter</groupId>
+				<artifactId>oxalis-persist</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
 			</dependency> 
 			<!-- Logging -->
-			<dependency>
+			<!-- <dependency>
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-api</artifactId>
 				<version>${slf4j.version}</version>
@@ -231,24 +122,24 @@
 				<groupId>com.google.guava</groupId>
 				<artifactId>guava</artifactId>
 				<version>27.0.1-jre</version>
-			</dependency>
+			</dependency> -->
 
 			<!-- Command line argument parsing -->
-			<dependency>
+			<!-- <dependency>
 				<groupId>net.sf.jopt-simple</groupId>
 				<artifactId>jopt-simple</artifactId>
 				<version>4.9</version>
-			</dependency>
+			</dependency> -->
 
 			<!-- Joda -->
-			<dependency>
+			<!-- <dependency>
 				<groupId>joda-time</groupId>
 				<artifactId>joda-time</artifactId>
 				<version>2.10.1</version>
-			</dependency>
+			</dependency> -->
 
 			<!-- Google Guice -->
-			<dependency>
+			<!-- <dependency>
 				<groupId>com.google.inject</groupId>
 				<artifactId>guice</artifactId>
 				<version>${google.guice.version}</version>
@@ -257,7 +148,7 @@
 				<groupId>com.google.inject.extensions</groupId>
 				<artifactId>guice-servlet</artifactId>
 				<version>${google.guice.version}</version>
-			</dependency>
+			</dependency> 
 
 			<dependency>
 				<groupId>javax.inject</groupId>
@@ -269,10 +160,10 @@
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-dbcp2</artifactId>
 				<version>2.2.0</version>
-			</dependency>
+			</dependency>-->
 
 			<!-- Bouncy Castle -->
-			<dependency>
+			<!-- <dependency>
 				<groupId>org.bouncycastle</groupId>
 				<artifactId>bcmail-jdk15on</artifactId>
 				<version>${bouncycastle.version}</version>
@@ -286,10 +177,10 @@
 				<groupId>org.bouncycastle</groupId>
 				<artifactId>bcpkix-jdk15on</artifactId>
 				<version>${bouncycastle.version}</version>
-			</dependency>
+			</dependency> -->
 
 			<!-- VEFA PEPPOL -->
-			<dependency>
+			<!-- <dependency>
 				<groupId>no.difi.vefa</groupId>
 				<artifactId>peppol-common</artifactId>
 				<version>${vefa.peppol.version}</version>
@@ -346,10 +237,10 @@
 				<groupId>javax.mail</groupId>
 				<artifactId>javax.mail-api</artifactId>
 				<version>1.5.6</version>
-			</dependency>
+			</dependency> -->
 
 			<!-- Apache commons -->
-			<dependency>
+			<!-- <dependency>
 				<groupId>org.apache.httpcomponents</groupId>
 				<artifactId>httpclient</artifactId>
 				<version>4.5.6</version>
@@ -364,10 +255,10 @@
 				<groupId>commons-codec</groupId>
 				<artifactId>commons-codec</artifactId>
 				<version>1.11</version>
-			</dependency>
+			</dependency> -->
 
 			<!-- Jetty -->
-			<dependency>
+			<!-- <dependency>
 				<groupId>org.eclipse.jetty</groupId>
 				<artifactId>jetty-server</artifactId>
 				<version>${jetty.version}</version>
@@ -376,31 +267,31 @@
 				<groupId>org.eclipse.jetty</groupId>
 				<artifactId>jetty-servlet</artifactId>
 				<version>${jetty.version}</version>
-			</dependency>
+			</dependency> -->
 
 			<!-- MySQL -->
-			<dependency>
+			<!-- +<dependency>
 				<groupId>mysql</groupId>
 				<artifactId>mysql-connector-java</artifactId>
 				<version>5.1.43</version>
-			</dependency>
+			</dependency> -->
 
 			<!-- H2 -->
-			<dependency>
+			<!-- <dependency>
 				<groupId>com.h2database</groupId>
 				<artifactId>h2</artifactId>
 				<version>1.4.197</version>
-			</dependency>
+			</dependency> -->
 
 			<!-- HSQL -->
-			<dependency>
+			<!-- <dependency>
 				<groupId>org.hsqldb</groupId>
 				<artifactId>hsqldb</artifactId>
 				<version>2.4.1</version>
-			</dependency>
+			</dependency> -->
 
 			<!-- OpenTracing -->
-			<dependency>
+			<!-- <dependency>
 				<groupId>io.opentracing</groupId>
 				<artifactId>opentracing-api</artifactId>
 				<version>${opentracing.version}</version>
@@ -429,10 +320,10 @@
 				<groupId>io.opentracing.contrib</groupId>
 				<artifactId>opentracing-spanmanager</artifactId>
 				<version>0.0.5</version>
-			</dependency>
+			</dependency> -->
 
 			<!-- Zipkin -->
-			<dependency>
+			<!-- <dependency>
 				<groupId>io.zipkin.brave</groupId>
 				<artifactId>brave</artifactId>
 				<version>${brave.version}</version>
@@ -441,10 +332,10 @@
 				<groupId>io.zipkin.reporter2</groupId>
 				<artifactId>zipkin-sender-urlconnection</artifactId>
 				<version>2.7.10</version>
-			</dependency>
+			</dependency> -->
 
 			<!-- Testing -->
-			<dependency>
+			<!-- <dependency>
 				<groupId>org.testng</groupId>
 				<artifactId>testng</artifactId>
 				<version>6.14.3</version>
@@ -453,7 +344,7 @@
 				<groupId>org.mockito</groupId>
 				<artifactId>mockito-core</artifactId>
 				<version>2.23.4</version>
-			</dependency>
+			</dependency> -->
 
 		</dependencies>
 	</dependencyManagement>
@@ -592,120 +483,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
-	<issueManagement>
-		<url>https://github.com/difi/oxalis/issues</url>
-		<system>GitHub Issues</system>
-	</issueManagement>
-
-	<organization>
-		<name>Norwegian Agency for Public Management and eGovernment (Difi)</name>
-		<url>http://www.difi.no/</url>
-	</organization>
-
-	<developers>
-		<developer>
-			<name>Nigel Parker</name>
-			<organization>Mazeppa AS</organization>
-			<roles>
-				<role>Developer</role>
-			</roles>
-		</developer>
-		<developer>
-			<name>Steinar Overbeck Cook</name>
-			<organization>Balder Programvare AS</organization>
-			<roles>
-				<role>Principal author</role>
-				<role>Architect</role>
-				<role>Developer</role>
-				<role>Manager</role>
-			</roles>
-		</developer>
-		<developer>
-			<name>Thore Johnsen</name>
-			<organization>SendRegning.no</organization>
-			<roles>
-				<role>Developer</role>
-			</roles>
-		</developer>
-		<developer>
-			<name>Erlend Klakegg Bergheim</name>
-			<organization>Norwegian Agency for Public Management and eGovernment (Difi)</organization>
-			<roles>
-				<role>Developer</role>
-			</roles>
-		</developer>
-	</developers>
-
-	<licenses>
-		<license>
-			<name>GNU Lesser General Public License (LGPL), Version 3.0</name>
-			<url>http://www.gnu.org/licenses/lgpl-3.0.txt</url>
-			<distribution>repo</distribution>
-		</license>
-		<license>
-			<name>European Union Public Licence (EUPL v.1.1)</name>
-			<url>https://joinup.ec.europa.eu/community/eupl/og_page/european-union-public-licence-eupl-v11</url>
-			<distribution>repo</distribution>
-		</license>
-	</licenses>
-
-	<profiles>
-		<profile>
-			<id>release-sign-artifacts</id>
-			<activation>
-				<property>
-					<name>performRelease</name>
-					<value>true</value>
-				</property>
-			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-javadoc-plugin</artifactId>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-source-plugin</artifactId>
-						<version>3.0.1</version>
-						<executions>
-							<execution>
-								<id>package-sources</id>
-								<goals>
-									<goal>jar</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-gpg-plugin</artifactId>
-						<version>1.6</version>
-						<executions>
-							<execution>
-								<id>sign-artifacts</id>
-								<phase>verify</phase>
-								<goals>
-									<goal>sign</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
-
-	<distributionManagement>
-		<snapshotRepository>
-			<id>ossrh</id>
-			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-		</snapshotRepository>
-		<repository>
-			<id>ossrh</id>
-			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-		</repository>
-	</distributionManagement>
-
+	
 </project>
