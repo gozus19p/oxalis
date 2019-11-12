@@ -11,7 +11,6 @@ import java.nio.charset.StandardCharsets;
 import java.security.cert.CertificateException;
 
 import org.quartz.JobExecutionException;
-import org.springframework.util.StringUtils;
 
 import com.google.inject.Inject;
 
@@ -91,7 +90,7 @@ public class OutboundService implements IOutboundService {
 		} catch (Exception e) {
 			throw new JobExecutionException("Empty response from URI " + restUrnGetterUri);
 		} finally {
-			if (StringUtils.isEmpty(jsonUrnGetterResponse)) {
+			if (isEmpty(jsonUrnGetterResponse)) {
 				log.error("Received response is empty");
 				throw new JobExecutionException("Received response is empty");
 			}
@@ -229,9 +228,9 @@ public class OutboundService implements IOutboundService {
 		restDocumentGetterUri = restConfig.readValue(RestConfigManager.CONFIG_KEY_REST_GETTER_DOCUMENT);
 		restSendStatusUri = restConfig.readValue(RestConfigManager.CONFIG_KEY_REST_SENDER_STATUS);
 
-		boolean restUrnConfigIsReady = !StringUtils.isEmpty(restUrnGetterUri);
-		boolean restDocumentGetterConfigIsReady = !StringUtils.isEmpty(restDocumentGetterUri);
-		boolean restSendStatusConfigIsReady = !StringUtils.isEmpty(restSendStatusUri);
+		boolean restUrnConfigIsReady = !isEmpty(restUrnGetterUri);
+		boolean restDocumentGetterConfigIsReady = !isEmpty(restDocumentGetterUri);
+		boolean restSendStatusConfigIsReady = !isEmpty(restSendStatusUri);
 		boolean isAllReadyAndSet = restUrnConfigIsReady && restDocumentGetterConfigIsReady && restSendStatusConfigIsReady;
 
 		if (!isAllReadyAndSet) {
@@ -249,9 +248,12 @@ public class OutboundService implements IOutboundService {
 	 *                               properly.
 	 */
 	private void setupOutboundRestConfiguration() throws JobExecutionException {
-		if (StringUtils.isEmpty(restDocumentGetterUri) || StringUtils.isEmpty(restDocumentGetterUri) || StringUtils.isEmpty(restSendStatusUri)) {
+		if (isEmpty(restDocumentGetterUri) || isEmpty(restDocumentGetterUri) || isEmpty(restSendStatusUri)) {
 			loadRestUriReferences();
 		}
 	}
 
+	private boolean isEmpty(String str) {
+		return str == null || "".equals(str);
+	}
 }

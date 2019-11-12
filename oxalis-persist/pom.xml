@@ -3,7 +3,9 @@
   <groupId>it.eng.intercenter</groupId>
   <artifactId>oxalis-persist</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  
+  <name>E :: Oxalis :: Persist</name>
+<description>Library that provides Persist configuration in order to manage persistence with Notier.</description>
+	
   <parent>
 		<groupId>no.difi.oxalis</groupId>
 		<artifactId>oxalis</artifactId>

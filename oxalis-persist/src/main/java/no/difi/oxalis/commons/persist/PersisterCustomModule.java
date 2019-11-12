@@ -22,19 +22,11 @@
 
 package no.difi.oxalis.commons.persist;
 
-import com.google.inject.Injector;
-import com.google.inject.Provides;
-import com.google.inject.Singleton;
-import com.google.inject.name.Named;
-
 import it.eng.intercenter.oxalis.commons.persist.NotierPersisterHandler;
 import no.difi.oxalis.api.persist.ExceptionPersister;
 import no.difi.oxalis.api.persist.PayloadPersister;
 import no.difi.oxalis.api.persist.PersisterHandler;
 import no.difi.oxalis.api.persist.ReceiptPersister;
-import no.difi.oxalis.api.plugin.PluginFactory;
-import no.difi.oxalis.api.settings.Settings;
-import no.difi.oxalis.commons.guice.ImplLoader;
 
 /**
  * @author erlend
@@ -44,8 +36,6 @@ public class PersisterCustomModule extends PersisterModule {
 
     @Override
     protected void configure() {
-        System.out.println("------------------------ OK !!!! ------------------------");
-
         // Creates bindings between the annotated PersisterConf items and external type safe config
         bindSettings(PersisterConf.class);
 
