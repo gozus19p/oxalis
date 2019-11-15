@@ -2,23 +2,25 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>it.eng.intercenter</groupId>
+
+	<parent>
+		<groupId>it.eng.intercenter</groupId>
+		<artifactId>oxalis</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
 	<artifactId>oxalis-rest</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+
 	<name>E :: Oxalis :: Rest</name>
 	<description>Library that provides REST classes definition in order to interact with Notier.</description>
-	<parent>
-		<groupId>no.difi.oxalis</groupId>
-		<artifactId>oxalis</artifactId>
-		<version>4.1.1-SNAPSHOT</version>
-	</parent>
+
 	<dependencies>
 		<!-- Oxalis - NoTI-ER integration -->
 		<dependency>
 			<groupId>it.eng.intercenter</groupId>
 			<artifactId>oxalis-notier-integration</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-		</dependency>		
+		</dependency>
 		<!-- Guice -->
 		<dependency>
 			<groupId>com.google.inject.extensions</groupId>
@@ -70,15 +72,10 @@
 		</dependency>
 		<!-- Junit -->
 		<dependency>
-				<groupId>junit</groupId>
-				<artifactId>junit</artifactId>
-				<version>4.11</version>
-				<scope>test</scope>
-			</dependency>
-		<!-- Mockito -->
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-core</artifactId>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>

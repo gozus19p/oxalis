@@ -23,6 +23,19 @@
 
 	<name>Oxalis :: Parent</name>
 	<description>The binary plug-and-play implementation of the PEPPOL sample extension.</description>
+	
+	<properties>
+        <java.version>1.8</java.version>
+        <java.encoding>UTF-8</java.encoding>
+        <slf4j.version>1.7.26</slf4j.version>
+        <logback.version>1.2.3</logback.version>
+        <bouncycastle.version>1.57</bouncycastle.version>
+        <google.guice.version>4.2.2</google.guice.version>
+        <vefa.peppol.version>1.1.3</vefa.peppol.version>
+        <brave.version>5.6.5</brave.version>
+        <jetty.version>9.4.20.v20190813</jetty.version>
+        <opentracing.version>0.33.0</opentracing.version>
+    </properties>
 
 	<scm>
 		<connection>scm:git:git@github.com:difi/oxalis.git</connection>
@@ -97,7 +110,7 @@
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency> 
 			<!-- Logging -->
-			<!-- <dependency>
+			<dependency>
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-api</artifactId>
 				<version>${slf4j.version}</version>
@@ -122,24 +135,24 @@
 				<groupId>com.google.guava</groupId>
 				<artifactId>guava</artifactId>
 				<version>27.0.1-jre</version>
-			</dependency> -->
+			</dependency>
 
 			<!-- Command line argument parsing -->
-			<!-- <dependency>
+			<dependency>
 				<groupId>net.sf.jopt-simple</groupId>
 				<artifactId>jopt-simple</artifactId>
 				<version>4.9</version>
-			</dependency> -->
+			</dependency>
 
 			<!-- Joda -->
-			<!-- <dependency>
+			<dependency>
 				<groupId>joda-time</groupId>
 				<artifactId>joda-time</artifactId>
 				<version>2.10.1</version>
-			</dependency> -->
+			</dependency>
 
 			<!-- Google Guice -->
-			<!-- <dependency>
+			<dependency>
 				<groupId>com.google.inject</groupId>
 				<artifactId>guice</artifactId>
 				<version>${google.guice.version}</version>
@@ -160,10 +173,10 @@
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-dbcp2</artifactId>
 				<version>2.2.0</version>
-			</dependency>-->
+			</dependency>
 
 			<!-- Bouncy Castle -->
-			<!-- <dependency>
+			<dependency>
 				<groupId>org.bouncycastle</groupId>
 				<artifactId>bcmail-jdk15on</artifactId>
 				<version>${bouncycastle.version}</version>
@@ -177,10 +190,10 @@
 				<groupId>org.bouncycastle</groupId>
 				<artifactId>bcpkix-jdk15on</artifactId>
 				<version>${bouncycastle.version}</version>
-			</dependency> -->
+			</dependency>
 
 			<!-- VEFA PEPPOL -->
-			<!-- <dependency>
+			<dependency>
 				<groupId>no.difi.vefa</groupId>
 				<artifactId>peppol-common</artifactId>
 				<version>${vefa.peppol.version}</version>
@@ -220,7 +233,7 @@
 				<groupId>javax.servlet</groupId>
 				<artifactId>javax.servlet-api</artifactId>
 				<version>4.0.1</version>
-			</dependency>
+			</dependency> 
 
 			<dependency>
 				<groupId>javax.mail</groupId>
@@ -237,10 +250,10 @@
 				<groupId>javax.mail</groupId>
 				<artifactId>javax.mail-api</artifactId>
 				<version>1.5.6</version>
-			</dependency> -->
+			</dependency> 
 
 			<!-- Apache commons -->
-			<!-- <dependency>
+			<dependency>
 				<groupId>org.apache.httpcomponents</groupId>
 				<artifactId>httpclient</artifactId>
 				<version>4.5.6</version>
@@ -255,10 +268,10 @@
 				<groupId>commons-codec</groupId>
 				<artifactId>commons-codec</artifactId>
 				<version>1.11</version>
-			</dependency> -->
+			</dependency>
 
 			<!-- Jetty -->
-			<!-- <dependency>
+			<dependency>
 				<groupId>org.eclipse.jetty</groupId>
 				<artifactId>jetty-server</artifactId>
 				<version>${jetty.version}</version>
@@ -267,10 +280,10 @@
 				<groupId>org.eclipse.jetty</groupId>
 				<artifactId>jetty-servlet</artifactId>
 				<version>${jetty.version}</version>
-			</dependency> -->
+			</dependency>
 
 			<!-- MySQL -->
-			<!-- +<dependency>
+			<!-- <dependency>
 				<groupId>mysql</groupId>
 				<artifactId>mysql-connector-java</artifactId>
 				<version>5.1.43</version>
@@ -291,7 +304,7 @@
 			</dependency> -->
 
 			<!-- OpenTracing -->
-			<!-- <dependency>
+			<dependency>
 				<groupId>io.opentracing</groupId>
 				<artifactId>opentracing-api</artifactId>
 				<version>${opentracing.version}</version>
@@ -320,10 +333,10 @@
 				<groupId>io.opentracing.contrib</groupId>
 				<artifactId>opentracing-spanmanager</artifactId>
 				<version>0.0.5</version>
-			</dependency> -->
+			</dependency>
 
 			<!-- Zipkin -->
-			<!-- <dependency>
+			<dependency>
 				<groupId>io.zipkin.brave</groupId>
 				<artifactId>brave</artifactId>
 				<version>${brave.version}</version>
@@ -332,7 +345,7 @@
 				<groupId>io.zipkin.reporter2</groupId>
 				<artifactId>zipkin-sender-urlconnection</artifactId>
 				<version>2.7.10</version>
-			</dependency> -->
+			</dependency>
 
 			<!-- Testing -->
 			<!-- <dependency>

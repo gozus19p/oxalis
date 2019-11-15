@@ -1,16 +1,18 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>it.eng.intercenter</groupId>
-  <artifactId>oxalis-persist</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>E :: Oxalis :: Persist</name>
-<description>Library that provides Persist configuration in order to manage persistence with Notier.</description>
-	
-  <parent>
-		<groupId>no.difi.oxalis</groupId>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>it.eng.intercenter</groupId>
 		<artifactId>oxalis</artifactId>
-		<version>4.1.1-SNAPSHOT</version>
-  </parent>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>oxalis-persist</artifactId>
+
+	<name>E :: Oxalis :: Persist</name>
+	<description>Library that provides Persist configuration in order to manage persistence with Notier.</description>
 
 	<dependencies>
 
@@ -22,7 +24,6 @@
 		<dependency>
 			<groupId>it.eng.intercenter</groupId>
 			<artifactId>oxalis-rest</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<!-- Quartz Scheduler -->
 		<dependency>
@@ -36,7 +37,7 @@
 			<artifactId>quartz-jobs</artifactId>
 			<version>2.2.1</version>
 		</dependency>
-		
+
 		<!-- Apache Commons -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -66,17 +67,20 @@
 		<dependency>
 			<groupId>no.difi.oxalis</groupId>
 			<artifactId>oxalis-api</artifactId>
+			<version>4.1.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>no.difi.oxalis</groupId>
 			<artifactId>oxalis-test</artifactId>
+			<version>4.1.1-SNAPSHOT</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>no.difi.oxalis</groupId>
 			<artifactId>oxalis-commons</artifactId>
+			<version>4.1.1-SNAPSHOT</version>
 		</dependency>
-		
+
 		<!-- Javax.Transaction -->
 		<dependency>
 			<groupId>javax.transaction</groupId>

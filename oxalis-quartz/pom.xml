@@ -2,16 +2,18 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>it.eng.intercenter</groupId>
+
+	<parent>
+		<groupId>it.eng.intercenter</groupId>
+		<artifactId>oxalis</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
 	<artifactId>oxalis-quartz</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	
 	<name>E :: Oxalis :: Quartz</name>
 	<description>Library that provides Quartz configuration in order to manage Outbound flow, retrieving documents from Notier via web services.</description>
-	<parent>
-		<groupId>no.difi.oxalis</groupId>
-		<artifactId>oxalis</artifactId>
-		<version>4.1.1-SNAPSHOT</version>
-	</parent>
+	
 	<dependencies>
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -41,13 +43,11 @@
 		<dependency>
 			<groupId>it.eng.intercenter</groupId>
 			<artifactId>oxalis-notier-core</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<!-- Oxalis - Rest -->
 		<dependency>
 			<groupId>it.eng.intercenter</groupId>
 			<artifactId>oxalis-rest</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<!-- Apache Commons DBCP2 -->
 		<dependency>
@@ -64,11 +64,13 @@
 		<dependency>
 			<groupId>no.difi.oxalis</groupId>
 			<artifactId>oxalis-outbound</artifactId>
+			<version>4.1.1-SNAPSHOT</version>
 		</dependency>
 		<!-- Oxalis Commons -->
 		<dependency>
 			<groupId>no.difi.oxalis</groupId>
 			<artifactId>oxalis-commons</artifactId>
+			<version>4.1.1-SNAPSHOT</version>
 		</dependency>
 		<!-- Guice -->
 		<dependency>

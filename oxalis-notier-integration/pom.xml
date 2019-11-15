@@ -3,17 +3,16 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<description>Library that provides DTO and Util classes useful in order to interact with Notier.</description>
-	<groupId>it.eng.intercenter</groupId>
-	<artifactId>oxalis-notier-integration</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>E :: Oxalis :: Notier :: Integration</name>
 	
 	<parent>
-		<groupId>no.difi.oxalis</groupId>
+		<groupId>it.eng.intercenter</groupId>
 		<artifactId>oxalis</artifactId>
-		<version>4.1.1-SNAPSHOT</version>
+		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	
+	<artifactId>oxalis-notier-integration</artifactId>
+
+	<name>E :: Oxalis :: Notier :: Integration</name>
 	
 	<dependencies>
 		<!-- Gson -->

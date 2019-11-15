@@ -34,28 +34,30 @@ import no.difi.oxalis.api.persist.ReceiptPersister;
  */
 public class PersisterCustomModule extends PersisterModule {
 
-    @Override
-    protected void configure() {
-        // Creates bindings between the annotated PersisterConf items and external type safe config
-        bindSettings(PersisterConf.class);
+	@Override
+	protected void configure() {
+		// Creates bindings between the annotated PersisterConf items and external type
+		// safe config
+		bindSettings(PersisterConf.class);
 
-        // Default
-        bindTyped(PayloadPersister.class, DefaultPersister.class);
-        bindTyped(ReceiptPersister.class, DefaultPersister.class);
-        bindTyped(ExceptionPersister.class, DefaultPersister.class);
-        bindTyped(PersisterHandler.class, NotierPersisterHandler.class);
+		// Default
+		bindTyped(PayloadPersister.class, DefaultPersister.class);
+		bindTyped(ReceiptPersister.class, DefaultPersister.class);
+		bindTyped(ExceptionPersister.class, DefaultPersister.class);
+		System.out.println("---------------------------------------CI-SONO---------------------------------------");
+		bindTyped(PersisterHandler.class, NotierPersisterHandler.class);
 
-        // Noop
-        bindTyped(PayloadPersister.class, NoopPersister.class);
-        bindTyped(ReceiptPersister.class, NoopPersister.class);
-        bindTyped(ExceptionPersister.class, NoopPersister.class);
-        bindTyped(PersisterHandler.class, NoopPersister.class);
+		// Noop
+		bindTyped(PayloadPersister.class, NoopPersister.class);
+		bindTyped(ReceiptPersister.class, NoopPersister.class);
+		bindTyped(ExceptionPersister.class, NoopPersister.class);
+		bindTyped(PersisterHandler.class, NoopPersister.class);
 
-        // Temp
-        bindTyped(PayloadPersister.class, TempPersister.class);
-        bindTyped(ReceiptPersister.class, TempPersister.class);
-        bindTyped(ExceptionPersister.class, TempPersister.class);
-        bindTyped(PersisterHandler.class, TempPersister.class);
-    }
-    
+		// Temp
+		bindTyped(PayloadPersister.class, TempPersister.class);
+		bindTyped(ReceiptPersister.class, TempPersister.class);
+		bindTyped(ExceptionPersister.class, TempPersister.class);
+		bindTyped(PersisterHandler.class, TempPersister.class);
+	}
+
 }

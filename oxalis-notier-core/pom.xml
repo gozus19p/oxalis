@@ -3,15 +3,14 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>no.difi.oxalis</groupId>
+		<groupId>it.eng.intercenter</groupId>
 		<artifactId>oxalis</artifactId>
-		<version>4.1.1-SNAPSHOT</version>
+		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<groupId>it.eng.intercenter</groupId>
 	<artifactId>oxalis-notier-core</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+
 	<name>E :: Oxalis :: Notier :: Core</name>
-	<description/>
+
 	<dependencies>
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -38,7 +37,6 @@
 		<dependency>
 			<groupId>it.eng.intercenter</groupId>
 			<artifactId>oxalis-rest</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<!-- Apache Commons DBCP2 -->
 		<dependency>
@@ -55,17 +53,18 @@
 		<dependency>
 			<groupId>no.difi.oxalis</groupId>
 			<artifactId>oxalis-outbound</artifactId>
+			<version>4.1.1-SNAPSHOT</version>
 		</dependency>
 		<!-- Oxalis Commons -->
 		<dependency>
 			<groupId>no.difi.oxalis</groupId>
 			<artifactId>oxalis-commons</artifactId>
+			<version>4.1.1-SNAPSHOT</version>
 		</dependency>
 		<!-- Guice -->
 		<dependency>
 			<groupId>com.google.inject.extensions</groupId>
 			<artifactId>guice-servlet</artifactId>
-			<scope>provided</scope>
 		</dependency>
 		<!-- Apache Commons -->
 		<dependency>
