@@ -66,15 +66,14 @@ public class NotierTransmissionRequestBuilder {
 		verifyHeaderMetadataForLookup(sender, receiver, processType, documentType);
 
 		return builder.payLoad(peppolMessage.getPayload()).sender(sender).receiver(receiver).processType(processType).documentType(documentType)
-				.instanceId(instanceId).creationDateAndTime(new Date()).build();
+				.instanceId(instanceId).creationDateAndTime(new Date()).overrideAs2Endpoint(null).build();
 	}
 
 	public static TransmissionRequest build(TransmissionRequestBuilder builder, FullPeppolMessage fullPeppolMessage)
 			throws OxalisTransmissionException, OxalisContentException, CertificateException {
 
-		if (fullPeppolMessage.getEndpointAPCertificate() == null && fullPeppolMessage.getEndpointAPUri() == null
-				&& fullPeppolMessage.getTransportProfile() == null) {
-			// I must do lookup here.
+		// I must do lookup here.
+		if (fullPeppolMessage.performLookup()) {
 			return prepareForLookup(builder, fullPeppolMessage);
 		}
 

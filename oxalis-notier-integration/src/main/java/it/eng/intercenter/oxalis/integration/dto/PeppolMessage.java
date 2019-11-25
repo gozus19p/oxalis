@@ -15,10 +15,12 @@ public class PeppolMessage implements NotierDTO {
 
 	private final ByteArrayInputStream payload;
 	private final PeppolDetails header;
+	private final Boolean performLookup;
 
-	public PeppolMessage(final byte[] payload, final PeppolDetails header) {
+	public PeppolMessage(final byte[] payload, final PeppolDetails header, final Boolean performLookup) {
 		this.payload = new ByteArrayInputStream(payload);
 		this.header = header;
+		this.performLookup = performLookup;
 	}
 
 	public ByteArrayInputStream getPayload() {
@@ -32,6 +34,10 @@ public class PeppolMessage implements NotierDTO {
 	@Override
 	public String toString() {
 		return GsonUtil.getPrettyPrintedInstance().toJson(this);
+	}
+
+	public Boolean performLookup() {
+		return performLookup;
 	}
 
 }

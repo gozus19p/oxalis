@@ -2,7 +2,6 @@ package it.eng.intercenter.oxalis.quartz.job;
 
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
 
 import com.google.inject.Inject;
 
@@ -22,12 +21,12 @@ public class OutboundJob implements Job {
 	IOutboundService outboundService;
 
 	@Override
-	public void execute(JobExecutionContext context) throws JobExecutionException {
+	public void execute(JobExecutionContext context) {
 		log.info("Executing {}", this.getClass().getTypeName());
 		try {
 			outboundService.processOutboundFlow();
 		} catch (Exception e) {
-			log.error("{}", e.getMessage(), e);
+			log.error("An error occurred during Outbound flow processing: {}", e.getMessage(), e);
 		}
 	}
 

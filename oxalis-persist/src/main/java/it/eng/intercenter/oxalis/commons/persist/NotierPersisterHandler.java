@@ -71,7 +71,15 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 
 	@Override
 	public void persist(InboundMetadata inboundMetadata, Path payloadPath) throws IOException {
+
+		// Check persist mode.
+		if (!persistOnNotierIsEnabled()) {
+			log.warn("NoTI-ER persist has been disabled, make sure that this is an intended behaviour!");
+			super.persist(inboundMetadata, payloadPath);
+		}
+
 		try {
+
 			// Retrieve HTTP POST URI to execute.
 			String uri = restConfig.readValue(RestConfigManager.CONFIG_KEY_REST_DOCUMENT_INBOUND);
 
@@ -95,6 +103,7 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 			}
 
 		} catch (Exception e) {
+
 			// Persist on file system.
 			super.persist(inboundMetadata, payloadPath);
 
@@ -104,12 +113,43 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 			// Send e-mail to Support NoTI-ER.
 			sendEmailToSupportNotier(e, payloadPath);
 
-			// Throw exception.
-			throw e;
 		}
+
 	}
 
+	/**
+	 * If this is evaluated to "true", Oxalis will send the receiving payload to
+	 * NoTI-ER, otherwise not.
+	 *
+	 * @author Manuel Gozzi
+	 * @date 25 nov 2019
+	 * @time 14:48:54
+	 * @return "true" if Oxalis must forward the received document to NoTI-ER,
+	 *         "false" otherwise
+	 */
+	private boolean persistOnNotierIsEnabled() {
+
+		// Reading configuration.
+		String persistOnNotierIsEnabled = restConfig.readValue(RestConfigManager.CONFIG_KEY_PERSIST_MODE);
+
+		// The default is set to "true".
+		return persistOnNotierIsEnabled != null ? new Boolean(persistOnNotierIsEnabled.trim().toLowerCase().intern()).booleanValue() : true;
+
+	}
+
+	/**
+	 * It sends an e-mail to NoTI-ER support, informing the technical team about the
+	 * failure.
+	 *
+	 * @author Manuel Gozzi
+	 * @date 25 nov 2019
+	 * @time 14:49:55
+	 * @param e           is the Exception related to the outbound failure stack
+	 *                    trace
+	 * @param payloadPath is the path related to the payload
+	 */
 	private void sendEmailToSupportNotier(Exception e, Path payloadPath) {
+
 		// Retrieve username and password in order to access e-mail.
 		String username = emailConfig.readValue(EmailSenderConfigManager.CONFIG_KEY_S_USERNAME);
 		String password = emailConfig.readValue(EmailSenderConfigManager.CONFIG_KEY_S_PASSWORD);
@@ -139,23 +179,38 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 			}
 		});
 
-		// Retrieve e-mail known copies (optional).
+		// Retrieve e-mail carbon copy and blind carbon copy.
 		String config_knownCopy = emailConfig.readValue(EmailSenderConfigManager.CONFIG_KEY_EMAIL_KNOWN_COPY);
 		String config_hiddenCopy = emailConfig.readValue(EmailSenderConfigManager.CONFIG_KEY_EMAIL_HIDDEN_COPY);
 
+		// Build and send e-mail.
 		prepareAndSendEmail(e, config_receiver, session, config_knownCopy, config_hiddenCopy);
 
 	}
 
-	private void prepareAndSendEmail(Exception e, String config_receiver, Session session, String config_knownCopy, String config_hiddenCopy) {
+	/**
+	 * Finalize e-mail setup and process e-mail.
+	 *
+	 * @author Manuel Gozzi
+	 * @date 25 nov 2019
+	 * @time 14:51:02
+	 * @param e                      is the exception related to the issue
+	 * @param config_receiver        is the receiver e-mail address
+	 * @param session                is the session to use for e-mail processing
+	 * @param config_carbonCopy      is the e-mail carbon copy receiver configured
+	 * @param config_blindCarbonCopy is the e-mail blind carbon copy receiver
+	 *                               configured
+	 */
+	private void prepareAndSendEmail(Exception e, String config_receiver, Session session, String config_carbonCopy, String config_blindCarbonCopy) {
 		Message email = new MimeMessage(session);
 
-		// Prepare receivers.
+		// Prepare e-mail details.
 		String[] m_receivers = config_receiver.contains(",") ? config_receiver.split(",") : new String[] { config_receiver };
-		String[] m_knownCopies = config_knownCopy != null ? (config_knownCopy.contains(",") ? config_knownCopy.split(",") : new String[] { config_knownCopy })
+		String[] m_knownCopies = config_carbonCopy != null
+				? (config_carbonCopy.contains(",") ? config_carbonCopy.split(",") : new String[] { config_carbonCopy })
 				: null;
-		String[] m_hiddenCopies = config_hiddenCopy != null
-				? (config_hiddenCopy.contains(",") ? config_hiddenCopy.split(",") : new String[] { config_hiddenCopy })
+		String[] m_hiddenCopies = config_blindCarbonCopy != null
+				? (config_blindCarbonCopy.contains(",") ? config_blindCarbonCopy.split(",") : new String[] { config_blindCarbonCopy })
 				: null;
 
 		// Prepare subject and text.
@@ -171,12 +226,14 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 
 			// Set receivers.
 			email.setRecipients(RecipientType.TO, getInternetAddresses(m_receivers));
-			if (m_knownCopies != null) {
+
+			// Set carbon copy.
+			if (m_knownCopies != null)
 				email.setRecipients(RecipientType.CC, getInternetAddresses(m_knownCopies));
-			}
-			if (m_hiddenCopies != null) {
+
+			// Set blind carbon copy.
+			if (m_hiddenCopies != null)
 				email.setRecipients(RecipientType.BCC, getInternetAddresses(m_hiddenCopies));
-			}
 
 			// Set text and subject.
 			email.setText(m_text);
@@ -191,6 +248,16 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 		}
 	}
 
+	/**
+	 * It converts a String[] into InternetAddress[].
+	 *
+	 * @author Manuel Gozzi
+	 * @date 25 nov 2019
+	 * @time 14:53:13
+	 * @param m_addressesString
+	 * @return
+	 * @throws AddressException
+	 */
 	private InternetAddress[] getInternetAddresses(String[] m_addressesString) throws AddressException {
 		InternetAddress[] addresses = new InternetAddress[m_addressesString.length];
 		for (int i = 0; i < m_addressesString.length; i++) {

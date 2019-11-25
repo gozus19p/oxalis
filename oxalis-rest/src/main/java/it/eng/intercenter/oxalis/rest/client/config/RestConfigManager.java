@@ -21,6 +21,7 @@ public class RestConfigManager extends AbstractConfigManager {
 	/**
 	 * Keys used to communicate with Notier.
 	 */
+	public static final String CONFIG_KEY_PERSIST_MODE = "notier.persist.enabled";
 	public static final String CONFIG_KEY_REST_DOCUMENT_INBOUND = "rest.notier.inbound";
 	public static final String CONFIG_KEY_REST_GETTER_URNS = "rest.notier.getter.urns";
 	public static final String CONFIG_KEY_REST_GETTER_DOCUMENT = "rest.notier.getter.document";
@@ -31,7 +32,7 @@ public class RestConfigManager extends AbstractConfigManager {
 	 * @throws IOException if something goes wrong with configuration loading
 	 */
 	@Inject
-	public RestConfigManager(@Named("home") Path oxalisHome) throws IOException {
+	public RestConfigManager(@Named("home") Path oxalisHome) {
 		super(CONFIGURATION_FILE_NAME, oxalisHome);
 	}
 

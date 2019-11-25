@@ -1,5 +1,8 @@
 package it.eng.intercenter.oxalis.integration.dto.enumerator;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Manuel Gozzi
  * @date 20 ago 2019
@@ -8,5 +11,13 @@ package it.eng.intercenter.oxalis.integration.dto.enumerator;
 public enum OxalisQuartzCommandActionEnum {
 
 	START, STOP, VIEW;
+
+	public static List<String> valuesNamesAsStringList() {
+		List<String> valuesAsStringList = new ArrayList<>();
+		for (OxalisQuartzCommandActionEnum string : values()) {
+			valuesAsStringList.add(string.name());
+		}
+		return valuesAsStringList;
+	}
 
 }

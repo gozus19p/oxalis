@@ -75,85 +75,66 @@ public class OutboundService implements IOutboundService {
 
 	@Override
 	public void processOutboundFlow() throws Exception {
-		/**
-		 * Phase 0: setup REST configuration if needed.
-		 */
+
+		// Setup REST configuration (if needed).
 		setupOutboundRestConfiguration();
 
-		/**
-		 * Phase 1: get URN of documents that need to be sent on Peppol directly from
-		 * Notier via REST web service.
-		 */
-		String jsonUrnGetterResponse = null;
-		try {
-			HttpResponse get_response = HttpCaller.executeGet(certConfig, restUrnGetterUri);
-			if (HttpCaller.responseStatusCodeIsValid(get_response)) {
-				jsonUrnGetterResponse = HttpCaller.extractResponseContentAsString(get_response);
-			} else
-				throw new IOException("Some problem occurs during HTTP GET URN getter response handling. Status code is \""
-						+ get_response.getStatusLine().getStatusCode() + "\"");
-		} catch (Exception e) {
-			throw new Exception("Empty response from URI " + restUrnGetterUri);
-		} finally {
-			if (isEmpty(jsonUrnGetterResponse)) {
-				log.error("Received response is empty");
-				throw new Exception("Received response is empty");
-			}
-		}
+		// Get URN of documents that need to be sent on Peppol directly from
+		// Notier via REST web service.
+		UrnList urnListRetrievedFromNotier = retrieveUrnList();
 
-		/**
-		 * Phase 1b: check the received response and parse it as UrnList object.
-		 */
-		log.info("Received reponse containing {} characters", jsonUrnGetterResponse.length());
-		UrnList urnListRetrievedFromNotier = GsonUtil.getInstance().fromJson(jsonUrnGetterResponse, UrnList.class);
+		// Check the received response.
 		checkUrnListContent(urnListRetrievedFromNotier);
 
-		/**
-		 * Phase 2: iterate over UrnList.NotierDocumentIndex' collection in order to
-		 * send each document one by one.
-		 */
+		// Iterate over UrnList.NotierDocumentIndex collection in order to
+		// send each document one by one.
+		sendEachDocument(urnListRetrievedFromNotier);
+
+	}
+
+	private void sendEachDocument(UrnList urnListRetrievedFromNotier) {
 		for (NotierDocumentIndex index : urnListRetrievedFromNotier.getDocuments()) {
+
+			// Logging.
 			log.info(MESSAGE_STARTING_TO_PROCESS_URN, index.getUrn());
+
+			// Define OxalisMdn object.
 			OxalisMdn oxalisMdn = null;
+
 			try {
-				/**
-				 * Phase 2a: get document payload by REST web service from Notier.
-				 */
-				HttpResponse get_response = HttpCaller.executeGet(certConfig, restDocumentGetterUri + index.getUrn());
-				if (HttpCaller.responseStatusCodeIsValid(get_response)) {
-					String peppolMessageJson = HttpCaller.extractResponseContentAsString(get_response);
-					log.info("Received json String response containing {} characters", peppolMessageJson.length());
-					/**
-					 * Phase 2b: build TransmissionMessage object and send that on Peppol network.
-					 * The status of the transaction determines how the Oxalis Mdn needs to be
-					 * created.
-					 */
-					oxalisMdn = buildTransmissionAndSendOnPeppol(index.getUrn(), peppolMessageJson);
-					log.info(MESSAGE_OUTBOUND_SUCCESS_FOR_URN, index.getUrn());
-				} else
-					throw new IOException("Some problem occurs during HTTP GET document getter response handling. Status code is \""
-							+ get_response.getStatusLine().getStatusCode() + "\"");
+
+				// Retrieve PeppolMessage in json String format from NoTI-ER.
+				String peppolMessageJson = retrieveSinglePeppolMessageFromNotier(index.getUrn());
+
+				// Build TransmissionMessage object and send it on Peppol network. The status of
+				// the transaction determines how the Oxalis MDN needs to be created.
+				oxalisMdn = buildTransmissionAndSendOnPeppol(index.getUrn(), peppolMessageJson);
+				log.info(MESSAGE_OUTBOUND_SUCCESS_FOR_URN, index.getUrn());
+
 			} catch (Exception e) {
+
+				// Build negative MDN.
 				oxalisMdn = new OxalisMdn(index.getUrn(), OxalisStatusEnum.KO, e.getMessage());
 				log.error(MESSAGE_OUTBOUND_FAILED_FOR_URN, index.getUrn());
 				log.error(e.getMessage(), e);
 			} finally {
-				/**
-				 * Phase 3: forward the OxalisMdn object to Notier in order to communicate the
-				 * status of transaction.
-				 */
-				sendStatusToNotier(oxalisMdn, index.getUrn());
+
+				// Forward the OxalisMdn object to Notier in order to communicate the status of
+				// transaction.
+				sendJsonMdnToNotier(oxalisMdn);
 			}
 		}
 	}
 
-	private void checkUrnListContent(UrnList urnListRetrievedFromNotier) throws Exception {
-		if (urnListRetrievedFromNotier != null) {
-			log.info("Found {} documents to send on Peppol", urnListRetrievedFromNotier.getUrnCount());
-		} else {
-			log.error("Invalid response received from Notier: {}{}", new Object[] { System.getProperty("line.separator"), urnListRetrievedFromNotier });
-			throw new Exception("Invalid response received from Notier (UrnList)");
-		}
+	private String retrieveSinglePeppolMessageFromNotier(String urn) throws IOException {
+
+		HttpResponse get_response = HttpCaller.executeGet(certConfig, restDocumentGetterUri + urn);
+		if (HttpCaller.responseStatusCodeIsValid(get_response))
+			return HttpCaller.extractResponseContentAsString(get_response);
+
+		throw new IOException("Some problem occurs during HTTP GET document getter response handling. Status code is \""
+				+ get_response.getStatusLine().getStatusCode() + "\"");
+
 	}
 
 	/**
@@ -192,6 +173,34 @@ public class OutboundService implements IOutboundService {
 		return outboundComponent.getTransmitter().transmit(documento);
 	}
 
+	private UrnList retrieveUrnList() throws Exception {
+		String jsonUrnGetterResponse = null;
+		try {
+			HttpResponse get_response = HttpCaller.executeGet(certConfig, restUrnGetterUri);
+			if (HttpCaller.responseStatusCodeIsValid(get_response)) {
+				jsonUrnGetterResponse = HttpCaller.extractResponseContentAsString(get_response);
+			} else
+				throw new IOException("Some problem occurs during HTTP GET URN getter response handling. Status code is \""
+						+ get_response.getStatusLine().getStatusCode() + "\"");
+			if (isEmptyOrNull(jsonUrnGetterResponse)) {
+				log.error("Received response is empty");
+				throw new Exception("Received response is empty");
+			}
+		} catch (Exception e) {
+			throw new Exception("Empty response from URI " + restUrnGetterUri);
+		}
+		return GsonUtil.getInstance().fromJson(jsonUrnGetterResponse, UrnList.class);
+	}
+
+	private void checkUrnListContent(UrnList urnListRetrievedFromNotier) throws Exception {
+		if (urnListRetrievedFromNotier != null) {
+			log.info("Found {} documents to send on Peppol", urnListRetrievedFromNotier.getUrnCount());
+		} else {
+			log.error("Invalid response received from Notier: {}{}", new Object[] { System.getProperty("line.separator"), urnListRetrievedFromNotier });
+			throw new Exception("Invalid response received from Notier (UrnList)");
+		}
+	}
+
 	/**
 	 * Provides an OxalisMdn.
 	 *
@@ -219,13 +228,13 @@ public class OutboundService implements IOutboundService {
 	 * @param oxalisMdn   is the status of the transaction
 	 * @param urnDocument is the URN of involved document
 	 */
-	private void sendStatusToNotier(OxalisMdn oxalisMdn, String urnDocument) {
+	private void sendJsonMdnToNotier(OxalisMdn oxalisMdn) {
 		try {
 			HttpResponse resp = HttpCaller.executePost(certConfig, restSendStatusUri, "oxalisContent", GsonUtil.getPrettyPrintedInstance().toJson(oxalisMdn));
 			String respContent = HttpCaller.extractResponseContentAsString(resp);
 			log.info("Received response contains {} characters", respContent.length());
 		} catch (UnsupportedOperationException | IOException e) {
-			log.error(MESSAGE_MDN_SEND_FAILED, urnDocument);
+			log.error(MESSAGE_MDN_SEND_FAILED, oxalisMdn.getDocumentUrn(), e);
 		}
 	}
 
@@ -233,7 +242,7 @@ public class OutboundService implements IOutboundService {
 	 * @throws JobExecutionException if the configuration has not been setup
 	 *                               properly.
 	 */
-	private void loadRestUriReferences() throws Exception {
+	private void loadRestUriReferences() {
 		/**
 		 * Recupero la lista di URN corrispondenti ai documenti che devono essere
 		 * inviati su rete Peppol.
@@ -242,18 +251,17 @@ public class OutboundService implements IOutboundService {
 		restDocumentGetterUri = restConfig.readValue(RestConfigManager.CONFIG_KEY_REST_GETTER_DOCUMENT);
 		restSendStatusUri = restConfig.readValue(RestConfigManager.CONFIG_KEY_REST_SENDER_STATUS);
 
-		boolean restUrnConfigIsReady = !isEmpty(restUrnGetterUri);
-		boolean restDocumentGetterConfigIsReady = !isEmpty(restDocumentGetterUri);
-		boolean restSendStatusConfigIsReady = !isEmpty(restSendStatusUri);
+		boolean restUrnConfigIsReady = !isEmptyOrNull(restUrnGetterUri);
+		boolean restDocumentGetterConfigIsReady = !isEmptyOrNull(restDocumentGetterUri);
+		boolean restSendStatusConfigIsReady = !isEmptyOrNull(restSendStatusUri);
 		boolean isAllReadyAndSet = restUrnConfigIsReady && restDocumentGetterConfigIsReady && restSendStatusConfigIsReady;
 
 		if (!isAllReadyAndSet) {
-			String configStatus = "";
-			configStatus += "[URN getter=" + (restUrnConfigIsReady ? "OK]" : "ERROR]");
-			configStatus += "[document getter=" + (restDocumentGetterConfigIsReady ? "OK]" : "ERROR]");
+			String configStatus = "[URN getter=" + (restUrnConfigIsReady ? "OK]" : "ERROR]" + "; ");
+			configStatus += "[document getter=" + (restDocumentGetterConfigIsReady ? "OK]" : "ERROR]; ");
 			configStatus += "[send status=" + (restSendStatusConfigIsReady ? "OK]" : "ERROR]");
 			log.error(MESSAGE_WRONG_CONFIGURATION_SETUP, configStatus);
-			throw new Exception("REST configuration has not been properly setup. Status: " + configStatus);
+			throw new IllegalArgumentException("REST configuration has not been properly setup. Status: \"" + configStatus + "\"");
 		}
 	}
 
@@ -261,13 +269,13 @@ public class OutboundService implements IOutboundService {
 	 * @throws JobExecutionException if the configuration has not been setup
 	 *                               properly.
 	 */
-	private void setupOutboundRestConfiguration() throws Exception {
-		if (isEmpty(restDocumentGetterUri) || isEmpty(restDocumentGetterUri) || isEmpty(restSendStatusUri)) {
+	private void setupOutboundRestConfiguration() {
+		if (isEmptyOrNull(restDocumentGetterUri) || isEmptyOrNull(restDocumentGetterUri) || isEmptyOrNull(restSendStatusUri)) {
 			loadRestUriReferences();
 		}
 	}
 
-	private boolean isEmpty(String str) {
-		return str == null || "".equals(str);
+	private boolean isEmptyOrNull(String str) {
+		return str == null || str.isEmpty();
 	}
 }

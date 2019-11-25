@@ -4,7 +4,6 @@ import java.util.Date;
 
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
@@ -20,10 +19,10 @@ public class TestJob implements Job {
 	Config referenceConf;
 
 	@Override
-	public void execute(JobExecutionContext context) throws JobExecutionException {
+	public void execute(JobExecutionContext context) {
 		System.out.println("Executed");
-		log.info("Job: {} has been executed at {}{}Message: {}", new Object[] { TestJob.class.getName(),
-				new Date().toString(), System.getProperty("line.separator"), referenceConf.getString("test.test") });
+		log.info("Job: {} has been executed at {}{}Message: {}",
+				new Object[] { TestJob.class.getName(), new Date().toString(), System.getProperty("line.separator"), referenceConf.getString("test.test") });
 	}
 
 }
