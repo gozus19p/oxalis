@@ -44,7 +44,6 @@ public class PersisterCustomModule extends PersisterModule {
 		bindTyped(PayloadPersister.class, DefaultPersister.class);
 		bindTyped(ReceiptPersister.class, DefaultPersister.class);
 		bindTyped(ExceptionPersister.class, DefaultPersister.class);
-		System.out.println("---------------------------------------CI-SONO---------------------------------------");
 		bindTyped(PersisterHandler.class, NotierPersisterHandler.class);
 
 		// Noop

@@ -86,12 +86,33 @@ public class HttpCaller {
 		}
 	}
 
-	public static String extractResponseContentAsString(HttpResponse response) throws UnsupportedOperationException, IOException {
+	/**
+	 * It extracts the body content of the given HttpResponse as UTF-8 encoded
+	 * String.
+	 * 
+	 * @author Manuel Gozzi
+	 * @date 26 nov 2019
+	 * @time 10:38:24
+	 * @param response
+	 * @return the UTF-8 encoded String representing the content of response
+	 * @throws UnsupportedOperationException
+	 * @throws IOException
+	 */
+	public static String extractResponseContentAsUTF8String(HttpResponse response) throws UnsupportedOperationException, IOException {
 		return IOUtils.toString(response.getEntity().getContent(), StandardCharsets.UTF_8.toString());
 	}
 
-	public static boolean responseStatusCodeIsValid(HttpResponse get_response) {
-		return get_response.getStatusLine().getStatusCode() >= 200 && get_response.getStatusLine().getStatusCode() <= 299;
+	/**
+	 * It verifies that a given HTTP response status code is valid (200 or similar).
+	 *
+	 * @author Manuel Gozzi
+	 * @date 26 nov 2019
+	 * @time 10:35:53
+	 * @param httpResponse
+	 * @return "true" if HTTP call exit code is accettable
+	 */
+	public static boolean responseStatusCodeIsValid(HttpResponse httpResponse) {
+		return httpResponse.getStatusLine().getStatusCode() >= 200 && httpResponse.getStatusLine().getStatusCode() <= 299;
 	}
 
 }

@@ -6,7 +6,6 @@ import javax.inject.Singleton;
 import org.quartz.Job;
 import org.quartz.JobDetail;
 import org.quartz.Scheduler;
-import org.quartz.SchedulerException;
 import org.quartz.spi.JobFactory;
 import org.quartz.spi.TriggerFiredBundle;
 
@@ -30,7 +29,7 @@ public class GuiceJobFactory implements JobFactory {
 	}
 
 	@Override
-	public Job newJob(TriggerFiredBundle bundle, Scheduler scheduler) throws SchedulerException {
+	public Job newJob(TriggerFiredBundle bundle, Scheduler scheduler) {
 		JobDetail jobDetail = bundle.getJobDetail();
 		log.info("Creating instance of Job {}", jobDetail.getJobClass().getTypeName());
 		Class<? extends Job> jobClass = jobDetail.getJobClass();

@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 public class OutboundJob implements Job {
 
 	@Inject
-	IOutboundService outboundService;
+	private IOutboundService outboundService;
 
 	@Override
 	public void execute(JobExecutionContext context) {

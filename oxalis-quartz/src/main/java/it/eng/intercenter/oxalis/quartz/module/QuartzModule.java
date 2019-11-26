@@ -12,7 +12,6 @@ import com.google.inject.Singleton;
 import com.google.inject.multibindings.Multibinder;
 
 import it.eng.intercenter.oxalis.quartz.job.OutboundJob;
-import it.eng.intercenter.oxalis.quartz.job.TestJob;
 import it.eng.intercenter.oxalis.quartz.scheduler.GuiceJobFactory;
 import it.eng.intercenter.oxalis.quartz.scheduler.Quartz;
 import it.eng.intercenter.oxalis.quartz.scheduler.QuartzSchedulerConsole;
@@ -42,9 +41,6 @@ public class QuartzModule extends AbstractModule {
 
 		log.info("Starting multiple bindings related to {}", Job.class.getTypeName());
 		Multibinder<Job> jobs = Multibinder.newSetBinder(binder(), Job.class);
-
-		log.info("Binding {} to {} in {}", Job.class.getTypeName(), TestJob.class.getTypeName(), Singleton.class.getTypeName());
-		jobs.addBinding().to(TestJob.class).in(Singleton.class);
 
 		log.info("Binding {} to {} in {}", Job.class.getTypeName(), OutboundJob.class.getTypeName(), Singleton.class.getTypeName());
 		jobs.addBinding().to(OutboundJob.class).in(Singleton.class);

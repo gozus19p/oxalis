@@ -45,16 +45,16 @@ public class OutboundService implements IOutboundService {
 	private static String restSendStatusUri;
 
 	@Inject
-	TransmissionRequestBuilder requestBuilder;
+	private TransmissionRequestBuilder requestBuilder;
 
 	@Inject
-	CertificateConfigManager certConfig;
+	private CertificateConfigManager certConfig;
 
 	@Inject
-	RestConfigManager restConfig;
+	private RestConfigManager restConfig;
 
 	@Inject
-	OxalisOutboundComponent outboundComponent;
+	private OxalisOutboundComponent outboundComponent;
 
 	@Override
 	public OxalisMdn sendFullPeppolMessageOnDemand(FullPeppolMessage fullPeppolMessage)
@@ -130,7 +130,7 @@ public class OutboundService implements IOutboundService {
 
 		HttpResponse get_response = HttpCaller.executeGet(certConfig, restDocumentGetterUri + urn);
 		if (HttpCaller.responseStatusCodeIsValid(get_response))
-			return HttpCaller.extractResponseContentAsString(get_response);
+			return HttpCaller.extractResponseContentAsUTF8String(get_response);
 
 		throw new IOException("Some problem occurs during HTTP GET document getter response handling. Status code is \""
 				+ get_response.getStatusLine().getStatusCode() + "\"");
@@ -178,7 +178,7 @@ public class OutboundService implements IOutboundService {
 		try {
 			HttpResponse get_response = HttpCaller.executeGet(certConfig, restUrnGetterUri);
 			if (HttpCaller.responseStatusCodeIsValid(get_response)) {
-				jsonUrnGetterResponse = HttpCaller.extractResponseContentAsString(get_response);
+				jsonUrnGetterResponse = HttpCaller.extractResponseContentAsUTF8String(get_response);
 			} else
 				throw new IOException("Some problem occurs during HTTP GET URN getter response handling. Status code is \""
 						+ get_response.getStatusLine().getStatusCode() + "\"");
@@ -231,7 +231,7 @@ public class OutboundService implements IOutboundService {
 	private void sendJsonMdnToNotier(OxalisMdn oxalisMdn) {
 		try {
 			HttpResponse resp = HttpCaller.executePost(certConfig, restSendStatusUri, "oxalisContent", GsonUtil.getPrettyPrintedInstance().toJson(oxalisMdn));
-			String respContent = HttpCaller.extractResponseContentAsString(resp);
+			String respContent = HttpCaller.extractResponseContentAsUTF8String(resp);
 			log.info("Received response contains {} characters", respContent.length());
 		} catch (UnsupportedOperationException | IOException e) {
 			log.error(MESSAGE_MDN_SEND_FAILED, oxalisMdn.getDocumentUrn(), e);

@@ -37,7 +37,7 @@ import lombok.extern.slf4j.Slf4j;
 public class QuartzSchedulerConsole {
 
 	@Inject
-	Quartz quartz;
+	private Quartz quartz;
 
 	/**
 	 * Constants.

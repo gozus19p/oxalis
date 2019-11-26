@@ -45,7 +45,7 @@ public class CertificateConfigManager extends AbstractConfigManager {
 	 * @throws IOException if something goes wrong with configuration loading
 	 */
 	@Inject
-	public CertificateConfigManager(@Named("home") Path oxalisHome) throws IOException {
+	public CertificateConfigManager(@Named("home") Path oxalisHome) {
 		super(CONFIGURATION_FILE_NAME, oxalisHome);
 	}
 

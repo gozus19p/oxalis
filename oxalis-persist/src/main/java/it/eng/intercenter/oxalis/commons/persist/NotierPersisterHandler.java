@@ -72,12 +72,21 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 	@Override
 	public void persist(InboundMetadata inboundMetadata, Path payloadPath) throws IOException {
 
-		// Check persist mode.
-		if (!persistOnNotierIsEnabled()) {
+		// Handle persist on NoTI-ER based on config value.
+		if (persistOnNotierIsEnabled()) {
+
+			// Persist on NoTI-ER.
+			persistOnNotier(inboundMetadata, payloadPath);
+		} else {
+
+			// Persist only in file system.
 			log.warn("NoTI-ER persist has been disabled, make sure that this is an intended behaviour!");
 			super.persist(inboundMetadata, payloadPath);
 		}
 
+	}
+
+	private void persistOnNotier(InboundMetadata inboundMetadata, Path payloadPath) throws IOException {
 		try {
 
 			// Retrieve HTTP POST URI to execute.
@@ -88,7 +97,7 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 
 			// Execute HTTP call.
 			HttpResponse response = post.execute();
-			String responseContent = HttpCaller.extractResponseContentAsString(response);
+			String responseContent = HttpCaller.extractResponseContentAsUTF8String(response);
 			log.info("Parsing response from NoTI-ER");
 			log.info("{}", responseContent);
 
@@ -114,7 +123,6 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 			sendEmailToSupportNotier(e, payloadPath);
 
 		}
-
 	}
 
 	/**

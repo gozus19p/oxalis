@@ -14,10 +14,12 @@ public class ConfigServletModule extends ServletModule {
 
 	@Override
 	protected void configureServlets() {
+
 		super.configureServlets();
 
 		log.info("Installing {}", QuartzModule.class.getTypeName());
 		install(new QuartzModule());
+
 	}
 
 }

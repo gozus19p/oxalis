@@ -6,12 +6,6 @@
 	version="1.8">
 	<schedule>
 		<job>
-			<name>Test</name>
-			<group>NOTIER</group>
-			<description>Test job that prints some logs in order to check scheduler status.</description>
-			<job-class>it.eng.intercenter.oxalis.quartz.job.TestJob</job-class>
-		</job>
-		<job>
 			<name>Outbound</name>
 			<group>NOTIER</group>
 			<description>Notier outbound job (retrieves documents to send on Peppol from Notier)</description>
@@ -21,15 +15,6 @@
 			<cron>
 				<name>minute_trriger</name>
 				<group>minute_trriger_group</group>
-				<job-name>Test</job-name>
-				<job-group>NOTIER</job-group>
-				<cron-expression>0 * * * * ?</cron-expression>
-			</cron>
-		</trigger>
-		<trigger>
-			<cron>
-				<name>minute_trriger2</name>
-				<group>minute_trriger_group2</group>
 				<job-name>Outbound</job-name>
 				<job-group>NOTIER</job-group>
 				<cron-expression>0 * * * * ?</cron-expression>

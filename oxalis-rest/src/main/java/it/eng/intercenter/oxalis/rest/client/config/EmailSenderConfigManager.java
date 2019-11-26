@@ -35,7 +35,7 @@ public class EmailSenderConfigManager extends AbstractConfigManager {
 	 * @throws IOException if something goes wrong with configuration loading
 	 */
 	@Inject
-	public EmailSenderConfigManager(@Named("home") Path oxalisHome) throws IOException {
+	public EmailSenderConfigManager(@Named("home") Path oxalisHome) {
 		super(CONFIGURATION_FILE_NAME, oxalisHome);
 	}
 

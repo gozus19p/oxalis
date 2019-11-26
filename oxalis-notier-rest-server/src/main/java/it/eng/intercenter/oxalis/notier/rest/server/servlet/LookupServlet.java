@@ -1,7 +1,5 @@
 package it.eng.intercenter.oxalis.notier.rest.server.servlet;
 
-import java.io.IOException;
-
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,7 +33,7 @@ public class LookupServlet extends HttpServlet {
 	IOxalisLookupNotierIntegrationService lookupService;
 
 	@Override
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) {
 		log.info("Received request in order to do perform a lookup");
 
 		// Retrieve participant identifier from HTTP request (mandatory).
