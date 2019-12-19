@@ -4,14 +4,14 @@ import it.eng.intercenter.oxalis.integration.api.NotierDTO;
 
 /**
  * Enumeratore che conserva le possibili risposte da Oxalis.
- * 
+ *
  * @author Manuel Gozzi
  * @date 25 feb 2019
  * @time 11:15:27
  */
 public enum OxalisStatusEnum implements NotierDTO {
 
-	OK("Success"), KO("Failed");
+	OK("Success"), KO("Failed"), INTERNAL("Internal flow");
 
 	private String message;
 
@@ -23,5 +23,5 @@ public enum OxalisStatusEnum implements NotierDTO {
 	public String toString() {
 		return message;
 	}
-	
+
 }

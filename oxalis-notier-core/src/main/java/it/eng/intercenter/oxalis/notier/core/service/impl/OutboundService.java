@@ -59,6 +59,7 @@ public class OutboundService implements IOutboundService {
 	@Override
 	public OxalisMdn sendFullPeppolMessageOnDemand(FullPeppolMessage fullPeppolMessage)
 			throws OxalisTransmissionException, OxalisContentException, CertificateException {
+
 		// Prepare Oxalis TransmissionMessage.
 		TransmissionMessage transmissionMessage = NotierTransmissionRequestBuilder.build(requestBuilder, fullPeppolMessage);
 
@@ -108,7 +109,11 @@ public class OutboundService implements IOutboundService {
 
 				// Build TransmissionMessage object and send it on Peppol network. The status of
 				// the transaction determines how the Oxalis MDN needs to be created.
-				oxalisMdn = buildTransmissionAndSendOnPeppol(index.getUrn(), peppolMessageJson);
+				oxalisMdn = index.isInternal()
+						? new OxalisMdn(index.getUrn(), OxalisStatusEnum.INTERNAL,
+								"This document has not been sent on PEPPOL Network because it follows internal NoTI-ER process")
+						: buildTransmissionAndSendOnPeppol(index.getUrn(), peppolMessageJson);
+
 				log.info(MESSAGE_OUTBOUND_SUCCESS_FOR_URN, index.getUrn());
 
 			} catch (Exception e) {
