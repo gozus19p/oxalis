@@ -94,5 +94,18 @@
 			<artifactId>javax.servlet-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+		<!-- Guice JUnit Test Runner -->
+		<dependency>
+			<groupId>net.lamberto.junit</groupId>
+			<artifactId>guice-junit-runner</artifactId>
+			<version>1.0.2</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 </project>

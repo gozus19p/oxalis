@@ -1,27 +1,22 @@
 package it.eng.intercenter.oxalis.notier.core.service.impl;
 
-import java.security.cert.CertificateEncodingException;
-import java.security.cert.X509Certificate;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.List;
-
 import com.google.inject.Inject;
-
 import it.eng.intercenter.oxalis.integration.dto.OxalisLookupEndpoint;
 import it.eng.intercenter.oxalis.integration.dto.OxalisLookupMetadata;
 import it.eng.intercenter.oxalis.integration.dto.OxalisLookupResponse;
 import it.eng.intercenter.oxalis.notier.core.service.api.IOxalisLookupNotierIntegrationService;
 import lombok.extern.slf4j.Slf4j;
 import no.difi.oxalis.api.lookup.LookupService;
-import no.difi.vefa.peppol.common.model.DocumentTypeIdentifier;
-import no.difi.vefa.peppol.common.model.Endpoint;
-import no.difi.vefa.peppol.common.model.ParticipantIdentifier;
-import no.difi.vefa.peppol.common.model.ProcessMetadata;
-import no.difi.vefa.peppol.common.model.ServiceMetadata;
+import no.difi.vefa.peppol.common.model.*;
 import no.difi.vefa.peppol.lookup.LookupClient;
 import no.difi.vefa.peppol.lookup.api.LookupException;
 import no.difi.vefa.peppol.security.lang.PeppolSecurityException;
+
+import java.security.cert.CertificateEncodingException;
+import java.security.cert.X509Certificate;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.List;
 
 /**
  * @author Manuel Gozzi
@@ -32,10 +27,10 @@ import no.difi.vefa.peppol.security.lang.PeppolSecurityException;
 public class OxalisLookupNotierIntegrationService implements IOxalisLookupNotierIntegrationService {
 
 	@Inject
-	LookupService lookupService;
+	private LookupService lookupService;
 
 	@Inject
-	LookupClient lookupClient;
+	private LookupClient lookupClient;
 
 	@Override
 	public OxalisLookupResponse executeLookup(String participantIdentifierString) {

@@ -1,4 +1,4 @@
-package it.eng.intercenter.oxalis.config;
+package it.eng.intercenter.oxalis.rest.client.config;
 
 import java.lang.reflect.Field;
 import java.nio.file.Paths;
