@@ -106,9 +106,9 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 
 			// Logging.
 			if (mdn.hasPositiveStatus()) {
-				log.info("Received document, succesfully sent on Notier");
+				log.info("Received document, succesfully sent on NoTI-ER");
 			} else {
-				log.warn("Received document, found some problems during sending process on Notier");
+				log.warn("Received document, found some problems during sending process on NoTI-ER");
 			}
 
 		} catch (Exception e) {
@@ -120,7 +120,11 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 			log.error("An error occurred during persist: {}", e.getMessage(), e);
 
 			// Send e-mail to Support NoTI-ER.
-			sendEmailToSupportNotier(e, payloadPath);
+			try {
+				sendEmailToSupportNotier(e, payloadPath);
+			} catch (Exception e2) {
+				log.error("Error while sending e-mail to NoTI-ER support. Cause: {}", e2.getMessage(), e2);
+			}
 
 		}
 	}
