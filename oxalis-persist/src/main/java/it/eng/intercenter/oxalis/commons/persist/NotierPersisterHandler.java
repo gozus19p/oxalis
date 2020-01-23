@@ -96,36 +96,50 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 			HttpNotierPost post = new HttpNotierPost(certificateConfig, uri, getParams(inboundMetadata, inboundMetadata.getHeader(), payloadPath));
 
 			// Execute HTTP call.
+			log.info("Parsing response from NoTI-ER...");
 			HttpResponse response = post.execute();
 			String responseContent = HttpCaller.extractResponseContentAsUTF8String(response);
-			log.info("Parsing response from NoTI-ER");
 			log.info("{}", responseContent);
 
 			// Parse response received from NoTI-ER.
 			OxalisMdn mdn = GsonUtil.getInstance().fromJson(responseContent, OxalisMdn.class);
 
-			// Logging.
-			if (mdn.hasPositiveStatus()) {
-				log.info("Received document, succesfully sent on NoTI-ER");
-			} else {
-				log.warn("Received document, found some problems during sending process on NoTI-ER");
-			}
+			handleReceivedMdn(payloadPath, mdn);
 
 		} catch (Exception e) {
 
 			// Persist on file system.
 			super.persist(inboundMetadata, payloadPath);
 
-			// Logging.
-			log.error("An error occurred during persist: {}", e.getMessage(), e);
+			notifyTechnicalSupport(payloadPath, e);
 
+		}
+	}
+
+	private void notifyTechnicalSupport(Path payloadPath, Exception e) {
+		// Logging.
+		log.error("An error occurred during persist: {}", e.getMessage(), e);
+
+		// Send e-mail to Support NoTI-ER.
+		try {
+			sendEmailToSupportNotier(e.getMessage(), payloadPath);
+		} catch (Exception e2) {
+			log.error("Error while sending e-mail to NoTI-ER support. Cause: {}", e2.getMessage(), e2);
+		}
+	}
+
+	private void handleReceivedMdn(Path payloadPath, OxalisMdn mdn) {
+		// Logging.
+		if (mdn.hasPositiveStatus()) {
+			log.info("Received document, succesfully sent on NoTI-ER");
+		} else {
+			log.warn("Received document, found some problems during sending process on NoTI-ER");
 			// Send e-mail to Support NoTI-ER.
 			try {
-				sendEmailToSupportNotier(e, payloadPath);
+				sendEmailToSupportNotier(mdn.getMessage(), payloadPath);
 			} catch (Exception e2) {
 				log.error("Error while sending e-mail to NoTI-ER support. Cause: {}", e2.getMessage(), e2);
 			}
-
 		}
 	}
 
@@ -160,7 +174,7 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 	 *                    trace
 	 * @param payloadPath is the path related to the payload
 	 */
-	private void sendEmailToSupportNotier(Exception e, Path payloadPath) {
+	private void sendEmailToSupportNotier(String errorMessage, Path payloadPath) {
 
 		// Retrieve username and password in order to access e-mail.
 		String username = emailConfig.readValue(EmailSenderConfigManager.CONFIG_KEY_S_USERNAME);
@@ -196,7 +210,7 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 		String config_hiddenCopy = emailConfig.readValue(EmailSenderConfigManager.CONFIG_KEY_EMAIL_HIDDEN_COPY);
 
 		// Build and send e-mail.
-		prepareAndSendEmail(e, config_receiver, session, config_knownCopy, config_hiddenCopy);
+		prepareAndSendEmail(errorMessage, config_receiver, session, config_knownCopy, config_hiddenCopy);
 
 	}
 
@@ -206,14 +220,14 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 	 * @author Manuel Gozzi
 	 * @date 25 nov 2019
 	 * @time 14:51:02
-	 * @param e                      is the exception related to the issue
+	 * @param errorMessage           is the error message related to the issue
 	 * @param config_receiver        is the receiver e-mail address
 	 * @param session                is the session to use for e-mail processing
 	 * @param config_carbonCopy      is the e-mail carbon copy receiver configured
 	 * @param config_blindCarbonCopy is the e-mail blind carbon copy receiver
 	 *                               configured
 	 */
-	private void prepareAndSendEmail(Exception e, String config_receiver, Session session, String config_carbonCopy, String config_blindCarbonCopy) {
+	private void prepareAndSendEmail(String errorMessage, String config_receiver, Session session, String config_carbonCopy, String config_blindCarbonCopy) {
 		Message email = new MimeMessage(session);
 
 		// Prepare e-mail details.
@@ -227,29 +241,13 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 
 		// Prepare subject and text.
 		String m_subject = "Oxalis: failed to persist order (" + DATE_FORMATTER.format(new Date()) + " " + TIME_FORMATTER.format(new Date() + ")");
-		String m_text = e.getMessage();
+		String m_text = errorMessage;
 
 		// Prepare sender.
 		String m_sender = emailConfig.readValue(EmailSenderConfigManager.CONFIG_KEY_EMAIL_SENDER);
 
 		try {
-			// Set sender.
-			email.setFrom(new InternetAddress(m_sender != null ? m_sender : "support.notier@regione.emilia-romagna.it"));
-
-			// Set receivers.
-			email.setRecipients(RecipientType.TO, getInternetAddresses(m_receivers));
-
-			// Set carbon copy.
-			if (m_knownCopies != null)
-				email.setRecipients(RecipientType.CC, getInternetAddresses(m_knownCopies));
-
-			// Set blind carbon copy.
-			if (m_hiddenCopies != null)
-				email.setRecipients(RecipientType.BCC, getInternetAddresses(m_hiddenCopies));
-
-			// Set text and subject.
-			email.setText(m_text);
-			email.setSubject(m_subject);
+			setUpEmailDetails(email, m_receivers, m_knownCopies, m_hiddenCopies, m_subject, m_text, m_sender);
 
 			// Send e-mail.
 			Transport.send(email);
@@ -258,6 +256,27 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 			// Logging.
 			log.error("E-mail has not been sent, cause: {}", me.getMessage(), me);
 		}
+	}
+
+	private void setUpEmailDetails(Message email, String[] m_receivers, String[] m_knownCopies, String[] m_hiddenCopies, String m_subject, String m_text,
+			String m_sender) throws MessagingException, AddressException {
+		// Set sender.
+		email.setFrom(new InternetAddress(m_sender != null ? m_sender : "support.notier@regione.emilia-romagna.it"));
+
+		// Set receivers.
+		email.setRecipients(RecipientType.TO, getInternetAddresses(m_receivers));
+
+		// Set carbon copy.
+		if (m_knownCopies != null)
+			email.setRecipients(RecipientType.CC, getInternetAddresses(m_knownCopies));
+
+		// Set blind carbon copy.
+		if (m_hiddenCopies != null)
+			email.setRecipients(RecipientType.BCC, getInternetAddresses(m_hiddenCopies));
+
+		// Set text and subject.
+		email.setText(m_text);
+		email.setSubject(m_subject);
 	}
 
 	/**
@@ -289,7 +308,7 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 	private BasicNameValuePair[] getParams(InboundMetadata inboundMetadata, Header header, Path payloadPath) throws IOException {
 		BasicNameValuePair[] arr = new BasicNameValuePair[3];
 
-		byte[] payload = getPayload(payloadPath);
+		byte[] payload = getPayloadFromPath(payloadPath);
 		ByteArrayInputStream bais = new ByteArrayInputStream(payload);
 
 		OxalisMessage oxalisMessage = new OxalisMessage(inboundMetadata.getTransmissionIdentifier().getIdentifier(),
@@ -314,7 +333,7 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 	 * @return the payload in byte[] format
 	 * @throws IOException if something goes wrong during I/O access
 	 */
-	private final byte[] getPayload(Path payloadPath) throws IOException {
+	private final byte[] getPayloadFromPath(Path payloadPath) throws IOException {
 		return Files.toByteArray(new File(payloadPath.normalize().toString()));
 	}
 

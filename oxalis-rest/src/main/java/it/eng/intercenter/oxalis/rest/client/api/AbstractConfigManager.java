@@ -66,7 +66,7 @@ public abstract class AbstractConfigManager {
 
 		try {
 			loadConfiguration();
-			log.info("{} configuration file related to the class {} has been successfully loaded", configurationFileName, this.getClass().getName());
+			log.info("{} configuration file related to the class {} has been successfully loaded", configurationFileName, this.getClass().getSimpleName());
 			configurationIsAvailable = true;
 			logKeyFields();
 		} catch (Exception e) {
@@ -126,12 +126,12 @@ public abstract class AbstractConfigManager {
 	 */
 	private void logKeyFields() {
 		List<Field> fields = getConfigurationKeyFields();
-		log.info("{} configuration file has {} keys", configurationFullPath, fields.size());
+		log.debug("{} configuration file has {} keys", configurationFullPath, fields.size());
 		fields.forEach(field -> {
 			try {
-				log.info("Key field name (Java): \"{}\"; Key: \"{}\";", field.getName(), field.get(this.getClass()));
+				log.debug("Key field name (Java): \"{}\"; Key: \"{}\";", field.getName(), field.get(this.getClass()));
 			} catch (IllegalArgumentException | IllegalAccessException e) {
-				log.error("An error occurs during logging. Root cause is: \"{}\"", e.getMessage(), e);
+				log.debug("An error occurs during logging. Root cause is: \"{}\"", e.getMessage(), e);
 			}
 		});
 	}
