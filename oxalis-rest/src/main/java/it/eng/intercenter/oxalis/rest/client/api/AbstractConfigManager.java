@@ -65,6 +65,7 @@ public abstract class AbstractConfigManager {
 		this.configurationFullPath = Paths.get(buildPath(configurationFileName));
 
 		try {
+			log.info("Loading process of \"{}\" configuration started", this.getClass().getSimpleName());
 			loadConfiguration();
 			log.info("{} configuration file related to the class {} has been successfully loaded", configurationFileName, this.getClass().getSimpleName());
 			configurationIsAvailable = true;
@@ -113,10 +114,10 @@ public abstract class AbstractConfigManager {
 			configuration = new Properties();
 			configuration.load(inputStream);
 		} catch (IOException e) {
-			log.error("An error occurs during {} configuration loading, root cause: {}", this.getClass().getSimpleName(), e.getMessage(), e);
+			log.error("An error occurs during {} class configuration loading. Root cause: {}", this.getClass().getSimpleName(), e.getMessage(), e);
 			throw e;
 		} catch (Exception e) {
-			log.error("An unhandled error occurs during {} configuration loading, root cause: {}", this.getClass().getSimpleName(), e.getMessage(), e);
+			log.error("An unhandled error occurs during {} configuration loading. Root cause: {}", this.getClass().getSimpleName(), e.getMessage(), e);
 			throw e;
 		}
 	}
@@ -129,6 +130,8 @@ public abstract class AbstractConfigManager {
 		log.debug("{} configuration file has {} keys", configurationFullPath, fields.size());
 		fields.forEach(field -> {
 			try {
+				String key = (String) field.get(this.getClass());
+				log.info("\"{}\" --> \"{}\"", key, configuration.getProperty(key));
 				log.debug("Key field name (Java): \"{}\"; Key: \"{}\";", field.getName(), field.get(this.getClass()));
 			} catch (IllegalArgumentException | IllegalAccessException e) {
 				log.debug("An error occurs during logging. Root cause is: \"{}\"", e.getMessage(), e);
