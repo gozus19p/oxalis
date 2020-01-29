@@ -199,7 +199,8 @@ public class OutboundService implements IOutboundService {
 
 	private void checkUrnListContent(UrnList urnListRetrievedFromNotier) throws Exception {
 		if (urnListRetrievedFromNotier != null) {
-			log.info("Found {} documents to send on Peppol", urnListRetrievedFromNotier.getUrnCount());
+			log.info("Found {} {} to send on Peppol", urnListRetrievedFromNotier.getUrnCount(),
+					(urnListRetrievedFromNotier.getUrnCount() == 1 ? "document" : "documents"));
 		} else {
 			log.error("Invalid response received from Notier: {}{}", new Object[] { System.getProperty("line.separator"), urnListRetrievedFromNotier });
 			throw new Exception("Invalid response received from Notier (UrnList)");
@@ -237,7 +238,7 @@ public class OutboundService implements IOutboundService {
 		try {
 			HttpResponse resp = HttpCaller.executePost(certConfig, restSendStatusUri, "oxalisContent", GsonUtil.getPrettyPrintedInstance().toJson(oxalisMdn));
 			String respContent = HttpCaller.extractResponseContentAsUTF8String(resp);
-			log.info("Received response contains {} characters", respContent.length());
+			log.debug("Received response contains {} characters", respContent.length());
 		} catch (UnsupportedOperationException | IOException e) {
 			log.error(MESSAGE_MDN_SEND_FAILED, oxalisMdn.getDocumentUrn(), e);
 		}

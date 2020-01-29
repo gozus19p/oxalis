@@ -19,10 +19,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class HttpNotierPost extends AbstractHttpNotierCall<HttpPost> {
 
-	public HttpNotierPost(CertificateConfigManager certConfig, String uri, BasicNameValuePair... params)
-			throws UnsupportedEncodingException {
+	public HttpNotierPost(CertificateConfigManager certConfig, String uri, BasicNameValuePair... params) throws UnsupportedEncodingException {
 		super(certConfig);
-		log.info("Creating new POST request with URI {} and {} params", uri, params.length);
+		log.debug("Creating new POST request with URI {} and {} params", uri, params.length);
 		httpRequest = new HttpPost(uri);
 		httpRequest.setEntity(new UrlEncodedFormEntity(Arrays.asList(params), StandardCharsets.UTF_8.toString()));
 		httpRequestType = NotierRestCallTypeEnum.POST;

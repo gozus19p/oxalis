@@ -1,22 +1,26 @@
 package it.eng.intercenter.oxalis.notier.core.service.impl;
 
-import com.google.inject.Inject;
-import it.eng.intercenter.oxalis.integration.dto.OxalisLookupEndpoint;
-import it.eng.intercenter.oxalis.integration.dto.OxalisLookupMetadata;
-import it.eng.intercenter.oxalis.integration.dto.OxalisLookupResponse;
-import it.eng.intercenter.oxalis.notier.core.service.api.IOxalisLookupNotierIntegrationService;
-import lombok.extern.slf4j.Slf4j;
-import no.difi.oxalis.api.lookup.LookupService;
-import no.difi.vefa.peppol.common.model.*;
-import no.difi.vefa.peppol.lookup.LookupClient;
-import no.difi.vefa.peppol.lookup.api.LookupException;
-import no.difi.vefa.peppol.security.lang.PeppolSecurityException;
-
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+
+import com.google.inject.Inject;
+
+import it.eng.intercenter.oxalis.integration.dto.OxalisLookupEndpoint;
+import it.eng.intercenter.oxalis.integration.dto.OxalisLookupMetadata;
+import it.eng.intercenter.oxalis.integration.dto.OxalisLookupResponse;
+import it.eng.intercenter.oxalis.notier.core.service.api.IOxalisLookupNotierIntegrationService;
+import lombok.extern.slf4j.Slf4j;
+import no.difi.vefa.peppol.common.model.DocumentTypeIdentifier;
+import no.difi.vefa.peppol.common.model.Endpoint;
+import no.difi.vefa.peppol.common.model.ParticipantIdentifier;
+import no.difi.vefa.peppol.common.model.ProcessMetadata;
+import no.difi.vefa.peppol.common.model.ServiceMetadata;
+import no.difi.vefa.peppol.lookup.LookupClient;
+import no.difi.vefa.peppol.lookup.api.LookupException;
+import no.difi.vefa.peppol.security.lang.PeppolSecurityException;
 
 /**
  * @author Manuel Gozzi
@@ -25,9 +29,6 @@ import java.util.List;
  */
 @Slf4j
 public class OxalisLookupNotierIntegrationService implements IOxalisLookupNotierIntegrationService {
-
-	@Inject
-	private LookupService lookupService;
 
 	@Inject
 	private LookupClient lookupClient;
@@ -75,7 +76,7 @@ public class OxalisLookupNotierIntegrationService implements IOxalisLookupNotier
 			try {
 
 				// Retrieve document type identifiers list from lookupClient.
-				log.info("Retrieve document type identifiers list");
+				log.debug("Retrieve document type identifiers list");
 				List<DocumentTypeIdentifier> documentTypeIdentifiers = lookupClient.getDocumentIdentifiers(participantIdentifier);
 
 				// If user gives me a document type identifier I have to search for it as single
@@ -96,7 +97,7 @@ public class OxalisLookupNotierIntegrationService implements IOxalisLookupNotier
 						// Set metadata
 						if (lookupMetadataList.isEmpty()) {
 							// Logging.
-							log.info("Metadata list is empty, no results found for participant identifier \"{}\" and document type identifier \"{}\"",
+							log.warn("Metadata list is empty, no results found for participant identifier \"{}\" and document type identifier \"{}\"",
 									participantIdentifierString, documentTypeIdentifierString);
 
 							// Setting outcome.

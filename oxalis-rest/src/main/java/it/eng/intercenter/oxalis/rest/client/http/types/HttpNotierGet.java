@@ -15,7 +15,7 @@ public class HttpNotierGet extends AbstractHttpNotierCall<HttpGet> {
 
 	public HttpNotierGet(CertificateConfigManager certConfig, String uri) {
 		super(certConfig);
-		log.info("Creating new GET request with URI {}", uri);
+		log.debug("Creating new GET request with URI {}", uri);
 		httpRequest = new HttpGet(uri);
 		httpRequestType = NotierRestCallTypeEnum.GET;
 	}

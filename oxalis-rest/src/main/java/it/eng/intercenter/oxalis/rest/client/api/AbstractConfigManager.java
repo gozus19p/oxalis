@@ -172,7 +172,7 @@ public abstract class AbstractConfigManager {
 			return null;
 		}
 		String value = configuration.getProperty(key);
-		log.info(ConfigManagerUtil.MESSAGE_READING_PROPERTY, key, hideValue ? "*****" : value);
+		log.debug(ConfigManagerUtil.MESSAGE_READING_PROPERTY, key, hideValue ? "*****" : value);
 		return value;
 	}
 

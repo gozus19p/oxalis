@@ -144,7 +144,7 @@ public abstract class AbstractHttpNotierCall<T extends HttpRequestBase> {
 	 * Method that loads details of the PKCS12 certificate.
 	 */
 	private void loadCertificate() {
-		log.info("Preparing certificate for Notier HTTP communications");
+		log.debug("Preparing certificate for Notier HTTP communications");
 
 		organizationCertificateP12FileName = certificateConfiguration.readValue(CertificateConfigManager.CONFIG_KEY_ORG_CERT_FILE_NAME);
 		organizationCertificateP12Password = certificateConfiguration.readValue(CertificateConfigManager.CONFIG_KEY_ORG_CERT_PASSWORD, true);
@@ -153,15 +153,15 @@ public abstract class AbstractHttpNotierCall<T extends HttpRequestBase> {
 
 		try (FileInputStream certificateInputStream = new FileInputStream(new File(certificatePath));) {
 
-			log.info("Parsing certificate details from file {}", organizationCertificateP12FileName);
+			log.debug("Parsing certificate details from file {}", organizationCertificateP12FileName);
 			organizationCertificateP12 = KeyStore.getInstance(ORGANIZATION_CERTIFICATE_ALGORITHM);
 
-			log.info("Accessing certificate using password");
+			log.debug("Accessing certificate using password");
 			organizationCertificateP12.load(certificateInputStream, organizationCertificateP12Password.toCharArray());
 
 			Enumeration<String> aliasesEnumeration = organizationCertificateP12.aliases();
 			String alias = aliasesEnumeration.nextElement();
-			log.info("Using alias: {}", alias);
+			log.debug("Using alias: {}", alias);
 
 			logOtherAliases(aliasesEnumeration);
 
@@ -170,7 +170,7 @@ public abstract class AbstractHttpNotierCall<T extends HttpRequestBase> {
 			distinguishedName = x509Certificate.getSubjectDN().getName();
 			serialNumber = x509Certificate.getSerialNumber().toString();
 
-			log.info("DN: {}; SN: {};", distinguishedName, serialNumber);
+			log.debug("DN: {}; SN: {};", distinguishedName, serialNumber);
 
 		} catch (KeyStoreException e) {
 			log.error("An error occurs while accessing KeyStore with root cause: {}", e.getMessage(), e);
@@ -198,7 +198,7 @@ public abstract class AbstractHttpNotierCall<T extends HttpRequestBase> {
 			while (aliasesEnumeration.hasMoreElements()) {
 				otherAliases.append(aliasesEnumeration.nextElement() + "; ");
 			}
-			log.info("Other aliases found: {}", otherAliases.toString().trim());
+			log.debug("Other aliases found: {}", otherAliases.toString().trim());
 		}
 	}
 
@@ -224,9 +224,9 @@ public abstract class AbstractHttpNotierCall<T extends HttpRequestBase> {
 	 * @param httpRequest is the HTTP request object
 	 */
 	private void addDistinguishedNameAndSerialNumberToRequestHeaders() {
-		log.info("Adding SN \"{}\" to HTTP request header params with key \"{}\"", serialNumber, CertificateConfigManager.HEADER_SN_KEY);
+		log.warn("Adding SN \"{}\" to HTTP request header params with key \"{}\"", serialNumber, CertificateConfigManager.HEADER_SN_KEY);
 		httpRequest.setHeader(CertificateConfigManager.HEADER_SN_KEY, serialNumber);
-		log.info("Adding DN \"{}\" to HTTP request header params with key \"{}\"", distinguishedName, CertificateConfigManager.HEADER_DN_KEY);
+		log.warn("Adding DN \"{}\" to HTTP request header params with key \"{}\"", distinguishedName, CertificateConfigManager.HEADER_DN_KEY);
 		httpRequest.setHeader(CertificateConfigManager.HEADER_DN_KEY, distinguishedName);
 	}
 
