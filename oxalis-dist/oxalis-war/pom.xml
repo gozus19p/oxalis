@@ -33,7 +33,7 @@
 		<dependency>
 			<groupId>no.difi.oxalis</groupId>
 			<artifactId>oxalis-as4</artifactId>
-			<version>4.1.0-SNAPSHOT</version>
+			<version>4.1.1</version>
 		</dependency>
 
 		<!-- Quartz -->
