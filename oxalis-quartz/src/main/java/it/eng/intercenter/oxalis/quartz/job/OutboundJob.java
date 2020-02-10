@@ -22,12 +22,13 @@ public class OutboundJob implements Job {
 
 	@Override
 	public void execute(JobExecutionContext context) {
-		log.info("Executing {}", this.getClass().getTypeName());
+		log.info(">>> START EXECUTION OF JOB \"{}\"", this.getClass().getSimpleName());
 		try {
 			outboundService.processOutboundFlow();
 		} catch (Exception e) {
 			log.error("An error occurred during Outbound flow processing: {}", e.getMessage(), e);
 		}
+		log.info("<<< END EXECUTION OF JOB \"{}\"", this.getClass().getSimpleName());
 	}
 
 }

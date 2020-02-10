@@ -19,7 +19,7 @@
 				<group>minute_trriger_group</group>
 				<job-name>OUTBOUND_FLOW</job-name>
 				<job-group>OXALIS</job-group>
-				<cron-expression>0 * * * * ?</cron-expression>
+				<cron-expression>0 0/6 * * * ? *</cron-expression>
 			</cron>
 		</trigger>
 	</schedule>
