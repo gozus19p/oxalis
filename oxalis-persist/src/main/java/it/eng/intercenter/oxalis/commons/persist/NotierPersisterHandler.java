@@ -258,7 +258,7 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
                 : null;
 
         // Prepare subject and text.
-        String m_subject = "Oxalis: failed to persist order (" + DATE_FORMATTER.format(new Date()) + " " + TIME_FORMATTER.format(new Date() + ")");
+        String m_subject = "Oxalis: failed to persist order (" + DATE_FORMATTER.format(new Date()) + " " + TIME_FORMATTER.format(new Date()) + ")";
         String m_text = errorMessage;
 
         // Prepare sender.
