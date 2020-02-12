@@ -17,6 +17,7 @@ import com.google.inject.Inject;
 import it.eng.intercenter.oxalis.integration.dto.FullPeppolMessage;
 import it.eng.intercenter.oxalis.integration.dto.NotierDocumentIndex;
 import it.eng.intercenter.oxalis.integration.dto.OxalisMdn;
+import it.eng.intercenter.oxalis.integration.dto.TransactionDetails;
 import it.eng.intercenter.oxalis.integration.dto.UrnList;
 import it.eng.intercenter.oxalis.integration.dto.enumerator.OxalisStatusEnum;
 import it.eng.intercenter.oxalis.integration.util.GsonUtil;
@@ -71,7 +72,7 @@ public class OutboundService implements IOutboundService {
 		log.info("Received the following receipt: {}{}", new Object[] { System.getProperty("line.separator"), receiptPayloadStringified });
 
 		// Build "OK" MDN for NoTI-ER.
-		return buildMdn(null, OxalisStatusEnum.OK, "Receipt: " + receiptPayloadStringified);
+		return buildMdn(null, OxalisStatusEnum.OK, "Receipt: " + receiptPayloadStringified, response);
 	}
 
 	@Override
@@ -164,7 +165,7 @@ public class OutboundService implements IOutboundService {
 		/**
 		 * Fase 3. Creo una notifica MDN Oxalis sulla base dell'esito dell'invio.
 		 */
-		return buildMdn(urn, OxalisStatusEnum.OK, null);
+		return buildMdn(urn, OxalisStatusEnum.OK, null, response);
 	}
 
 	/**
@@ -215,17 +216,24 @@ public class OutboundService implements IOutboundService {
 	 * @param errorMessage is the error message thrown by exceptions
 	 * @return the mdn
 	 */
-	private OxalisMdn buildMdn(String urn, OxalisStatusEnum status, String errorMessage) {
-		switch (status) {
-		case OK:
-			log.info(MESSAGE_OUTBOUND_SUCCESS_FOR_URN, urn);
-			return new OxalisMdn(urn, status, "Document has been sent successfully");
-		case KO:
-			log.info(MESSAGE_OUTBOUND_FAILED_FOR_URN, urn);
-			return new OxalisMdn(urn, status, errorMessage);
-		default:
-			return new OxalisMdn(urn, OxalisStatusEnum.KO, "Internal server error");
+	private OxalisMdn buildMdn(String urn, OxalisStatusEnum status, String errorMessage, TransmissionResponse response) {
+
+		OxalisMdn mdn = new OxalisMdn(urn, status, OxalisStatusEnum.OK.equals(status) ? "Document has been sent successfully" : errorMessage);
+
+		try {
+			TransactionDetails details = new TransactionDetails();
+			details.setEndpointUri(response.getEndpoint().getAddress().normalize().toString());
+			details.setTimestamp(response.getTimestamp());
+			details.setTransmissionIdentifier(response.getTransmissionIdentifier().toString());
+			details.setTransportProfile(response.getTransportProtocol().getIdentifier());
+			// details.setReceipt(response.getReceipts());
+
+			mdn.setTransactionDetails(details);
+		} catch (Exception e) {
+			log.error("Problems during transaction details definition: {}", e.getMessage(), e);
 		}
+
+		return mdn;
 	}
 
 	/**
