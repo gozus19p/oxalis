@@ -56,6 +56,9 @@
 		<!-- Profile for complete Oxalis build -->
 		<profile>
 			<id>complete-build</id>
+			<properties>
+				<war.name.profile>complete</war.name.profile>
+			</properties>
 			<dependencies>
 				<!-- Oxalis AS4 -->
 				<dependency>
@@ -102,6 +105,9 @@
 		<!-- Profile for Oxalis build without AS4 -->
 		<profile>
 			<id>complete-no-as4</id>
+			<properties>
+				<war.name.profile>complete-no-as4</war.name.profile>
+			</properties>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
@@ -145,6 +151,9 @@
 		<!-- Profile for mixed outbound configuration -->
 		<profile>
 			<id>outbound-only</id>
+			<properties>
+				<war.name.profile>outbound</war.name.profile>
+			</properties>
 			<dependencies>
 
 				<!-- Oxalis AS4 -->
@@ -180,6 +189,9 @@
 		<!-- Profile for AS2 inbound configuration -->
 		<profile>
 			<id>inbound-as2</id>
+			<properties>
+				<war.name.profile>inbound-as2</war.name.profile>
+			</properties>
 			<dependencies>
 
 				<!-- NoTI-ER Persister -->
@@ -213,6 +225,9 @@
 		<!-- Profile for AS4 inbound configuration -->
 		<profile>
 			<id>inbound-as4</id>
+			<properties>
+				<war.name.profile>inbound-as4</war.name.profile>
+			</properties>
 			<dependencies>
 
 				<!-- NoTI-ER Persister -->
@@ -238,7 +253,7 @@
 				<dependency>
 					<groupId>no.difi.oxalis</groupId>
 					<artifactId>oxalis-as4</artifactId>
-					<version>${oxalis.as4.version}</version>
+					<version>${oxalis.difi.as4.version}</version>
 				</dependency>
 
 				<!-- Oxalis -->
@@ -267,7 +282,7 @@
 				<version>2.1.1</version>
 				<configuration>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
-					<warName>oxalis-${project.version}</warName>
+					<warName>oxalis-${project.version}-${war.name.profile}</warName>
 				</configuration>
 			</plugin>
 			<plugin>
