@@ -52,13 +52,13 @@ public abstract class AbstractHttpNotierCall<T extends HttpRequestBase> {
 	/**
 	 * Values of p12 certificate.
 	 */
-	private static boolean isProductionMode;
-	private static String organizationCertificateP12FileName;
-	private static String distinguishedName;
-	private static String organizationCertificateP12Password;
-	private static String serialNumber;
-	private static KeyStore organizationCertificateP12;
-	private static X509Certificate x509Certificate;
+	private boolean isProductionMode;
+	private String organizationCertificateP12FileName;
+	private String distinguishedName;
+	private String organizationCertificateP12Password;
+	private String serialNumber;
+	private KeyStore organizationCertificateP12;
+	private X509Certificate x509Certificate;
 
 	private static final String ORGANIZATION_CERTIFICATE_ALGORITHM = "PKCS12";
 
@@ -163,8 +163,6 @@ public abstract class AbstractHttpNotierCall<T extends HttpRequestBase> {
 			String alias = aliasesEnumeration.nextElement();
 			log.debug("Using alias: {}", alias);
 
-			logOtherAliases(aliasesEnumeration);
-
 			x509Certificate = (X509Certificate) organizationCertificateP12.getCertificate(alias);
 
 			distinguishedName = x509Certificate.getSubjectDN().getName();
@@ -184,21 +182,6 @@ public abstract class AbstractHttpNotierCall<T extends HttpRequestBase> {
 		} catch (IOException e) {
 			log.error("An error occurs during I/O operations with root cause: {}", e.getMessage(), e);
 			httpClientIsAvailable = false;
-		}
-	}
-
-	/**
-	 * If certificate has more aliases than one, then this method logs the others.
-	 *
-	 * @param aliasesEnumeration is the Enumeration that contains other aliases
-	 */
-	private static void logOtherAliases(Enumeration<String> aliasesEnumeration) {
-		if (aliasesEnumeration.hasMoreElements()) {
-			StringBuilder otherAliases = new StringBuilder();
-			while (aliasesEnumeration.hasMoreElements()) {
-				otherAliases.append(aliasesEnumeration.nextElement() + "; ");
-			}
-			log.debug("Other aliases found: {}", otherAliases.toString().trim());
 		}
 	}
 
