@@ -1,5 +1,6 @@
 package it.eng.intercenter.oxalis.quartz.job;
 
+import org.quartz.DisallowConcurrentExecution;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 
@@ -15,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author Manuel Gozzi
  */
 @Slf4j
+@DisallowConcurrentExecution
 public class OutboundJob implements Job {
 
 	@Inject
