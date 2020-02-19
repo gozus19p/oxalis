@@ -10,7 +10,7 @@
 			<group>OXALIS</group>
 			<description>Retrieves documents to send on PEPPOL from NoTI-ER using REST</description>
 			<job-class>it.eng.intercenter.oxalis.quartz.job.OutboundJob</job-class>
-			<durability>true</durability>
+			<durability>false</durability>
 			<recover>false</recover>
 		</job>
 		<trigger>
