@@ -15,7 +15,7 @@ public class FullPeppolMessage extends PeppolMessage {
 
 	public FullPeppolMessage(final String endpointAPUri, final String endpointAPCertificate, final String transportProfile, final byte[] payload,
 			final PeppolDetails header) {
-		super(payload, header, true);
+		super(payload, header, false);
 		this.endpointAPUri = endpointAPUri;
 		this.endpointAPCertificate = endpointAPCertificate;
 		this.transportProfile = transportProfile;
