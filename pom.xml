@@ -52,6 +52,11 @@
 		<module>oxalis-notier-rest-server</module>
 		<module>oxalis-notier-core</module>
 		<module>oxalis-persist</module>
+		
+		<!-- Oxalis -->
+		<module>oxalis-inbound</module>
+		<module>oxalis-outbound</module>
+		<module>oxalis-commons</module>
 	</modules>
 
 	<dependencies>
@@ -108,7 +113,24 @@
 				<groupId>it.eng.intercenter</groupId>
 				<artifactId>oxalis-persist</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
-			</dependency> 
+			</dependency>
+			
+			<dependency>
+				<groupId>no.difi.oxalis</groupId>
+				<artifactId>oxalis-commons</artifactId>
+				<version>4.1.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>no.difi.oxalis</groupId>
+				<artifactId>oxalis-inbound</artifactId>
+				<version>4.1.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>no.difi.oxalis</groupId>
+				<artifactId>oxalis-outbound</artifactId>
+				<version>4.1.1-SNAPSHOT</version>
+			</dependency>
+			
 			<!-- Logging -->
 			<dependency>
 				<groupId>org.slf4j</groupId>

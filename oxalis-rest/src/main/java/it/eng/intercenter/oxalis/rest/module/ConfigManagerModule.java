@@ -7,6 +7,7 @@ import com.google.inject.multibindings.Multibinder;
 import it.eng.intercenter.oxalis.rest.client.api.AbstractConfigManager;
 import it.eng.intercenter.oxalis.rest.client.config.CertificateConfigManager;
 import it.eng.intercenter.oxalis.rest.client.config.EmailSenderConfigManager;
+import it.eng.intercenter.oxalis.rest.client.config.QuartzConfigManager;
 import it.eng.intercenter.oxalis.rest.client.config.RestConfigManager;
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,6 +29,9 @@ public class ConfigManagerModule extends AbstractModule {
 		log.info("Binding {} to {} in {}", AbstractConfigManager.class.getTypeName(), EmailSenderConfigManager.class.getTypeName(),
 				Singleton.class.getTypeName());
 		configMultibinder.addBinding().to(EmailSenderConfigManager.class).in(Singleton.class);
+
+		log.info("Binding {} to {} in {}", AbstractConfigManager.class.getTypeName(), QuartzConfigManager.class.getTypeName(), Singleton.class.getTypeName());
+		configMultibinder.addBinding().to(QuartzConfigManager.class).in(Singleton.class);
 
 		log.info("Binding {} to {} in {}", AbstractConfigManager.class.getTypeName(), RestConfigManager.class.getTypeName(), Singleton.class.getTypeName());
 		configMultibinder.addBinding().to(RestConfigManager.class).in(Singleton.class);
