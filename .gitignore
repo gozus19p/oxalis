@@ -24,9 +24,9 @@ dev.make
 
 #Oxalis standard modules
 /oxalis-api
-/oxalis-commons
+#/oxalis-commons
 /oxalis-extension
-/oxalis-inbound
+#/oxalis-inbound
 /oxalis-legacy
-/oxalis-outbound
+#/oxalis-outbound
 /oxalis-test
