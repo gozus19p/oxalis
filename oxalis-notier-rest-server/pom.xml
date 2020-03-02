@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>it.eng.intercenter</groupId>
 		<artifactId>oxalis</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>1.0.0</version>
 	</parent>
 	<artifactId>oxalis-notier-rest-server</artifactId>
 	
@@ -39,7 +39,7 @@
 		<dependency>
 			<groupId>it.eng.intercenter</groupId>
 			<artifactId>oxalis-notier-integration</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>1.0.0</version>
 		</dependency>
 		<!-- Oxalis - Rest -->
 		<dependency>
@@ -61,13 +61,13 @@
 		<dependency>
 			<groupId>no.difi.oxalis</groupId>
 			<artifactId>oxalis-outbound</artifactId>
-			<version>4.1.1-SNAPSHOT</version>
+			<version>4.1.1</version>
 		</dependency>
 		<!-- Oxalis Commons -->
 		<dependency>
 			<groupId>no.difi.oxalis</groupId>
 			<artifactId>oxalis-commons</artifactId>
-			<version>4.1.1-SNAPSHOT</version>
+			<version>4.1.1</version>
 		</dependency>
 		<!-- Guice -->
 		<dependency>

@@ -44,7 +44,7 @@ public class LookupModule extends OxalisModule {
 
     @Override
     protected void configure() {
-        // bindTyped(LookupService.class, CachedLookupService.class);
+        bindTyped(LookupService.class, CachedLookupService.class);
         bindTyped(LookupService.class, DefaultLookupService.class);
 
         bind(MetadataFetcher.class)

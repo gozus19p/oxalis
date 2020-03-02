@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- ~ Copyright 2010-2018 Norwegian Agency for Public Management and eGovernment 
-	(Difi) ~ ~ Licensed under the EUPL, Version 1.1 or – as soon they ~ will 
-	be approved by the European Commission - subsequent ~ versions of the EUPL 
-	(the "Licence"); ~ ~ You may not use this work except in compliance with 
-	the Licence. ~ ~ You may obtain a copy of the Licence at: ~ ~ https://joinup.ec.europa.eu/community/eupl/og_page/eupl 
-	~ ~ Unless required by applicable law or agreed to in ~ writing, software 
-	distributed under the Licence is ~ distributed on an "AS IS" basis, ~ WITHOUT 
-	WARRANTIES OR CONDITIONS OF ANY KIND, either ~ express or implied. ~ See 
-	the Licence for the specific language governing ~ permissions and limitations 
+<!-- ~ Copyright 2010-2018 Norwegian Agency for Public Management and eGovernment
+	(Difi) ~ ~ Licensed under the EUPL, Version 1.1 or – as soon they ~ will
+	be approved by the European Commission - subsequent ~ versions of the EUPL
+	(the "Licence"); ~ ~ You may not use this work except in compliance with
+	the Licence. ~ ~ You may obtain a copy of the Licence at: ~ ~ https://joinup.ec.europa.eu/community/eupl/og_page/eupl
+	~ ~ Unless required by applicable law or agreed to in ~ writing, software
+	distributed under the Licence is ~ distributed on an "AS IS" basis, ~ WITHOUT
+	WARRANTIES OR CONDITIONS OF ANY KIND, either ~ express or implied. ~ See
+	the Licence for the specific language governing ~ permissions and limitations
 	under the Licence. -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -18,12 +18,12 @@
 
 	<groupId>it.eng.intercenter</groupId>
 	<artifactId>oxalis</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<packaging>pom</packaging>
 
 	<name>Oxalis :: Parent</name>
 	<description>The binary plug-and-play implementation of the PEPPOL sample extension.</description>
-	
+
 	<properties>
         <java.version>1.8</java.version>
         <java.encoding>UTF-8</java.encoding>
@@ -52,7 +52,7 @@
 		<module>oxalis-notier-rest-server</module>
 		<module>oxalis-notier-core</module>
 		<module>oxalis-persist</module>
-		
+
 		<!-- Oxalis -->
 		<module>oxalis-inbound</module>
 		<module>oxalis-outbound</module>
@@ -85,52 +85,52 @@
 			<dependency>
 				<groupId>it.eng.intercenter</groupId>
 				<artifactId>oxalis-quartz</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
+				<version>1.0.0</version>
 			</dependency>
 
 			<!-- Notier - Core -->
 			<dependency>
 				<groupId>it.eng.intercenter</groupId>
 				<artifactId>oxalis-notier-core</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
+				<version>1.0.0</version>
 			</dependency>
 
 			<!-- Rest Client -->
 			<dependency>
 				<groupId>it.eng.intercenter</groupId>
 				<artifactId>oxalis-rest</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
+				<version>1.0.0</version>
 			</dependency>
 
 			<!-- Rest Server -->
 			<dependency>
 				<groupId>it.eng.intercenter</groupId>
 				<artifactId>oxalis-notier-rest-server</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
+				<version>1.0.0</version>
 			</dependency>
 
-			<dependency> 
+			<dependency>
 				<groupId>it.eng.intercenter</groupId>
 				<artifactId>oxalis-persist</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
+				<version>1.0.0</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>no.difi.oxalis</groupId>
 				<artifactId>oxalis-commons</artifactId>
-				<version>4.1.1-SNAPSHOT</version>
+				<version>4.1.1</version>
 			</dependency>
 			<dependency>
 				<groupId>no.difi.oxalis</groupId>
 				<artifactId>oxalis-inbound</artifactId>
-				<version>4.1.1-SNAPSHOT</version>
+				<version>4.1.1</version>
 			</dependency>
 			<dependency>
 				<groupId>no.difi.oxalis</groupId>
 				<artifactId>oxalis-outbound</artifactId>
-				<version>4.1.1-SNAPSHOT</version>
+				<version>4.1.1</version>
 			</dependency>
-			
+
 			<!-- Logging -->
 			<dependency>
 				<groupId>org.slf4j</groupId>
@@ -183,7 +183,7 @@
 				<groupId>com.google.inject.extensions</groupId>
 				<artifactId>guice-servlet</artifactId>
 				<version>${google.guice.version}</version>
-			</dependency> 
+			</dependency>
 
 			<dependency>
 				<groupId>javax.inject</groupId>
@@ -255,7 +255,7 @@
 				<groupId>javax.servlet</groupId>
 				<artifactId>javax.servlet-api</artifactId>
 				<version>4.0.1</version>
-			</dependency> 
+			</dependency>
 
 			<dependency>
 				<groupId>javax.mail</groupId>
@@ -272,7 +272,7 @@
 				<groupId>javax.mail</groupId>
 				<artifactId>javax.mail-api</artifactId>
 				<version>1.5.6</version>
-			</dependency> 
+			</dependency>
 
 			<!-- Apache commons -->
 			<dependency>
@@ -518,5 +518,5 @@
 			</plugin>
 		</plugins>
 	</build>
-	
+
 </project>

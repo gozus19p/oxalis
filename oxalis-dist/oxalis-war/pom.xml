@@ -5,8 +5,7 @@
 	<parent>
 		<artifactId>oxalis</artifactId>
 		<groupId>no.difi.oxalis</groupId>
-		<version>4.1.1-SNAPSHOT</version>
-		<relativePath>../../pom.xml</relativePath>
+		<version>4.1.1</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 
@@ -18,12 +17,12 @@
 	<url>https://github.com/difi/oxalis</url>
 
 	<properties>
-		<oxalis.difi.as4.version>4.1.1</oxalis.difi.as4.version>
-		<oxalis.eng.core.version>0.0.1-SNAPSHOT</oxalis.eng.core.version>
-		<oxalis.eng.rest-client.version>0.0.1-SNAPSHOT</oxalis.eng.rest-client.version>
-		<oxalis.eng.rest-server.version>0.0.1-SNAPSHOT</oxalis.eng.rest-server.version>
-		<oxalis.eng.quartz.version>0.0.1-SNAPSHOT</oxalis.eng.quartz.version>
-		<oxalis.eng.persist.version>0.0.1-SNAPSHOT</oxalis.eng.persist.version>
+		<oxalis.difi.as4.version>4.1.7</oxalis.difi.as4.version>
+		<oxalis.eng.core.version>1.0.0</oxalis.eng.core.version>
+		<oxalis.eng.rest-client.version>1.0.0</oxalis.eng.rest-client.version>
+		<oxalis.eng.rest-server.version>1.0.0</oxalis.eng.rest-server.version>
+		<oxalis.eng.quartz.version>1.0.0</oxalis.eng.quartz.version>
+		<oxalis.eng.persist.version>1.0.0</oxalis.eng.persist.version>
 	</properties>
 
 	<!-- Common dependencies -->
