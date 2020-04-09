@@ -101,7 +101,7 @@ public abstract class AbstractHttpNotierCall<T extends HttpRequestBase> {
 		}
 		if (!isProductionMode) {
 			addDistinguishedNameAndSerialNumberToRequestHeaders();
-			log.warn(MESSAGE_PRODUCTION_MODE_DISABLED);
+			// log.warn(MESSAGE_PRODUCTION_MODE_DISABLED);
 		}
 		log.info(MESSAGE_USING_REST_URI, new Object[] { httpRequestType.name(), httpRequest.getURI().normalize().toString() });
 		HttpResponse response = httpClient.execute(httpRequest);
@@ -203,8 +203,6 @@ public abstract class AbstractHttpNotierCall<T extends HttpRequestBase> {
 	/**
 	 * This method adds headers to HttpRequest method (this handles both GET and
 	 * POST methods).
-	 *
-	 * @param httpRequest is the HTTP request object
 	 */
 	private void addDistinguishedNameAndSerialNumberToRequestHeaders() {
 		log.warn("Adding SN \"{}\" to HTTP request header params with key \"{}\"", serialNumber, CertificateConfigManager.HEADER_SN_KEY);

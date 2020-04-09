@@ -6,6 +6,7 @@ import static it.eng.intercenter.oxalis.rest.client.util.ConfigManagerUtil.MESSA
 import static it.eng.intercenter.oxalis.rest.client.util.ConfigManagerUtil.MESSAGE_STARTING_TO_PROCESS_URN;
 import static it.eng.intercenter.oxalis.rest.client.util.ConfigManagerUtil.MESSAGE_WRONG_CONFIGURATION_SETUP;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.cert.CertificateException;
@@ -165,7 +166,13 @@ public class OutboundService implements IOutboundService {
 		/**
 		 * Fase 3. Creo una notifica MDN Oxalis sulla base dell'esito dell'invio.
 		 */
-		return buildMdn(urn, OxalisStatusEnum.OK, null, response);
+		OxalisMdn mdn = buildMdn(urn, OxalisStatusEnum.OK, null, response);
+		try {
+			mdn.getTransactionDetails().setReceipt(new ByteArrayInputStream(receiptPayloadStringified.getBytes()));
+		} catch (Exception e) {
+			log.warn("A problem occurred: {}", e.getMessage(), e);
+		}
+		return mdn;
 	}
 
 	/**
