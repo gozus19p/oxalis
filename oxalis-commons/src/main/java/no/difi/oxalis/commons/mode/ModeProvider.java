@@ -35,6 +35,8 @@ import io.opentracing.Tracer;
 import io.opentracing.contrib.spanmanager.DefaultSpanManager;
 import net.klakegg.pkix.ocsp.api.OcspFetcher;
 import no.difi.certvalidator.api.CrlFetcher;
+import no.difi.oxalis.api.settings.DefaultValue;
+import no.difi.oxalis.api.settings.Path;
 import no.difi.vefa.peppol.mode.Mode;
 
 /**
@@ -42,9 +44,6 @@ import no.difi.vefa.peppol.mode.Mode;
  * @since 4.0.4
  */
 public class ModeProvider implements Provider<Mode> {
-
-//	@Inject
-//	private X509Certificate certificate;
 
 	@Inject
 	@Named("reference")
@@ -59,6 +58,10 @@ public class ModeProvider implements Provider<Mode> {
 	@Inject
 	private Tracer tracer;
 
+	@Path("oxalis.operation.mode")
+	@DefaultValue("TEST")
+	private String operationMode;
+
 	@Override
 	public Mode get() {
 		Span span = tracer.buildSpan("Mode detection").start();
@@ -68,13 +71,8 @@ public class ModeProvider implements Provider<Mode> {
 			objectStorage.put("ocsp_fetcher", ocspFetcher);
 			objectStorage.put("crlFetcher", crlFetcher);
 
-			return Mode.of(config.getString("oxalis.op.mode"));
-//            return ModeDetector.detect(certificate, config, objectStorage);
-		}
-//        catch (PeppolLoadingException e) {
-//            throw new OxalisLoadingException("Unable to detect mode.", e);
-//        }
-		finally {
+			return Mode.of(operationMode);
+		} finally {
 			span.finish();
 		}
 	}
