@@ -1,13 +1,6 @@
 package it.eng.intercenter.oxalis.notier.core.service.impl;
 
-import java.security.cert.CertificateEncodingException;
-import java.security.cert.X509Certificate;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.List;
-
 import com.google.inject.Inject;
-
 import it.eng.intercenter.oxalis.integration.dto.OxalisLookupEndpoint;
 import it.eng.intercenter.oxalis.integration.dto.OxalisLookupMetadata;
 import it.eng.intercenter.oxalis.integration.dto.OxalisLookupResponse;
@@ -17,6 +10,12 @@ import no.difi.vefa.peppol.common.model.*;
 import no.difi.vefa.peppol.lookup.LookupClient;
 import no.difi.vefa.peppol.lookup.api.LookupException;
 import no.difi.vefa.peppol.security.lang.PeppolSecurityException;
+
+import java.security.cert.CertificateEncodingException;
+import java.security.cert.X509Certificate;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.List;
 
 /**
  * @author Manuel Gozzi
@@ -60,19 +59,19 @@ public class OxalisLookupNotierIntegrationService implements IOxalisLookupNotier
 
             // Parse String into PEPPOL object.
             ParticipantIdentifier participantIdentifier = ParticipantIdentifier.of(participantIdentifierString);
-            log.debug("Parsed participant identifier String into {}", ParticipantIdentifier.class.getTypeName());
+            log.info("Parsed participant identifier String into {}", ParticipantIdentifier.class.getTypeName());
 
             DocumentTypeIdentifier givenDocumentTypeIdentifier = (documentTypeIdentifierString != null && !documentTypeIdentifierString.trim().isEmpty())
                     ? DocumentTypeIdentifier.of(documentTypeIdentifierString)
                     : null;
             if (givenDocumentTypeIdentifier != null) {
-                log.debug("Parsed document type identifier String into {}", DocumentTypeIdentifier.class.getTypeName());
+                log.info("Parsed document type identifier String into {}", DocumentTypeIdentifier.class.getTypeName());
             }
 
             try {
 
                 // Retrieve document type identifiers list from lookupClient.
-                log.debug("Retrieve document type identifiers list");
+                log.info("Retrieve document type identifiers list");
                 List<DocumentTypeIdentifier> documentTypeIdentifiers = lookupClient.getDocumentIdentifiers(participantIdentifier);
 
                 // If user gives me a document type identifier I have to search for it as single
@@ -90,7 +89,7 @@ public class OxalisLookupNotierIntegrationService implements IOxalisLookupNotier
                     for (DocumentTypeIdentifier documentTypeIdentifier : documentTypeIdentifiers) {
 
                         // Logging.
-                        log.debug("Get service metadata of participant identifier \"{}\" and document type identifier \"{}\"", participantIdentifier.toString(),
+                        log.info("Get service metadata of participant identifier \"{}\" and document type identifier \"{}\"", participantIdentifier.toString(),
                                 documentTypeIdentifier.toString());
 
                         // Retrieve service metadata for given participant identifier and document type
@@ -112,7 +111,7 @@ public class OxalisLookupNotierIntegrationService implements IOxalisLookupNotier
             } catch (LookupException | PeppolSecurityException e) {
 
                 // Set error in response DTO.
-                log.error("Something went wrong during lookup process. Cause: {}", e.getMessage(), e);
+                log.error("Something went wrong during lookup execution. Cause: {}", e.getMessage(), e);
                 lookupResponse.setMessage(e.getMessage());
                 lookupResponse.setOutcome(false);
 
@@ -247,9 +246,9 @@ public class OxalisLookupNotierIntegrationService implements IOxalisLookupNotier
         // Set certificate.
         if (endpoint.getCertificate() != null) {
             try {
-                log.debug("Encoding X509Certificate into PEM String");
+                log.info("Encoding X509Certificate into PEM String");
                 oxalisEndpoint.setCertificate(parseX509CertificateIntoString(endpoint.getCertificate()));
-                log.debug("Encoding process completed successfully");
+                log.info("Encoding process completed successfully");
             } catch (CertificateEncodingException e) {
                 log.error("Unable to encode certificate during lookup. Cause: {}", e.getMessage(), e);
             }
@@ -276,10 +275,9 @@ public class OxalisLookupNotierIntegrationService implements IOxalisLookupNotier
 
     private String parseX509CertificateIntoString(X509Certificate certificate)
             throws CertificateEncodingException {
-        return new StringBuilder("-----BEGIN CERTIFICATE-----")
-                .append(Base64.getEncoder().encodeToString(certificate.getEncoded()))
-                .append("-----END CERTIFICATE-----")
-                .toString();
+        return "-----BEGIN CERTIFICATE-----" +
+                Base64.getEncoder().encodeToString(certificate.getEncoded()) +
+                "-----END CERTIFICATE-----";
     }
 
 }
