@@ -12,7 +12,7 @@ public class OxalisLookupMetadata {
 	private List<OxalisLookupEndpoint> endpoint;
 	private String participantIdentifier;
 	private String documentTypeIdentifier;
-	private String processTypeIdentifier;
+	private List<String> processTypeIdentifier;
 
 	public List<OxalisLookupEndpoint> getEndpoint() {
 		return endpoint;
@@ -38,11 +38,11 @@ public class OxalisLookupMetadata {
 		this.documentTypeIdentifier = documentTypeIdentifier;
 	}
 
-	public String getProcessTypeIdentifier() {
+	public List<String> getProcessTypeIdentifier() {
 		return processTypeIdentifier;
 	}
 
-	public void setProcessTypeIdentifier(String processTypeIdentifier) {
+	public void setProcessTypeIdentifier(List<String> processTypeIdentifier) {
 		this.processTypeIdentifier = processTypeIdentifier;
 	}
 

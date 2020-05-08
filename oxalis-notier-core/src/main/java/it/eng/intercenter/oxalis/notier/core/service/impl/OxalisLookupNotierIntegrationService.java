@@ -97,7 +97,9 @@ public class OxalisLookupNotierIntegrationService implements IOxalisLookupNotier
                         ServiceMetadata serviceMetadata = lookupClient.getServiceMetadata(participantIdentifier, documentTypeIdentifier);
 
                         // Add single metadata to DTO.
-                        lookupMetadataList.addAll(buildMetadata(serviceMetadata));
+                        if (serviceMetadata != null) {
+                            lookupMetadataList.add(buildMetadata(serviceMetadata));
+                        }
                     }
 
                 }
@@ -145,7 +147,9 @@ public class OxalisLookupNotierIntegrationService implements IOxalisLookupNotier
             ServiceMetadata serviceMetadata = lookupClient.getServiceMetadata(participantIdentifier, found);
 
             // Add single metadata to DTO.
-            lookupMetadataList.addAll(buildMetadata(serviceMetadata));
+            if (serviceMetadata != null) {
+                lookupMetadataList.add(buildMetadata(serviceMetadata));
+            }
 
             // Set metadata
             if (lookupMetadataList.isEmpty()) {
@@ -181,34 +185,34 @@ public class OxalisLookupNotierIntegrationService implements IOxalisLookupNotier
      * @date 29 ago 2019
      * @time 16:39:59
      */
-    private List<OxalisLookupMetadata> buildMetadata(ServiceMetadata serviceMetadata) {
+    private OxalisLookupMetadata buildMetadata(ServiceMetadata serviceMetadata) {
 
         if (serviceMetadata == null) {
-            return new ArrayList<>();
+            return null;
         }
-
 
         List<OxalisLookupEndpoint> endpointList = getEndpointList(serviceMetadata);
         List<ProcessMetadata<Endpoint>> processMetadata = serviceMetadata.getProcesses();
 
         if (processMetadata == null || processMetadata.isEmpty()) {
-            return new ArrayList<>();
+            return null;
         }
 
-        List<OxalisLookupMetadata> oxalisLookupMetadataList = new ArrayList<>();
+        List<String> processList = new ArrayList<>();
 
         for (ProcessMetadata<Endpoint> processMetadatum : processMetadata) {
             for (ProcessIdentifier processIdentifier : processMetadatum.getProcessIdentifier()) {
-                OxalisLookupMetadata metadataDTO = new OxalisLookupMetadata();
-                metadataDTO.setDocumentTypeIdentifier(serviceMetadata.getDocumentTypeIdentifier().toString());
-                metadataDTO.setEndpoint(endpointList);
-                metadataDTO.setParticipantIdentifier(serviceMetadata.getParticipantIdentifier().toString());
-                metadataDTO.setProcessTypeIdentifier(processIdentifier.toString());
-                oxalisLookupMetadataList.add(metadataDTO);
+
+                processList.add(processIdentifier.toString());
             }
         }
+        OxalisLookupMetadata metadataDTO = new OxalisLookupMetadata();
+        metadataDTO.setDocumentTypeIdentifier(serviceMetadata.getDocumentTypeIdentifier().toString());
+        metadataDTO.setEndpoint(endpointList);
+        metadataDTO.setParticipantIdentifier(serviceMetadata.getParticipantIdentifier().toString());
+        metadataDTO.setProcessTypeIdentifier(processList);
 
-        return oxalisLookupMetadataList;
+        return metadataDTO;
     }
 
     private List<OxalisLookupEndpoint> getEndpointList(ServiceMetadata serviceMetadata) {
