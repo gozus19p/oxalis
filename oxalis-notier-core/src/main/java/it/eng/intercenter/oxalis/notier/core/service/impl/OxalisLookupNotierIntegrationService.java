@@ -13,11 +13,7 @@ import it.eng.intercenter.oxalis.integration.dto.OxalisLookupMetadata;
 import it.eng.intercenter.oxalis.integration.dto.OxalisLookupResponse;
 import it.eng.intercenter.oxalis.notier.core.service.api.IOxalisLookupNotierIntegrationService;
 import lombok.extern.slf4j.Slf4j;
-import no.difi.vefa.peppol.common.model.DocumentTypeIdentifier;
-import no.difi.vefa.peppol.common.model.Endpoint;
-import no.difi.vefa.peppol.common.model.ParticipantIdentifier;
-import no.difi.vefa.peppol.common.model.ProcessMetadata;
-import no.difi.vefa.peppol.common.model.ServiceMetadata;
+import no.difi.vefa.peppol.common.model.*;
 import no.difi.vefa.peppol.lookup.LookupClient;
 import no.difi.vefa.peppol.lookup.api.LookupException;
 import no.difi.vefa.peppol.security.lang.PeppolSecurityException;
@@ -30,231 +26,260 @@ import no.difi.vefa.peppol.security.lang.PeppolSecurityException;
 @Slf4j
 public class OxalisLookupNotierIntegrationService implements IOxalisLookupNotierIntegrationService {
 
-	@Inject
-	private LookupClient lookupClient;
+    @Inject
+    private LookupClient lookupClient;
 
-	@Override
-	public OxalisLookupResponse executeLookup(String participantIdentifierString) {
-		return fetchResults(participantIdentifierString, null);
-	}
+    @Override
+    public OxalisLookupResponse executeLookup(String participantIdentifierString) {
+        return fetchResults(participantIdentifierString, null);
+    }
 
-	@Override
-	public OxalisLookupResponse executeLookup(String participantIdentifierString, String documentTypeIdentifierString) {
-		return fetchResults(participantIdentifierString, documentTypeIdentifierString);
-	}
+    @Override
+    public OxalisLookupResponse executeLookup(String participantIdentifierString, String documentTypeIdentifierString) {
+        return fetchResults(participantIdentifierString, documentTypeIdentifierString);
+    }
 
-	/**
-	 * @author Manuel Gozzi
-	 * @date 30 ago 2019
-	 * @time 09:32:04
-	 * @param participantIdentifierString  is the given participant identifier to
-	 *                                     lookup for
-	 * @param documentTypeIdentifierString is the given document type identifier to
-	 *                                     match with participant id (optional)
-	 * @return the result
-	 */
-	private OxalisLookupResponse fetchResults(String participantIdentifierString, String documentTypeIdentifierString) {
+    /**
+     * @param participantIdentifierString  is the given participant identifier to
+     *                                     lookup for
+     * @param documentTypeIdentifierString is the given document type identifier to
+     *                                     match with participant id (optional)
+     * @return the result
+     * @author Manuel Gozzi
+     * @date 30 ago 2019
+     * @time 09:32:04
+     */
+    private OxalisLookupResponse fetchResults(String participantIdentifierString, String documentTypeIdentifierString) {
 
-		// Prepare response DTO.
-		OxalisLookupResponse lookupResponse = new OxalisLookupResponse();
-		lookupResponse.setParticipantIdentifier(participantIdentifierString);
-		List<OxalisLookupMetadata> lookupMetadataList = new ArrayList<>();
+        // Prepare response DTO.
+        OxalisLookupResponse lookupResponse = new OxalisLookupResponse();
+        lookupResponse.setParticipantIdentifier(participantIdentifierString);
+        List<OxalisLookupMetadata> lookupMetadataList = new ArrayList<>();
 
-		try {
+        try {
 
-			// Parse String into PEPPOL object.
-			ParticipantIdentifier participantIdentifier = ParticipantIdentifier.of(participantIdentifierString);
-			log.debug("Parsed participant identifier String into {}", ParticipantIdentifier.class.getTypeName());
+            // Parse String into PEPPOL object.
+            ParticipantIdentifier participantIdentifier = ParticipantIdentifier.of(participantIdentifierString);
+            log.debug("Parsed participant identifier String into {}", ParticipantIdentifier.class.getTypeName());
 
-			DocumentTypeIdentifier givenDocumentTypeIdentifier = (documentTypeIdentifierString != null && !documentTypeIdentifierString.trim().isEmpty())
-					? DocumentTypeIdentifier.of(documentTypeIdentifierString)
-					: null;
-			if (givenDocumentTypeIdentifier != null) {
-				log.debug("Parsed document type identifier String into {}", DocumentTypeIdentifier.class.getTypeName());
-			}
+            DocumentTypeIdentifier givenDocumentTypeIdentifier = (documentTypeIdentifierString != null && !documentTypeIdentifierString.trim().isEmpty())
+                    ? DocumentTypeIdentifier.of(documentTypeIdentifierString)
+                    : null;
+            if (givenDocumentTypeIdentifier != null) {
+                log.debug("Parsed document type identifier String into {}", DocumentTypeIdentifier.class.getTypeName());
+            }
 
-			try {
+            try {
 
-				// Retrieve document type identifiers list from lookupClient.
-				log.debug("Retrieve document type identifiers list");
-				List<DocumentTypeIdentifier> documentTypeIdentifiers = lookupClient.getDocumentIdentifiers(participantIdentifier);
+                // Retrieve document type identifiers list from lookupClient.
+                log.debug("Retrieve document type identifiers list");
+                List<DocumentTypeIdentifier> documentTypeIdentifiers = lookupClient.getDocumentIdentifiers(participantIdentifier);
 
-				// If user gives me a document type identifier I have to search for it as single
-				// occurrence.
-				if (givenDocumentTypeIdentifier != null) {
+                // If user gives me a document type identifier I have to search for it as single
+                // occurrence.
+                if (givenDocumentTypeIdentifier != null) {
 
-					try {
-						// Try to find a valid document type identifier.
-						DocumentTypeIdentifier found = documentTypeIdentifiers.stream()
-								.filter(single -> single.toString().equals(givenDocumentTypeIdentifier.toString())).findFirst().get();
+                    partialLookup(participantIdentifierString, documentTypeIdentifierString, lookupResponse,
+                            lookupMetadataList, participantIdentifier, givenDocumentTypeIdentifier, documentTypeIdentifiers);
 
-						// Retrieve service metadata.
-						ServiceMetadata serviceMetadata = lookupClient.getServiceMetadata(participantIdentifier, found);
+                } else {
+                    // If user doesn't give me a single document type identifier I have to retrieve
+                    // all occurrences.
 
-						// Add single metadata to DTO.
-						lookupMetadataList.add(buildMetadata(participantIdentifierString, getEndpointList(serviceMetadata), found.toString()));
+                    // Build metadata for each document type identifier.
+                    for (DocumentTypeIdentifier documentTypeIdentifier : documentTypeIdentifiers) {
 
-						// Set metadata
-						if (lookupMetadataList.isEmpty()) {
-							// Logging.
-							log.warn("Metadata list is empty, no results found for participant identifier \"{}\" and document type identifier \"{}\"",
-									participantIdentifierString, documentTypeIdentifierString);
+                        // Logging.
+                        log.debug("Get service metadata of participant identifier \"{}\" and document type identifier \"{}\"", participantIdentifier.toString(),
+                                documentTypeIdentifier.toString());
 
-							// Setting outcome.
-							lookupResponse.setOutcome(false);
-							lookupResponse.setMessage((givenDocumentTypeIdentifier != null)
-									? "Participant identifier \"" + participantIdentifierString + "\" and document type identifier \""
-											+ documentTypeIdentifierString + "\" not registered on PEPPOL"
-									: "No results found for participant identifier \"" + participantIdentifierString + "\"");
-						}
+                        // Retrieve service metadata for given participant identifier and document type
+                        // identifier.
+                        ServiceMetadata serviceMetadata = lookupClient.getServiceMetadata(participantIdentifier, documentTypeIdentifier);
 
-					} catch (Exception e) {
-						// Logging.
-						log.error("Something went wrong during lookup: {}", e.getMessage(), e);
+                        // Add single metadata to DTO.
+                        lookupMetadataList.addAll(buildMetadata(serviceMetadata));
+                    }
 
-						// Setting outcome.
-						lookupResponse.setOutcome(false);
-						lookupResponse.setMessage(e.getMessage());
-					}
+                }
 
-				} else {
-					// If user doesn't give me a single document type identifier I have to retrieve
-					// all occurrences.
+                // Set metadata.
+                log.info("Lookup executed successfully");
+                lookupResponse.setMetadata(lookupMetadataList);
+                lookupResponse.setMessage("Lookup executed successfully");
+                lookupResponse.setOutcome(true);
 
-					// Build metadata for each document type identifier.
-					for (DocumentTypeIdentifier documentTypeIdentifier : documentTypeIdentifiers) {
+            } catch (LookupException | PeppolSecurityException e) {
 
-						// Logging.
-						log.debug("Get service metadata of participant identifier \"{}\" and document type identifier \"{}\"", participantIdentifier.toString(),
-								documentTypeIdentifier.toString());
+                // Set error in response DTO.
+                log.error("Something went wrong during lookup process. Cause: {}", e.getMessage(), e);
+                lookupResponse.setMessage(e.getMessage());
+                lookupResponse.setOutcome(false);
 
-						// Retrieve service metadata for given participant identifier and document type
-						// identifier.
-						ServiceMetadata serviceMetadata = lookupClient.getServiceMetadata(participantIdentifier, documentTypeIdentifier);
+            }
 
-						// Add single metadata to DTO.
-						lookupMetadataList.add(buildMetadata(participantIdentifierString, getEndpointList(serviceMetadata), documentTypeIdentifier.toString()));
-					}
+        } catch (Exception e) {
 
-				}
+            // Set error in response DTO.
+            log.error("Something went wrong during lookup: {}", e.getMessage(), e);
+            lookupResponse.setMessage(e.getMessage());
+            lookupResponse.setOutcome(false);
 
-				// Set metadata.
-				log.info("Lookup executed successfully");
-				lookupResponse.setMetadata(lookupMetadataList);
-				lookupResponse.setMessage("Lookup executed successfully");
-				lookupResponse.setOutcome(true);
+        }
 
-			} catch (LookupException | PeppolSecurityException e) {
+        return lookupResponse;
+    }
 
-				// Set error in response DTO.
-				log.error("Something went wrong during lookup process. Cause: {}", e.getMessage(), e);
-				lookupResponse.setMessage(e.getMessage());
-				lookupResponse.setOutcome(false);
+    private void partialLookup(String participantIdentifierString, String documentTypeIdentifierString,
+                               OxalisLookupResponse lookupResponse, List<OxalisLookupMetadata> lookupMetadataList,
+                               ParticipantIdentifier participantIdentifier,
+                               DocumentTypeIdentifier givenDocumentTypeIdentifier,
+                               List<DocumentTypeIdentifier> documentTypeIdentifiers) {
+        try {
+            // Try to find a valid document type identifier.
+            DocumentTypeIdentifier found = documentTypeIdentifiers.stream()
+                    .filter(single -> single.toString().equals(givenDocumentTypeIdentifier.toString()))
+                    .findFirst()
+                    .orElse(null);
 
-			}
+            // Retrieve service metadata.
+            ServiceMetadata serviceMetadata = lookupClient.getServiceMetadata(participantIdentifier, found);
 
-		} catch (Exception e) {
+            // Add single metadata to DTO.
+            lookupMetadataList.addAll(buildMetadata(serviceMetadata));
 
-			// Set error in response DTO.
-			log.error("Something went wrong during lookup: {}", e.getMessage(), e);
-			lookupResponse.setMessage(e.getMessage());
-			lookupResponse.setOutcome(false);
+            // Set metadata
+            if (lookupMetadataList.isEmpty()) {
+                // Logging.
+                log.warn("Metadata list is empty, no results found for participant identifier \"{}\" and document type identifier \"{}\"",
+                        participantIdentifierString, documentTypeIdentifierString);
 
-		}
+                // Setting outcome.
+                lookupResponse.setOutcome(false);
+                lookupResponse.setMessage(
+                        String.format(
+                                "Combination of participant identifier \"%s\" and document type identifier \"%s\" not found on SML",
+                                participantIdentifierString,
+                                documentTypeIdentifierString
+                        )
+                );
+            }
 
-		return lookupResponse;
-	}
+        } catch (Exception e) {
+            // Logging.
+            log.error("Something went wrong during lookup: {}", e.getMessage(), e);
 
-	/**
-	 * @author Manuel Gozzi
-	 * @date 29 ago 2019
-	 * @time 16:39:59
-	 * @param participantIdentifier  is the participant identifier of lookup
-	 * @param endpointList           is the list of endpoints
-	 * @param documentTypeIdentifier is the document type identifier
-	 * @return a single metadata that needs to be added to the main DTO
-	 */
-	private OxalisLookupMetadata buildMetadata(String participantIdentifier, List<OxalisLookupEndpoint> endpointList, String documentTypeIdentifier) {
-		OxalisLookupMetadata metadataDTO = new OxalisLookupMetadata();
-		metadataDTO.setDocumentTypeIdentifier(documentTypeIdentifier);
-		metadataDTO.setEndpoint(endpointList);
-		metadataDTO.setParticipantIdentifier(participantIdentifier);
-		return metadataDTO;
-	}
+            // Setting outcome.
+            lookupResponse.setOutcome(false);
+            lookupResponse.setMessage(e.getMessage());
+        }
+    }
 
-	private static final List<OxalisLookupEndpoint> getEndpointList(ServiceMetadata serviceMetadata) {
-		List<OxalisLookupEndpoint> endpoints = new ArrayList<>();
+    /**
+     * @param serviceMetadata is the Service Metadata retrieved by lookup
+     * @return a single metadata that needs to be added to the main DTO
+     * @author Manuel Gozzi
+     * @date 29 ago 2019
+     * @time 16:39:59
+     */
+    private List<OxalisLookupMetadata> buildMetadata(ServiceMetadata serviceMetadata) {
 
-		// Build a metadata for each endpoint.
-		for (ProcessMetadata<Endpoint> process : serviceMetadata.getProcesses()) {
+        if (serviceMetadata == null) {
+            return new ArrayList<>();
+        }
 
-			if (process.getEndpoints() != null && !(process.getEndpoints().isEmpty())) {
 
-				for (Endpoint endpoint : process.getEndpoints()) {
+        List<OxalisLookupEndpoint> endpointList = getEndpointList(serviceMetadata);
+        List<ProcessMetadata<Endpoint>> processMetadata = serviceMetadata.getProcesses();
 
-					// Build endpoint.
-					OxalisLookupEndpoint oxalisEndpoint = buildEndpoint(endpoint);
+        if (processMetadata == null || processMetadata.isEmpty()) {
+            return new ArrayList<>();
+        }
 
-					// Add the built andpoint to the whole list.
-					endpoints.add(oxalisEndpoint);
+        List<OxalisLookupMetadata> oxalisLookupMetadataList = new ArrayList<>();
 
-				}
+        for (ProcessMetadata<Endpoint> processMetadatum : processMetadata) {
+            for (ProcessIdentifier processIdentifier : processMetadatum.getProcessIdentifier()) {
+                OxalisLookupMetadata metadataDTO = new OxalisLookupMetadata();
+                metadataDTO.setDocumentTypeIdentifier(serviceMetadata.getDocumentTypeIdentifier().toString());
+                metadataDTO.setEndpoint(endpointList);
+                metadataDTO.setParticipantIdentifier(serviceMetadata.getParticipantIdentifier().toString());
+                metadataDTO.setProcessTypeIdentifier(processIdentifier.toString());
+                oxalisLookupMetadataList.add(metadataDTO);
+            }
+        }
 
-			}
+        return oxalisLookupMetadataList;
+    }
 
-		}
+    private List<OxalisLookupEndpoint> getEndpointList(ServiceMetadata serviceMetadata) {
+        List<OxalisLookupEndpoint> endpoints = new ArrayList<>();
 
-		return endpoints;
-	}
+        // Build a metadata for each endpoint.
+        for (ProcessMetadata<Endpoint> process : serviceMetadata.getProcesses()) {
 
-	private static OxalisLookupEndpoint buildEndpoint(Endpoint endpoint) {
+            if (process.getEndpoints() != null && !(process.getEndpoints().isEmpty())) {
 
-		log.debug("Build endpoint");
-		OxalisLookupEndpoint oxalisEndpoint = new OxalisLookupEndpoint();
+                for (Endpoint endpoint : process.getEndpoints()) {
 
-		// Set address (URI).
-		if (endpoint.getAddress() != null) {
-			oxalisEndpoint.setAddress(endpoint.getAddress().normalize().toString());
-		}
+                    // Build endpoint.
+                    OxalisLookupEndpoint oxalisEndpoint = buildEndpoint(endpoint);
 
-		// Set certificate.
-		if (endpoint.getCertificate() != null) {
-			try {
-				log.debug("Encoding X509Certificate into PEM String");
-				oxalisEndpoint.setCertificate(parseX509CertificateIntoString(endpoint.getCertificate()));
-				log.debug("Encoding process completed successfully");
-			} catch (CertificateEncodingException e) {
-				log.error("Unable to encode certificate during lookup. Cause: {}", e.getMessage(), e);
-			}
+                    // Add the built andpoint to the whole list.
+                    endpoints.add(oxalisEndpoint);
+                }
+            }
+        }
 
-		}
+        return endpoints;
+    }
 
-		// Set period.
-		if (endpoint.getPeriod() != null) {
-			oxalisEndpoint.setServiceActivationDate(endpoint.getPeriod().getFrom());
-			oxalisEndpoint.setServiceExpirationDate(endpoint.getPeriod().getTo());
-		}
+    private OxalisLookupEndpoint buildEndpoint(Endpoint endpoint) {
 
-		// Set transport profile.
-		if (endpoint.getTransportProfile() != null) {
-			oxalisEndpoint.setTransportProfile(endpoint.getTransportProfile().toString());
-		}
+        log.debug("Build endpoint");
+        OxalisLookupEndpoint oxalisEndpoint = new OxalisLookupEndpoint();
 
-		// TODO: where???
-		oxalisEndpoint.setServiceDescription(null);
-		// TODO: where???
-		oxalisEndpoint.setTechnicalContactUrl(null);
-		// TODO: where???
-		oxalisEndpoint.setTechnicalInformationUrl(null);
-		return oxalisEndpoint;
-	}
+        // Set address (URI).
+        if (endpoint.getAddress() != null) {
+            oxalisEndpoint.setAddress(endpoint.getAddress().normalize().toString());
+        }
 
-	private static final String parseX509CertificateIntoString(X509Certificate certificate) throws CertificateEncodingException {
-		StringBuilder sb = new StringBuilder();
-		sb.append("-----BEGIN CERTIFICATE-----");
-		sb.append(Base64.getEncoder().encodeToString(certificate.getEncoded()));
-		sb.append("-----END CERTIFICATE-----");
-		return sb.toString();
-	}
+        // Set certificate.
+        if (endpoint.getCertificate() != null) {
+            try {
+                log.debug("Encoding X509Certificate into PEM String");
+                oxalisEndpoint.setCertificate(parseX509CertificateIntoString(endpoint.getCertificate()));
+                log.debug("Encoding process completed successfully");
+            } catch (CertificateEncodingException e) {
+                log.error("Unable to encode certificate during lookup. Cause: {}", e.getMessage(), e);
+            }
+        }
+
+        // Set period.
+        if (endpoint.getPeriod() != null) {
+            oxalisEndpoint.setServiceActivationDate(endpoint.getPeriod().getFrom());
+            oxalisEndpoint.setServiceExpirationDate(endpoint.getPeriod().getTo());
+        }
+
+        // Set transport profile.
+        if (endpoint.getTransportProfile() != null) {
+            oxalisEndpoint.setTransportProfile(endpoint.getTransportProfile().toString());
+        }
+
+        // TODO: where???
+        oxalisEndpoint.setServiceDescription(null);
+        oxalisEndpoint.setTechnicalContactUrl(null);
+        oxalisEndpoint.setTechnicalInformationUrl(null);
+
+        return oxalisEndpoint;
+    }
+
+    private String parseX509CertificateIntoString(X509Certificate certificate)
+            throws CertificateEncodingException {
+        return new StringBuilder("-----BEGIN CERTIFICATE-----")
+                .append(Base64.getEncoder().encodeToString(certificate.getEncoded()))
+                .append("-----END CERTIFICATE-----")
+                .toString();
+    }
 
 }
