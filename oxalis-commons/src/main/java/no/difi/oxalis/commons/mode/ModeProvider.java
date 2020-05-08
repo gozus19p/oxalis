@@ -58,10 +58,6 @@ public class ModeProvider implements Provider<Mode> {
 	@Inject
 	private Tracer tracer;
 
-	@Path("oxalis.operation.mode")
-	@DefaultValue("TEST")
-	private String operationMode;
-
 	@Override
 	public Mode get() {
 		Span span = tracer.buildSpan("Mode detection").start();
@@ -71,7 +67,7 @@ public class ModeProvider implements Provider<Mode> {
 			objectStorage.put("ocsp_fetcher", ocspFetcher);
 			objectStorage.put("crlFetcher", crlFetcher);
 
-			return Mode.of(operationMode);
+			return Mode.of(config.getString("oxalis.op.mode"));
 		} finally {
 			span.finish();
 		}
