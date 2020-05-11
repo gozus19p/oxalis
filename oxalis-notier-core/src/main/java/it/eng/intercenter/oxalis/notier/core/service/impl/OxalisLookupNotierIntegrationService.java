@@ -1,10 +1,7 @@
 package it.eng.intercenter.oxalis.notier.core.service.impl;
 
 import com.google.inject.Inject;
-import it.eng.intercenter.oxalis.integration.dto.OxalisLookupEndpoint;
-import it.eng.intercenter.oxalis.integration.dto.OxalisLookupMetadata;
-import it.eng.intercenter.oxalis.integration.dto.OxalisLookupProcessMetadata;
-import it.eng.intercenter.oxalis.integration.dto.OxalisLookupResponse;
+import it.eng.intercenter.oxalis.integration.dto.*;
 import it.eng.intercenter.oxalis.notier.core.service.api.IOxalisLookupNotierIntegrationService;
 import lombok.extern.slf4j.Slf4j;
 import no.difi.vefa.peppol.common.lang.PeppolException;
@@ -150,7 +147,7 @@ public class OxalisLookupNotierIntegrationService implements IOxalisLookupNotier
 
         ServiceMetadata serviceMetadata = lookupClient.getServiceMetadata(participantIdentifier, givenDocumentTypeIdentifier);
         OxalisLookupMetadata oxalisLookupMetadata = getOxalisLookupMetadata(
-                participantIdentifier.toString(), givenDocumentTypeIdentifier.toString(), serviceMetadata
+                participantIdentifier, givenDocumentTypeIdentifier, serviceMetadata
         );
         lookupResponse.setMetadata(Collections.singletonList(oxalisLookupMetadata));
         setPositiveOutcome(lookupResponse);
@@ -200,8 +197,8 @@ public class OxalisLookupNotierIntegrationService implements IOxalisLookupNotier
             if (serviceMetadata != null) {
                 oxalisLookupMetadataList.add(
                         getOxalisLookupMetadata(
-                                participantIdentifier.toString(),
-                                documentTypeIdentifier.toString(),
+                                participantIdentifier,
+                                documentTypeIdentifier,
                                 serviceMetadata
                         )
                 );
@@ -212,15 +209,24 @@ public class OxalisLookupNotierIntegrationService implements IOxalisLookupNotier
         setPositiveOutcome(lookupResponse);
     }
 
-    private OxalisLookupMetadata getOxalisLookupMetadata(String participantIdentifierString, String documentTypeIdentifierString,
+    private OxalisLookupMetadata getOxalisLookupMetadata(ParticipantIdentifier participantIdentifier,
+                                                         DocumentTypeIdentifier documentTypeIdentifier,
                                                          ServiceMetadata serviceMetadata) {
 
         // Logging.
         log.info("Starting to build \"{}\" object", OxalisLookupMetadata.class.getSimpleName());
 
         OxalisLookupMetadata oxalisLookupMetadata = new OxalisLookupMetadata();
-        oxalisLookupMetadata.setDocumentTypeIdentifier(documentTypeIdentifierString);
-        oxalisLookupMetadata.setParticipantIdentifier(participantIdentifierString);
+
+        PeppolIdentifier participantIdentifier_dto = new PeppolIdentifier();
+        participantIdentifier_dto.setSchema(participantIdentifier.getScheme().getIdentifier());
+        participantIdentifier_dto.setValue(participantIdentifier.getIdentifier());
+        oxalisLookupMetadata.setParticipantIdentifier(participantIdentifier_dto);
+
+        PeppolIdentifier documentTypeIdentifier_dto = new PeppolIdentifier();
+        documentTypeIdentifier_dto.setValue(documentTypeIdentifier.getIdentifier());
+        documentTypeIdentifier_dto.setSchema(documentTypeIdentifier.getScheme().getIdentifier());
+        oxalisLookupMetadata.setDocumentTypeIdentifier(documentTypeIdentifier_dto);
 
         List<OxalisLookupProcessMetadata> oxalisLookupProcessMetadataList = new ArrayList<>();
         if (serviceMetadata.getProcesses() != null && !serviceMetadata.getProcesses().isEmpty()) {
@@ -233,9 +239,12 @@ public class OxalisLookupNotierIntegrationService implements IOxalisLookupNotier
                 }
                 oxalisLookupProcessMetadata.setEndpoint(oxalisLookupEndpointList);
 
-                List<String> processTypeIdentifierList = new ArrayList<>();
+                List<PeppolIdentifier> processTypeIdentifierList = new ArrayList<>();
                 for (ProcessIdentifier processIdentifier : current.getProcessIdentifier()) {
-                    processTypeIdentifierList.add(processIdentifier.toString());
+                    PeppolIdentifier processType = new PeppolIdentifier();
+                    processType.setSchema(processIdentifier.getScheme().getIdentifier());
+                    processType.setValue(processIdentifier.getIdentifier());
+                    processTypeIdentifierList.add(processType);
                 }
 
                 oxalisLookupProcessMetadata.setProcessIdentifierType(processTypeIdentifierList);
@@ -277,7 +286,7 @@ public class OxalisLookupNotierIntegrationService implements IOxalisLookupNotier
 
         // Set transport profile.
         if (endpoint.getTransportProfile() != null) {
-            oxalisEndpoint.setTransportProfile(endpoint.getTransportProfile().toString());
+            oxalisEndpoint.setTransportProfile(endpoint.getTransportProfile().getIdentifier());
         }
 
         // TODO: missing ServiceDescription, ContactURL, InformationURL

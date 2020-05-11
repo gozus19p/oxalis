@@ -9,25 +9,25 @@ import java.util.List;
  */
 public class OxalisLookupMetadata {
 
-	private String participantIdentifier;
+	private PeppolIdentifier participantIdentifier;
 
-	private String documentTypeIdentifier;
+	private PeppolIdentifier documentTypeIdentifier;
 
 	private List<OxalisLookupProcessMetadata> processMetadata;
 
-	public String getParticipantIdentifier() {
+	public PeppolIdentifier getParticipantIdentifier() {
 		return participantIdentifier;
 	}
 
-	public void setParticipantIdentifier(String participantIdentifier) {
+	public void setParticipantIdentifier(PeppolIdentifier participantIdentifier) {
 		this.participantIdentifier = participantIdentifier;
 	}
 
-	public String getDocumentTypeIdentifier() {
+	public PeppolIdentifier getDocumentTypeIdentifier() {
 		return documentTypeIdentifier;
 	}
 
-	public void setDocumentTypeIdentifier(String documentTypeIdentifier) {
+	public void setDocumentTypeIdentifier(PeppolIdentifier documentTypeIdentifier) {
 		this.documentTypeIdentifier = documentTypeIdentifier;
 	}
 
