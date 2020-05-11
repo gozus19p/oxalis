@@ -9,18 +9,11 @@ import java.util.List;
  */
 public class OxalisLookupMetadata {
 
-	private List<OxalisLookupEndpoint> endpoint;
 	private String participantIdentifier;
+
 	private String documentTypeIdentifier;
-	private List<String> processTypeIdentifier;
 
-	public List<OxalisLookupEndpoint> getEndpoint() {
-		return endpoint;
-	}
-
-	public void setEndpoint(List<OxalisLookupEndpoint> endpoint) {
-		this.endpoint = endpoint;
-	}
+	private List<OxalisLookupProcessMetadata> processMetadata;
 
 	public String getParticipantIdentifier() {
 		return participantIdentifier;
@@ -38,12 +31,12 @@ public class OxalisLookupMetadata {
 		this.documentTypeIdentifier = documentTypeIdentifier;
 	}
 
-	public List<String> getProcessTypeIdentifier() {
-		return processTypeIdentifier;
+	public List<OxalisLookupProcessMetadata> getProcessMetadata() {
+		return processMetadata;
 	}
 
-	public void setProcessTypeIdentifier(List<String> processTypeIdentifier) {
-		this.processTypeIdentifier = processTypeIdentifier;
+	public void setProcessMetadata(List<OxalisLookupProcessMetadata> processMetadata) {
+		this.processMetadata = processMetadata;
 	}
 
 }

@@ -210,7 +210,7 @@ public class OxalisLookupNotierIntegrationService implements IOxalisLookupNotier
         metadataDTO.setDocumentTypeIdentifier(serviceMetadata.getDocumentTypeIdentifier().toString());
         metadataDTO.setEndpoint(endpointList);
         metadataDTO.setParticipantIdentifier(serviceMetadata.getParticipantIdentifier().toString());
-        metadataDTO.setProcessTypeIdentifier(processList);
+        metadataDTO.setProcessMetadata(processList);
 
         return metadataDTO;
     }
@@ -244,7 +244,7 @@ public class OxalisLookupNotierIntegrationService implements IOxalisLookupNotier
 
         // Set address (URI).
         if (endpoint.getAddress() != null) {
-            oxalisEndpoint.setAddress(endpoint.getAddress().normalize().toString());
+            oxalisEndpoint.setEndpointUrl(endpoint.getAddress().normalize().toString());
         }
 
         // Set certificate.

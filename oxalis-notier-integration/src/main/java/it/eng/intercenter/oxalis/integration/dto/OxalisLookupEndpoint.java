@@ -9,21 +9,28 @@ import java.util.Date;
  */
 public class OxalisLookupEndpoint {
 
-	private String address;
+	private String endpointUrl;
+
 	private Date serviceActivationDate;
+
 	private Date serviceExpirationDate;
+
 	private String certificate;
+
 	private String serviceDescription;
+
 	private String technicalContactUrl;
+
 	private String technicalInformationUrl;
+
 	private String transportProfile;
 
-	public String getAddress() {
-		return address;
+	public String getEndpointUrl() {
+		return endpointUrl;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setEndpointUrl(String endpointUrl) {
+		this.endpointUrl = endpointUrl;
 	}
 
 	public Date getServiceActivationDate() {
