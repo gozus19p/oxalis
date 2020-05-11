@@ -9,7 +9,7 @@ public class OxalisLookupProcessMetadata {
 
     private List<OxalisLookupEndpoint> endpoint;
 
-    private String processIdentifierType;
+    private List<String> processIdentifierType;
 
     public List<OxalisLookupEndpoint> getEndpoint() {
         return endpoint;
@@ -19,11 +19,11 @@ public class OxalisLookupProcessMetadata {
         this.endpoint = endpoint;
     }
 
-    public String getProcessIdentifierType() {
+    public List<String> getProcessIdentifierType() {
         return processIdentifierType;
     }
 
-    public void setProcessIdentifierType(String processIdentifierType) {
+    public void setProcessIdentifierType(List<String> processIdentifierType) {
         this.processIdentifierType = processIdentifierType;
     }
 

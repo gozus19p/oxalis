@@ -21,14 +21,13 @@ public class OxalisLookupNotierIntegrationServiceTest {
     public void testLookup() {
 
         // Declare existing test participant identifier String.
-        String tc_participantIdentifier = "9921:testap";
+        String tc_participantIdentifier = "0201:testap";
 
         // Execute lookup.
         final OxalisLookupResponse oxalisLookupResponse = service.executeLookup(tc_participantIdentifier);
 
         // Process asserts.
         Assert.assertTrue(oxalisLookupResponse.getOutcome());
-        Assert.assertEquals(oxalisLookupResponse.getParticipantIdentifier(), tc_participantIdentifier);
 
     }
 
