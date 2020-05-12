@@ -55,6 +55,9 @@
 		<!-- Profile for complete Oxalis build -->
 		<profile>
 			<id>complete-build</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 			<properties>
 				<war.name.profile>complete</war.name.profile>
 			</properties>
@@ -98,126 +101,6 @@
 					<groupId>no.difi.oxalis</groupId>
 					<artifactId>oxalis-inbound</artifactId>
 				</dependency>
-			</dependencies>
-		</profile>
-		
-		<!-- Profile for Oxalis build without AS4 -->
-		<profile>
-			<id>complete-no-as4</id>
-			<properties>
-				<war.name.profile>complete-no-as4</war.name.profile>
-			</properties>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<dependencies>
-
-				<!-- Rest Server -->
-				<dependency>
-					<groupId>it.eng.intercenter</groupId>
-					<artifactId>oxalis-notier-rest-server</artifactId>
-					<version>${oxalis.eng.rest-server.version}</version>
-				</dependency>
-
-				<!-- Oxalis -->
-				<dependency>
-					<groupId>no.difi.oxalis</groupId>
-					<artifactId>oxalis-inbound</artifactId>
-				</dependency>
-
-				<!-- Quartz -->
-				<dependency>
-					<groupId>it.eng.intercenter</groupId>
-					<artifactId>oxalis-quartz</artifactId>
-					<version>${oxalis.eng.quartz.version}</version>
-				</dependency>
-
-				<!-- NoTI-ER Persister -->
-				<dependency>
-					<groupId>it.eng.intercenter</groupId>
-					<artifactId>oxalis-persist</artifactId>
-					<version>${oxalis.eng.persist.version}</version>
-				</dependency>
-
-				<!-- Oxalis Inbound -->
-				<dependency>
-					<groupId>no.difi.oxalis</groupId>
-					<artifactId>oxalis-inbound</artifactId>
-				</dependency>
-			</dependencies>
-		</profile>
-
-		<!-- Profile for mixed outbound configuration -->
-		<profile>
-			<id>outbound-only</id>
-			<properties>
-				<war.name.profile>outbound</war.name.profile>
-			</properties>
-			<dependencies>
-
-				<!-- Oxalis AS4 -->
-				<dependency>
-					<groupId>no.difi.oxalis</groupId>
-					<artifactId>oxalis-as4</artifactId>
-					<version>${oxalis.difi.as4.version}</version>
-				</dependency>
-
-				<!-- Rest Server -->
-				<dependency>
-					<groupId>it.eng.intercenter</groupId>
-					<artifactId>oxalis-notier-rest-server</artifactId>
-					<version>${oxalis.eng.rest-server.version}</version>
-				</dependency>
-
-				<!-- Oxalis -->
-				<dependency>
-					<groupId>no.difi.oxalis</groupId>
-					<artifactId>oxalis-inbound</artifactId>
-				</dependency>
-
-				<!-- Quartz -->
-				<dependency>
-					<groupId>it.eng.intercenter</groupId>
-					<artifactId>oxalis-quartz</artifactId>
-					<version>${oxalis.eng.quartz.version}</version>
-				</dependency>
-
-			</dependencies>
-		</profile>
-
-		<!-- Profile for AS2 inbound configuration -->
-		<profile>
-			<id>inbound-as2</id>
-			<properties>
-				<war.name.profile>inbound-as2</war.name.profile>
-			</properties>
-			<dependencies>
-
-				<!-- NoTI-ER Persister -->
-				<dependency>
-					<groupId>it.eng.intercenter</groupId>
-					<artifactId>oxalis-persist</artifactId>
-					<version>${oxalis.eng.persist.version}</version>
-					<exclusions>
-						<exclusion>
-							<!-- Quartz Scheduler -->
-							<groupId>org.quartz-scheduler</groupId>
-							<artifactId>quartz</artifactId>
-						</exclusion>
-						<exclusion>
-							<!-- Quartz Jobs -->
-							<groupId>org.quartz-scheduler</groupId>
-							<artifactId>quartz-jobs</artifactId>
-						</exclusion>
-					</exclusions>
-				</dependency>
-
-				<!-- Oxalis Inbound -->
-				<dependency>
-					<groupId>no.difi.oxalis</groupId>
-					<artifactId>oxalis-inbound</artifactId>
-				</dependency>
-
 			</dependencies>
 		</profile>
 
@@ -267,6 +150,123 @@
 							<artifactId>oxalis-as2</artifactId>
 						</exclusion>
 					</exclusions>
+				</dependency>
+
+			</dependencies>
+		</profile>
+		
+		<!-- Profile for Oxalis build without AS4 -->
+		<profile>
+			<id>complete-no-as4</id>
+			<properties>
+				<war.name.profile>complete-no-as4</war.name.profile>
+			</properties>
+			<dependencies>
+
+				<!-- Rest Server -->
+				<dependency>
+					<groupId>it.eng.intercenter</groupId>
+					<artifactId>oxalis-notier-rest-server</artifactId>
+					<version>${oxalis.eng.rest-server.version}</version>
+				</dependency>
+
+				<!-- Oxalis -->
+				<dependency>
+					<groupId>no.difi.oxalis</groupId>
+					<artifactId>oxalis-inbound</artifactId>
+				</dependency>
+
+				<!-- Quartz -->
+				<dependency>
+					<groupId>it.eng.intercenter</groupId>
+					<artifactId>oxalis-quartz</artifactId>
+					<version>${oxalis.eng.quartz.version}</version>
+				</dependency>
+
+				<!-- NoTI-ER Persister -->
+				<dependency>
+					<groupId>it.eng.intercenter</groupId>
+					<artifactId>oxalis-persist</artifactId>
+					<version>${oxalis.eng.persist.version}</version>
+				</dependency>
+
+				<!-- Oxalis Inbound -->
+				<dependency>
+					<groupId>no.difi.oxalis</groupId>
+					<artifactId>oxalis-inbound</artifactId>
+				</dependency>
+			</dependencies>
+		</profile>
+
+		<!-- Profile for AS2 inbound configuration -->
+		<profile>
+			<id>inbound-as2</id>
+			<properties>
+				<war.name.profile>inbound-as2</war.name.profile>
+			</properties>
+			<dependencies>
+
+				<!-- NoTI-ER Persister -->
+				<dependency>
+					<groupId>it.eng.intercenter</groupId>
+					<artifactId>oxalis-persist</artifactId>
+					<version>${oxalis.eng.persist.version}</version>
+					<exclusions>
+						<exclusion>
+							<!-- Quartz Scheduler -->
+							<groupId>org.quartz-scheduler</groupId>
+							<artifactId>quartz</artifactId>
+						</exclusion>
+						<exclusion>
+							<!-- Quartz Jobs -->
+							<groupId>org.quartz-scheduler</groupId>
+							<artifactId>quartz-jobs</artifactId>
+						</exclusion>
+					</exclusions>
+				</dependency>
+
+				<!-- Oxalis Inbound -->
+				<dependency>
+					<groupId>no.difi.oxalis</groupId>
+					<artifactId>oxalis-inbound</artifactId>
+				</dependency>
+
+			</dependencies>
+		</profile>
+
+		<!-- Profile for mixed outbound configuration -->
+		<profile>
+			<id>outbound-only</id>
+			<properties>
+				<war.name.profile>outbound-only</war.name.profile>
+			</properties>
+			<dependencies>
+
+				<!-- Oxalis AS4 -->
+				<dependency>
+					<groupId>no.difi.oxalis</groupId>
+					<artifactId>oxalis-as4</artifactId>
+					<version>${oxalis.difi.as4.version}</version>
+				</dependency>
+
+				<!-- Rest Server -->
+				<dependency>
+					<groupId>it.eng.intercenter</groupId>
+					<artifactId>oxalis-notier-rest-server</artifactId>
+					<version>${oxalis.eng.rest-server.version}</version>
+				</dependency>
+
+				<!-- Oxalis -->
+				<dependency>
+					<groupId>no.difi.oxalis</groupId>
+					<artifactId>oxalis-inbound</artifactId>
+				</dependency>
+
+				<!-- Quartz -->
+				<dependency>
+					<groupId>it.eng.intercenter</groupId>
+					<artifactId>oxalis-quartz</artifactId>
+					<version>${oxalis.eng.quartz.version}</version>
 				</dependency>
 
 			</dependencies>

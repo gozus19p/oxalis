@@ -52,6 +52,7 @@
 		<module>oxalis-notier-rest-server</module>
 		<module>oxalis-notier-core</module>
 		<module>oxalis-persist</module>
+		<module>oxalis-dist/oxalis-war</module>
 
 		<!-- Oxalis -->
 		<module>oxalis-inbound</module>
