@@ -1,51 +1,26 @@
-# Oxalis
+# Oxalis (Intercent-ER Implementation)
 
-[![Build Status](https://travis-ci.org/difi/oxalis.svg?branch=release4)](https://travis-ci.org/difi/oxalis)
-
-This repository contains the [PEPPOL](http://www.peppol.eu/) Access Point, named [Oxalis](http://en.wikipedia.org/wiki/Common_wood_sorrel),
+This repository contains a fork of the [PEPPOL](http://www.peppol.eu/) Access Point, named Oxalis,
 which was originally developed by Steinar Overbeck Cook, [SendRegning](http://www.sendregning.no/)
 and now looked after by the Norwegian agency for Public Management and eGovernment (Difi).
 
-The Oxalis system is an enhancement of the PEPPOL Sample Implementation and can be used used as
-a complete standalone PEPPOL solution or as an API component from your own code.
+Original Oxalis repository handled by Difi can be found [here](https://github.com/difi/oxalis).
 
-Out of the box it persists inbound messages to the filesystem.
-Persistence have been modularized so you can provide your own implementation if you need to
-send inbound messages to a message queue, a workflow engine, a document archive or others.
+This repository is handled by Intercent-ER PEPPOL Access Point.
 
-It comes with a basic command line tool for sending messages (```oxalis-standalone```), which has been improved and
-is now capable of sending multiple files.
-
-Binary distributions are available at Maven Central.
-
-As of version 4.x Oxalis no longer has any dependency on SQL databases.
-
-
-## Newest version is Oxalis 4.x
-
-* Inbound persistence stores full payload as XML file (whole SBDH for AS2)
-* Fixed potential issues communicating with "POODLE" patched servers
-* Support for START and all the horrible SOAP libraries has been removed.
-* Supports the latest PEPPOL Security features.
-* Uses OASIS BDXL by default and is ready to handle migration from PEPPOL SMP to OASIS BDX SMP.
-* Much faster and efficient than Oxalis 3.x.
-* Instrumented with Zipkin (Brave library).
-
-
-## Oxalis components
+## Modules
 
 | Component | Type | Description |
 | --------- | ---- | ----------- |
-| oxalis-inbound    | war  | Inbound access point implementation which runs on Tomcat (1) |
-| oxalis-outbound   | jar  | Outbound component for sending PEPPOL business documents (2) |
-| oxalis-standalone | main | Command line application for sending PEPPOL business documents (3) |
+| oxalis-notier-core | jar | Library that contains the whole set of business logic used in order to interact with NoTI-ER |
+| oxalis-notier-integration | jar | Library that contains a set of DTO used by Oxalis and NoTI-ER in order to exchange data using REST web services |
+| oxalis-notier-rest-server | jar | Library that contains web services exposed from Oxalis |
+| oxalis-quartz   | jar  | Quartz integration that includes Quartz job management |
+| oxalis-persist | jar | Library that overrides standard Oxalis persist logic |
+| oxalis-rest | jar | Oxalis HTTP client configuration (developed in order to communicate with NoTI-ER) |
 
-(1) Receives messages using AS2 protocol and stores them in the filesystem as default.
-
-(2) Can be incorporated into any system which needs to send PEPPOL documents.
-
-(3) Serves as example code on how to send a business documents using the oxalis-outbound component.
-
+This web application threats dependencies against standard Oxalis components.
+Please refer to original documentation for those modules.
 
 ## Installation
 
@@ -64,18 +39,6 @@ As of version 4.x Oxalis no longer has any dependency on SQL databases.
 * Oxalis is meant to be extended rather than changing the Oxalis source code.
 
 
-## Troubleshooting
-
-* `Sending failed ... Received fatal alert: handshake_failure` happens when Oxalis cannot establish HTTPS connection with the remote server.  Usually because destination AccessPoint has "poodle patched" their HTTPS server.  Oxalis v3.1.0 contains fixes for this, so you need to upgrade.  See the https://github.com/difi/oxalis/issues/197 for more info.
-
-* `Provider net.sf.saxon.TransformerFactoryImpl not found` might be an XSLT implementation conflice between Oxalis and the [VEFA validator](https://github.com/difi/vefa-validator-app).  VEFA needs XSLT 2.0 and explicitly set Saxon 9 as the transformer engine to the JVM.  Since Saxon 9 is not used and included with Oxalis you'll end up with that error on the Oxalis side.  To get rid of the error make sure you run Oxalis and VEFA in separate Tomcats/JVM processes.
-
-* `ValidatorException: PKIX path building failed` is probably because the receivers SSL certificate does not contain the correct certificate chain.  The AS2 implementation needs to validate the SSL certificate chain and any intermediate certificates needs to be present.  See the https://github.com/difi/oxalis/issues/173 for more info.
-
-* `Internal error occured: null` when receiving might be due to a bug in some
-   Apache Tomcat versions.  The full error message logged is `ERROR [no.difi.oxalis.as2.inbound.As2Servlet] [] Internal error occured: null` followed by a stack trace with `java.lang.NullPointerException: null`.  To resolve this upgrade Tomcat to a newer version, take a look at https://github.com/difi/oxalis/issues/179 for more details.
-
-
 ## Build from source
 
 Note that the Oxalis "head" revision on *master* branch is often in "flux" and should be considered a "nightly build".
@@ -87,17 +50,3 @@ The official releases are tagged and may be downloaded by clicking on [Tags](htt
 * from `oxalis` root directory run : `mvn clean install -Pdist`
 * locate assembled artifacts in `oxalis-dist/oxalis-distribution/target/oxalis-distribution-<version.number>-distro/`
 
-
-## Securing Oxalis
-
-By default Oxalis publish the web addresss listed in the table below.  
-The table describes their use and give some hints on how to secure those addresses.  
-A pretty standard scenario is to use some kind of load balancer and SSL offloader in front of the appserver running Oxalis.  
-This could be free/open software like [Nginx](http://nginx.org/) and Apache or commercial software like NetScaler and BigIP.  
-All such front end software should be able to enforce security like the one suggested below.
-
-| URL | Function | Transport | Security |
-| --- | -------- | --------- | -------- |
-| oxalis/as2 | AS2 protocol endpoint | HTTPS with proper certificates | Enable inbound access from Internet |
-| oxalis/status | Status information, for internal use and debugging | HTTP/HTTPS | Internet access can be blocked |
-| oxalis/statistics | RAW statistics for DIFI | HTTPS with proper certificates | Used by DIFI to collect statistics |
