@@ -22,7 +22,7 @@ public class OxalisQuartzCommandFactory {
 	private OxalisQuartzCommandFactory() {
 	}
 
-	public static OxalisQuartzCommandFactory prepare() {
+	public static synchronized OxalisQuartzCommandFactory prepare() {
 		return new OxalisQuartzCommandFactory();
 	}
 
@@ -47,14 +47,14 @@ public class OxalisQuartzCommandFactory {
 	}
 
 	public OxalisQuartzCommandFactory overSingleJob(OxalisQuartzJobKey job) {
-		jobKeys = new ArrayList<OxalisQuartzJobKey>();
+		jobKeys = new ArrayList<>();
 		jobKeys.add(job);
 		scope = OxalisQuartzCommandScopeEnum.SINGLE_JOB;
 		return this;
 	}
 
 	public OxalisQuartzCommandFactory overTheseJobs(List<OxalisQuartzJobKey> jobs) {
-		jobKeys = new ArrayList<OxalisQuartzJobKey>();
+		jobKeys = new ArrayList<>();
 		jobKeys.addAll(jobs);
 		scope = OxalisQuartzCommandScopeEnum.JOB_LIST;
 		return this;

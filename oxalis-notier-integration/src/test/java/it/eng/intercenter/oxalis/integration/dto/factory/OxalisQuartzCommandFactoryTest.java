@@ -37,55 +37,55 @@ public class OxalisQuartzCommandFactoryTest {
 		OxalisQuartzCommand tc_start2 = OxalisQuartzCommandFactory.prepare().asStart().overSingleJob(tc_job_key1).build();
 		OxalisQuartzCommand tc_start3 = OxalisQuartzCommandFactory.prepare().asStart().overTheseJobs(jobs).build();
 
-		Assert.assertTrue(tc_start1.getAction().equals(OxalisQuartzCommandActionEnum.START));
-		Assert.assertTrue(tc_start2.getAction().equals(OxalisQuartzCommandActionEnum.START));
-		Assert.assertTrue(tc_start3.getAction().equals(OxalisQuartzCommandActionEnum.START));
+		Assert.assertEquals(OxalisQuartzCommandActionEnum.START, tc_start1.getAction());
+		Assert.assertEquals(OxalisQuartzCommandActionEnum.START, tc_start2.getAction());
+		Assert.assertEquals(OxalisQuartzCommandActionEnum.START, tc_start3.getAction());
 
-		Assert.assertTrue(tc_start1.getScope().equals(OxalisQuartzCommandScopeEnum.ALL_JOBS));
-		Assert.assertTrue(tc_start2.getScope().equals(OxalisQuartzCommandScopeEnum.SINGLE_JOB));
-		Assert.assertTrue(tc_start3.getScope().equals(OxalisQuartzCommandScopeEnum.JOB_LIST));
+		Assert.assertEquals(OxalisQuartzCommandScopeEnum.ALL_JOBS, tc_start1.getScope());
+		Assert.assertEquals(OxalisQuartzCommandScopeEnum.SINGLE_JOB, tc_start2.getScope());
+		Assert.assertEquals(OxalisQuartzCommandScopeEnum.JOB_LIST, tc_start3.getScope());
 
 		Assert.assertNull(tc_start1.getJobKeys());
 		Assert.assertNotNull(tc_start2.getJobKeys());
-		Assert.assertTrue(tc_start2.getJobKeys().size() == 1);
+		Assert.assertEquals(1, tc_start2.getJobKeys().size());
 		Assert.assertNotNull(tc_start3.getJobKeys());
-		Assert.assertTrue(tc_start3.getJobKeys().size() == 2);
+		Assert.assertEquals(2, tc_start3.getJobKeys().size());
 
 		OxalisQuartzCommand tc_stop1 = OxalisQuartzCommandFactory.prepare().asStop().overAllJobs().build();
 		OxalisQuartzCommand tc_stop2 = OxalisQuartzCommandFactory.prepare().asStop().overSingleJob(tc_job_key1).build();
 		OxalisQuartzCommand tc_stop3 = OxalisQuartzCommandFactory.prepare().asStop().overTheseJobs(jobs).build();
 
-		Assert.assertTrue(tc_stop1.getAction().equals(OxalisQuartzCommandActionEnum.STOP));
-		Assert.assertTrue(tc_stop2.getAction().equals(OxalisQuartzCommandActionEnum.STOP));
-		Assert.assertTrue(tc_stop3.getAction().equals(OxalisQuartzCommandActionEnum.STOP));
+		Assert.assertEquals(OxalisQuartzCommandActionEnum.STOP, tc_stop1.getAction());
+		Assert.assertEquals(OxalisQuartzCommandActionEnum.STOP, tc_stop2.getAction());
+		Assert.assertEquals(OxalisQuartzCommandActionEnum.STOP, tc_stop3.getAction());
 
-		Assert.assertTrue(tc_stop1.getScope().equals(OxalisQuartzCommandScopeEnum.ALL_JOBS));
-		Assert.assertTrue(tc_stop2.getScope().equals(OxalisQuartzCommandScopeEnum.SINGLE_JOB));
-		Assert.assertTrue(tc_stop3.getScope().equals(OxalisQuartzCommandScopeEnum.JOB_LIST));
+		Assert.assertEquals(OxalisQuartzCommandScopeEnum.ALL_JOBS, tc_stop1.getScope());
+		Assert.assertEquals(OxalisQuartzCommandScopeEnum.SINGLE_JOB, tc_stop2.getScope());
+		Assert.assertEquals(OxalisQuartzCommandScopeEnum.JOB_LIST, tc_stop3.getScope());
 
 		Assert.assertNull(tc_stop1.getJobKeys());
 		Assert.assertNotNull(tc_stop2.getJobKeys());
-		Assert.assertTrue(tc_stop2.getJobKeys().size() == 1);
+		Assert.assertEquals(1, tc_stop2.getJobKeys().size());
 		Assert.assertNotNull(tc_stop3.getJobKeys());
-		Assert.assertTrue(tc_stop3.getJobKeys().size() == 2);
+		Assert.assertEquals(2, tc_stop3.getJobKeys().size());
 
 		OxalisQuartzCommand tc_view1 = OxalisQuartzCommandFactory.prepare().asView().overAllJobs().build();
 		OxalisQuartzCommand tc_view2 = OxalisQuartzCommandFactory.prepare().asView().overSingleJob(tc_job_key1).build();
 		OxalisQuartzCommand tc_view3 = OxalisQuartzCommandFactory.prepare().asView().overTheseJobs(jobs).build();
 
-		Assert.assertTrue(tc_view1.getAction().equals(OxalisQuartzCommandActionEnum.VIEW));
-		Assert.assertTrue(tc_view2.getAction().equals(OxalisQuartzCommandActionEnum.VIEW));
-		Assert.assertTrue(tc_view3.getAction().equals(OxalisQuartzCommandActionEnum.VIEW));
+		Assert.assertEquals(OxalisQuartzCommandActionEnum.VIEW, tc_view1.getAction());
+		Assert.assertEquals(OxalisQuartzCommandActionEnum.VIEW, tc_view2.getAction());
+		Assert.assertEquals(OxalisQuartzCommandActionEnum.VIEW, tc_view3.getAction());
 
-		Assert.assertTrue(tc_view1.getScope().equals(OxalisQuartzCommandScopeEnum.ALL_JOBS));
-		Assert.assertTrue(tc_view2.getScope().equals(OxalisQuartzCommandScopeEnum.SINGLE_JOB));
-		Assert.assertTrue(tc_view3.getScope().equals(OxalisQuartzCommandScopeEnum.JOB_LIST));
+		Assert.assertEquals(OxalisQuartzCommandScopeEnum.ALL_JOBS, tc_view1.getScope());
+		Assert.assertEquals(OxalisQuartzCommandScopeEnum.SINGLE_JOB, tc_view2.getScope());
+		Assert.assertEquals(OxalisQuartzCommandScopeEnum.JOB_LIST, tc_view3.getScope());
 
 		Assert.assertNull(tc_view1.getJobKeys());
 		Assert.assertNotNull(tc_view2.getJobKeys());
-		Assert.assertTrue(tc_view2.getJobKeys().size() == 1);
+		Assert.assertEquals(1, tc_view2.getJobKeys().size());
 		Assert.assertNotNull(tc_view3.getJobKeys());
-		Assert.assertTrue(tc_view3.getJobKeys().size() == 2);
+		Assert.assertEquals(2, tc_view3.getJobKeys().size());
 
 	}
 

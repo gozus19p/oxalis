@@ -11,27 +11,17 @@ import com.google.gson.GsonBuilder;
 public class GsonUtil {
 
 	/**
-	 * Instance made for parsing object into json String.
-	 */
-	private static final Gson PRETTY_INSTANCE = new GsonBuilder().setPrettyPrinting().create();
-	
-	/**
-	 * Basic instance.
-	 */
-	private static final Gson BASIC_INSTANCE = new Gson();
-
-	/**
 	 * @return the basic instance (no formatting)
 	 */
-	public static Gson getInstance() {
-		return BASIC_INSTANCE;
+	public static synchronized Gson getInstance() {
+		return new Gson();
 	}
 
 	/**
 	 * @return the pretty printed instance (format and indent correctly)
 	 */
-	public static Gson getPrettyPrintedInstance() {
-		return PRETTY_INSTANCE;
+	public static synchronized Gson getPrettyPrintedInstance() {
+		return new GsonBuilder().setPrettyPrinting().create();
 	}
 
 }
