@@ -244,7 +244,7 @@
 				<version>2.1.1</version>
 				<configuration>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
-					<warName>oxalis-${oxalis.version}-${war.name.profile}</warName>
+					<warName>oxalis-${project.version}-${war.name.profile}</warName>
 				</configuration>
 			</plugin>
 			<plugin>
