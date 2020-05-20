@@ -36,7 +36,6 @@
         <jetty.version>9.4.20.v20190813</jetty.version>
         <opentracing.version>0.33.0</opentracing.version>
 
-		<oxalis.environment/>
 		<oxalis.version>4.1.1</oxalis.version>
 	</properties>
 
@@ -55,7 +54,7 @@
 		<module>oxalis-notier-rest-server</module>
 		<module>oxalis-notier-core</module>
 		<module>oxalis-persist</module>
-		<module>oxalis-dist/oxalis-war</module>
+		<module>oxalis-war</module>
 
 		<!-- Oxalis -->
 		<module>oxalis-inbound</module>
@@ -395,16 +394,14 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
-				<oxalis.environment>TEST</oxalis.environment>
-				<reference.path>filters/oxalis-commons/test</reference.path>
+				<reference.path>resources/oxalis-commons-reference/test</reference.path>
 			</properties>
 		</profile>
 
 		<profile>
 			<id>prod</id>
 			<properties>
-				<oxalis.environment>PROD</oxalis.environment>
-				<reference.path>filters/oxalis-commons/production</reference.path>
+				<reference.path>resources/oxalis-commons-reference/production</reference.path>
 			</properties>
 		</profile>
 	</profiles>
