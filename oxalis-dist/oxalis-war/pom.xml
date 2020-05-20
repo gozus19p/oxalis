@@ -234,43 +234,6 @@
 			</dependencies>
 		</profile>
 
-		<!-- Profile for mixed outbound configuration -->
-		<profile>
-			<id>outbound-only</id>
-			<properties>
-				<war.name.profile>outbound-only</war.name.profile>
-			</properties>
-			<dependencies>
-
-				<!-- Oxalis AS4 -->
-				<dependency>
-					<groupId>no.difi.oxalis</groupId>
-					<artifactId>oxalis-as4</artifactId>
-					<version>${oxalis.difi.as4.version}</version>
-				</dependency>
-
-				<!-- Rest Server -->
-				<dependency>
-					<groupId>it.eng.intercenter</groupId>
-					<artifactId>oxalis-notier-rest-server</artifactId>
-					<version>${oxalis.eng.rest-server.version}</version>
-				</dependency>
-
-				<!-- Oxalis -->
-				<dependency>
-					<groupId>no.difi.oxalis</groupId>
-					<artifactId>oxalis-inbound</artifactId>
-				</dependency>
-
-				<!-- Quartz -->
-				<dependency>
-					<groupId>it.eng.intercenter</groupId>
-					<artifactId>oxalis-quartz</artifactId>
-					<version>${oxalis.eng.quartz.version}</version>
-				</dependency>
-
-			</dependencies>
-		</profile>
 	</profiles>
 
 	<build>
@@ -281,7 +244,7 @@
 				<version>2.1.1</version>
 				<configuration>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
-					<warName>oxalis-${project.version}-${war.name.profile}</warName>
+					<warName>oxalis-${oxalis.version}-${war.name.profile}</warName>
 				</configuration>
 			</plugin>
 			<plugin>

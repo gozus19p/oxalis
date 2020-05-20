@@ -30,3 +30,6 @@ dev.make
 /oxalis-legacy
 #/oxalis-outbound
 /oxalis-test
+
+# Ignored because it is created runtime from Maven build
+/oxalis-commons/src/main/resources/reference.conf

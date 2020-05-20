@@ -33,6 +33,7 @@ import com.typesafe.config.Config;
 import io.opentracing.Span;
 import io.opentracing.Tracer;
 import io.opentracing.contrib.spanmanager.DefaultSpanManager;
+import lombok.extern.slf4j.Slf4j;
 import net.klakegg.pkix.ocsp.api.OcspFetcher;
 import no.difi.certvalidator.api.CrlFetcher;
 import no.difi.oxalis.api.settings.DefaultValue;
@@ -43,6 +44,7 @@ import no.difi.vefa.peppol.mode.Mode;
  * @author erlend
  * @since 4.0.4
  */
+@Slf4j
 public class ModeProvider implements Provider<Mode> {
 
 	@Inject
@@ -67,7 +69,9 @@ public class ModeProvider implements Provider<Mode> {
 			objectStorage.put("ocsp_fetcher", ocspFetcher);
 			objectStorage.put("crlFetcher", crlFetcher);
 
-			return Mode.of(config.getString("oxalis.op.mode"));
+			Mode mode = Mode.of(config.getString("oxalis.op.mode"));
+			log.info(">>> Starting Oxalis in MODE: \"{}\"", mode.getIdentifier());
+			return mode;
 		} finally {
 			span.finish();
 		}
