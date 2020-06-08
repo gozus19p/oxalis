@@ -41,6 +41,7 @@ class OxalisApacheFetcher extends BasicApacheFetcher {
     @Inject
     public OxalisApacheFetcher(Provider<CloseableHttpClient> httpClientProvider, Mode mode) {
         super(mode);
+        this.timeout = 10000;
         this.httpClientProvider = httpClientProvider;
     }
 
