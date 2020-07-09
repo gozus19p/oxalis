@@ -22,6 +22,7 @@ import javax.net.ssl.TrustManagerFactory;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.impl.client.HttpClients;
 
@@ -72,7 +73,16 @@ public abstract class AbstractHttpNotierCall<T extends HttpRequestBase> {
 		isProductionMode = detectProductionMode();
 		loadCertificate();
 		try {
-			httpClient = HttpClients.custom().setSSLContext(getSSLContext()).build();
+			httpClient = HttpClients.custom()
+					.setDefaultRequestConfig(
+							RequestConfig.custom()
+									.setConnectTimeout(20000)
+									.build()
+					)
+					.setSSLContext(
+							getSSLContext()
+					)
+					.build();
 		} catch (KeyManagementException | KeyStoreException e) {
 			log.error("Some errors occur on Keystore management, root cause: {}", e.getMessage(), e);
 		} catch (Exception e) {

@@ -2,7 +2,7 @@ package it.eng.intercenter.oxais.notier.core.service.impl;
 
 import com.google.inject.Inject;
 import it.eng.intercenter.oxalis.integration.dto.OxalisLookupResponse;
-import it.eng.intercenter.oxalis.notier.core.service.api.IOxalisLookupNotierIntegrationService;
+import it.eng.intercenter.oxalis.notier.core.service.impl.OxalisLookupNotierIntegrationService;
 import net.lamberto.junit.GuiceJUnitRunner;
 import org.junit.Assert;
 import org.junit.Test;
@@ -15,7 +15,7 @@ import org.junit.runner.RunWith;
 public class OxalisLookupNotierIntegrationServiceTest {
 
     @Inject
-    private IOxalisLookupNotierIntegrationService service;
+    private OxalisLookupNotierIntegrationService service;
 
     @Test
     public void testLookup() {
