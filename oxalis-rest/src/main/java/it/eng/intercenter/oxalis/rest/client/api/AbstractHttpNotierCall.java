@@ -22,8 +22,10 @@ import javax.net.ssl.TrustManagerFactory;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.HttpRequestRetryHandler;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.impl.client.DefaultHttpRequestRetryHandler;
 import org.apache.http.impl.client.HttpClients;
 
 import it.eng.intercenter.oxalis.integration.dto.enumerator.NotierRestCallTypeEnum;
@@ -78,6 +80,12 @@ public abstract class AbstractHttpNotierCall<T extends HttpRequestBase> {
 							RequestConfig.custom()
 									.setConnectTimeout(20000)
 									.build()
+					)
+					.setRetryHandler(
+							new DefaultHttpRequestRetryHandler(
+									3,
+									true
+							)
 					)
 					.setSSLContext(
 							getSSLContext()
