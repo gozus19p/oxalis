@@ -58,7 +58,7 @@ public abstract class AbstractConfigManager {
 	 */
 	public AbstractConfigManager(String configurationFileName, Path oxalisHome) {
 
-		// Saving Oxalis home path.
+		// Saving Oxalis home path reference.
 		this.oxalisHomePath = oxalisHome;
 
 		// Init configuration.
