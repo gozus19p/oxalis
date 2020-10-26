@@ -74,7 +74,9 @@ public abstract class AbstractHttpNotierCall<T extends HttpRequestBase> {
 			httpClient = HttpClients.custom()
 					.setDefaultRequestConfig(
 							RequestConfig.custom()
-									.setConnectTimeout(30000)
+									.setConnectTimeout(20000)
+									.setSocketTimeout(20000)
+									.setConnectionRequestTimeout(20000)
 									.build()
 					)
 					.setRetryHandler(
