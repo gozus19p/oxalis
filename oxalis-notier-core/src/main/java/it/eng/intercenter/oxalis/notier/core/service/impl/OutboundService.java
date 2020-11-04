@@ -36,6 +36,9 @@ import no.difi.oxalis.api.outbound.TransmissionResponse;
 import no.difi.oxalis.outbound.OxalisOutboundComponent;
 import no.difi.oxalis.outbound.transmission.TransmissionRequestBuilder;
 
+/**
+ * @author Manuel Gozzi
+ */
 @Slf4j
 public class OutboundService implements IOutboundService {
 
@@ -70,7 +73,7 @@ public class OutboundService implements IOutboundService {
 
 		// Access receipt.
 		String receiptPayloadStringified = new String(response.primaryReceipt().getValue(), StandardCharsets.UTF_8);
-		log.info("Received the following receipt: {}{}", new Object[] { System.getProperty("line.separator"), receiptPayloadStringified });
+		log.info("Received the following receipt: {}{}", new Object[]{System.getProperty("line.separator"), receiptPayloadStringified});
 
 		// Build "OK" MDN for NoTI-ER.
 		return buildMdn(null, OxalisStatusEnum.OK, "Receipt: " + receiptPayloadStringified, response);
@@ -113,7 +116,7 @@ public class OutboundService implements IOutboundService {
 				// the transaction determines how the Oxalis MDN needs to be created.
 				oxalisMdn = index.isInternal()
 						? new OxalisMdn(index.getUrn(), OxalisStatusEnum.INTERNAL,
-								"This document has not been sent on PEPPOL Network because it follows internal NoTI-ER process")
+						"This document has not been sent on PEPPOL Network because it follows internal NoTI-ER process")
 						: buildTransmissionAndSendOnPeppol(index.getUrn(), peppolMessageJson);
 
 				log.info(MESSAGE_OUTBOUND_SUCCESS_FOR_URN, index.getUrn());
@@ -121,7 +124,11 @@ public class OutboundService implements IOutboundService {
 			} catch (Exception e) {
 
 				// Build negative MDN.
-				oxalisMdn = new OxalisMdn(index.getUrn(), OxalisStatusEnum.KO, e.getMessage());
+				oxalisMdn = new OxalisMdn(
+						index.getUrn(),
+						OxalisStatusEnum.KO,
+						formatThrowableMessage(e)
+				);
 				log.error(MESSAGE_OUTBOUND_FAILED_FOR_URN, index.getUrn());
 				log.error(e.getMessage(), e);
 			} finally {
@@ -133,6 +140,57 @@ public class OutboundService implements IOutboundService {
 		}
 	}
 
+	/**
+	 * Method that formats properly the whole messages of causes related to the given Throwable instance.
+	 *
+	 * @param throwable is the Throwable instance
+	 * @return the full representation of cause message
+	 */
+	private String formatThrowableMessage(Throwable throwable) {
+		return getFullExceptionCauseMessage(throwable, 1);
+	}
+
+	/**
+	 * Recursive method that formats properly the whole messages of causes related to the given Throwable instance.
+	 *
+	 * @param e     is the Throwable instance
+	 * @param index is the index that needs to be printed on message
+	 * @return the full representation of message
+	 */
+	private String getFullExceptionCauseMessage(Throwable e, int index) {
+		return e != null && e.getCause() != null ?
+				// If the given Throwable instance has a deeper cause, I keep going deeply
+				getSingleExceptionMessage(e, index) + getFullExceptionCauseMessage(e.getCause(), index + 1)
+				: (
+				e != null ?
+						getSingleExceptionMessage(e, index) : ""
+		);
+	}
+
+	/**
+	 * This one properly formats the exception message.
+	 *
+	 * @param e     is the <code>Throwable</code> that occurred
+	 * @param index is the index to print on message
+	 * @return the message properly formatted
+	 */
+	private String getSingleExceptionMessage(Throwable e, int index) {
+		return String.format(
+				"[%s] \"%s\": %s%s",
+				index,
+				e.getClass().getName(),
+				e.getMessage(),
+				System.getProperty("line.separator")
+		);
+	}
+
+	/**
+	 * This one asks NoTI-ER for a message to send on PEPPOL.
+	 *
+	 * @param urn represents the document index that needs to be sent on PEPPOL network
+	 * @return the .json String representation of the given document
+	 * @throws IOException if something goes wrong during HTTP call processing
+	 */
 	private String retrieveSinglePeppolMessageFromNotier(String urn) throws IOException {
 
 		HttpResponse get_response = HttpCaller.executeGet(certConfig, restDocumentGetterUri + urn);
@@ -147,47 +205,49 @@ public class OutboundService implements IOutboundService {
 	/**
 	 * Builds a TransmissionMessage object and send it on Peppol.
 	 *
-	 * @param oxalisMdn               is the object that holds the URN and the
-	 *                                status
 	 * @param urn                     is the URN of the involved document
 	 * @param peppolMessageJsonFormat is the json format of PeppolMessage instance
 	 *                                related to involved document
 	 * @return the final OxalisMdn object
 	 * @throws OxalisTransmissionException if some problems occur while sending
 	 *                                     document on Peppol network
-	 * @throws OxalisContentException
+	 * @throws OxalisContentException      if something goes wrong with content
 	 */
 	@Override
 	public OxalisMdn buildTransmissionAndSendOnPeppol(String urn, String peppolMessageJsonFormat) throws OxalisTransmissionException, OxalisContentException {
+
+		// Building transmission request
 		TransmissionRequest messageToSend = NotierTransmissionRequestBuilder.build(requestBuilder, peppolMessageJsonFormat);
 		TransmissionResponse response = send(messageToSend);
-		String receiptPayloadStringified = new String(response.primaryReceipt().getValue(), StandardCharsets.UTF_8);
-		log.info("Received the following receipt: {}{}", new Object[] { System.getProperty("line.separator"), receiptPayloadStringified });
-		/**
-		 * Fase 3. Creo una notifica MDN Oxalis sulla base dell'esito dell'invio.
-		 */
+		String receiptPayloadString = new String(response.primaryReceipt().getValue(), StandardCharsets.UTF_8);
+		log.info("Received the following receipt: {}{}", new Object[]{System.getProperty("line.separator"), receiptPayloadString});
+
+		// Third phase, creating an MDN notification based on sending outcome
 		OxalisMdn mdn = buildMdn(urn, OxalisStatusEnum.OK, null, response);
 		try {
-			mdn.getTransactionDetails().setReceipt(new ByteArrayInputStream(receiptPayloadStringified.getBytes()));
+			mdn.getTransactionDetails().setReceipt(
+					new ByteArrayInputStream(receiptPayloadString.getBytes())
+			);
 		} catch (Exception e) {
 			log.warn("A problem occurred: {}", e.getMessage(), e);
 		}
 		return mdn;
 	}
 
-	/**
-	 * Processa l'invio su rete Peppol del documento recuperato.
-	 *
-	 * @param documento
-	 * @param urn
-	 */
 	@Override
-	public TransmissionResponse send(TransmissionMessage documento) throws OxalisTransmissionException {
-		return outboundComponent.getTransmitter().transmit(documento);
+	public TransmissionResponse send(TransmissionMessage transmissionMessage) throws OxalisTransmissionException {
+		log.info("Transmitting...");
+		return outboundComponent.getTransmitter().transmit(transmissionMessage);
 	}
 
+	/**
+	 * This one retrieves URN list related to documents that need to be sent on PEPPOL network.
+	 *
+	 * @return an UrnList instance that contains all the URN occurrences
+	 * @throws Exception in case of error
+	 */
 	private UrnList retrieveUrnList() throws Exception {
-		String jsonUrnGetterResponse = null;
+		String jsonUrnGetterResponse;
 		try {
 			HttpResponse get_response = HttpCaller.executeGet(certConfig, restUrnGetterUri);
 			if (HttpCaller.responseStatusCodeIsValid(get_response)) {
@@ -207,10 +267,10 @@ public class OutboundService implements IOutboundService {
 
 	private void checkUrnListContent(UrnList urnListRetrievedFromNotier) throws Exception {
 		if (urnListRetrievedFromNotier != null) {
-			log.info("Found {} {} to send on Peppol", urnListRetrievedFromNotier.getUrnCount(),
+			log.info("Found {} {} to send on PEPPOL", urnListRetrievedFromNotier.getUrnCount(),
 					(urnListRetrievedFromNotier.getUrnCount() == 1 ? "document" : "documents"));
 		} else {
-			log.error("Invalid response received from Notier: {}{}", new Object[] { System.getProperty("line.separator"), urnListRetrievedFromNotier });
+			log.error("Invalid response received from Notier: {}{}", new Object[]{System.getProperty("line.separator"), urnListRetrievedFromNotier});
 			throw new Exception("Invalid response received from Notier (UrnList)");
 		}
 	}
@@ -237,7 +297,7 @@ public class OutboundService implements IOutboundService {
 
 			mdn.setTransactionDetails(details);
 		} catch (Exception e) {
-			log.error("Problems during transaction details definition: {}", e.getMessage(), e);
+			log.warn("Problems during transaction details definition: {}", e.getMessage(), e);
 		}
 
 		return mdn;
@@ -246,28 +306,23 @@ public class OutboundService implements IOutboundService {
 	/**
 	 * Forward the OxalisMdn to Notier.
 	 *
-	 * @param oxalisMdn   is the status of the transaction
-	 * @param urnDocument is the URN of involved document
+	 * @param oxalisMdn is the status of the transaction
 	 */
 	private void sendJsonMdnToNotier(OxalisMdn oxalisMdn) {
 		try {
 			HttpResponse resp = HttpCaller.executePost(certConfig, restSendStatusUri, "oxalisContent", GsonUtil.getPrettyPrintedInstance().toJson(oxalisMdn));
 			String respContent = HttpCaller.extractResponseContentAsUTF8String(resp);
-			log.debug("Received response contains {} characters", respContent.length());
+			log.info("Received response contains {} characters", respContent.length());
 		} catch (UnsupportedOperationException | IOException e) {
 			log.error(MESSAGE_MDN_SEND_FAILED, oxalisMdn.getDocumentUrn(), e);
 		}
 	}
 
 	/**
-	 * @throws JobExecutionException if the configuration has not been setup
-	 *                               properly.
+	 * This loads URI references reading them from configuration.
 	 */
 	private void loadRestUriReferences() {
-		/**
-		 * Recupero la lista di URN corrispondenti ai documenti che devono essere
-		 * inviati su rete Peppol.
-		 */
+
 		restUrnGetterUri = restConfig.readValue(RestConfigManager.CONFIG_KEY_REST_GETTER_URNS);
 		restDocumentGetterUri = restConfig.readValue(RestConfigManager.CONFIG_KEY_REST_GETTER_DOCUMENT);
 		restSendStatusUri = restConfig.readValue(RestConfigManager.CONFIG_KEY_REST_SENDER_STATUS);
@@ -287,15 +342,20 @@ public class OutboundService implements IOutboundService {
 	}
 
 	/**
-	 * @throws JobExecutionException if the configuration has not been setup
-	 *                               properly.
+	 * This initializes REST URI configuration, if needed.
 	 */
 	private void setupOutboundRestConfiguration() {
-		if (isEmptyOrNull(restDocumentGetterUri) || isEmptyOrNull(restDocumentGetterUri) || isEmptyOrNull(restSendStatusUri)) {
+		if (isEmptyOrNull(restUrnGetterUri) || isEmptyOrNull(restDocumentGetterUri) || isEmptyOrNull(restSendStatusUri)) {
 			loadRestUriReferences();
 		}
 	}
 
+	/**
+	 * Basic utility method that checks for String empty or null.
+	 *
+	 * @param str is the string to check
+	 * @return <code>true</code> if the given string is empty or null, <code>false</code> otherwise
+	 */
 	private boolean isEmptyOrNull(String str) {
 		return str == null || str.isEmpty();
 	}

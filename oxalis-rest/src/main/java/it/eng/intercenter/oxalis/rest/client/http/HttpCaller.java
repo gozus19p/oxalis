@@ -112,7 +112,10 @@ public class HttpCaller {
 	 * @return "true" if HTTP call exit code is accettable
 	 */
 	public static boolean responseStatusCodeIsValid(HttpResponse httpResponse) {
-		return httpResponse.getStatusLine().getStatusCode() >= 200 && httpResponse.getStatusLine().getStatusCode() <= 299;
+		return httpResponse != null
+				&& httpResponse.getStatusLine() != null
+				&& httpResponse.getStatusLine().getStatusCode() >= 200
+				&& httpResponse.getStatusLine().getStatusCode() <= 299;
 	}
 
 }
