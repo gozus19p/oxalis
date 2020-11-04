@@ -147,6 +147,9 @@ public class OutboundService implements IOutboundService {
 	 * @return the full representation of cause message
 	 */
 	private String formatThrowableMessage(Throwable throwable) {
+		if (throwable == null) {
+			return "unable to detect error message";
+		}
 		return getFullExceptionCauseMessage(throwable, 1);
 	}
 
