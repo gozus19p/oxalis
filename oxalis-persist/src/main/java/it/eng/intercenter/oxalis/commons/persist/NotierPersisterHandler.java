@@ -124,7 +124,10 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 					handleReceivedMdn(payloadPath, mdn, inboundMetadata);
 
 				} catch (Exception e) {
-					if (e.getMessage() != null && e.getMessage().toLowerCase().contains("connection reset")) {
+					if (e.getMessage() != null && (
+							e.getMessage().toLowerCase().contains("connection reset")
+							|| e.getMessage().toLowerCase().contains("failed to respond")
+					)) {
 						log.warn("Got a CONNECTION RESET from NoTI-ER: {}", e.getMessage(), e);
 						forwardingMustBeRepeated = true;
 						currentAttempt++;
