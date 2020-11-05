@@ -127,7 +127,8 @@ public class OutboundService implements IOutboundService {
 				oxalisMdn = new OxalisMdn(
 						index.getUrn(),
 						OxalisStatusEnum.KO,
-						formatThrowableMessage(e)
+						e.getMessage()
+						// formatThrowableMessage(e)
 				);
 				log.error(MESSAGE_OUTBOUND_FAILED_FOR_URN, index.getUrn());
 				log.error(e.getMessage(), e);

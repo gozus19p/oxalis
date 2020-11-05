@@ -20,6 +20,7 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.apache.commons.codec.binary.StringUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.message.BasicNameValuePair;
@@ -55,6 +56,7 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 
 	private static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat("dd-MM-yyyy");
 	private static final SimpleDateFormat TIME_FORMATTER = new SimpleDateFormat("hh:mm");
+	public static final int DEFAULT_ATTEMPTS = 5;
 
 	@Inject
 	public NotierPersisterHandler(PayloadPersister payloadPersister, ReceiptPersister receiptPersister, ExceptionPersister exceptionPersister) {
@@ -93,19 +95,46 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 			// Retrieve HTTP POST URI to execute.
 			String uri = restConfig.readValue(RestConfigManager.CONFIG_KEY_REST_DOCUMENT_INBOUND);
 
-			// Build HTTP call.
-			HttpNotierPost post = new HttpNotierPost(certificateConfig, uri, getParams(inboundMetadata, inboundMetadata.getHeader(), payloadPath));
+			// Reads max attempts from rest config
+			int maxRetryAttempts = getRetryAttempts();
 
-			// Execute HTTP call.
-			log.info("Parsing response from NoTI-ER...");
-			HttpResponse response = post.execute();
-			String responseContent = HttpCaller.extractResponseContentAsUTF8String(response);
-			log.info("{}", responseContent);
+			// Current attempt progressive count
+			int currentAttempt = 1;
 
-			// Parse response received from NoTI-ER.
-			OxalisMdn mdn = GsonUtil.getInstance().fromJson(responseContent, OxalisMdn.class);
+			// If this one is "true", Oxalis keeps trying to persist on NoTI-ER
+			boolean forwardingMustBeRepeated = false;
 
-			handleReceivedMdn(payloadPath, mdn, inboundMetadata);
+			do {
+				try {
+
+					// Build HTTP call.
+					HttpNotierPost post = new HttpNotierPost(certificateConfig, uri, getParams(inboundMetadata, inboundMetadata.getHeader(), payloadPath));
+
+					// Execute HTTP call.
+					HttpResponse response = post.execute();
+
+					// Handling response
+					log.info("Parsing response from NoTI-ER...");
+					String responseContent = HttpCaller.extractResponseContentAsUTF8String(response);
+					log.info("{}", responseContent);
+
+					// Parse response received from NoTI-ER.
+					OxalisMdn mdn = GsonUtil.getInstance().fromJson(responseContent, OxalisMdn.class);
+
+					handleReceivedMdn(payloadPath, mdn, inboundMetadata);
+
+				} catch (Exception e) {
+					if (e.getMessage() != null && e.getMessage().toLowerCase().contains("connection reset")) {
+						log.warn("Got a CONNECTION RESET from NoTI-ER: {}", e.getMessage(), e);
+						forwardingMustBeRepeated = true;
+						currentAttempt++;
+						log.warn("Incrementing attempt count from {} to {}", currentAttempt - 1, currentAttempt);
+					} else {
+						log.error("Something went wrong during persist on NoTI-ER: {}", e.getMessage(), e);
+						log.warn("This is not a connection reset, Oxalis will not repeat forward process");
+					}
+				}
+			} while (currentAttempt <= maxRetryAttempts && forwardingMustBeRepeated);
 
 		} catch (Exception e) {
 
@@ -117,6 +146,28 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 
 			notifyTechnicalSupport(payloadPath, e);
 
+		}
+	}
+
+	private int getRetryAttempts() {
+		try {
+			String attemptsConfigured = restConfig.readValue(RestConfigManager.CONFIG_KEY_PERSIST_ATTEMPTS);
+			if (attemptsConfigured != null && !attemptsConfigured.trim().isEmpty()) {
+				return Integer.parseInt(
+						attemptsConfigured.trim()
+				);
+			}
+			throw new IllegalStateException(
+					String.format(
+							"Value of config %s is not properly set: [%s]",
+							RestConfigManager.CONFIG_KEY_PERSIST_ATTEMPTS,
+							attemptsConfigured
+					)
+			);
+		} catch (Exception e) {
+			log.error("An error occurred while retrieving attempts: {}", e.getMessage(), e);
+			log.warn("Using the default attempts set to {}", DEFAULT_ATTEMPTS);
+			return DEFAULT_ATTEMPTS;
 		}
 	}
 
@@ -135,7 +186,7 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 	private void handleReceivedMdn(Path payloadPath, OxalisMdn mdn, InboundMetadata inboundMetadata) {
 		// Logging.
 		if (mdn.hasPositiveStatus()) {
-			log.info("Received document, succesfully sent on NoTI-ER");
+			log.info("The received document has been successfully sent on NoTI-ER");
 			try {
 				java.nio.file.Files.delete(payloadPath);
 				log.info("Persist on NoTI-ER processed successfully, temp file removed");
@@ -143,7 +194,7 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 				log.error("Persist on NoTI-ER processed successfully, but some error occurred during temp file removing. Cause: {}", e.getMessage(), e);
 			}
 		} else {
-			log.warn("Received document, found some problems during sending process on NoTI-ER");
+			log.warn("Something went wrong during forwarding process on NoTI-ER");
 
 			// Send e-mail to Support NoTI-ER.
 			try {
@@ -166,11 +217,11 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 	 * If this is evaluated to "true", Oxalis will send the receiving payload to
 	 * NoTI-ER, otherwise not.
 	 *
+	 * @return "true" if Oxalis must forward the received document to NoTI-ER,
+	 * "false" otherwise
 	 * @author Manuel Gozzi
 	 * @date 25 nov 2019
 	 * @time 14:48:54
-	 * @return "true" if Oxalis must forward the received document to NoTI-ER,
-	 *         "false" otherwise
 	 */
 	private boolean persistOnNotierIsEnabled() {
 
@@ -186,12 +237,12 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 	 * It sends an e-mail to NoTI-ER support, informing the technical team about the
 	 * failure.
 	 *
-	 * @author Manuel Gozzi
-	 * @date 25 nov 2019
-	 * @time 14:49:55
 	 * @param e           is the Exception related to the outbound failure stack
 	 *                    trace
 	 * @param payloadPath is the path related to the payload
+	 * @author Manuel Gozzi
+	 * @date 25 nov 2019
+	 * @time 14:49:55
 	 */
 	private void sendEmailToSupportNotier(String errorMessage, Path payloadPath) {
 
@@ -236,27 +287,27 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 	/**
 	 * Finalize e-mail setup and process e-mail.
 	 *
-	 * @author Manuel Gozzi
-	 * @date 25 nov 2019
-	 * @time 14:51:02
 	 * @param errorMessage           is the error message related to the issue
 	 * @param config_receiver        is the receiver e-mail address
 	 * @param session                is the session to use for e-mail processing
 	 * @param config_carbonCopy      is the e-mail carbon copy receiver configured
 	 * @param config_blindCarbonCopy is the e-mail blind carbon copy receiver
 	 *                               configured
+	 * @author Manuel Gozzi
+	 * @date 25 nov 2019
+	 * @time 14:51:02
 	 */
 	private void prepareAndSendEmail(String errorMessage, String config_receiver, Session session, String config_carbonCopy, String config_blindCarbonCopy,
-			Path payloadPath) {
+									 Path payloadPath) {
 		Message email = new MimeMessage(session);
 
 		// Prepare e-mail details.
-		String[] m_receivers = config_receiver.contains(",") ? config_receiver.split(",") : new String[] { config_receiver };
+		String[] m_receivers = config_receiver.contains(",") ? config_receiver.split(",") : new String[]{config_receiver};
 		String[] m_knownCopies = config_carbonCopy != null
-				? (config_carbonCopy.contains(",") ? config_carbonCopy.split(",") : new String[] { config_carbonCopy })
+				? (config_carbonCopy.contains(",") ? config_carbonCopy.split(",") : new String[]{config_carbonCopy})
 				: null;
 		String[] m_hiddenCopies = config_blindCarbonCopy != null
-				? (config_blindCarbonCopy.contains(",") ? config_blindCarbonCopy.split(",") : new String[] { config_blindCarbonCopy })
+				? (config_blindCarbonCopy.contains(",") ? config_blindCarbonCopy.split(",") : new String[]{config_blindCarbonCopy})
 				: null;
 
 		// Prepare subject and text.
@@ -295,7 +346,7 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 	}
 
 	private void setUpEmailDetails(Message email, String[] m_receivers, String[] m_knownCopies, String[] m_hiddenCopies, String m_subject, String m_text,
-			String m_sender) throws MessagingException, AddressException {
+								   String m_sender) throws MessagingException, AddressException {
 		// Set sender.
 		email.setFrom(new InternetAddress(m_sender != null ? m_sender : "support.notier@regione.emilia-romagna.it"));
 
@@ -320,12 +371,12 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 	/**
 	 * It converts a String[] into InternetAddress[].
 	 *
-	 * @author Manuel Gozzi
-	 * @date 25 nov 2019
-	 * @time 14:53:13
 	 * @param m_addressesString
 	 * @return
 	 * @throws AddressException
+	 * @author Manuel Gozzi
+	 * @date 25 nov 2019
+	 * @time 14:53:13
 	 */
 	private InternetAddress[] getInternetAddresses(String[] m_addressesString) throws AddressException {
 		InternetAddress[] addresses = new InternetAddress[m_addressesString.length];
