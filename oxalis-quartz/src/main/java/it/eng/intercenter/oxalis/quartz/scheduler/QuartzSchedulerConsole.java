@@ -26,7 +26,6 @@ import it.eng.intercenter.oxalis.quartz.scheduler.util.QuartzSchedulerConsoleUti
 import lombok.extern.slf4j.Slf4j;
 
 /**
- *
  * @author Manuel Gozzi
  * @date 20 ago 2019
  * @time 10:47:19
@@ -45,26 +44,25 @@ public class QuartzSchedulerConsole {
 	private static final String SUCCESS_MESSAGE = "Operation completed successfully";
 
 	/**
-	 *
+	 * @param command
+	 * @return
+	 * @throws SchedulerException
 	 * @author Manuel Gozzi
 	 * @date 20 ago 2019
 	 * @time 15:38:38
 	 * @jira
-	 * @param command
-	 * @return
-	 * @throws SchedulerException
 	 */
 	public OxalisQuartzCommandResult executeCommand(OxalisQuartzCommand command) {
 		switch (command.getAction()) {
-		case START:
-			return doStart(command.getScope(), command.getJobKeys());
-		case STOP:
-			return doStop(command.getScope(), command.getJobKeys());
-		case VIEW:
-			return doView(command.getScope(), command.getJobKeys());
-		default:
-			log.warn("Unhandled action in executeCommand() method: {}", command.getAction().name());
-			break;
+			case START:
+				return doStart(command.getScope(), command.getJobKeys());
+			case STOP:
+				return doStop(command.getScope(), command.getJobKeys());
+			case VIEW:
+				return doView(command.getScope(), command.getJobKeys());
+			default:
+				log.warn("Unhandled action in executeCommand() method: {}", command.getAction().name());
+				break;
 		}
 		return QuartzSchedulerConsoleUtil.invalidAction(command.getAction());
 	}
@@ -72,102 +70,102 @@ public class QuartzSchedulerConsole {
 	/**
 	 * Stops jobs.
 	 *
-	 * @author Manuel Gozzi
-	 * @date 20 ago 2019
-	 * @time 15:07:46
 	 * @param scope
 	 * @param jobs
 	 * @return
 	 * @throws SchedulerException
+	 * @author Manuel Gozzi
+	 * @date 20 ago 2019
+	 * @time 15:07:46
 	 */
 	private OxalisQuartzCommandResult doStop(OxalisQuartzCommandScopeEnum scope, List<OxalisQuartzJobKey> jobs) {
 		final OxalisQuartzCommandActionEnum action = OxalisQuartzCommandActionEnum.STOP;
 		switch (scope) {
-		case ALL_JOBS:
-			try {
-				// Check if scheduler is started.
-				if (!scheduler().isStarted()) {
-					return QuartzSchedulerConsoleUtil.invalidSchedulerStatus(new SchedulerException("Scheduler is not started"), action);
-				}
-
-				// Pause all jobs.
-				scheduler().pauseAll();
-				log.info("All jobs paused successfully");
-
-				// Build details for every job.
-				List<OxalisQuartzCommandResultDetails> detailsList = new ArrayList<>();
-				for (JobKey jk : scheduler().getJobKeys(GroupMatcher.anyJobGroup())) {
-					OxalisQuartzJobKey oxalisQuartzJob = new OxalisQuartzJobKey();
-					oxalisQuartzJob.setJobGroup(jk.getGroup());
-					oxalisQuartzJob.setJobName(jk.getName());
-					detailsList.add(OxalisQuartzCommandResultDetails.ofStandbyJob(oxalisQuartzJob));
-				}
-				return new OxalisQuartzCommandResult(OxalisQuartzCommandOutcomeEnum.OK, detailsList, SUCCESS_MESSAGE);
-
-			} catch (SchedulerException e) {
-
-				// Logging.
-				log.error("Quartz scheduler pausing process failed!");
-				return QuartzSchedulerConsoleUtil.invalidSchedulerStatus(e, action);
-			}
-		case JOB_LIST:
-			try {
-				// Check if scheduler is started.
-				if (!scheduler().isStarted()) {
-					return QuartzSchedulerConsoleUtil.invalidSchedulerStatus(new SchedulerException("Scheduler is not started"), action);
-				}
-
-				List<OxalisQuartzCommandResultDetails> detailsList = new ArrayList<>();
-
-				// Pause every given single job.
-				for (OxalisQuartzJobKey job : jobs) {
-					try {
-						scheduler().pauseJob(new JobKey(job.getJobName(), job.getJobGroup()));
-
-						// Logging.
-						log.info("{} job of group {} paused successfully", job.getJobName(), job.getJobGroup());
-						detailsList.add(OxalisQuartzCommandResultDetails.ofStandbyJob(job));
-
-					} catch (SchedulerException e) {
-
-						// Logging.
-						log.error("{} job of group {} job did not pause successfully", job.getJobName(), job.getJobGroup());
-						detailsList.add(OxalisQuartzCommandResultDetails.ofDeadJob(job));
+			case ALL_JOBS:
+				try {
+					// Check if scheduler is started.
+					if (!scheduler().isStarted()) {
+						return QuartzSchedulerConsoleUtil.invalidSchedulerStatus(new SchedulerException("Scheduler is not started"), action);
 					}
-				}
-				return new OxalisQuartzCommandResult(OxalisQuartzCommandOutcomeEnum.OK, detailsList, SUCCESS_MESSAGE);
 
-			} catch (SchedulerException e) {
+					// Pause all jobs.
+					scheduler().pauseAll();
+					log.info("All jobs paused successfully");
+
+					// Build details for every job.
+					List<OxalisQuartzCommandResultDetails> detailsList = new ArrayList<>();
+					for (JobKey jk : scheduler().getJobKeys(GroupMatcher.anyJobGroup())) {
+						OxalisQuartzJobKey oxalisQuartzJob = new OxalisQuartzJobKey();
+						oxalisQuartzJob.setJobGroup(jk.getGroup());
+						oxalisQuartzJob.setJobName(jk.getName());
+						detailsList.add(OxalisQuartzCommandResultDetails.ofStandbyJob(oxalisQuartzJob));
+					}
+					return new OxalisQuartzCommandResult(OxalisQuartzCommandOutcomeEnum.OK, detailsList, SUCCESS_MESSAGE);
+
+				} catch (SchedulerException e) {
+
+					// Logging.
+					log.error("Quartz scheduler pausing process failed!");
+					return QuartzSchedulerConsoleUtil.invalidSchedulerStatus(e, action);
+				}
+			case JOB_LIST:
+				try {
+					// Check if scheduler is started.
+					if (!scheduler().isStarted()) {
+						return QuartzSchedulerConsoleUtil.invalidSchedulerStatus(new SchedulerException("Scheduler is not started"), action);
+					}
+
+					List<OxalisQuartzCommandResultDetails> detailsList = new ArrayList<>();
+
+					// Pause every given single job.
+					for (OxalisQuartzJobKey job : jobs) {
+						try {
+							scheduler().pauseJob(new JobKey(job.getJobName(), job.getJobGroup()));
+
+							// Logging.
+							log.info("{} job of group {} paused successfully", job.getJobName(), job.getJobGroup());
+							detailsList.add(OxalisQuartzCommandResultDetails.ofStandbyJob(job));
+
+						} catch (SchedulerException e) {
+
+							// Logging.
+							log.error("{} job of group {} job did not pause successfully", job.getJobName(), job.getJobGroup());
+							detailsList.add(OxalisQuartzCommandResultDetails.ofDeadJob(job));
+						}
+					}
+					return new OxalisQuartzCommandResult(OxalisQuartzCommandOutcomeEnum.OK, detailsList, SUCCESS_MESSAGE);
+
+				} catch (SchedulerException e) {
+
+					// Logging.
+					log.error("Quartz scheduler pausing process failed!");
+					return QuartzSchedulerConsoleUtil.invalidSchedulerStatus(e, action);
+				}
+			case SINGLE_JOB:
+				try {
+
+					// Check if scheduler is started.
+					if (!scheduler().isStarted()) {
+						return QuartzSchedulerConsoleUtil.invalidSchedulerStatus(new SchedulerException("Scheduler is not started"), action);
+					}
+
+					// Pause single job.
+					scheduler().pauseJob(new JobKey(jobs.get(0).getJobName(), jobs.get(0).getJobGroup()));
+					log.info("{} job of group {} paused successfuly", jobs.get(0).getJobName(), jobs.get(0).getJobGroup());
+					return new OxalisQuartzCommandResult(OxalisQuartzCommandOutcomeEnum.OK, OxalisQuartzCommandResultDetails.ofStandbyJob(jobs.get(0)),
+							SUCCESS_MESSAGE);
+
+				} catch (SchedulerException e) {
+
+					// Logging.
+					log.error("Quartz scheduler pausing process failed!");
+					return QuartzSchedulerConsoleUtil.invalidSchedulerStatus(e, action);
+				}
+			default:
 
 				// Logging.
-				log.error("Quartz scheduler pausing process failed!");
-				return QuartzSchedulerConsoleUtil.invalidSchedulerStatus(e, action);
-			}
-		case SINGLE_JOB:
-			try {
-
-				// Check if scheduler is started.
-				if (!scheduler().isStarted()) {
-					return QuartzSchedulerConsoleUtil.invalidSchedulerStatus(new SchedulerException("Scheduler is not started"), action);
-				}
-
-				// Pause single job.
-				scheduler().pauseJob(new JobKey(jobs.get(0).getJobName(), jobs.get(0).getJobGroup()));
-				log.info("{} job of group {} paused successfuly", jobs.get(0).getJobName(), jobs.get(0).getJobGroup());
-				return new OxalisQuartzCommandResult(OxalisQuartzCommandOutcomeEnum.OK, OxalisQuartzCommandResultDetails.ofStandbyJob(jobs.get(0)),
-						SUCCESS_MESSAGE);
-
-			} catch (SchedulerException e) {
-
-				// Logging.
-				log.error("Quartz scheduler pausing process failed!");
-				return QuartzSchedulerConsoleUtil.invalidSchedulerStatus(e, action);
-			}
-		default:
-
-			// Logging.
-			log.warn("Unhandled scope in doStop() method!");
-			break;
+				log.warn("Unhandled scope in doStop() method!");
+				break;
 		}
 		return QuartzSchedulerConsoleUtil.invalidScope(scope);
 	}
@@ -175,101 +173,101 @@ public class QuartzSchedulerConsole {
 	/**
 	 * Starts or resumes jobs.
 	 *
-	 * @author Manuel Gozzi
-	 * @date 20 ago 2019
-	 * @time 15:07:16
 	 * @param scope
 	 * @param jobs
 	 * @return
+	 * @author Manuel Gozzi
+	 * @date 20 ago 2019
+	 * @time 15:07:16
 	 */
 	private OxalisQuartzCommandResult doStart(OxalisQuartzCommandScopeEnum scope, List<OxalisQuartzJobKey> jobs) {
 		final OxalisQuartzCommandActionEnum action = OxalisQuartzCommandActionEnum.START;
 		switch (scope) {
-		case ALL_JOBS:
-			try {
+			case ALL_JOBS:
+				try {
 
-				// Check if scheduler is started.
-				if (!scheduler().isStarted()) {
-					return QuartzSchedulerConsoleUtil.invalidSchedulerStatus(new SchedulerException("Scheduler is not started"), action);
-				}
-
-				// Start all jobs.
-				scheduler().resumeAll();
-				log.info("Quartz scheduler started/resumed from NoTI-ER");
-
-				// Add a detail for every job key.
-				List<OxalisQuartzCommandResultDetails> detailsList = new ArrayList<>();
-				for (JobKey jk : scheduler().getJobKeys(GroupMatcher.anyJobGroup())) {
-					OxalisQuartzJobKey oxalisJobKey = new OxalisQuartzJobKey();
-					oxalisJobKey.setJobGroup(jk.getGroup());
-					oxalisJobKey.setJobName(jk.getName());
-					detailsList.add(OxalisQuartzCommandResultDetails.ofAliveJob(oxalisJobKey));
-				}
-
-				return new OxalisQuartzCommandResult(OxalisQuartzCommandOutcomeEnum.OK, detailsList, SUCCESS_MESSAGE);
-			} catch (SchedulerException e) {
-
-				// Logging.
-				log.error("Quartz scheduler starting process failed!");
-				return QuartzSchedulerConsoleUtil.invalidSchedulerStatus(e, action);
-			}
-
-		case JOB_LIST:
-			try {
-
-				// Check if scheduler is started.
-				if (!scheduler().isStarted()) {
-					return QuartzSchedulerConsoleUtil.invalidSchedulerStatus(new SchedulerException("Scheduler is not started"), action);
-				}
-
-				List<OxalisQuartzCommandResultDetails> detailsList = new ArrayList<>();
-
-				// For every given job try to start it.
-				for (OxalisQuartzJobKey job : jobs) {
-					try {
-						scheduler().resumeJob(new JobKey(job.getJobName(), job.getJobGroup()));
-						log.info("{} job of group {} resumed successfully", job.getJobName(), job.getJobGroup());
-						detailsList.add(OxalisQuartzCommandResultDetails.ofAliveJob(job));
-					} catch (SchedulerException e) {
-						log.error("{} job of group {} did not resume as expected", job.getJobName(), job.getJobGroup());
-						detailsList.add(OxalisQuartzCommandResultDetails.ofDeadJob(job));
+					// Check if scheduler is started.
+					if (!scheduler().isStarted()) {
+						return QuartzSchedulerConsoleUtil.invalidSchedulerStatus(new SchedulerException("Scheduler is not started"), action);
 					}
-				}
-				return new OxalisQuartzCommandResult(OxalisQuartzCommandOutcomeEnum.OK, detailsList, SUCCESS_MESSAGE);
 
-			} catch (SchedulerException e) {
+					// Start all jobs.
+					scheduler().resumeAll();
+					log.info("Quartz scheduler started/resumed from NoTI-ER");
+
+					// Add a detail for every job key.
+					List<OxalisQuartzCommandResultDetails> detailsList = new ArrayList<>();
+					for (JobKey jk : scheduler().getJobKeys(GroupMatcher.anyJobGroup())) {
+						OxalisQuartzJobKey oxalisJobKey = new OxalisQuartzJobKey();
+						oxalisJobKey.setJobGroup(jk.getGroup());
+						oxalisJobKey.setJobName(jk.getName());
+						detailsList.add(OxalisQuartzCommandResultDetails.ofAliveJob(oxalisJobKey));
+					}
+
+					return new OxalisQuartzCommandResult(OxalisQuartzCommandOutcomeEnum.OK, detailsList, SUCCESS_MESSAGE);
+				} catch (SchedulerException e) {
+
+					// Logging.
+					log.error("Quartz scheduler starting process failed!");
+					return QuartzSchedulerConsoleUtil.invalidSchedulerStatus(e, action);
+				}
+
+			case JOB_LIST:
+				try {
+
+					// Check if scheduler is started.
+					if (!scheduler().isStarted()) {
+						return QuartzSchedulerConsoleUtil.invalidSchedulerStatus(new SchedulerException("Scheduler is not started"), action);
+					}
+
+					List<OxalisQuartzCommandResultDetails> detailsList = new ArrayList<>();
+
+					// For every given job try to start it.
+					for (OxalisQuartzJobKey job : jobs) {
+						try {
+							scheduler().resumeJob(new JobKey(job.getJobName(), job.getJobGroup()));
+							log.info("{} job of group {} resumed successfully", job.getJobName(), job.getJobGroup());
+							detailsList.add(OxalisQuartzCommandResultDetails.ofAliveJob(job));
+						} catch (SchedulerException e) {
+							log.error("{} job of group {} did not resume as expected", job.getJobName(), job.getJobGroup());
+							detailsList.add(OxalisQuartzCommandResultDetails.ofDeadJob(job));
+						}
+					}
+					return new OxalisQuartzCommandResult(OxalisQuartzCommandOutcomeEnum.OK, detailsList, SUCCESS_MESSAGE);
+
+				} catch (SchedulerException e) {
+
+					// Logging.
+					log.error("Quartz JOB_LIST starting process failed!");
+					return QuartzSchedulerConsoleUtil.invalidSchedulerStatus(e, action);
+				}
+
+			case SINGLE_JOB:
+				try {
+
+					// Check if scheduler is started.
+					if (!scheduler().isStarted()) {
+						return QuartzSchedulerConsoleUtil.invalidSchedulerStatus(new SchedulerException("Scheduler is not started"), action);
+					}
+
+					// Start single given job.
+					scheduler().resumeJob(new JobKey(jobs.get(0).getJobName(), jobs.get(0).getJobGroup()));
+					log.info("{} job of group {} resumed successfully", jobs.get(0).getJobName(), jobs.get(0).getJobGroup());
+					return new OxalisQuartzCommandResult(OxalisQuartzCommandOutcomeEnum.OK, OxalisQuartzCommandResultDetails.ofAliveJob(jobs.get(0)),
+							SUCCESS_MESSAGE);
+
+				} catch (SchedulerException e) {
+
+					// Logging.
+					log.error("Quartz SINGLE_JOB starting process failed!");
+					return QuartzSchedulerConsoleUtil.invalidSchedulerStatus(e, action);
+				}
+
+			default:
 
 				// Logging.
-				log.error("Quartz JOB_LIST starting process failed!");
-				return QuartzSchedulerConsoleUtil.invalidSchedulerStatus(e, action);
-			}
-
-		case SINGLE_JOB:
-			try {
-
-				// Check if scheduler is started.
-				if (!scheduler().isStarted()) {
-					return QuartzSchedulerConsoleUtil.invalidSchedulerStatus(new SchedulerException("Scheduler is not started"), action);
-				}
-
-				// Start single given job.
-				scheduler().resumeJob(new JobKey(jobs.get(0).getJobName(), jobs.get(0).getJobGroup()));
-				log.info("{} job of group {} resumed successfully", jobs.get(0).getJobName(), jobs.get(0).getJobGroup());
-				return new OxalisQuartzCommandResult(OxalisQuartzCommandOutcomeEnum.OK, OxalisQuartzCommandResultDetails.ofAliveJob(jobs.get(0)),
-						SUCCESS_MESSAGE);
-
-			} catch (SchedulerException e) {
-
-				// Logging.
-				log.error("Quartz SINGLE_JOB starting process failed!");
-				return QuartzSchedulerConsoleUtil.invalidSchedulerStatus(e, action);
-			}
-
-		default:
-
-			// Logging.
-			log.warn("Unhandled scope in doStart() method!");
-			break;
+				log.warn("Unhandled scope in doStart() method!");
+				break;
 		}
 
 		return QuartzSchedulerConsoleUtil.invalidScope(scope);
@@ -278,13 +276,13 @@ public class QuartzSchedulerConsole {
 	/**
 	 * Executes a "get", retrieving all jobs status.
 	 *
-	 * @author Manuel Gozzi
-	 * @date 20 ago 2019
-	 * @time 15:03:43
 	 * @param scope
 	 * @param jobNames
 	 * @return
 	 * @throws SchedulerException
+	 * @author Manuel Gozzi
+	 * @date 20 ago 2019
+	 * @time 15:03:43
 	 */
 	private OxalisQuartzCommandResult doView(OxalisQuartzCommandScopeEnum scope, List<OxalisQuartzJobKey> jobs) {
 		if (scope == null) {
@@ -341,18 +339,17 @@ public class QuartzSchedulerConsole {
 
 							// Add detail to list based on trigger state.
 							switch (state) {
-							case NORMAL:
-							case COMPLETE:
-								detailsList.add(OxalisQuartzCommandResultDetails.ofAliveJob(oxalisJobKey));
-								break;
-							case BLOCKED:
-							case ERROR:
-							case NONE:
-								detailsList.add(OxalisQuartzCommandResultDetails.ofDeadJob(oxalisJobKey));
-								break;
-							case PAUSED:
-								detailsList.add(OxalisQuartzCommandResultDetails.ofStandbyJob(oxalisJobKey));
-								break;
+								case NORMAL:
+								case COMPLETE:
+								case BLOCKED:
+									detailsList.add(OxalisQuartzCommandResultDetails.ofAliveJob(oxalisJobKey));
+									break;
+								case PAUSED:
+									detailsList.add(OxalisQuartzCommandResultDetails.ofStandbyJob(oxalisJobKey));
+									break;
+								default:
+									detailsList.add(OxalisQuartzCommandResultDetails.ofDeadJob(oxalisJobKey));
+									break;
 							}
 						}
 					}
@@ -374,10 +371,10 @@ public class QuartzSchedulerConsole {
 	/**
 	 * Retrieves Scheduler of Quartz.
 	 *
+	 * @return
 	 * @author Manuel Gozzi
 	 * @date 20 ago 2019
 	 * @time 15:05:01
-	 * @return
 	 */
 	private Scheduler scheduler() {
 		return quartz.getScheduler();
