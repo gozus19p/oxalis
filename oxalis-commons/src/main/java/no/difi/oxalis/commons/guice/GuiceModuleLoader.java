@@ -57,27 +57,35 @@ public class GuiceModuleLoader extends AbstractModule {
 
     private static final String DEPENDENCY = "dependency";
 
+    private static Injector oxalisInjector;
+
     public static Injector initiate(Module... modules) {
-        List<Module> moduleList = new ArrayList<>();
-        moduleList.addAll(getModules());
-        moduleList.addAll(Arrays.asList(modules));
+        if (oxalisInjector == null) {
+            log.warn("Initializing Oxalis Injector");
+            List<Module> moduleList = new ArrayList<>();
+            moduleList.addAll(getModules());
+            moduleList.addAll(Arrays.asList(modules));
 
-        try {
-            return Guice.createInjector(moduleList);
-        } catch (CreationException e) {
-            if (e.getErrorMessages().stream()
-                    .map(Message::getCause)
-                    .allMatch(OxalisLoadingException.class::isInstance)) {
-                e.getErrorMessages().stream()
+            try {
+                oxalisInjector = Guice.createInjector(moduleList);
+            } catch (CreationException e) {
+                if (e.getErrorMessages().stream()
                         .map(Message::getCause)
-                        .filter(distinctByKey(Throwable::getMessage))
-                        .forEach(c -> log.error(c.getMessage(), c));
+                        .allMatch(OxalisLoadingException.class::isInstance)) {
+                    e.getErrorMessages().stream()
+                            .map(Message::getCause)
+                            .filter(distinctByKey(Throwable::getMessage))
+                            .forEach(c -> log.error(c.getMessage(), c));
 
-                throw new OxalisLoadingException("Unable to load Oxalis due to errors during loading.");
+                    throw new OxalisLoadingException("Unable to load Oxalis due to errors during loading.");
+                }
+
+                throw e;
             }
-
-            throw e;
+        } else {
+            log.info("Oxalis Injector already initialized");
         }
+        return oxalisInjector;
     }
 
     @Override
