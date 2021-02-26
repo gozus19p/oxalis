@@ -34,6 +34,7 @@ import no.difi.vefa.peppol.common.lang.PeppolLoadingException;
 import no.difi.vefa.peppol.lookup.LookupClient;
 import no.difi.vefa.peppol.lookup.LookupClientBuilder;
 import no.difi.vefa.peppol.lookup.api.MetadataFetcher;
+import no.difi.vefa.peppol.lookup.locator.BusdoxLocator;
 import no.difi.vefa.peppol.mode.Mode;
 
 /**
@@ -65,6 +66,7 @@ public class LookupModule extends OxalisModule {
         return LookupClientBuilder.forMode(mode)
                 .fetcher(fetcher)
                 .certificateValidator(certificateValidator)
+                .locator(new BusdoxLocator(mode))
                 .build();
     }
 }
