@@ -5,16 +5,15 @@ import it.eng.intercenter.oxalis.rest.client.config.CertificateConfigManager;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.DefaultHttpRequestRetryHandler;
 import org.apache.http.impl.client.HttpClients;
 
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManagerFactory;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.security.KeyManagementException;
@@ -34,8 +33,8 @@ import static it.eng.intercenter.oxalis.rest.client.util.ConfigManagerUtil.MESSA
 @Slf4j
 public abstract class AbstractHttpNotierCall<T extends HttpRequestBase> {
 
-	private CertificateConfigManager certificateConfiguration;
-	private HttpClient httpClient;
+	private final CertificateConfigManager certificateConfiguration;
+	private CloseableHttpClient httpClient;
 	protected T httpRequest;
 
 	/**
@@ -51,13 +50,11 @@ public abstract class AbstractHttpNotierCall<T extends HttpRequestBase> {
 	/**
 	 * Values of p12 certificate.
 	 */
-	private boolean isProductionMode;
-	private String organizationCertificateP12FileName;
+	private final boolean isProductionMode;
 	private String distinguishedName;
 	private String organizationCertificateP12Password;
 	private String serialNumber;
 	private KeyStore organizationCertificateP12;
-	private X509Certificate x509Certificate;
 
 	private static final String ORGANIZATION_CERTIFICATE_ALGORITHM = "PKCS12";
 
@@ -100,16 +97,16 @@ public abstract class AbstractHttpNotierCall<T extends HttpRequestBase> {
 	 * @return tue if Oxalis has been set up to run in production, false otherwise
 	 */
 	private boolean detectProductionMode() {
-		return new Boolean(certificateConfiguration.readValue(CertificateConfigManager.CONFIG_KEY_PRODUCTION_MODE_ENABLED)).booleanValue();
+		return Boolean.parseBoolean(certificateConfiguration.readValue(CertificateConfigManager.CONFIG_KEY_PRODUCTION_MODE_ENABLED));
 	}
 
 	/**
 	 * Executes the HTTP call.
 	 *
 	 * @return the content of the response in String format
-	 * @throws UnsupportedOperationException
-	 * @throws ClientProtocolException
-	 * @throws IOException
+	 * @throws UnsupportedOperationException see {@link UnsupportedOperationException}
+	 * @throws ClientProtocolException see {@link ClientProtocolException}
+	 * @throws IOException if {@link CloseableHttpClient} is not available
 	 */
 	public HttpResponse execute() throws UnsupportedOperationException, ClientProtocolException, IOException {
 		if (!httpClientIsAvailable) {
@@ -119,16 +116,17 @@ public abstract class AbstractHttpNotierCall<T extends HttpRequestBase> {
 			addDistinguishedNameAndSerialNumberToRequestHeaders();
 			// log.warn(MESSAGE_PRODUCTION_MODE_DISABLED);
 		}
-		log.info(MESSAGE_USING_REST_URI, new Object[] { httpRequestType.name(), httpRequest.getURI().normalize().toString() });
+		log.info(MESSAGE_USING_REST_URI, httpRequestType.name(), httpRequest.getURI().normalize());
 		HttpResponse response = httpClient.execute(httpRequest);
 		log.info(MESSAGE_REST_EXECUTED_WITH_STATUS, response.getStatusLine().getStatusCode());
+		httpClient.close();
 		return response;
 	}
 
 	/**
 	 * @return SSLContext used to execute HTTP calls.
 	 */
-	private SSLContext getSSLContext() throws KeyStoreException, KeyManagementException, Exception {
+	private SSLContext getSSLContext() throws Exception {
 		try {
 			KeyManagerFactory kmf = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
 			kmf.init(organizationCertificateP12, organizationCertificateP12Password.toCharArray());
@@ -162,12 +160,12 @@ public abstract class AbstractHttpNotierCall<T extends HttpRequestBase> {
 	private void loadCertificate() {
 		log.debug("Preparing certificate for Notier HTTP communications");
 
-		organizationCertificateP12FileName = certificateConfiguration.readValue(CertificateConfigManager.CONFIG_KEY_ORG_CERT_FILE_NAME);
+		String organizationCertificateP12FileName = certificateConfiguration.readValue(CertificateConfigManager.CONFIG_KEY_ORG_CERT_FILE_NAME);
 		organizationCertificateP12Password = certificateConfiguration.readValue(CertificateConfigManager.CONFIG_KEY_ORG_CERT_PASSWORD, true);
 
 		String certificatePath = buildCertificatePath(organizationCertificateP12FileName);
 
-		try (FileInputStream certificateInputStream = new FileInputStream(new File(certificatePath));) {
+		try (FileInputStream certificateInputStream = new FileInputStream(certificatePath)) {
 
 			log.debug("Parsing certificate details from file {}", organizationCertificateP12FileName);
 			organizationCertificateP12 = KeyStore.getInstance(ORGANIZATION_CERTIFICATE_ALGORITHM);
@@ -179,7 +177,7 @@ public abstract class AbstractHttpNotierCall<T extends HttpRequestBase> {
 			String alias = aliasesEnumeration.nextElement();
 			log.debug("Using alias: {}", alias);
 
-			x509Certificate = (X509Certificate) organizationCertificateP12.getCertificate(alias);
+			X509Certificate x509Certificate = (X509Certificate) organizationCertificateP12.getCertificate(alias);
 
 			distinguishedName = x509Certificate.getSubjectDN().getName();
 			serialNumber = x509Certificate.getSerialNumber().toString();
@@ -187,15 +185,19 @@ public abstract class AbstractHttpNotierCall<T extends HttpRequestBase> {
 			log.debug("DN: {}; SN: {};", distinguishedName, serialNumber);
 
 		} catch (KeyStoreException e) {
+
 			log.error("An error occurs while accessing KeyStore with root cause: {}", e.getMessage(), e);
 			httpClientIsAvailable = false;
 		} catch (NoSuchAlgorithmException e) {
+
 			log.error("An error occurs with root cause: {}", e.getMessage(), e);
 			httpClientIsAvailable = false;
 		} catch (CertificateException e) {
+
 			log.error("Caught exception related to X509Certificate with root cause: {}", e.getMessage(), e);
 			httpClientIsAvailable = false;
 		} catch (IOException e) {
+
 			log.error("An error occurs during I/O operations with root cause: {}", e.getMessage(), e);
 			httpClientIsAvailable = false;
 		}
@@ -226,5 +228,4 @@ public abstract class AbstractHttpNotierCall<T extends HttpRequestBase> {
 		log.warn("Adding DN \"{}\" to HTTP request header params with key \"{}\"", distinguishedName, CertificateConfigManager.HEADER_DN_KEY);
 		httpRequest.setHeader(CertificateConfigManager.HEADER_DN_KEY, distinguishedName);
 	}
-
 }
