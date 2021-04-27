@@ -1,6 +1,6 @@
 package no.difi.oxalis.dist.war;
 
-import no.difi.oxalis.inbound.OxalisGuiceContextListener;
+import network.oxalis.inbound.OxalisGuiceContextListener;
 
 import javax.servlet.annotation.WebListener;
 

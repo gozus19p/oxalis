@@ -1,25 +1,7 @@
 package it.eng.intercenter.oxalis.notier.core.service.impl;
 
-import static it.eng.intercenter.oxalis.rest.client.util.ConfigManagerUtil.MESSAGE_MDN_SEND_FAILED;
-import static it.eng.intercenter.oxalis.rest.client.util.ConfigManagerUtil.MESSAGE_OUTBOUND_FAILED_FOR_URN;
-import static it.eng.intercenter.oxalis.rest.client.util.ConfigManagerUtil.MESSAGE_OUTBOUND_SUCCESS_FOR_URN;
-import static it.eng.intercenter.oxalis.rest.client.util.ConfigManagerUtil.MESSAGE_STARTING_TO_PROCESS_URN;
-import static it.eng.intercenter.oxalis.rest.client.util.ConfigManagerUtil.MESSAGE_WRONG_CONFIGURATION_SETUP;
-
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.security.cert.CertificateException;
-
-import org.apache.http.HttpResponse;
-
 import com.google.inject.Inject;
-
-import it.eng.intercenter.oxalis.integration.dto.FullPeppolMessage;
-import it.eng.intercenter.oxalis.integration.dto.NotierDocumentIndex;
-import it.eng.intercenter.oxalis.integration.dto.OxalisMdn;
-import it.eng.intercenter.oxalis.integration.dto.TransactionDetails;
-import it.eng.intercenter.oxalis.integration.dto.UrnList;
+import it.eng.intercenter.oxalis.integration.dto.*;
 import it.eng.intercenter.oxalis.integration.dto.enumerator.OxalisStatusEnum;
 import it.eng.intercenter.oxalis.integration.util.GsonUtil;
 import it.eng.intercenter.oxalis.notier.core.service.api.IOutboundService;
@@ -28,13 +10,21 @@ import it.eng.intercenter.oxalis.rest.client.config.CertificateConfigManager;
 import it.eng.intercenter.oxalis.rest.client.config.RestConfigManager;
 import it.eng.intercenter.oxalis.rest.client.http.HttpCaller;
 import lombok.extern.slf4j.Slf4j;
-import no.difi.oxalis.api.lang.OxalisContentException;
-import no.difi.oxalis.api.lang.OxalisTransmissionException;
-import no.difi.oxalis.api.outbound.TransmissionMessage;
-import no.difi.oxalis.api.outbound.TransmissionRequest;
-import no.difi.oxalis.api.outbound.TransmissionResponse;
-import no.difi.oxalis.outbound.OxalisOutboundComponent;
-import no.difi.oxalis.outbound.transmission.TransmissionRequestBuilder;
+import network.oxalis.api.lang.OxalisContentException;
+import network.oxalis.api.lang.OxalisTransmissionException;
+import network.oxalis.api.outbound.TransmissionMessage;
+import network.oxalis.api.outbound.TransmissionRequest;
+import network.oxalis.api.outbound.TransmissionResponse;
+import network.oxalis.outbound.OxalisOutboundComponent;
+import network.oxalis.outbound.transmission.TransmissionRequestBuilder;
+import org.apache.http.HttpResponse;
+
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.security.cert.CertificateException;
+
+import static it.eng.intercenter.oxalis.rest.client.util.ConfigManagerUtil.*;
 
 /**
  * @author Manuel Gozzi

@@ -4,8 +4,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<parent>
 		<artifactId>oxalis</artifactId>
-		<groupId>no.difi.oxalis</groupId>
-		<version>4.1.1</version>
+		<groupId>network.oxalis</groupId>
+		<version>5.0.0</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 
@@ -14,10 +14,10 @@
 
 	<name>E :: Oxalis :: WAR</name>
 	<description>Oxalis WAR for deployment on application servers or as library for your own project.</description>
-	<url>https://github.com/difi/oxalis</url>
+	<url>https://github.com/gozus19p/oxalis</url>
 
 	<properties>
-		<oxalis.difi.as4.version>4.1.9</oxalis.difi.as4.version>
+		<oxalis.difi.as4.version>5.0.0</oxalis.difi.as4.version>
 		<oxalis.eng.core.version>1.0.0</oxalis.eng.core.version>
 		<oxalis.eng.rest-client.version>1.0.0</oxalis.eng.rest-client.version>
 		<oxalis.eng.rest-server.version>1.0.0</oxalis.eng.rest-server.version>
@@ -64,7 +64,7 @@
 			<dependencies>
 				<!-- Oxalis AS4 -->
 				<dependency>
-					<groupId>no.difi.oxalis</groupId>
+					<groupId>network.oxalis</groupId>
 					<artifactId>oxalis-as4</artifactId>
 					<version>${oxalis.difi.as4.version}</version>
 				</dependency>
@@ -78,7 +78,7 @@
 
 				<!-- Oxalis -->
 				<dependency>
-					<groupId>no.difi.oxalis</groupId>
+					<groupId>network.oxalis</groupId>
 					<artifactId>oxalis-inbound</artifactId>
 				</dependency>
 
@@ -98,7 +98,7 @@
 
 				<!-- Oxalis Inbound -->
 				<dependency>
-					<groupId>no.difi.oxalis</groupId>
+					<groupId>network.oxalis</groupId>
 					<artifactId>oxalis-inbound</artifactId>
 				</dependency>
 			</dependencies>
@@ -133,25 +133,24 @@
 
 				<!-- Oxalis AS4 -->
 				<dependency>
-					<groupId>no.difi.oxalis</groupId>
+					<groupId>network.oxalis</groupId>
 					<artifactId>oxalis-as4</artifactId>
 					<version>${oxalis.difi.as4.version}</version>
 				</dependency>
 
 				<!-- Oxalis -->
 				<dependency>
-					<groupId>no.difi.oxalis</groupId>
+					<groupId>network.oxalis</groupId>
 					<artifactId>oxalis-inbound</artifactId>
 
 					<!-- AS2 exclusion -->
 					<exclusions>
 						<exclusion>
-							<groupId>no.difi.oxalis</groupId>
+							<groupId>network.oxalis</groupId>
 							<artifactId>oxalis-as2</artifactId>
 						</exclusion>
 					</exclusions>
 				</dependency>
-
 			</dependencies>
 		</profile>
 		
@@ -172,7 +171,7 @@
 
 				<!-- Oxalis -->
 				<dependency>
-					<groupId>no.difi.oxalis</groupId>
+					<groupId>network.oxalis</groupId>
 					<artifactId>oxalis-inbound</artifactId>
 				</dependency>
 
@@ -192,7 +191,7 @@
 
 				<!-- Oxalis Inbound -->
 				<dependency>
-					<groupId>no.difi.oxalis</groupId>
+					<groupId>network.oxalis</groupId>
 					<artifactId>oxalis-inbound</artifactId>
 				</dependency>
 			</dependencies>
@@ -227,10 +226,9 @@
 
 				<!-- Oxalis Inbound -->
 				<dependency>
-					<groupId>no.difi.oxalis</groupId>
+					<groupId>network.oxalis</groupId>
 					<artifactId>oxalis-inbound</artifactId>
 				</dependency>
-
 			</dependencies>
 		</profile>
 

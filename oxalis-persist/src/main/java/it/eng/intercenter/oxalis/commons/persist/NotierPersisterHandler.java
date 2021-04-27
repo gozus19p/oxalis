@@ -20,6 +20,7 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import network.oxalis.commons.persist.DefaultPersisterHandler;
 import org.apache.commons.codec.binary.StringUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
@@ -38,13 +39,12 @@ import it.eng.intercenter.oxalis.rest.client.config.RestConfigManager;
 import it.eng.intercenter.oxalis.rest.client.http.HttpCaller;
 import it.eng.intercenter.oxalis.rest.client.http.types.HttpNotierPost;
 import lombok.extern.slf4j.Slf4j;
-import no.difi.oxalis.api.inbound.InboundMetadata;
-import no.difi.oxalis.api.persist.ExceptionPersister;
-import no.difi.oxalis.api.persist.PayloadPersister;
-import no.difi.oxalis.api.persist.ReceiptPersister;
-import no.difi.oxalis.api.util.Type;
-import no.difi.oxalis.commons.persist.DefaultPersisterHandler;
-import no.difi.vefa.peppol.common.model.Header;
+import network.oxalis.api.inbound.InboundMetadata;
+import network.oxalis.api.persist.ExceptionPersister;
+import network.oxalis.api.persist.PayloadPersister;
+import network.oxalis.api.persist.ReceiptPersister;
+import network.oxalis.api.util.Type;
+import network.oxalis.vefa.peppol.common.model.Header;
 
 /**
  * @author Manuel Gozzi

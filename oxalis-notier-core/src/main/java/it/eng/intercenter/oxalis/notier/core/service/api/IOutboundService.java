@@ -4,10 +4,10 @@ import java.security.cert.CertificateException;
 
 import it.eng.intercenter.oxalis.integration.dto.FullPeppolMessage;
 import it.eng.intercenter.oxalis.integration.dto.OxalisMdn;
-import no.difi.oxalis.api.lang.OxalisContentException;
-import no.difi.oxalis.api.lang.OxalisTransmissionException;
-import no.difi.oxalis.api.outbound.TransmissionMessage;
-import no.difi.oxalis.api.outbound.TransmissionResponse;
+import network.oxalis.api.lang.OxalisContentException;
+import network.oxalis.api.lang.OxalisTransmissionException;
+import network.oxalis.api.outbound.TransmissionMessage;
+import network.oxalis.api.outbound.TransmissionResponse;
 
 /**
  * @author Manuel Gozzi

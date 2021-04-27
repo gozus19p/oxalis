@@ -25,9 +25,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>no.difi.oxalis</groupId>
+        <groupId>it.eng.intercenter</groupId>
         <artifactId>oxalis</artifactId>
-        <version>4.1.1</version>
+        <version>1.0.0</version>
     </parent>
 
     <artifactId>oxalis-outbound</artifactId>
@@ -35,37 +35,40 @@
 
     <name>Oxalis :: Core :: Outbound</name>
     <description>Component for handling sending.</description>
-    <url>https://github.com/difi/oxalis</url>
+    <url>https://github.com/OxalisCommunity/oxalis</url>
 
     <issueManagement>
-        <url>https://github.com/difi/oxalis/issues</url>
+        <url>https://github.com/OxalisCommunity/oxalis/issues</url>
         <system>GitHub Issues</system>
     </issueManagement>
 
     <organization>
-        <name>Norwegian Agency for Public Management and eGovernment (Difi)</name>
-        <url>http://www.difi.no/</url>
+        <name>NorStella</name>
+        <url>https://en.norstella.no/</url>
     </organization>
 
     <dependencies>
 
         <!-- Oxalis -->
         <dependency>
-            <groupId>no.difi.oxalis</groupId>
+            <groupId>network.oxalis</groupId>
             <artifactId>oxalis-commons</artifactId>
         </dependency>
         <dependency>
-            <groupId>no.difi.oxalis</groupId>
+            <groupId>network.oxalis</groupId>
             <artifactId>oxalis-document-sniffer</artifactId>
+            <version>5.0.0</version>
         </dependency>
         <dependency>
-            <groupId>no.difi.oxalis</groupId>
+            <groupId>network.oxalis</groupId>
             <artifactId>oxalis-test</artifactId>
+            <version>5.0.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>no.difi.oxalis</groupId>
+            <groupId>network.oxalis</groupId>
             <artifactId>oxalis-as2</artifactId>
+            <version>5.0.0</version>
         </dependency>
 
         <dependency>
@@ -92,16 +95,19 @@
 
         <!-- VEFA PEPPOL -->
         <dependency>
-            <groupId>no.difi.vefa</groupId>
+            <groupId>network.oxalis.vefa</groupId>
             <artifactId>peppol-lookup</artifactId>
+            <version>2.0.0</version>
         </dependency>
         <dependency>
-            <groupId>no.difi.vefa</groupId>
+            <groupId>network.oxalis.vefa</groupId>
             <artifactId>peppol-sbdh</artifactId>
+            <version>2.0.0</version>
         </dependency>
         <dependency>
-            <groupId>no.difi.vefa</groupId>
+            <groupId>network.oxalis.vefa</groupId>
             <artifactId>peppol-security</artifactId>
+            <version>2.0.0</version>
         </dependency>
     </dependencies>
 
