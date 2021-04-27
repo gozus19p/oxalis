@@ -17,7 +17,6 @@ import network.oxalis.api.outbound.TransmissionRequest;
 import network.oxalis.api.outbound.TransmissionResponse;
 import network.oxalis.outbound.OxalisOutboundComponent;
 import network.oxalis.outbound.transmission.TransmissionRequestBuilder;
-import org.apache.http.HttpResponse;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -63,10 +62,10 @@ public class OutboundService implements IOutboundService {
 
 		// Access receipt.
 		String receiptPayloadStringified = new String(response.primaryReceipt().getValue(), StandardCharsets.UTF_8);
-		log.info("Received the following receipt: {}{}", new Object[]{System.getProperty("line.separator"), receiptPayloadStringified});
+		log.info("Received the following receipt: {}{}", System.getProperty("line.separator"), receiptPayloadStringified);
 
 		// Build "OK" MDN for NoTI-ER.
-		return buildMdn(null, OxalisStatusEnum.OK, "Receipt: " + receiptPayloadStringified, response);
+		return buildOkMdn(null, response);
 	}
 
 	@Override
@@ -137,6 +136,7 @@ public class OutboundService implements IOutboundService {
 	 * @param throwable is the Throwable instance
 	 * @return the full representation of cause message
 	 */
+	@SuppressWarnings("unused")
 	private String formatThrowableMessage(Throwable throwable) {
 		if (throwable == null) {
 			return "unable to detect error message";
@@ -187,13 +187,7 @@ public class OutboundService implements IOutboundService {
 	 */
 	private String retrieveSinglePeppolMessageFromNotier(String urn) throws IOException {
 
-		HttpResponse get_response = HttpCaller.executeGet(certConfig, restDocumentGetterUri + urn);
-		if (HttpCaller.responseStatusCodeIsValid(get_response))
-			return HttpCaller.extractResponseContentAsUTF8String(get_response);
-
-		throw new IOException("Some problem occurs during HTTP GET document getter response handling. Status code is \""
-				+ get_response.getStatusLine().getStatusCode() + "\"");
-
+		return HttpCaller.executeGet(certConfig, restDocumentGetterUri + urn);
 	}
 
 	/**
@@ -214,10 +208,10 @@ public class OutboundService implements IOutboundService {
 		TransmissionRequest messageToSend = NotierTransmissionRequestBuilder.build(requestBuilder, peppolMessageJsonFormat);
 		TransmissionResponse response = send(messageToSend);
 		String receiptPayloadString = new String(response.primaryReceipt().getValue(), StandardCharsets.UTF_8);
-		log.info("Received the following receipt: {}{}", new Object[]{System.getProperty("line.separator"), receiptPayloadString});
+		log.info("Received the following receipt: {}{}", System.getProperty("line.separator"), receiptPayloadString);
 
 		// Third phase, creating an MDN notification based on sending outcome
-		OxalisMdn mdn = buildMdn(urn, OxalisStatusEnum.OK, null, response);
+		OxalisMdn mdn = buildOkMdn(urn, response);
 		try {
 			mdn.getTransactionDetails().setReceipt(
 					new ByteArrayInputStream(receiptPayloadString.getBytes())
@@ -241,14 +235,11 @@ public class OutboundService implements IOutboundService {
 	 * @throws Exception in case of error
 	 */
 	private UrnList retrieveUrnList() throws Exception {
+
 		String jsonUrnGetterResponse;
 		try {
-			HttpResponse get_response = HttpCaller.executeGet(certConfig, restUrnGetterUri);
-			if (HttpCaller.responseStatusCodeIsValid(get_response)) {
-				jsonUrnGetterResponse = HttpCaller.extractResponseContentAsUTF8String(get_response);
-			} else
-				throw new IOException("Some problem occurs during HTTP GET URN getter response handling. Status code is \""
-						+ get_response.getStatusLine().getStatusCode() + "\"");
+
+			jsonUrnGetterResponse = HttpCaller.executeGet(certConfig, restUrnGetterUri);
 			if (isEmptyOrNull(jsonUrnGetterResponse)) {
 				log.error("Received response is empty");
 				throw new Exception("Received response is empty");
@@ -264,22 +255,20 @@ public class OutboundService implements IOutboundService {
 			log.info("Found {} {} to send on PEPPOL", urnListRetrievedFromNotier.getUrnCount(),
 					(urnListRetrievedFromNotier.getUrnCount() == 1 ? "document" : "documents"));
 		} else {
-			log.error("Invalid response received from Notier: {}{}", new Object[]{System.getProperty("line.separator"), urnListRetrievedFromNotier});
+			log.error("Invalid response received from Notier: {}{}", System.getProperty("line.separator"), urnListRetrievedFromNotier);
 			throw new Exception("Invalid response received from Notier (UrnList)");
 		}
 	}
 
 	/**
-	 * Provides an OxalisMdn.
+	 * Provides an OxalisMdn with status OK.
 	 *
-	 * @param urn          is the document URN
-	 * @param status       is the status of the sending
-	 * @param errorMessage is the error message thrown by exceptions
+	 * @param urn is the document URN
 	 * @return the mdn
 	 */
-	private OxalisMdn buildMdn(String urn, OxalisStatusEnum status, String errorMessage, TransmissionResponse response) {
+	private OxalisMdn buildOkMdn(String urn, TransmissionResponse response) {
 
-		OxalisMdn mdn = new OxalisMdn(urn, status, OxalisStatusEnum.OK.equals(status) ? "Document has been sent successfully" : errorMessage);
+		OxalisMdn mdn = new OxalisMdn(urn, OxalisStatusEnum.OK, "Document has been sent successfully");
 
 		try {
 			TransactionDetails details = new TransactionDetails();
@@ -304,8 +293,7 @@ public class OutboundService implements IOutboundService {
 	 */
 	private void sendJsonMdnToNotier(OxalisMdn oxalisMdn) {
 		try {
-			HttpResponse resp = HttpCaller.executePost(certConfig, restSendStatusUri, "oxalisContent", GsonUtil.getPrettyPrintedInstance().toJson(oxalisMdn));
-			String respContent = HttpCaller.extractResponseContentAsUTF8String(resp);
+			String respContent = HttpCaller.executePost(certConfig, restSendStatusUri, "oxalisContent", GsonUtil.getPrettyPrintedInstance().toJson(oxalisMdn));
 			log.info("Received response contains {} characters", respContent.length());
 		} catch (UnsupportedOperationException | IOException e) {
 			log.error(MESSAGE_MDN_SEND_FAILED, oxalisMdn.getDocumentUrn(), e);

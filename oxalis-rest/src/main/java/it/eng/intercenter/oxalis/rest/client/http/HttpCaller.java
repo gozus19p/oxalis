@@ -1,19 +1,15 @@
 package it.eng.intercenter.oxalis.rest.client.http;
 
-import static it.eng.intercenter.oxalis.rest.client.util.ConfigManagerUtil.MESSAGE_REST_CALL_FAILED;
-
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-
-import org.apache.commons.io.IOUtils;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.message.BasicNameValuePair;
-
 import it.eng.intercenter.oxalis.rest.client.config.CertificateConfigManager;
 import it.eng.intercenter.oxalis.rest.client.http.types.HttpNotierGet;
 import it.eng.intercenter.oxalis.rest.client.http.types.HttpNotierPost;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.message.BasicNameValuePair;
+
+import java.io.IOException;
+
+import static it.eng.intercenter.oxalis.rest.client.util.ConfigManagerUtil.MESSAGE_REST_CALL_FAILED;
 
 /**
  * This class provides static methods that allows to easily manage Http call.
@@ -37,7 +33,7 @@ public class HttpCaller {
 	 * @throws ClientProtocolException
 	 * @throws IOException
 	 */
-	public static HttpResponse executePost(CertificateConfigManager certConfig, String uri, String paramKey, String paramValue)
+	public static synchronized String executePost(CertificateConfigManager certConfig, String uri, String paramKey, String paramValue)
 			throws UnsupportedOperationException, ClientProtocolException, IOException {
 		return executePost(certConfig, uri, new BasicNameValuePair(paramKey, paramValue));
 	}
@@ -54,7 +50,7 @@ public class HttpCaller {
 	 * @throws ClientProtocolException
 	 * @throws IOException
 	 */
-	public static HttpResponse executePost(CertificateConfigManager certConfig, String uri, BasicNameValuePair... params)
+	public static synchronized String executePost(CertificateConfigManager certConfig, String uri, BasicNameValuePair... params)
 			throws UnsupportedOperationException, ClientProtocolException, IOException {
 		HttpNotierPost request = new HttpNotierPost(certConfig, uri, params);
 		try {
@@ -72,11 +68,10 @@ public class HttpCaller {
 	 * @param uri        is the URI of the HTTP call
 	 * @return the response of the HTTP call parsed as String
 	 * @throws UnsupportedOperationException
-	 * @throws ClientProtocolException
 	 * @throws IOException
 	 */
-	public static HttpResponse executeGet(CertificateConfigManager certConfig, String uri)
-			throws UnsupportedOperationException, ClientProtocolException, IOException {
+	public static synchronized String executeGet(CertificateConfigManager certConfig, String uri)
+			throws UnsupportedOperationException, IOException {
 		HttpNotierGet request = new HttpNotierGet(certConfig, uri);
 		try {
 			return request.execute();
@@ -85,37 +80,4 @@ public class HttpCaller {
 			throw e;
 		}
 	}
-
-	/**
-	 * It extracts the body content of the given HttpResponse as UTF-8 encoded
-	 * String.
-	 * 
-	 * @author Manuel Gozzi
-	 * @date 26 nov 2019
-	 * @time 10:38:24
-	 * @param response
-	 * @return the UTF-8 encoded String representing the content of response
-	 * @throws UnsupportedOperationException
-	 * @throws IOException
-	 */
-	public static String extractResponseContentAsUTF8String(HttpResponse response) throws UnsupportedOperationException, IOException {
-		return IOUtils.toString(response.getEntity().getContent(), StandardCharsets.UTF_8.toString());
-	}
-
-	/**
-	 * It verifies that a given HTTP response status code is valid (200 or similar).
-	 *
-	 * @author Manuel Gozzi
-	 * @date 26 nov 2019
-	 * @time 10:35:53
-	 * @param httpResponse
-	 * @return "true" if HTTP call exit code is accettable
-	 */
-	public static boolean responseStatusCodeIsValid(HttpResponse httpResponse) {
-		return httpResponse != null
-				&& httpResponse.getStatusLine() != null
-				&& httpResponse.getStatusLine().getStatusCode() >= 200
-				&& httpResponse.getStatusLine().getStatusCode() <= 299;
-	}
-
 }

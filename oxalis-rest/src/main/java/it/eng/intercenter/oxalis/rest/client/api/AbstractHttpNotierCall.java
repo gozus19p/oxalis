@@ -3,6 +3,7 @@ package it.eng.intercenter.oxalis.rest.client.api;
 import it.eng.intercenter.oxalis.integration.dto.enumerator.NotierRestCallTypeEnum;
 import it.eng.intercenter.oxalis.rest.client.config.CertificateConfigManager;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.config.RequestConfig;
@@ -16,6 +17,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManagerFactory;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.security.KeyManagementException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
@@ -105,10 +107,12 @@ public abstract class AbstractHttpNotierCall<T extends HttpRequestBase> {
 	 *
 	 * @return the content of the response in String format
 	 * @throws UnsupportedOperationException see {@link UnsupportedOperationException}
-	 * @throws ClientProtocolException see {@link ClientProtocolException}
-	 * @throws IOException if {@link CloseableHttpClient} is not available
+	 * @throws ClientProtocolException       see {@link ClientProtocolException}
+	 * @throws IOException                   if {@link CloseableHttpClient} is not available
 	 */
-	public HttpResponse execute() throws UnsupportedOperationException, ClientProtocolException, IOException {
+	public String execute() throws UnsupportedOperationException, ClientProtocolException, IOException {
+
+		log.info("Executing: {}", httpRequest);
 		if (!httpClientIsAvailable) {
 			throw new IOException("HttpClient is not available");
 		}
@@ -119,8 +123,28 @@ public abstract class AbstractHttpNotierCall<T extends HttpRequestBase> {
 		log.info(MESSAGE_USING_REST_URI, httpRequestType.name(), httpRequest.getURI().normalize());
 		HttpResponse response = httpClient.execute(httpRequest);
 		log.info(MESSAGE_REST_EXECUTED_WITH_STATUS, response.getStatusLine().getStatusCode());
-		httpClient.close();
-		return response;
+
+		try {
+
+			if (statusCodeIsValid(response)) {
+
+				return IOUtils.toString(response.getEntity().getContent(), StandardCharsets.UTF_8.name());
+			} else {
+
+				throw new IOException("Status code is \"" + response.getStatusLine().getStatusCode() + "\"");
+			}
+		} finally {
+
+			closeHttpClient();
+		}
+	}
+
+	private boolean statusCodeIsValid(HttpResponse httpResponse) {
+
+		return httpResponse != null
+				&& httpResponse.getStatusLine() != null
+				&& httpResponse.getStatusLine().getStatusCode() >= 200
+				&& httpResponse.getStatusLine().getStatusCode() <= 299;
 	}
 
 	/**
@@ -227,5 +251,25 @@ public abstract class AbstractHttpNotierCall<T extends HttpRequestBase> {
 		httpRequest.setHeader(CertificateConfigManager.HEADER_SN_KEY, serialNumber);
 		log.warn("Adding DN \"{}\" to HTTP request header params with key \"{}\"", distinguishedName, CertificateConfigManager.HEADER_DN_KEY);
 		httpRequest.setHeader(CertificateConfigManager.HEADER_DN_KEY, distinguishedName);
+	}
+
+	public void closeHttpClient() {
+		if (httpClient != null && httpClientIsAvailable) {
+			try {
+
+				httpClient.close();
+			} catch (Exception e) {
+
+				log.error("An error occurred: {}", e.getMessage(), e);
+			}
+		}
+	}
+
+	@Override
+	public String toString() {
+		return "HttpNotierGet{" +
+				"httpRequest=" + httpRequest +
+				", httpRequestType=" + httpRequestType +
+				'}';
 	}
 }

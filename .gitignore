@@ -24,3 +24,4 @@ dev.make
 
 # Ignored because it is created runtime from Maven build
 #/oxalis-commons/src/main/resources/reference.conf
+catalina.base_IS_UNDEFINED/
