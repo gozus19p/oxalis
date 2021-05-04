@@ -66,7 +66,7 @@ public class NotierTransmissionRequestBuilder {
 		verifyHeaderMetadataForLookup(sender, receiver, processType, documentType);
 
 		return builder.payLoad(peppolMessage.getPayload()).sender(sender).receiver(receiver).processType(processType).documentType(documentType)
-				.instanceId(instanceId).overrideAs2Endpoint(null).build();
+				.instanceId(instanceId).overrideAs2Endpoint(null).creationDateAndTime(new Date()).build();
 	}
 
 	public static TransmissionRequest build(TransmissionRequestBuilder builder, FullPeppolMessage fullPeppolMessage)
@@ -95,7 +95,8 @@ public class NotierTransmissionRequestBuilder {
 		verifyHeaderMetadataAvoidLookup(sender, receiver, processType, documentType, transportProfile, endpointUri, endpointCertificate);
 
 		return builder.payLoad(fullPeppolMessage.getPayload()).sender(sender).receiver(receiver).processType(processType).documentType(documentType)
-				.overrideAs2Endpoint(Endpoint.of(transportProfile, endpointUri, endpointCertificate)).instanceId(instanceId).creationDateAndTime(new Date())
+				.overrideAs2Endpoint(Endpoint.of(transportProfile, endpointUri, endpointCertificate)).instanceId(instanceId)
+				.creationDateAndTime(new Date())
 				.build();
 	}
 
