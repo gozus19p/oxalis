@@ -4,11 +4,11 @@ import com.google.inject.Inject;
 import it.eng.intercenter.oxalis.integration.dto.*;
 import it.eng.intercenter.oxalis.notier.core.service.api.IOxalisLookupNotierIntegrationService;
 import lombok.extern.slf4j.Slf4j;
-import no.difi.vefa.peppol.common.lang.PeppolException;
-import no.difi.vefa.peppol.common.model.*;
-import no.difi.vefa.peppol.lookup.LookupClient;
-import no.difi.vefa.peppol.lookup.api.LookupException;
-import no.difi.vefa.peppol.security.lang.PeppolSecurityException;
+import network.oxalis.vefa.peppol.common.lang.PeppolException;
+import network.oxalis.vefa.peppol.common.model.*;
+import network.oxalis.vefa.peppol.lookup.LookupClient;
+import network.oxalis.vefa.peppol.lookup.api.LookupException;
+import network.oxalis.vefa.peppol.security.lang.PeppolSecurityException;
 
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.X509Certificate;

@@ -11,16 +11,16 @@ import java.util.Date;
 import it.eng.intercenter.oxalis.integration.dto.FullPeppolMessage;
 import it.eng.intercenter.oxalis.integration.dto.PeppolMessage;
 import it.eng.intercenter.oxalis.integration.util.GsonUtil;
-import no.difi.oxalis.api.lang.OxalisContentException;
-import no.difi.oxalis.api.lang.OxalisTransmissionException;
-import no.difi.oxalis.api.outbound.TransmissionRequest;
-import no.difi.oxalis.outbound.transmission.TransmissionRequestBuilder;
-import no.difi.oxalis.sniffer.identifier.InstanceId;
-import no.difi.vefa.peppol.common.model.DocumentTypeIdentifier;
-import no.difi.vefa.peppol.common.model.Endpoint;
-import no.difi.vefa.peppol.common.model.ParticipantIdentifier;
-import no.difi.vefa.peppol.common.model.ProcessIdentifier;
-import no.difi.vefa.peppol.common.model.TransportProfile;
+import network.oxalis.api.lang.OxalisContentException;
+import network.oxalis.api.lang.OxalisTransmissionException;
+import network.oxalis.api.outbound.TransmissionRequest;
+import network.oxalis.outbound.transmission.TransmissionRequestBuilder;
+import network.oxalis.sniffer.identifier.InstanceId;
+import network.oxalis.vefa.peppol.common.model.DocumentTypeIdentifier;
+import network.oxalis.vefa.peppol.common.model.Endpoint;
+import network.oxalis.vefa.peppol.common.model.ParticipantIdentifier;
+import network.oxalis.vefa.peppol.common.model.ProcessIdentifier;
+import network.oxalis.vefa.peppol.common.model.TransportProfile;
 
 /**
  * @author Manuel Gozzi
@@ -66,7 +66,7 @@ public class NotierTransmissionRequestBuilder {
 		verifyHeaderMetadataForLookup(sender, receiver, processType, documentType);
 
 		return builder.payLoad(peppolMessage.getPayload()).sender(sender).receiver(receiver).processType(processType).documentType(documentType)
-				.instanceId(instanceId).creationDateAndTime(new Date()).overrideAs2Endpoint(null).build();
+				.instanceId(instanceId).overrideAs2Endpoint(null).creationDateAndTime(new Date()).build();
 	}
 
 	public static TransmissionRequest build(TransmissionRequestBuilder builder, FullPeppolMessage fullPeppolMessage)
@@ -95,7 +95,8 @@ public class NotierTransmissionRequestBuilder {
 		verifyHeaderMetadataAvoidLookup(sender, receiver, processType, documentType, transportProfile, endpointUri, endpointCertificate);
 
 		return builder.payLoad(fullPeppolMessage.getPayload()).sender(sender).receiver(receiver).processType(processType).documentType(documentType)
-				.overrideAs2Endpoint(Endpoint.of(transportProfile, endpointUri, endpointCertificate)).instanceId(instanceId).creationDateAndTime(new Date())
+				.overrideAs2Endpoint(Endpoint.of(transportProfile, endpointUri, endpointCertificate)).instanceId(instanceId)
+				.creationDateAndTime(new Date())
 				.build();
 	}
 

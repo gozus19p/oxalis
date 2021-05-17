@@ -62,15 +62,15 @@
 		</dependency>
 		<!-- Oxalis Outbound -->
 		<dependency>
-			<groupId>no.difi.oxalis</groupId>
+			<groupId>network.oxalis</groupId>
 			<artifactId>oxalis-outbound</artifactId>
-			<version>4.1.1</version>
+			<version>5.0.0</version>
 		</dependency>
 		<!-- Oxalis Commons -->
 		<dependency>
-			<groupId>no.difi.oxalis</groupId>
+			<groupId>network.oxalis</groupId>
 			<artifactId>oxalis-commons</artifactId>
-			<version>4.1.1</version>
+			<version>5.0.0</version>
 		</dependency>
 		<!-- Guice -->
 		<dependency>

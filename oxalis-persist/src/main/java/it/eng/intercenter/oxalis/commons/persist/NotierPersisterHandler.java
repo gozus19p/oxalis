@@ -1,33 +1,7 @@
 package it.eng.intercenter.oxalis.commons.persist;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
-import java.net.InetAddress;
-import java.nio.file.Path;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import javax.inject.Singleton;
-import javax.mail.Authenticator;
-import javax.mail.Message;
-import javax.mail.Message.RecipientType;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-
-import org.apache.commons.codec.binary.StringUtils;
-import org.apache.commons.io.IOUtils;
-import org.apache.http.HttpResponse;
-import org.apache.http.message.BasicNameValuePair;
-
 import com.google.common.io.Files;
 import com.google.inject.Inject;
-
 import it.eng.intercenter.oxalis.integration.dto.OxalisMdn;
 import it.eng.intercenter.oxalis.integration.dto.OxalisMessage;
 import it.eng.intercenter.oxalis.integration.dto.PeppolDetails;
@@ -35,16 +9,31 @@ import it.eng.intercenter.oxalis.integration.util.GsonUtil;
 import it.eng.intercenter.oxalis.rest.client.config.CertificateConfigManager;
 import it.eng.intercenter.oxalis.rest.client.config.EmailSenderConfigManager;
 import it.eng.intercenter.oxalis.rest.client.config.RestConfigManager;
-import it.eng.intercenter.oxalis.rest.client.http.HttpCaller;
 import it.eng.intercenter.oxalis.rest.client.http.types.HttpNotierPost;
 import lombok.extern.slf4j.Slf4j;
-import no.difi.oxalis.api.inbound.InboundMetadata;
-import no.difi.oxalis.api.persist.ExceptionPersister;
-import no.difi.oxalis.api.persist.PayloadPersister;
-import no.difi.oxalis.api.persist.ReceiptPersister;
-import no.difi.oxalis.api.util.Type;
-import no.difi.oxalis.commons.persist.DefaultPersisterHandler;
-import no.difi.vefa.peppol.common.model.Header;
+import network.oxalis.api.inbound.InboundMetadata;
+import network.oxalis.api.persist.ExceptionPersister;
+import network.oxalis.api.persist.PayloadPersister;
+import network.oxalis.api.persist.ReceiptPersister;
+import network.oxalis.api.util.Type;
+import network.oxalis.commons.persist.DefaultPersisterHandler;
+import network.oxalis.vefa.peppol.common.model.Header;
+import org.apache.commons.io.IOUtils;
+import org.apache.http.message.BasicNameValuePair;
+
+import javax.inject.Singleton;
+import javax.mail.*;
+import javax.mail.Message.RecipientType;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.nio.file.Path;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * @author Manuel Gozzi
@@ -110,12 +99,9 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 					// Build HTTP call.
 					HttpNotierPost post = new HttpNotierPost(certificateConfig, uri, getParams(inboundMetadata, inboundMetadata.getHeader(), payloadPath));
 
-					// Execute HTTP call.
-					HttpResponse response = post.execute();
-
 					// Handling response
 					log.info("Parsing response from NoTI-ER...");
-					String responseContent = HttpCaller.extractResponseContentAsUTF8String(response);
+					String responseContent = post.execute();
 					log.info("{}", responseContent);
 
 					// Parse response received from NoTI-ER.
