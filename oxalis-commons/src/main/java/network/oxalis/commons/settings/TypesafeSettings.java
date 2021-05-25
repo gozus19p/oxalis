@@ -25,9 +25,9 @@ package network.oxalis.commons.settings;
 import com.google.inject.Inject;
 import com.typesafe.config.Config;
 import network.oxalis.api.lang.OxalisLoadingException;
-import network.oxalis.api.settings.Settings;
 import network.oxalis.api.settings.DefaultValue;
 import network.oxalis.api.settings.Nullable;
+import network.oxalis.api.settings.Settings;
 
 import java.lang.reflect.Field;
 import java.util.Map;

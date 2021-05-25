@@ -26,14 +26,14 @@ import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
 import net.klakegg.pkix.ocsp.api.OcspFetcher;
-import no.difi.certvalidator.api.CrlCache;
-import no.difi.certvalidator.api.CrlFetcher;
-import no.difi.certvalidator.util.SimpleCrlCache;
 import network.oxalis.api.lang.OxalisLoadingException;
 import network.oxalis.commons.guice.OxalisModule;
 import network.oxalis.vefa.peppol.common.lang.PeppolLoadingException;
 import network.oxalis.vefa.peppol.mode.Mode;
 import network.oxalis.vefa.peppol.security.api.CertificateValidator;
+import no.difi.certvalidator.api.CrlCache;
+import no.difi.certvalidator.api.CrlFetcher;
+import no.difi.certvalidator.util.SimpleCrlCache;
 import org.apache.http.client.config.RequestConfig;
 
 import javax.inject.Named;

@@ -19,13 +19,19 @@ This repository is handled by Intercent-ER PEPPOL Access Point.
 | oxalis-persist | jar | Library that overrides standard Oxalis persist logic |
 | oxalis-rest | jar | Oxalis HTTP client configuration (developed in order to communicate with NoTI-ER) |
 
-This web application threats dependencies against standard Oxalis components.
-Please refer to original documentation for those modules.
+This web application threats dependencies against standard Oxalis components. Please refer to original documentation for
+those modules.
 
-## Installation
+## Upgrade instructions
 
-*To be defined*.
+When a new Oxalis release comes out, it is required to do what it follows:
+
+1. update parent Oxalis version inside oxalis-war/pom.xml;
+1. maintain the old version of GuiceModuleLoader.java in order to avoid OOM problem (Injector).
 
 ## Build from source
 
-*To be defined*.
+| Command | Environment | Description |
+| ------- | ----------- | ----------- |
+| mvn clean install -P complete-build | NoTI-ER (outbound); AP AgID | Full build of Oxalis. |
+| mvn clean install -P inbound-as4 | NoTI-ER (inbound) | AS4 inbound Oxalis build. |

@@ -29,11 +29,11 @@ import io.opentracing.Span;
 import io.opentracing.Tracer;
 import io.opentracing.contrib.spanmanager.DefaultSpanManager;
 import net.klakegg.pkix.ocsp.api.OcspFetcher;
-import no.difi.certvalidator.api.CrlFetcher;
 import network.oxalis.api.lang.OxalisLoadingException;
 import network.oxalis.vefa.peppol.common.lang.PeppolLoadingException;
 import network.oxalis.vefa.peppol.mode.Mode;
 import network.oxalis.vefa.peppol.security.ModeDetector;
+import no.difi.certvalidator.api.CrlFetcher;
 
 import java.security.cert.X509Certificate;
 import java.util.HashMap;

@@ -5,7 +5,7 @@
 	<parent>
 		<artifactId>oxalis</artifactId>
 		<groupId>network.oxalis</groupId>
-		<version>5.0.0</version>
+		<version>5.0.1</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 
@@ -17,7 +17,7 @@
 	<url>https://github.com/gozus19p/oxalis</url>
 
 	<properties>
-		<oxalis.difi.as4.version>5.0.0</oxalis.difi.as4.version>
+		<oxalis.difi.as4.version>5.0.1</oxalis.difi.as4.version>
 		<oxalis.eng.core.version>1.0.0</oxalis.eng.core.version>
 		<oxalis.eng.rest-client.version>1.0.0</oxalis.eng.rest-client.version>
 		<oxalis.eng.rest-server.version>1.0.0</oxalis.eng.rest-server.version>

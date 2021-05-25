@@ -26,8 +26,8 @@ import com.google.inject.Injector;
 import com.google.inject.Provides;
 import com.google.inject.name.Named;
 import network.oxalis.api.logging.Configurator;
-import network.oxalis.commons.util.ClassUtils;
 import network.oxalis.commons.guice.OxalisModule;
+import network.oxalis.commons.util.ClassUtils;
 
 /**
  * @author erlend

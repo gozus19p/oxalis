@@ -47,7 +47,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class GuiceModuleLoader extends AbstractModule {
 
-	private static final String PREFIX = "oxalis.module";
+    private static final String PREFIX = "oxalis.module";
 
 	private static final String CLS = "class";
 
@@ -83,9 +83,9 @@ public class GuiceModuleLoader extends AbstractModule {
 				throw e;
 			}
 		} else {
-            log.info("Oxalis Injector already initialized");
-        }
-        return oxalisInjector;
+			log.info("Oxalis Injector already initialized");
+		}
+		return oxalisInjector;
 	}
 
 	@Override

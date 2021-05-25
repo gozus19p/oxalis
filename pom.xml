@@ -36,8 +36,6 @@
 		<module>oxalis-war</module>
 
 		<!-- Oxalis -->
-		<module>oxalis-inbound</module>
-		<module>oxalis-outbound</module>
 		<module>oxalis-commons</module>
 	</modules>
 
@@ -389,25 +387,6 @@
 
 		</dependencies>
 	</dependencyManagement>
-
-	<profiles>
-		<profile>
-			<id>test</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<properties>
-				<reference.path>resources/oxalis-commons-reference/test</reference.path>
-			</properties>
-		</profile>
-
-		<profile>
-			<id>prod</id>
-			<properties>
-				<reference.path>resources/oxalis-commons-reference/production</reference.path>
-			</properties>
-		</profile>
-	</profiles>
 
 	<build>
 		<pluginManagement>

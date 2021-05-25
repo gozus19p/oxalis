@@ -24,7 +24,9 @@ package network.oxalis.commons.io;
 
 import com.google.common.io.ByteStreams;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Caching InputStream to be used when reading the beginning of a stream is needed before the stream is "reset" when

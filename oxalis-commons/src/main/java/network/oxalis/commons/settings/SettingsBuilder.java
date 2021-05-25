@@ -29,8 +29,8 @@ import lombok.extern.slf4j.Slf4j;
 import network.oxalis.api.settings.Path;
 import network.oxalis.api.settings.Settings;
 import network.oxalis.api.settings.Title;
-import network.oxalis.commons.persist.PersisterConf;
 import network.oxalis.commons.guice.OxalisModule;
+import network.oxalis.commons.persist.PersisterConf;
 
 import java.util.HashMap;
 import java.util.Map;
