@@ -26,6 +26,9 @@
 	<url>https://github.com/gozus19p/oxalis</url>
 
 	<modules>
+		<!-- Oxalis -->
+		<module>oxalis-commons</module>
+
 		<!-- Other oxalis modules @author Manuel Gozzi -->
 		<module>oxalis-quartz</module>
 		<module>oxalis-rest</module>
@@ -34,9 +37,6 @@
 		<module>oxalis-notier-core</module>
 		<module>oxalis-persist</module>
 		<module>oxalis-war</module>
-
-		<!-- Oxalis -->
-		<module>oxalis-commons</module>
 	</modules>
 
 	<properties>
@@ -46,7 +46,7 @@
 		<logback.version>1.2.3</logback.version>
 		<bouncycastle.version>1.57</bouncycastle.version>
 		<google.guice.version>4.2.2</google.guice.version>
-		<vefa.peppol.version>2.0.0</vefa.peppol.version>
+		<vefa.peppol.version>2.0.1</vefa.peppol.version>
 		<brave.version>5.6.5</brave.version>
 		<jetty.version>9.4.35.v20201120</jetty.version>
 		<opentracing.version>0.33.0</opentracing.version>
@@ -305,27 +305,6 @@
 				<artifactId>jetty-servlet</artifactId>
 				<version>${jetty.version}</version>
 			</dependency>
-
-			<!-- MySQL -->
-			<!-- <dependency>
-				<groupId>mysql</groupId>
-				<artifactId>mysql-connector-java</artifactId>
-				<version>5.1.43</version>
-			</dependency> -->
-
-			<!-- H2 -->
-			<!-- <dependency>
-				<groupId>com.h2database</groupId>
-				<artifactId>h2</artifactId>
-				<version>1.4.197</version>
-			</dependency> -->
-
-			<!-- HSQL -->
-			<!-- <dependency>
-				<groupId>org.hsqldb</groupId>
-				<artifactId>hsqldb</artifactId>
-				<version>2.4.1</version>
-			</dependency> -->
 
 			<!-- OpenTracing -->
 			<dependency>

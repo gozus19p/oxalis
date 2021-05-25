@@ -25,12 +25,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>network.oxalis</groupId>
+        <groupId>it.eng.intercenter</groupId>
         <artifactId>oxalis</artifactId>
-        <version>5.0.1</version>
+        <version>1.0.0</version>
     </parent>
 
     <artifactId>oxalis-commons</artifactId>
+    <version>5.0.1</version>
 
     <name>Oxalis :: Core :: Commons</name>
     <description>
@@ -48,16 +49,23 @@
         <url>https://en.norstella.no/</url>
     </organization>
 
+    <properties>
+        <oxalis.version>5.0.1</oxalis.version>
+        <vefa.peppol.version>2.0.1</vefa.peppol.version>
+    </properties>
+
     <dependencies>
 
         <!-- Oxalis -->
         <dependency>
             <groupId>network.oxalis</groupId>
             <artifactId>oxalis-api</artifactId>
+            <version>${oxalis.version}</version>
         </dependency>
         <dependency>
             <groupId>network.oxalis</groupId>
             <artifactId>oxalis-test</artifactId>
+            <version>${oxalis.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -82,14 +90,17 @@
         <dependency>
             <groupId>network.oxalis.vefa</groupId>
             <artifactId>peppol-mode</artifactId>
+            <version>${vefa.peppol.version}</version>
         </dependency>
         <dependency>
             <groupId>network.oxalis.vefa</groupId>
             <artifactId>peppol-sbdh</artifactId>
+            <version>${vefa.peppol.version}</version>
         </dependency>
         <dependency>
             <groupId>network.oxalis.vefa</groupId>
             <artifactId>peppol-evidence</artifactId>
+            <version>${vefa.peppol.version}</version>
         </dependency>
 
         <dependency>
