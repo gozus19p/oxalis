@@ -38,6 +38,7 @@ import network.oxalis.vefa.peppol.common.model.Endpoint;
 import network.oxalis.vefa.peppol.common.model.Header;
 import network.oxalis.vefa.peppol.common.model.ParticipantIdentifier;
 import network.oxalis.vefa.peppol.common.model.TransportProfile;
+import org.testng.annotations.*;
 
 import java.io.IOException;
 import java.io.InputStream;

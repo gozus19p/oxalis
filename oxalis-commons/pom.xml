@@ -25,13 +25,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>it.eng.intercenter</groupId>
+        <groupId>network.oxalis</groupId>
         <artifactId>oxalis</artifactId>
-        <version>1.0.0</version>
+        <version>5.0.1</version>
     </parent>
 
     <artifactId>oxalis-commons</artifactId>
-    <version>5.0.1</version>
 
     <name>Oxalis :: Core :: Commons</name>
     <description>

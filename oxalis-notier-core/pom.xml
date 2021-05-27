@@ -59,7 +59,6 @@
 		<dependency>
             <groupId>network.oxalis</groupId>
             <artifactId>oxalis-outbound</artifactId>
-            <version>5.0.0</version>
         </dependency>
 		<!-- Oxalis Commons -->
         <dependency>

@@ -43,7 +43,7 @@ public class LookupTool {
 						ParticipantIdentifier.of(p),
 						DocumentTypeIdentifier.of("urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:fdc:peppol.eu:poacc:trns:order:3:restrictive:urn:www.agid.gov.it:trns:ordine:3.1::2.1")
 				);
-				List<List<Endpoint>> endpoints = references.getProcesses()
+				List<List<Endpoint>> endpoints = references.getServiceInformation().getProcesses()
 						.stream()
 						.map(ProcessMetadata::getEndpoints)
 						.collect(Collectors.toList());

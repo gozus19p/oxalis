@@ -1,4 +1,4 @@
-package no.difi.oxalis.dist.war;
+package network.oxalis.dist.war;
 
 import network.oxalis.inbound.OxalisGuiceContextListener;
 

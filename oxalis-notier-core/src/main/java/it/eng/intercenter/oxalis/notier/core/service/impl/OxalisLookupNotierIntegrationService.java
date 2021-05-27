@@ -229,9 +229,10 @@ public class OxalisLookupNotierIntegrationService implements IOxalisLookupNotier
         oxalisLookupMetadata.setDocumentTypeIdentifier(documentTypeIdentifier_dto);
 
         List<OxalisLookupProcessMetadata> oxalisLookupProcessMetadataList = new ArrayList<>();
-        if (serviceMetadata.getProcesses() != null && !serviceMetadata.getProcesses().isEmpty()) {
-            log.info("Starting \"{}\" parsing", serviceMetadata.getProcesses().getClass().getSimpleName());
-            for (ProcessMetadata<Endpoint> current : serviceMetadata.getProcesses()) {
+        if (serviceMetadata.getServiceInformation() != null &&
+                serviceMetadata.getServiceInformation().getProcesses() != null && !serviceMetadata.getServiceInformation().getProcesses().isEmpty()) {
+            log.info("Starting \"{}\" parsing", serviceMetadata.getServiceInformation().getProcesses().getClass().getSimpleName());
+            for (ProcessMetadata<Endpoint> current : serviceMetadata.getServiceInformation().getProcesses()) {
                 OxalisLookupProcessMetadata oxalisLookupProcessMetadata = new OxalisLookupProcessMetadata();
                 List<OxalisLookupEndpoint> oxalisLookupEndpointList = new ArrayList<>();
                 for (Endpoint endpoint : current.getEndpoints()) {

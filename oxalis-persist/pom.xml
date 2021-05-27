@@ -76,9 +76,10 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>network.oxalis</groupId>
-			<artifactId>oxalis-commons</artifactId>
-		</dependency>
+            <groupId>network.oxalis</groupId>
+            <artifactId>oxalis-commons</artifactId>
+            <version>5.0.1</version>
+        </dependency>
 
 		<!-- Javax.Transaction -->
 		<dependency>

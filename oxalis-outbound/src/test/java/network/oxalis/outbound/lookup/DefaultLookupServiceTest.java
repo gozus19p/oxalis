@@ -27,6 +27,7 @@ import com.google.inject.name.Named;
 import network.oxalis.api.lang.OxalisTransmissionException;
 import network.oxalis.api.lookup.LookupService;
 import network.oxalis.commons.guice.GuiceModuleLoader;
+import network.oxalis.vefa.peppol.common.model.*;
 import org.testng.Assert;
 import org.testng.annotations.Guice;
 import org.testng.annotations.Test;

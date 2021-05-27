@@ -26,9 +26,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>it.eng.intercenter</groupId>
+        <groupId>network.oxalis</groupId>
         <artifactId>oxalis</artifactId>
-        <version>1.0.0</version>
+        <version>5.0.1</version>
     </parent>
 
     <artifactId>oxalis-outbound</artifactId>
@@ -48,6 +48,11 @@
         <url>https://en.norstella.no/</url>
     </organization>
 
+    <properties>
+        <oxalis.version>5.0.1</oxalis.version>
+        <vefa.peppol.version>2.0.1</vefa.peppol.version>
+    </properties>
+
     <dependencies>
 
         <!-- Oxalis -->
@@ -58,15 +63,18 @@
         <dependency>
             <groupId>network.oxalis</groupId>
             <artifactId>oxalis-document-sniffer</artifactId>
+            <version>${oxalis.version}</version>
         </dependency>
         <dependency>
             <groupId>network.oxalis</groupId>
             <artifactId>oxalis-test</artifactId>
+            <version>${oxalis.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>network.oxalis</groupId>
             <artifactId>oxalis-as2</artifactId>
+            <version>${oxalis.version}</version>
         </dependency>
 
         <dependency>
@@ -95,14 +103,17 @@
         <dependency>
             <groupId>network.oxalis.vefa</groupId>
             <artifactId>peppol-lookup</artifactId>
+            <version>${vefa.peppol.version}</version>
         </dependency>
         <dependency>
             <groupId>network.oxalis.vefa</groupId>
             <artifactId>peppol-sbdh</artifactId>
+            <version>${vefa.peppol.version}</version>
         </dependency>
         <dependency>
             <groupId>network.oxalis.vefa</groupId>
             <artifactId>peppol-security</artifactId>
+            <version>${vefa.peppol.version}</version>
         </dependency>
     </dependencies>
 

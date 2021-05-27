@@ -64,13 +64,13 @@
 		<dependency>
 			<groupId>network.oxalis</groupId>
 			<artifactId>oxalis-outbound</artifactId>
-			<version>5.0.0</version>
+			<version>5.0.1</version>
 		</dependency>
 		<!-- Oxalis Commons -->
 		<dependency>
 			<groupId>network.oxalis</groupId>
 			<artifactId>oxalis-commons</artifactId>
-			<version>5.0.0</version>
+			<version>5.0.1</version>
 		</dependency>
 		<!-- Guice -->
 		<dependency>

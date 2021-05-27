@@ -31,6 +31,7 @@ import com.google.inject.name.Named;
 import network.oxalis.api.lang.OxalisTransmissionException;
 import network.oxalis.api.lookup.LookupService;
 import network.oxalis.api.util.Type;
+import network.oxalis.vefa.peppol.common.model.*;
 import network.oxalis.vefa.peppol.lookup.LookupClient;
 
 import java.util.List;
