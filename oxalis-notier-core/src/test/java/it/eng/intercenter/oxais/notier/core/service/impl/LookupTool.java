@@ -4,8 +4,6 @@ import network.oxalis.vefa.peppol.common.lang.PeppolLoadingException;
 import network.oxalis.vefa.peppol.common.model.*;
 import network.oxalis.vefa.peppol.lookup.LookupClient;
 import network.oxalis.vefa.peppol.lookup.LookupClientBuilder;
-import network.oxalis.vefa.peppol.lookup.api.LookupException;
-import network.oxalis.vefa.peppol.lookup.api.MetadataProvider;
 import network.oxalis.vefa.peppol.lookup.fetcher.UrlFetcher;
 import network.oxalis.vefa.peppol.lookup.locator.BdxlLocator;
 import network.oxalis.vefa.peppol.lookup.provider.DefaultProvider;
@@ -21,7 +19,7 @@ import java.util.stream.Collectors;
 public class LookupTool {
 
 	private static final String[] PARTICIPANTS = {
-			"9906:0011223344", "9906:01614660353", "9906:02249070356", "9906:05262890014", "9906:05262890014AS2", "9906:05359681003", "9906:09429840151", "9906:80415740580", "9906:INTESA", "9906:it00426150488ts", "9906:it01874230343", "9906:it01874240342", "9906:it02241740360", "9906:it02241850367", "9906:testpagero", "9906:testsml", "9907:intesatest", "9907:it02241850367", "9907:it91002500337", "9907:it91252510374", "9921:testPagero"
+			// TODO insert participant to lookup for
 	};
 
 	public static void main(String[] args) throws PeppolLoadingException {
@@ -36,7 +34,7 @@ public class LookupTool {
 
 		Arrays.stream(PARTICIPANTS).forEach(p -> {
 			System.out.print(
-					"Elaboro: " + p + " [ "
+					"Participant Identifier: " + p + " [ "
 			);
 
 			ServiceMetadata references;
@@ -56,7 +54,7 @@ public class LookupTool {
 							.forEach(el -> System.out.print(el + "; "));
 				}
 			} catch (Exception e) {
-				System.out.println(e.getMessage());
+				System.out.print(e.getMessage());
 			}
 			System.out.println("]");
 		});

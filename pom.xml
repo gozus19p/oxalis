@@ -28,6 +28,7 @@
 	<modules>
 		<!-- Oxalis -->
 		<module>oxalis-commons</module>
+		<module>oxalis-outbound</module>
 
 		<!-- Other oxalis modules @author Manuel Gozzi -->
 		<module>oxalis-quartz</module>
