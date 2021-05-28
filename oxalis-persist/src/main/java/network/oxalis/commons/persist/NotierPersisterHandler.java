@@ -1,6 +1,5 @@
-package it.eng.intercenter.oxalis.commons.persist;
+package network.oxalis.commons.persist;
 
-import com.google.common.io.Files;
 import com.google.inject.Inject;
 import it.eng.intercenter.oxalis.integration.dto.OxalisMdn;
 import it.eng.intercenter.oxalis.integration.dto.OxalisMessage;
@@ -16,7 +15,6 @@ import network.oxalis.api.persist.ExceptionPersister;
 import network.oxalis.api.persist.PayloadPersister;
 import network.oxalis.api.persist.ReceiptPersister;
 import network.oxalis.api.util.Type;
-import network.oxalis.commons.persist.DefaultPersisterHandler;
 import network.oxalis.vefa.peppol.common.model.Header;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.message.BasicNameValuePair;
@@ -28,7 +26,7 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.ByteArrayInputStream;
-import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.nio.file.Path;
@@ -112,7 +110,7 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 				} catch (Exception e) {
 					if (e.getMessage() != null && (
 							e.getMessage().toLowerCase().contains("connection reset")
-							|| e.getMessage().toLowerCase().contains("failed to respond")
+									|| e.getMessage().toLowerCase().contains("failed to respond")
 					)) {
 						log.warn("Got a CONNECTION RESET from NoTI-ER: {}", e.getMessage(), e);
 						forwardingMustBeRepeated = true;
@@ -127,14 +125,17 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 
 		} catch (Exception e) {
 
-			log.warn("Persisting document on file system due to previous error");
+			log.warn(
+					"Persisting document on file system due to previous error. Location: {} (host \"{}\")",
+					payloadPath.toAbsolutePath(),
+					InetAddress.getLocalHost().getHostName()
+			);
 			log.error("Something went wrong during NoTI-ER persist phase. Cause: {}", e.getMessage(), e);
 
 			// Persist on file system.
 			super.persist(inboundMetadata, payloadPath);
 
 			notifyTechnicalSupport(payloadPath, e);
-
 		}
 	}
 
@@ -209,8 +210,6 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 	 * @return "true" if Oxalis must forward the received document to NoTI-ER,
 	 * "false" otherwise
 	 * @author Manuel Gozzi
-	 * @date 25 nov 2019
-	 * @time 14:48:54
 	 */
 	private boolean persistOnNotierIsEnabled() {
 
@@ -218,20 +217,21 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 		String persistOnNotierIsEnabled = restConfig.readValue(RestConfigManager.CONFIG_KEY_PERSIST_MODE);
 
 		// The default is set to "true".
-		return persistOnNotierIsEnabled != null ? new Boolean(persistOnNotierIsEnabled.trim().toLowerCase().intern()).booleanValue() : true;
-
+		return persistOnNotierIsEnabled == null ||
+				Boolean.parseBoolean(
+						persistOnNotierIsEnabled.trim()
+								.toLowerCase()
+								.intern()
+				);
 	}
 
 	/**
 	 * It sends an e-mail to NoTI-ER support, informing the technical team about the
 	 * failure.
 	 *
-	 * @param e           is the Exception related to the outbound failure stack
-	 *                    trace
-	 * @param payloadPath is the path related to the payload
+	 * @param errorMessage is the error message related to the outbound failure stack trace
+	 * @param payloadPath  is the path related to the payload
 	 * @author Manuel Gozzi
-	 * @date 25 nov 2019
-	 * @time 14:49:55
 	 */
 	private void sendEmailToSupportNotier(String errorMessage, Path payloadPath) {
 
@@ -283,8 +283,6 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 	 * @param config_blindCarbonCopy is the e-mail blind carbon copy receiver
 	 *                               configured
 	 * @author Manuel Gozzi
-	 * @date 25 nov 2019
-	 * @time 14:51:02
 	 */
 	private void prepareAndSendEmail(String errorMessage, String config_receiver, Session session, String config_carbonCopy, String config_blindCarbonCopy,
 									 Path payloadPath) {
@@ -308,6 +306,8 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 			stringBuilder.append(InetAddress.getLocalHost().getHostName());
 			stringBuilder.append(System.getProperty("line.separator"));
 		} catch (Exception e) {
+
+			log.debug(e.getMessage(), e);
 		}
 		stringBuilder.append("Document is located in file system at path: ");
 		stringBuilder.append(payloadPath.normalize().toString());
@@ -335,7 +335,7 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 	}
 
 	private void setUpEmailDetails(Message email, String[] m_receivers, String[] m_knownCopies, String[] m_hiddenCopies, String m_subject, String m_text,
-								   String m_sender) throws MessagingException, AddressException {
+								   String m_sender) throws MessagingException {
 		// Set sender.
 		email.setFrom(new InternetAddress(m_sender != null ? m_sender : "support.notier@regione.emilia-romagna.it"));
 
@@ -357,16 +357,6 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 		email.setSubject(m_subject);
 	}
 
-	/**
-	 * It converts a String[] into InternetAddress[].
-	 *
-	 * @param m_addressesString
-	 * @return
-	 * @throws AddressException
-	 * @author Manuel Gozzi
-	 * @date 25 nov 2019
-	 * @time 14:53:13
-	 */
 	private InternetAddress[] getInternetAddresses(String[] m_addressesString) throws AddressException {
 		InternetAddress[] addresses = new InternetAddress[m_addressesString.length];
 		for (int i = 0; i < m_addressesString.length; i++) {
@@ -387,19 +377,26 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 		BasicNameValuePair[] arr = new BasicNameValuePair[3];
 
 		byte[] payload = getPayloadFromPath(payloadPath);
-		ByteArrayInputStream bais = new ByteArrayInputStream(payload);
 
-		OxalisMessage oxalisMessage = new OxalisMessage(inboundMetadata.getTransmissionIdentifier().getIdentifier(),
-				new PeppolDetails(header.getSender().getIdentifier(), header.getReceiver().getIdentifier(), header.getProcess().getIdentifier(),
-						header.getDocumentType().getIdentifier()),
-				null, // timestamp
-				null, //
-				null, inboundMetadata.getTransportProtocol().getIdentifier(), inboundMetadata.getDigest().getMethod().name(),
-				inboundMetadata.getDigest().getValue(), inboundMetadata.getReceipts().get(0).getValue(), inboundMetadata.getTag().toString());
+		try (ByteArrayInputStream bais = new ByteArrayInputStream(payload)) {
 
-		arr[0] = new BasicNameValuePair("document", GsonUtil.getPrettyPrintedInstance().toJson(oxalisMessage));
-		arr[1] = new BasicNameValuePair("peppolPayload", GsonUtil.getPrettyPrintedInstance().toJson(new ByteArrayInputStream(IOUtils.toByteArray(bais))));
-		arr[2] = new BasicNameValuePair("isInternal", "false");
+			OxalisMessage oxalisMessage = new OxalisMessage(inboundMetadata.getTransmissionIdentifier().getIdentifier(),
+					new PeppolDetails(header.getSender().getIdentifier(), header.getReceiver().getIdentifier(), header.getProcess().getIdentifier(),
+							header.getDocumentType().getIdentifier()),
+					null, // timestamp
+					null, //
+					null, inboundMetadata.getTransportProtocol().getIdentifier(), inboundMetadata.getDigest().getMethod().name(),
+					inboundMetadata.getDigest().getValue(), inboundMetadata.getReceipts().get(0).getValue(), inboundMetadata.getTag().toString());
+
+			arr[0] = new BasicNameValuePair("document", GsonUtil.getPrettyPrintedInstance().toJson(oxalisMessage));
+			arr[1] = new BasicNameValuePair("peppolPayload",
+					GsonUtil.getPrettyPrintedInstance()
+							.toJson(
+									bais
+							)
+			);
+			arr[2] = new BasicNameValuePair("isInternal", "false");
+		}
 
 		return arr;
 	}
@@ -409,10 +406,16 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 	 *
 	 * @param payloadPath is the Path related to the Payload
 	 * @return the payload in byte[] format
-	 * @throws IOException if something goes wrong during I/O access
 	 */
-	private final byte[] getPayloadFromPath(Path payloadPath) throws IOException {
-		return Files.toByteArray(new File(payloadPath.normalize().toString()));
-	}
+	private byte[] getPayloadFromPath(Path payloadPath) {
 
+		try (FileReader fileReader = new FileReader(payloadPath.toFile())) {
+
+			return IOUtils.toByteArray(fileReader);
+		} catch (Exception e) {
+
+			log.error("An error occurred while getting payload from Path: {}", e.getMessage(), e);
+			return new byte[0];
+		}
+	}
 }

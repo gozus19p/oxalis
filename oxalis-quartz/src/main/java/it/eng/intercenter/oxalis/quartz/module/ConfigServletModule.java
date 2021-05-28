@@ -1,7 +1,6 @@
 package it.eng.intercenter.oxalis.quartz.module;
 
 import com.google.inject.servlet.ServletModule;
-
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -19,7 +18,5 @@ public class ConfigServletModule extends ServletModule {
 
 		log.info("Installing {}", QuartzModule.class.getTypeName());
 		install(new QuartzModule());
-
 	}
-
 }

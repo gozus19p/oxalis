@@ -32,8 +32,11 @@
 			</pattern>
 		</encoder>
 		<rollingPolicy
-			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>/opt/tomcat-icent/logs/oxalis.%d{yyyy-MM-dd}.log</fileNamePattern>
+				class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${catalina.base}/logs/oxalis.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>20MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
 		</rollingPolicy>
 	</appender>
 

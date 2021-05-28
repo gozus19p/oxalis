@@ -1,10 +1,10 @@
 package it.eng.intercenter.oxalis.quartz.util;
 
-import java.io.IOException;
-import java.util.Properties;
-
 import it.eng.intercenter.oxalis.quartz.module.QuartzModule;
 import lombok.extern.slf4j.Slf4j;
+
+import java.io.IOException;
+import java.util.Properties;
 
 /**
  * @author Manuel Gozzi
@@ -26,13 +26,14 @@ public class QuartzPropertiesUtil {
 	 * @param resourceStreamFileName is the file name
 	 * @return the properties defined in the given file
 	 */
-	public static final Properties getProperties(String resourceStreamFileName) {
+	public static Properties getProperties(String resourceStreamFileName) {
 		Properties properties = new Properties();
 		try {
+
 			properties.load(QuartzModule.class.getClassLoader().getResourceAsStream(resourceStreamFileName));
 		} catch (IOException e) {
-			log.error("Error: {}", e.getMessage());
-			log.error("{}", e);
+
+			log.error("Error: {}", e.getMessage(), e);
 		}
 		return properties;
 	}

@@ -1,15 +1,14 @@
 package it.eng.intercenter.oxalis.quartz.scheduler;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
+import lombok.extern.slf4j.Slf4j;
 import org.quartz.JobKey;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.SchedulerFactory;
 import org.quartz.impl.matchers.GroupMatcher;
 
-import lombok.extern.slf4j.Slf4j;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
 /**
  * Class that implements Quartz inside Guice workflow.
@@ -51,6 +50,7 @@ public class Quartz {
 	/**
 	 * @return true if scheduler paused correctly, false otherwise
 	 */
+	@SuppressWarnings("unused")
 	public boolean pauseScheduler() {
 		log.info("Pausing Quartz scheduler");
 		try {
@@ -60,8 +60,7 @@ public class Quartz {
 						scheduler.interrupt(jobKey);
 						log.info("Job {} has been interrupted successfully", jobKey.getName());
 					} catch (SchedulerException e) {
-						log.error("Job {} has not been interrupted with root cause: {}", new Object[] { jobKey.getName(), e.getMessage() });
-						log.error("Full stack trace: {}", e);
+						log.error("Job {} has not been interrupted with root cause: {}", jobKey.getName(), e.getMessage(), e);
 					}
 				}
 			}
@@ -69,25 +68,19 @@ public class Quartz {
 			log.warn("Quartz scheduler entered in standby mode successfully");
 			return true;
 		} catch (SchedulerException e) {
-			log.error("Pausing Quartz scheduler process failed with root cause: {}", e.getMessage());
-			log.error("Full stack trace: {}", e);
+			log.error("Pausing Quartz scheduler process failed with root cause: {}", e.getMessage(), e);
 			return false;
 		}
 	}
 
-	/**
-	 * @return true if scheduler started correctly, false otherwise
-	 */
-	public boolean startScheduler() {
+	public void startScheduler() {
 		log.info("Starting Quartz scheduler");
 		try {
 			scheduler.start();
 			log.info("Quartz scheduler started succesfully");
-			return true;
 		} catch (Exception e) {
 			log.error("Quartz scheduler starting process failed with root cause: {}", e.getMessage());
 			log.error("Full stack trace:", e);
-			return false;
 		}
 	}
 

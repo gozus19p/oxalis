@@ -4,7 +4,6 @@ import com.google.inject.Injector;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
-import it.eng.intercenter.oxalis.commons.persist.NotierPersisterHandler;
 import network.oxalis.api.persist.ExceptionPersister;
 import network.oxalis.api.persist.PayloadPersister;
 import network.oxalis.api.persist.PersisterHandler;

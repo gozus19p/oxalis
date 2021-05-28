@@ -12,33 +12,36 @@
 	under the Licence. -->
 
 <configuration debug="true" scan="true"
-	scanPeriod="30 seconds">
+               scanPeriod="30 seconds">
 
-	<appender name="STDOUT"
-		class="ch.qos.logback.core.ConsoleAppender">
-		<!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder 
-			by default -->
-		<encoder>
-			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
-			</pattern>
-		</encoder>
-	</appender>
+    <appender name="STDOUT"
+              class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder
+            by default -->
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
 
-	<appender name="oxalis"
-		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<File>${catalina.base}/logs/oxalis.log</File>
-		<encoder>
-			<pattern>%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n
-			</pattern>
-		</encoder>
-		<rollingPolicy
-			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>/opt/tomcat-icent/logs/oxalis.%d{yyyy-MM-dd}.log</fileNamePattern>
-		</rollingPolicy>
-	</appender>
+    <appender name="oxalis"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${catalina.base}/logs/oxalis.log</File>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n
+            </pattern>
+        </encoder>
+        <rollingPolicy
+                class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${catalina.base}/logs/oxalis.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>20MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
 
-	<root level="info">
-		<appender-ref ref="STDOUT" />
-		<appender-ref ref="oxalis" />
-	</root>
+    <root level="info">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="oxalis"/>
+    </root>
 </configuration>

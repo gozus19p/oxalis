@@ -1,12 +1,12 @@
 package it.eng.intercenter.oxalis.quartz.scheduler.util;
 
-import java.util.List;
-
 import it.eng.intercenter.oxalis.integration.dto.OxalisQuartzCommandResult;
 import it.eng.intercenter.oxalis.integration.dto.OxalisQuartzCommandResultDetails;
 import it.eng.intercenter.oxalis.integration.dto.enumerator.OxalisQuartzCommandActionEnum;
 import it.eng.intercenter.oxalis.integration.dto.enumerator.OxalisQuartzCommandOutcomeEnum;
 import it.eng.intercenter.oxalis.integration.dto.enumerator.OxalisQuartzCommandScopeEnum;
+
+import java.util.List;
 
 /**
  * @author Manuel Gozzi
@@ -26,7 +26,14 @@ public class QuartzSchedulerConsoleUtil {
 	 */
 	public static OxalisQuartzCommandResult invalidScope(OxalisQuartzCommandScopeEnum scope) {
 		return new OxalisQuartzCommandResult(OxalisQuartzCommandOutcomeEnum.KO, (List<OxalisQuartzCommandResultDetails>) null,
-				"OxalisQuartzCommand scope not supported: " + scope != null ? scope.name() : "null");
+				scope.name());
+	}
+
+	public static OxalisQuartzCommandResult invalidScope() {
+		return new OxalisQuartzCommandResult(
+				OxalisQuartzCommandOutcomeEnum.KO, (List<OxalisQuartzCommandResultDetails>) null,
+				null
+		);
 	}
 
 	/**
@@ -49,8 +56,6 @@ public class QuartzSchedulerConsoleUtil {
 	 * status.
 	 *
 	 * @author Manuel Gozzi
-	 * @date 20 ago 2019
-	 * @time 15:05:43
 	 * @param e
 	 * @param action
 	 * @return

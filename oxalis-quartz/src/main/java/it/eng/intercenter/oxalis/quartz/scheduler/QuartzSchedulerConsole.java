@@ -1,20 +1,7 @@
 package it.eng.intercenter.oxalis.quartz.scheduler;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-
-import org.quartz.JobKey;
-import org.quartz.Scheduler;
-import org.quartz.SchedulerException;
-import org.quartz.Trigger;
-import org.quartz.Trigger.TriggerState;
-import org.quartz.impl.matchers.GroupMatcher;
-
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-
 import it.eng.intercenter.oxalis.integration.dto.OxalisQuartzCommand;
 import it.eng.intercenter.oxalis.integration.dto.OxalisQuartzCommandResult;
 import it.eng.intercenter.oxalis.integration.dto.OxalisQuartzCommandResultDetails;
@@ -24,6 +11,17 @@ import it.eng.intercenter.oxalis.integration.dto.enumerator.OxalisQuartzCommandO
 import it.eng.intercenter.oxalis.integration.dto.enumerator.OxalisQuartzCommandScopeEnum;
 import it.eng.intercenter.oxalis.quartz.scheduler.util.QuartzSchedulerConsoleUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.quartz.JobKey;
+import org.quartz.Scheduler;
+import org.quartz.SchedulerException;
+import org.quartz.Trigger;
+import org.quartz.Trigger.TriggerState;
+import org.quartz.impl.matchers.GroupMatcher;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author Manuel Gozzi
@@ -277,7 +275,6 @@ public class QuartzSchedulerConsole {
 	 * Executes a "get", retrieving all jobs status.
 	 *
 	 * @param scope
-	 * @param jobNames
 	 * @return
 	 * @throws SchedulerException
 	 * @author Manuel Gozzi
@@ -286,7 +283,7 @@ public class QuartzSchedulerConsole {
 	 */
 	private OxalisQuartzCommandResult doView(OxalisQuartzCommandScopeEnum scope, List<OxalisQuartzJobKey> jobs) {
 		if (scope == null) {
-			return QuartzSchedulerConsoleUtil.invalidScope(scope);
+			return QuartzSchedulerConsoleUtil.invalidScope();
 		}
 		OxalisQuartzCommandActionEnum action = OxalisQuartzCommandActionEnum.VIEW;
 		try {
