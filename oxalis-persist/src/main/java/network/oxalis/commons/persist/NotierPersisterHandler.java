@@ -73,7 +73,6 @@ public class NotierPersisterHandler extends DefaultPersisterHandler {
 			log.warn("NoTI-ER persist has been disabled, make sure that this is an intended behaviour!");
 			super.persist(inboundMetadata, payloadPath);
 		}
-
 	}
 
 	private void persistOnNotier(InboundMetadata inboundMetadata, Path payloadPath) throws IOException {

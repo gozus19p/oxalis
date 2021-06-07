@@ -38,6 +38,8 @@
 		<module>oxalis-notier-core</module>
 		<module>oxalis-persist</module>
 		<module>oxalis-war</module>
+		<module>oxalis-onboarding-core</module>
+		<module>oxalis-onboarding-rest-server</module>
 	</modules>
 
 	<properties>
