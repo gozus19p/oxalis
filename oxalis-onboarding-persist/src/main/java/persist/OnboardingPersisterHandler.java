@@ -1,4 +1,4 @@
-package network.oxalis.commons.persist;
+package persist;
 
 import com.google.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
@@ -6,6 +6,7 @@ import network.oxalis.api.inbound.InboundMetadata;
 import network.oxalis.api.persist.ExceptionPersister;
 import network.oxalis.api.persist.PayloadPersister;
 import network.oxalis.api.persist.ReceiptPersister;
+import network.oxalis.commons.persist.DefaultPersisterHandler;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;

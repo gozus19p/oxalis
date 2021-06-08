@@ -1,4 +1,4 @@
-package network.oxalis.commons.persist;
+package persist;
 
 import com.google.inject.Injector;
 import com.google.inject.Provides;
@@ -12,6 +12,10 @@ import network.oxalis.api.plugin.PluginFactory;
 import network.oxalis.api.settings.Settings;
 import network.oxalis.commons.guice.ImplLoader;
 import network.oxalis.commons.guice.OxalisModule;
+import network.oxalis.commons.persist.DefaultPersister;
+import network.oxalis.commons.persist.NoopPersister;
+import network.oxalis.commons.persist.PersisterConf;
+import network.oxalis.commons.persist.TempPersister;
 
 /**
  * @author Alessandro Vurro

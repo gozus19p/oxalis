@@ -21,26 +21,14 @@
 		<oxalis.eng.core.version>1.0.0</oxalis.eng.core.version>
 		<oxalis.eng.rest-client.version>1.0.0</oxalis.eng.rest-client.version>
 		<oxalis.eng.rest-server.version>1.0.0</oxalis.eng.rest-server.version>
+		<oxalis.eng.onboarding.rest-server.version>1.0.0</oxalis.eng.onboarding.rest-server.version>
 		<oxalis.eng.quartz.version>1.0.0</oxalis.eng.quartz.version>
 		<oxalis.eng.persist.version>1.0.0</oxalis.eng.persist.version>
+		<oxalis-onboarding-persist.version>1.0.0</oxalis-onboarding-persist.version>
 	</properties>
 
 	<!-- Common dependencies -->
 	<dependencies>
-
-		<!-- Notier - Core -->
-		<dependency>
-			<groupId>it.eng.intercenter</groupId>
-			<artifactId>oxalis-notier-core</artifactId>
-			<version>${oxalis.eng.core.version}</version>
-		</dependency>
-
-		<!-- Rest Client -->
-		<dependency>
-			<groupId>it.eng.intercenter</groupId>
-			<artifactId>oxalis-rest</artifactId>
-			<version>${oxalis.eng.rest-client.version}</version>
-		</dependency>
 
 		<!-- Servlet -->
 		<dependency>
@@ -62,6 +50,21 @@
 				<war.name.profile>complete</war.name.profile>
 			</properties>
 			<dependencies>
+
+				<!-- Notier - Core -->
+				<dependency>
+					<groupId>it.eng.intercenter</groupId>
+					<artifactId>oxalis-notier-core</artifactId>
+					<version>${oxalis.eng.core.version}</version>
+				</dependency>
+
+				<!-- Rest Client -->
+				<dependency>
+					<groupId>it.eng.intercenter</groupId>
+					<artifactId>oxalis-rest</artifactId>
+					<version>${oxalis.eng.rest-client.version}</version>
+				</dependency>
+
 				<!-- Oxalis AS4 -->
 				<dependency>
 					<groupId>network.oxalis</groupId>
@@ -114,6 +117,20 @@
 			</properties>
 			<dependencies>
 
+				<!-- Notier - Core -->
+				<dependency>
+					<groupId>it.eng.intercenter</groupId>
+					<artifactId>oxalis-notier-core</artifactId>
+					<version>${oxalis.eng.core.version}</version>
+				</dependency>
+
+				<!-- Rest Client -->
+				<dependency>
+					<groupId>it.eng.intercenter</groupId>
+					<artifactId>oxalis-rest</artifactId>
+					<version>${oxalis.eng.rest-client.version}</version>
+				</dependency>
+
 				<!-- NoTI-ER Persister -->
 				<dependency>
 					<groupId>it.eng.intercenter</groupId>
@@ -141,6 +158,69 @@
 				</dependency>
 
 				<!-- Oxalis -->
+				<dependency>
+					<groupId>network.oxalis</groupId>
+					<artifactId>oxalis-inbound</artifactId>
+
+					<!-- AS2 exclusion -->
+					<exclusions>
+						<exclusion>
+							<groupId>network.oxalis</groupId>
+							<artifactId>oxalis-as2</artifactId>
+						</exclusion>
+					</exclusions>
+				</dependency>
+			</dependencies>
+		</profile>
+
+		<!-- Profile for complete Oxalis build :: Onboarding -->
+		<profile>
+			<id>onboarding-platform</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<war.name.profile>onboarding</war.name.profile>
+			</properties>
+			<dependencies>
+				<!-- Oxalis AS4 -->
+				<dependency>
+					<groupId>network.oxalis</groupId>
+					<artifactId>oxalis-as4</artifactId>
+					<version>${oxalis.difi.as4.version}</version>
+				</dependency>
+
+				<!-- Rest Server -->
+				<dependency>
+					<groupId>it.eng.intercenter</groupId>
+					<artifactId>oxalis-onboarding-rest-server</artifactId>
+					<version>${oxalis.eng.onboarding.rest-server.version}</version>
+
+					<!-- AS2 exclusion -->
+					<exclusions>
+						<exclusion>
+							<groupId>network.oxalis</groupId>
+							<artifactId>oxalis-as2</artifactId>
+						</exclusion>
+					</exclusions>
+				</dependency>
+
+				<!-- NoTI-ER Persister -->
+				<dependency>
+					<groupId>it.eng.intercenter</groupId>
+					<artifactId>oxalis-onboarding-persist</artifactId>
+					<version>${oxalis-onboarding-persist.version}</version>
+
+					<!-- AS2 exclusion -->
+					<exclusions>
+						<exclusion>
+							<groupId>network.oxalis</groupId>
+							<artifactId>oxalis-as2</artifactId>
+						</exclusion>
+					</exclusions>
+				</dependency>
+
+				<!-- Oxalis Inbound -->
 				<dependency>
 					<groupId>network.oxalis</groupId>
 					<artifactId>oxalis-inbound</artifactId>

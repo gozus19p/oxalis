@@ -30,17 +30,18 @@
 		<module>oxalis-commons</module>
 		<module>oxalis-outbound</module>
 
-		<!-- Other oxalis modules @author Manuel Gozzi -->
-		<module>oxalis-quartz</module>
-		<module>oxalis-rest</module>
-		<module>oxalis-notier-integration</module>
-		<module>oxalis-notier-rest-server</module>
-		<module>oxalis-notier-core</module>
-		<module>oxalis-persist</module>
-		<module>oxalis-war</module>
-		<module>oxalis-onboarding-core</module>
-		<module>oxalis-onboarding-rest-server</module>
-	</modules>
+        <!-- Other oxalis modules @author Manuel Gozzi -->
+        <module>oxalis-quartz</module>
+        <module>oxalis-rest</module>
+        <module>oxalis-notier-integration</module>
+        <module>oxalis-notier-rest-server</module>
+        <module>oxalis-notier-core</module>
+        <module>oxalis-persist</module>
+        <module>oxalis-war</module>
+        <module>oxalis-onboarding-core</module>
+        <module>oxalis-onboarding-rest-server</module>
+        <module>oxalis-onboarding-persist</module>
+    </modules>
 
 	<properties>
         <java.version>1.8</java.version>
